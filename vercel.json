@@ -1,5 +1,5 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "installCommand": "npm ci --prefix orienta-v1",
-  "buildCommand": "npm run build --prefix orienta-v1"
+  "installCommand": "npm install",
+  "buildCommand": "npm run build"
 }

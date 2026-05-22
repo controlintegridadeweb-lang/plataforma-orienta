@@ -1,9 +1,8 @@
 # Configuracao na Vercel
 
-O app Next.js esta em **`orienta-v1/`**. O repositorio ja envia `vercel.json` na raiz com:
+O app Next.js esta em **`orienta-v1/`**. O `package.json` na raiz tem `postinstall` que roda `npm ci` em `orienta-v1` em todo `npm install` da Vercel.
 
-- `installCommand`: `npm ci --prefix orienta-v1`
-- `buildCommand`: `npm run build --prefix orienta-v1`
+**Importante:** no deploy, o commit deve ser recente (nao `a6a1e2b`). Use o ultimo da branch `main`.
 
 ## Opcao A (melhor) — Root Directory
 

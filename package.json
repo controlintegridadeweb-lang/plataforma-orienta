@@ -2,8 +2,9 @@
   "name": "plataforma-orienta-workspace",
   "private": true,
   "scripts": {
+    "postinstall": "npm ci --prefix orienta-v1",
     "dev": "npm --prefix orienta-v1 run dev",
-    "build": "npm ci --prefix orienta-v1 && npm run build --prefix orienta-v1",
+    "build": "npm run build --prefix orienta-v1",
     "start": "npm --prefix orienta-v1 run start",
     "lint": "npm --prefix orienta-v1 run lint",
     "test": "npm --prefix orienta-v1 run test",
