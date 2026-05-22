@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { usePathname, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { TableSkeleton } from "@/components/ui/loading";
 import {
   ActionPlanScopeBanner,
@@ -169,10 +169,7 @@ function downloadCsv(rows: AdminPlanItem[]) {
 }
 
 export function AdminActionPlanShell({ initialFilters, initialViewMode }: Props = {}) {
-  const pathname = usePathname() ?? "";
-  const reportHref = pathname.startsWith("/analista")
-    ? "/analista/relatorios?focus=planos-acao"
-    : "/admin/relatorios?focus=planos-acao";
+  const reportHref = "/admin/relatorios?focus=planos-acao";
 
   const { items, filterOptions, loading, error, refetch } = useAdminActionPlans();
   const searchParams = useSearchParams();

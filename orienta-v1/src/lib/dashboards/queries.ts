@@ -478,50 +478,6 @@ export async function adminPendencies(organizationId: string): Promise<PendencyI
   return withoutPlan.slice(0, 8);
 }
 
-export async function analystPendencies(organizationId: string): Promise<PendencyItem[]> {
-  const client = getClient();
-  const { data: responses } = await client
-    .from("responses")
-    .select("id,question_id")
-    .eq("organization_id", organizationId);
-  const responseIds = (responses ?? []).map((r) => r.id as string);
-  if (responseIds.length === 0) return [];
-
-  const { data: evidences } = await client
-    .from("evidences")
-    .select("id,title,response_id")
-    .in("response_id", responseIds);
-  const evidenceIds = (evidences ?? []).map((e) => e.id as string);
-  if (evidenceIds.length === 0) return [];
-
-  const { data: validations } = await client
-    .from("evidence_validations")
-    .select("evidence_id,status,validated_at")
-    .in("evidence_id", evidenceIds)
-    .order("validated_at", { ascending: false });
-
-  const latestByEvidence = new Map<string, string>();
-  for (const row of validations ?? []) {
-    const id = row.evidence_id as string;
-    if (!latestByEvidence.has(id)) latestByEvidence.set(id, row.status as string);
-  }
-
-  const result: PendencyItem[] = [];
-  for (const ev of evidences ?? []) {
-    const id = ev.id as string;
-    const status = latestByEvidence.get(id);
-    if (!status || status === "pending") {
-      result.push({
-        id,
-        title: "Evidencia aguardando validacao",
-        description: (ev.title as string) ?? "Evidencia pendente.",
-        href: "/analista/evidencias",
-      });
-    }
-  }
-  return result.slice(0, 8);
-}
-
 export type RespondentProgressPeriod = {
   year: number;
 };
@@ -686,22 +642,4 @@ export async function formsByOrganizationScoped(
       forms,
     },
   ];
-}
-
-export async function analystRecentRecommendations(
-  organizationId: string,
-  limit = 5,
-): Promise<Array<{ id: string; text: string; createdAt: string }>> {
-  const client = getClient();
-  const { data } = await client
-    .from("recommendations")
-    .select("id,original_text,created_at")
-    .eq("organization_id", organizationId)
-    .order("created_at", { ascending: false })
-    .limit(limit);
-  return (data ?? []).map((row) => ({
-    id: row.id as string,
-    text: (row.original_text as string) ?? "",
-    createdAt: (row.created_at as string) ?? "",
-  }));
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { usePathname, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { TableSkeleton } from "@/components/ui/loading";
 import { notify } from "@/lib/notify";
 import { useDebounce } from "@/lib/hooks/use-debounce";
@@ -164,10 +164,7 @@ function downloadCsv(rows: AdminRecommendationItem[]) {
 export function AdminRecommendationsShell({
   initialFilters,
 }: Props = {}) {
-  const pathname = usePathname() ?? "";
-  const reportHref = pathname.startsWith("/analista")
-    ? "/analista/relatorios?focus=recomendacoes"
-    : "/admin/relatorios?focus=recomendacoes";
+  const reportHref = "/admin/relatorios?focus=recomendacoes";
 
   const { items, filterOptions, loading, error, refetch } = useAdminRecommendations();
   const searchParams = useSearchParams();

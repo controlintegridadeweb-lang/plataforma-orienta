@@ -71,61 +71,6 @@ const ADMIN_HEADINGS: RouteHeading[] = [
   },
 ];
 
-const ANALYST_HEADINGS: RouteHeading[] = [
-  {
-    prefix: "/analista/biblioteca",
-    title: "Biblioteca Geral",
-    description: "Catálogo: eixos e seções",
-  },
-  {
-    prefix: "/analista/formularios/novo",
-    title: "Novo formulário",
-    description: "Crie um formulário e defina o fluxo de publicação.",
-  },
-  {
-    prefix: "/analista/formularios",
-    title: "Formulários",
-    description: "Lista, versões, perguntas e configuração.",
-  },
-  {
-    prefix: "/analista/evidencias",
-    title: "Evidências e Complementações",
-    description: "Validação, auditoria e pedidos de complementação das evidências enviadas.",
-  },
-  {
-    prefix: "/analista/perfil",
-    title: "Meu Perfil",
-    description: "Atualize seus dados pessoais, visualize vínculos da conta e altere sua senha de acesso.",
-  },
-  {
-    prefix: "/analista/recomendacoes",
-    title: "Recomendações",
-    description:
-      "Portfólio estratégico FAMI: status e priorização. Execução no Plano de Ação.",
-  },
-  {
-    prefix: "/analista/plano-acao",
-    title: "Plano de Ação",
-    description:
-      "Execução operacional e progresso das ações. Monitoramento na aba de cada plano.",
-  },
-  {
-    prefix: "/analista/maturidade",
-    title: "Maturidade FAMI",
-    description: "Indicadores e evolução no seu escopo.",
-  },
-  {
-    prefix: "/analista/relatorios",
-    title: "Relatórios",
-    description: "Exportações e visões para a sua organização.",
-  },
-  {
-    prefix: "/analista",
-    title: "Dashboard do analista",
-    description: "Acompanhamento de validações, recomendações e maturidade FAMI.",
-  },
-];
-
 const RESPONDENT_HEADINGS: RouteHeading[] = [
   {
     prefix: "/respondente/formularios",
@@ -189,12 +134,6 @@ export function getPageHeadingForPath(pathname: string): PageHeading {
     return pickHeading(path, ADMIN_HEADINGS) ?? {
       title: "Administração",
       description: "Gestão da plataforma Orienta.",
-    };
-  }
-  if (path.startsWith("/analista")) {
-    return pickHeading(path, ANALYST_HEADINGS) ?? {
-      title: "Analista",
-      description: "Area de analise e validacao.",
     };
   }
   if (path.startsWith("/respondente")) {
