@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { requireAuth } from "@/lib/api/auth";
+import { isGlobalAdmin } from "@/lib/auth/scope";
 import { ExceptionsService } from "@/lib/library/exceptions-service";
 import { handleLibraryError } from "@/lib/library/http";
 import { logError } from "@/lib/observability/logger";
@@ -14,10 +15,9 @@ export async function POST(request: Request) {
 
   try {
     const body = await request.json();
-    const role = authContext?.role;
     const userOrgId = authContext?.organizationId ?? null;
 
-    if (role !== "admin") {
+    if (authContext && !isGlobalAdmin(authContext)) {
       const bodyOrgId = typeof body?.organizationId === "string" ? body.organizationId : null;
       if (!userOrgId) {
         return NextResponse.json(
@@ -57,7 +57,6 @@ export async function GET(request: Request) {
   try {
     const url = new URL(request.url);
     const requestedOrg = url.searchParams.get("organizationId");
-    const role = authContext?.role;
     const userOrgId = authContext?.organizationId ?? null;
 
     if (!requestedOrg) {
@@ -67,7 +66,7 @@ export async function GET(request: Request) {
       );
     }
 
-    if (role !== "admin" && requestedOrg !== userOrgId) {
+    if (authContext && !isGlobalAdmin(authContext) && requestedOrg !== userOrgId) {
       return NextResponse.json(
         { error: "Nao autorizado a listar excecoes de outra organizacao." },
         { status: 403 },

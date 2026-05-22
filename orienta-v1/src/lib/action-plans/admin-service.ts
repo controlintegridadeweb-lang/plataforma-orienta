@@ -17,6 +17,7 @@ import {
 } from "@/lib/domain/action-plans";
 import { createSupabaseServiceRoleClient } from "@/lib/supabase/server";
 import type { AppRole } from "@/lib/api/auth";
+import { isGlobalAdmin } from "@/lib/auth/scope";
 import { logInfo } from "@/lib/observability/logger";
 import { fetchQuestionStructures } from "@/lib/workbench/resolve-question-structure";
 import type { RecommendationStatus } from "@/lib/recommendations/schemas";
@@ -198,7 +199,10 @@ export class ActionPlansAdminService {
     organizationId: string,
     caller: Caller,
   ): Promise<ActionPlanByFormPayload | null> {
-    if (caller.role !== "admin" && caller.role !== "analyst") {
+    // Cross-org permitido para admin global e analyst (legado).
+    // Demais (admin com org, respondent) precisam matchar a organizacao.
+    const canCrossOrg = isGlobalAdmin(caller) || caller.role === "analyst";
+    if (!canCrossOrg) {
       if (!caller.organizationId || caller.organizationId !== organizationId) {
         throw new ActionPlansNotFoundError();
       }
@@ -237,8 +241,9 @@ export class ActionPlansAdminService {
   async list(rawQuery: unknown, caller: Caller): Promise<ActionPlansListResult> {
     const query = this.parse(listActionPlansQuerySchema, rawQuery);
 
-    const effectiveOrgId =
-      caller.role === "admin" ? query.organizationId : caller.organizationId ?? "__none__";
+    const effectiveOrgId = isGlobalAdmin(caller)
+      ? query.organizationId
+      : caller.organizationId ?? "__none__";
 
     let busyRecommendationIds: string[] = [];
     if (query.view === "backlog") {
@@ -366,10 +371,9 @@ export class ActionPlansAdminService {
 
   async metrics(rawQuery: unknown, caller: Caller): Promise<ActionPlanMetrics> {
     const query = this.parse(actionPlanMetricsQuerySchema, rawQuery);
-    const effectiveOrgId =
-      caller.role === "admin"
-        ? query.organizationId
-        : caller.organizationId ?? "__none__";
+    const effectiveOrgId = isGlobalAdmin(caller)
+      ? query.organizationId
+      : caller.organizationId ?? "__none__";
 
     let recsQ = this.supabase.from("recommendations").select("id");
     if (effectiveOrgId) recsQ = recsQ.eq("organization_id", effectiveOrgId);
@@ -699,7 +703,7 @@ export class ActionPlansAdminService {
   }
 
   private enforceOrgScope(caller: Caller, rowOrganizationId: string) {
-    if (caller.role === "admin") return;
+    if (isGlobalAdmin(caller)) return;
     if (!caller.organizationId || caller.organizationId !== rowOrganizationId) {
       throw new ActionPlansNotFoundError();
     }

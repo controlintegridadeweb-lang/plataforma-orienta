@@ -3,6 +3,7 @@ import { z } from "zod";
 import { triggerFamiReprocess } from "@/lib/fami/trigger-reprocess";
 import { requireAuth } from "@/lib/api/auth";
 import { ensureOrganizationAccess } from "@/lib/api/tenant-guard";
+import { isGlobalAdmin } from "@/lib/auth/scope";
 import { logError } from "@/lib/observability/logger";
 
 const payloadSchema = z.object({
@@ -21,7 +22,7 @@ export async function POST(request: Request) {
   }
 
   try {
-    if (context!.role !== "admin") {
+    if (!isGlobalAdmin(context!)) {
       const tenantError = ensureOrganizationAccess(context!, parsed.data.organizationId);
       if (tenantError) return tenantError;
     }

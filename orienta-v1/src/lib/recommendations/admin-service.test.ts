@@ -506,6 +506,52 @@ describe("RecommendationsAdminService", () => {
     expect(result.warning).toMatch(/Regeneracao/i);
   });
 
+  it("admin com organizationId vinculada se comporta como org-scoped (Fase 1)", async () => {
+    const db = emptyDb();
+    const { orgA, orgB } = seed(db);
+    const svc = new RecommendationsAdminService(buildMock(db));
+
+    // admin com org de A nao deve enxergar a org B mesmo passando ?organizationId=B
+    const list = await svc.list(
+      { organizationId: orgB.id },
+      { role: "admin", organizationId: orgA.id },
+    );
+    expect(list.total).toBe(2);
+    expect(list.items.every((i) => i.organizationId === orgA.id)).toBe(true);
+
+    // listFilterOptions tambem deve restringir orgs
+    const opts = await svc.listFilterOptions({ role: "admin", organizationId: orgA.id });
+    expect(opts.organizations.map((o) => o.id)).toEqual([orgA.id]);
+  });
+
+  it("admin com organizationId nao pode regenerar fora da propria org (Fase 1)", async () => {
+    const db = emptyDb();
+    const { orgA, orgB, form1 } = seed(db);
+    const regen = vi.fn<RegenerateFn>();
+    const svc = new RecommendationsAdminService(buildMock(db), regen);
+    await expect(
+      svc.regenerateForForm(
+        { formId: form1.id, organizationId: orgB.id },
+        { role: "admin", organizationId: orgA.id },
+      ),
+    ).rejects.toBeInstanceOf(RecommendationsConflictError);
+    expect(regen).not.toHaveBeenCalled();
+  });
+
+  it("admin com organizationId nao pode editar recomendacao de outra org (Fase 1)", async () => {
+    const db = emptyDb();
+    const { orgA, recB1 } = seed(db);
+    const svc = new RecommendationsAdminService(buildMock(db));
+    await expect(
+      svc.update(
+        recB1.id,
+        { status: "resolved" },
+        "user-admin",
+        { role: "admin", organizationId: orgA.id },
+      ),
+    ).rejects.toBeInstanceOf(RecommendationsNotFoundError);
+  });
+
   it("listFilterOptions admin vs analyst", async () => {
     const db = emptyDb();
     const { orgA } = seed(db);

@@ -1,6 +1,7 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import type { ZodType } from "zod";
 import { displayNameFromProfile } from "@/lib/auth/profile-types";
+import { isGlobalAdmin } from "@/lib/auth/scope";
 import { createSupabaseServiceRoleClient } from "@/lib/supabase/server";
 import { logInfo } from "@/lib/observability/logger";
 import type { AppRole } from "@/lib/api/auth";
@@ -184,10 +185,9 @@ export class RecommendationsAdminService {
   ): Promise<RecommendationsListResult> {
     const query = this.parse(listRecommendationsQuerySchema, rawQuery);
 
-    const effectiveOrgId =
-      caller.role === "admin"
-        ? query.organizationId
-        : caller.organizationId ?? "__none__";
+    const effectiveOrgId = isGlobalAdmin(caller)
+      ? query.organizationId
+      : caller.organizationId ?? "__none__";
 
     // Importante: NAO usar `sections!inner` aqui. Perguntas criadas pelo fluxo
     // novo (Biblioteca) tem `questions.section_id = NULL` — nome de eixo/secao
@@ -400,10 +400,10 @@ export class RecommendationsAdminService {
     caller: Caller,
   ): Promise<RecommendationRegenerateResult> {
     const payload = this.parse(regenerateRecommendationsSchema, rawPayload);
-    if (caller.role !== "admin") {
+    if (!isGlobalAdmin(caller)) {
       if (!caller.organizationId || caller.organizationId !== payload.organizationId) {
         throw new RecommendationsConflictError(
-          "Analyst so pode regenerar recomendacoes da propria organizacao.",
+          "Sem permissao para regenerar recomendacoes fora da propria organizacao.",
         );
       }
     }
@@ -445,7 +445,7 @@ export class RecommendationsAdminService {
       .from("organizations")
       .select("id, name")
       .order("name", { ascending: true });
-    if (caller.role !== "admin") {
+    if (!isGlobalAdmin(caller)) {
       if (!caller.organizationId) {
         return {
           forms: ((formsData ?? []) as FormRow[]).map((f) => ({
@@ -467,7 +467,7 @@ export class RecommendationsAdminService {
     let typesQuery = this.supabase
       .from("recommendations")
       .select("recommendation_type");
-    if (caller.role !== "admin" && caller.organizationId) {
+    if (!isGlobalAdmin(caller) && caller.organizationId) {
       typesQuery = typesQuery.eq("organization_id", caller.organizationId);
     }
     const { data: typesRows, error: typesErr } = await typesQuery;
@@ -516,7 +516,7 @@ export class RecommendationsAdminService {
   }
 
   private enforceOrgScope(caller: Caller, rowOrganizationId: string) {
-    if (caller.role === "admin") return;
+    if (isGlobalAdmin(caller)) return;
     if (!caller.organizationId || caller.organizationId !== rowOrganizationId) {
       throw new RecommendationsNotFoundError();
     }

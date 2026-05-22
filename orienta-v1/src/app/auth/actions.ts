@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import { resolveAppOrigin } from "@/lib/app-url";
 import { createSupabaseServerActionClient } from "@/lib/supabase/auth-server";
 import { homeRouteForRole, type AppRole } from "@/lib/auth/current-user";
+import { isGlobalAdmin } from "@/lib/auth/scope";
 import { getOrganizationsForLogin } from "@/lib/organizations/login-options";
 
 export type AuthFormState = {
@@ -52,8 +53,10 @@ export async function loginAction(
   }
 
   if (selectedOrganizationId) {
-    if (role !== "admin") {
-      const profileOrg = (profile?.organization_id as string | null) ?? null;
+    const profileOrg = (profile?.organization_id as string | null) ?? null;
+    // Admin global (sem org no perfil) pode logar em qualquer organizacao.
+    // Demais (admin com org, analyst, respondent) sao restritos a propria org.
+    if (!isGlobalAdmin({ role, organizationId: profileOrg })) {
       if (!profileOrg) {
         await supabase.auth.signOut();
         return {

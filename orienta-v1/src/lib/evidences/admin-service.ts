@@ -3,6 +3,7 @@ import type { ZodType } from "zod";
 import { createSupabaseServiceRoleClient } from "@/lib/supabase/server";
 import { logInfo } from "@/lib/observability/logger";
 import type { AppRole } from "@/lib/api/auth";
+import { isGlobalAdmin } from "@/lib/auth/scope";
 import { aggregateKpiCounts } from "./status-groups";
 import {
   evidenceExportFiltersSchema,
@@ -193,10 +194,9 @@ export class EvidencesAdminService {
     caller: Caller,
     query: Pick<ListEvidencesQuery, "formId" | "organizationId">,
   ): Promise<EvidenceListItem[]> {
-    const effectiveOrgId =
-      caller.role === "admin"
-        ? query.organizationId
-        : caller.organizationId ?? "__none__";
+    const effectiveOrgId = isGlobalAdmin(caller)
+      ? query.organizationId
+      : caller.organizationId ?? "__none__";
 
     let evidenceQuery = this.supabase
       .from("evidences")
@@ -428,7 +428,7 @@ export class EvidencesAdminService {
       .from("organizations")
       .select("id, name")
       .order("name", { ascending: true });
-    if (caller.role !== "admin") {
+    if (!isGlobalAdmin(caller)) {
       if (!caller.organizationId) {
         return {
           forms: (formsData ?? []) as FormRow[],

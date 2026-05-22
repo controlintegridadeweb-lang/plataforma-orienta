@@ -1,6 +1,7 @@
 import { ClipboardList, FileBarChart, FileCheck, Lightbulb, ListChecks, Users } from "lucide-react";
 import { adminQueueHref } from "@/lib/admin/queue-links";
 import { getCurrentUser } from "@/lib/auth/current-user";
+import { isGlobalAdmin } from "@/lib/auth/scope";
 import {
   adminPendencies,
   adminPendenciesGlobal,
@@ -34,7 +35,7 @@ export default async function AdminDashboardPage() {
   const user = await getCurrentUser();
   const organizationId = user?.organizationId ?? "";
   /** Admin sem org no perfil: visao consolidada de todo o sistema (nao fica tudo em zero). */
-  const adminGlobalView = user?.role === "admin" && !organizationId;
+  const adminGlobalView = !!user && isGlobalAdmin(user);
 
   const [
     activeForms,

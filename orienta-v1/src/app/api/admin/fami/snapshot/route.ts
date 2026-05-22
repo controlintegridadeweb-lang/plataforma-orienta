@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { requireAuth } from "@/lib/api/auth";
 import { ensureOrganizationAccess } from "@/lib/api/tenant-guard";
+import { isGlobalAdmin } from "@/lib/auth/scope";
 import { FAMI_ALL_FORMS } from "@/lib/fami/constants";
 import {
   buildFamiSnapshotInstitutionalForYear,
@@ -70,18 +71,18 @@ export async function GET(request: Request) {
   }
 
   if (isOrgGlobal) {
-    if (context!.role !== "admin") {
+    if (!isGlobalAdmin(context!)) {
       return NextResponse.json(
-        { error: "Visao Geral disponivel apenas para administradores." },
+        { error: "Visao Geral disponivel apenas para administradores globais." },
         { status: 403 },
       );
     }
   } else if (isAllForms) {
-    if (context!.role !== "admin") {
+    if (!isGlobalAdmin(context!)) {
       const tenantError = ensureOrganizationAccess(context!, organizationId);
       if (tenantError) return tenantError;
     }
-  } else if (context!.role !== "admin") {
+  } else if (!isGlobalAdmin(context!)) {
     const tenantError = ensureOrganizationAccess(context!, organizationId);
     if (tenantError) return tenantError;
   }

@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import type { AuthContext } from "./auth";
+import { isGlobalAdmin } from "@/lib/auth/scope";
 import { createSupabaseServiceRoleClient } from "@/lib/supabase/server";
 
 function forbidden(message: string) {
@@ -8,11 +9,12 @@ function forbidden(message: string) {
 
 /**
  * Garante que o usuario tem acesso a organizacao informada.
- * - admin e analyst: visao cross-org (responder/validar em qualquer organizacao)
- * - respondent: somente a organizacao vinculada ao perfil
+ * - admin global (sem `organization_id` no perfil): visao cross-org
+ * - analyst: visao cross-org (legado, sera removido na Fase 3)
+ * - admin com `organization_id` / respondent: somente a propria organizacao
  */
 export function ensureOrganizationAccess(context: AuthContext, organizationId: string) {
-  if (context.role === "admin" || context.role === "analyst") {
+  if (isGlobalAdmin(context) || context.role === "analyst") {
     return null;
   }
   if (!context.organizationId) {
@@ -25,8 +27,9 @@ export function ensureOrganizationAccess(context: AuthContext, organizationId: s
 }
 
 export async function ensureRecommendationAccess(context: AuthContext, recommendationId: string) {
-  // Admin tem visao cross-org para operacao da fila de recomendacoes.
-  if (context.role === "admin") {
+  // Admin global tem visao cross-org para operacao da fila de recomendacoes.
+  // Admin com organization_id vinculada cai no fluxo org-scoped abaixo.
+  if (isGlobalAdmin(context)) {
     const supabase = createSupabaseServiceRoleClient();
     const { data, error } = await supabase
       .from("recommendations")
@@ -80,15 +83,16 @@ export async function ensureResponseAccess(context: AuthContext, responseId: str
 }
 
 /**
- * Garante que o usuario tem acesso a evidencia dada. Admin pode ver/validar
- * evidencias de qualquer organizacao (visao operacional cross-org); analyst
- * fica restrito a organizacao do seu perfil.
+ * Garante que o usuario tem acesso a evidencia dada. Admin global pode
+ * ver/validar evidencias de qualquer organizacao (visao operacional
+ * cross-org). Admin com `organization_id`, analyst e respondent ficam
+ * restritos a organizacao do proprio perfil.
  */
 export async function ensureEvidenceAccess(
   context: AuthContext,
   evidenceId: string,
 ) {
-  if (context.role === "admin") return null;
+  if (isGlobalAdmin(context)) return null;
   if (!context.organizationId) {
     return forbidden("Usuario sem organizacao vinculada.");
   }
