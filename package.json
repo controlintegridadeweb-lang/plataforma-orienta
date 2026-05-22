@@ -1,0 +1,12 @@
+{
+  "name": "plataforma-orienta-workspace",
+  "private": true,
+  "scripts": {
+    "dev": "npm --prefix orienta-v1 run dev",
+    "build": "npm --prefix orienta-v1 run build",
+    "start": "npm --prefix orienta-v1 run start",
+    "lint": "npm --prefix orienta-v1 run lint",
+    "test": "npm --prefix orienta-v1 run test",
+    "test:coverage": "npm --prefix orienta-v1 run test:coverage"
+  }
+}
