@@ -100,6 +100,7 @@ export function progressFromPlans(plans: ActionPlanAction[]): number {
 
 export type AdminRecommendationItem = {
   recommendationId: string;
+  questionId: string;
   plans: ActionPlanAction[];
   planId: string | null;
   organizationId: string;
@@ -131,6 +132,7 @@ export function toAdminItem(row: ActionPlanListItem): AdminRecommendationItem {
   const plan = pickDisplayPlan(row);
   return {
     recommendationId: row.recommendationId,
+    questionId: row.questionId,
     plans: row.plans,
     planId: plan?.id ?? null,
     organizationId: row.organizationId,

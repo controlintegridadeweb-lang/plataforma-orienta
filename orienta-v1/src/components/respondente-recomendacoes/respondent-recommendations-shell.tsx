@@ -12,9 +12,8 @@ import {
   summarize,
   type RespondentRecommendationItem,
 } from "@/lib/recommendations/respondent-presentation";
-import { TableSkeleton } from "@/components/ui/loading";
 import { useRespondentRecommendations } from "./hooks/use-respondent-recommendations";
-import { RespondentRecommendationBoard } from "./respondent-recommendation-board";
+import { RespondentRecommendationList } from "./respondent-recommendation-list";
 import {
   RespondentRecommendationEmptyState,
   type EmptyVariant,
@@ -178,8 +177,32 @@ export function RespondentRecommendationsShell() {
 
   useEffect(() => {
     const id = searchParams.get("recommendationId")?.trim();
-    if (!id) return;
-    router.replace(`/respondente/plano-acao/${id}/acoes`);
+    if (id) {
+      router.replace(`/respondente/plano-acao/${id}/acoes`);
+      return;
+    }
+
+    const viewParam = searchParams.get("view")?.trim();
+    const formIdParam = searchParams.get("formId")?.trim() ?? "";
+    const validViews = [
+      "awaiting_action",
+      "in_progress",
+      "resolved",
+      "dismissed",
+    ] as const;
+    const view =
+      viewParam && validViews.includes(viewParam as (typeof validViews)[number])
+        ? (viewParam as (typeof validViews)[number])
+        : "";
+
+    if (!view && !formIdParam) return;
+
+    setFilter((prev) => ({
+      ...INITIAL_FILTER,
+      view: view || prev.view,
+      formId: formIdParam || prev.formId,
+      pendingOnly: view === "awaiting_action",
+    }));
   }, [searchParams, router]);
 
   const handleFilterChange = useCallback((next: RespondentRecommendationFilterValue) => {
@@ -275,7 +298,7 @@ export function RespondentRecommendationsShell() {
 
       <PanelSection
         title="Recomendações"
-        description="Fluxo de execução por status — workspace operacional do portfólio."
+        description="Lista em cards — status, motivo e próximo passo em destaque. Expanda para ver o texto completo."
         variant="plain"
         contentClassName="space-y-4"
       >
@@ -289,10 +312,13 @@ export function RespondentRecommendationsShell() {
         ) : null}
 
         {loading && rows.length === 0 ? (
-          <div className={formSurface.dashboardPanel}>
-            <div className={formSurface.dashboardPanelPadding}>
-              <TableSkeleton rows={6} cols={3} />
-            </div>
+          <div className="space-y-4" aria-hidden>
+            {[1, 2, 3, 4].map((i) => (
+              <div
+                key={i}
+                className="h-44 animate-pulse rounded-xl border border-slate-100 bg-slate-50/80"
+              />
+            ))}
           </div>
         ) : emptyVariant ? (
           <RespondentRecommendationEmptyState
@@ -300,7 +326,7 @@ export function RespondentRecommendationsShell() {
             onClearFilters={hasActiveFilters ? handleClear : undefined}
           />
         ) : (
-          <RespondentRecommendationBoard items={filteredRows} />
+          <RespondentRecommendationList items={filteredRows} />
         )}
       </PanelSection>
       </section>

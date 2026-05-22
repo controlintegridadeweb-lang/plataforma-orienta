@@ -13,18 +13,3 @@ export function respondentActionWorkspacePath(
 ): string {
   return `${RESPONDENT_ACTION_WORKSPACE_BASE}/${recommendationId}/${tab}`;
 }
-
-/** @deprecated bookmarks antigos — use {@link respondentActionWorkspacePath}. */
-export function respondentPortfolioOverviewPath(recommendationId: string): string {
-  return respondentActionWorkspacePath(recommendationId, "visao-geral");
-}
-
-/** @deprecated bookmarks antigos — use {@link respondentActionWorkspacePath}. */
-export function respondentPortfolioPlanPath(recommendationId: string): string {
-  return respondentActionWorkspacePath(recommendationId, "acoes");
-}
-
-/** @deprecated bookmarks antigos — use {@link respondentActionWorkspacePath}. */
-export function respondentPortfolioMonitoringPath(recommendationId: string): string {
-  return respondentActionWorkspacePath(recommendationId, "monitoramento");
-}

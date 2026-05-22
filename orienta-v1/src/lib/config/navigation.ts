@@ -80,11 +80,10 @@ export const navigationByRole: Record<AppRole, NavItem[]> = {
     },
     {
       href: "/respondente/portfolio-recomendacoes",
-      label: "Portfólio de Recomendações",
+      label: "Recomendações",
       icon: Lightbulb,
       group: "principal",
     },
-    { href: "/respondente/plano-acao", label: "Plano de Ação", icon: ListChecks, group: "principal" },
     { href: "/respondente/pontuacao-fami", label: "Pontuação FAMI", icon: Gauge, group: "principal" },
     { href: "/respondente/relatorios", label: "Relatórios", icon: FileBarChart, group: "principal" },
     { href: "/respondente/perfil", label: "Meu Perfil", icon: User, group: "sistema" },

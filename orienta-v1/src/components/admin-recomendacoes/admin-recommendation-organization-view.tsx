@@ -1,13 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Building2, ChevronDown } from "lucide-react";
+import { AdminRecommendationTable } from "@/components/admin-recomendacoes/admin-recommendation-table";
 import {
   groupByOrganization,
   type AdminRecommendationItem,
   type OrganizationSummary,
 } from "@/lib/recommendations/admin-presentation";
-import { AdminRecommendationCard } from "./admin-recommendation-card";
+import { formSurface } from "@/lib/form-surface";
+import { typography } from "@/lib/design-system";
 
 type Props = {
   items: AdminRecommendationItem[];
@@ -16,7 +18,7 @@ type Props = {
 
 type OrgStatDef = {
   label: string;
-  value: number;
+  value: string;
   accentClass: string;
 };
 
@@ -33,55 +35,71 @@ function OrgExecutiveStat({ label, value, accentClass }: OrgStatDef) {
       <p className="pl-1.5 text-[10px] font-semibold uppercase tracking-wider text-slate-500">
         {label}
       </p>
-      <p className="mt-0.5 pl-1.5 text-xl font-semibold tabular-nums leading-none text-slate-900">
+      <p className="mt-0.5 pl-1.5 text-lg font-semibold tabular-nums leading-none text-slate-900">
         {value}
       </p>
     </div>
   );
 }
 
-function orgStats(group: OrganizationSummary): OrgStatDef[] {
+function orgStats(group: OrganizationSummary, avgProgress: number): OrgStatDef[] {
   return [
     {
-      label: "Total",
-      value: group.total,
+      label: "Recomendações",
+      value: String(group.total),
       accentClass: "bg-slate-400/50",
     },
     {
-      label: "Em execução",
-      value: group.inExecution,
+      label: "Progresso médio",
+      value: `${avgProgress}%`,
       accentClass: "bg-[color-mix(in_srgb,var(--color-brand-500)_38%,transparent)]",
     },
     {
+      label: "Em execução",
+      value: String(group.inExecution),
+      accentClass: "bg-sky-500/40",
+    },
+    {
       label: "Sem plano",
-      value: group.withoutPlan,
-      accentClass:
-        group.withoutPlan > 0
-          ? "bg-amber-500/45"
-          : "bg-slate-300/50",
+      value: String(group.withoutPlan),
+      accentClass: group.withoutPlan > 0 ? "bg-amber-500/45" : "bg-slate-300/50",
     },
     {
       label: "Atrasadas",
-      value: group.overdue,
-      accentClass:
-        group.overdue > 0 ? "bg-rose-500/45" : "bg-slate-300/50",
+      value: String(group.overdue),
+      accentClass: group.overdue > 0 ? "bg-rose-500/45" : "bg-slate-300/50",
     },
     {
       label: "Concluídas",
-      value: group.completed,
+      value: `${group.executionPct}%`,
       accentClass: "bg-emerald-500/40",
     },
   ];
 }
 
+function averageProgress(rows: AdminRecommendationItem[]): number {
+  if (rows.length === 0) return 0;
+  return Math.round(rows.reduce((sum, row) => sum + row.progress, 0) / rows.length);
+}
+
 export function AdminRecommendationOrganizationView({
   items,
-  initiallyExpanded = 0,
+  initiallyExpanded = 1,
 }: Props) {
   const groups = groupByOrganization(items);
   const [expanded, setExpanded] = useState<Set<string>>(
-    new Set(groups.slice(0, initiallyExpanded).map((g) => g.organizationId)),
+    () => new Set(groups.slice(0, initiallyExpanded).map((g) => g.organizationId)),
   );
+
+  const rowsByOrg = useMemo(() => {
+    const map = new Map<string, AdminRecommendationItem[]>();
+    for (const item of items) {
+      const arr = map.get(item.organizationId) ?? [];
+      arr.push(item);
+      map.set(item.organizationId, arr);
+    }
+    return map;
+  }, [items]);
 
   function toggle(id: string) {
     setExpanded((prev) => {
@@ -95,18 +113,25 @@ export function AdminRecommendationOrganizationView({
   if (groups.length === 0) return null;
 
   return (
-    <div className="space-y-2.5">
+    <div className="space-y-2" role="list" aria-label="Recomendações por organização">
       {groups.map((group) => {
         const isOpen = expanded.has(group.organizationId);
-        const rows = items.filter((i) => i.organizationId === group.organizationId);
-        const stats = orgStats(group);
+        const rows = rowsByOrg.get(group.organizationId) ?? [];
+        const avgProgress = averageProgress(rows);
+        const stats = orgStats(group, avgProgress);
 
         return (
           <section
             key={group.organizationId}
+            role="listitem"
             className="overflow-hidden rounded-xl border border-slate-200/95 bg-white shadow-[var(--shadow-card)]"
           >
-            <div className="flex items-center justify-between gap-3 border-b border-slate-100/90 px-3.5 py-2.5 sm:px-4">
+            <button
+              type="button"
+              onClick={() => toggle(group.organizationId)}
+              aria-expanded={isOpen}
+              className="flex w-full items-center justify-between gap-3 border-b border-slate-100/90 px-3.5 py-3 text-left transition hover:bg-slate-50/60 sm:px-4"
+            >
               <div className="flex min-w-0 items-center gap-2.5">
                 <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-slate-200/80 bg-slate-50 text-slate-600">
                   <Building2 className="h-3.5 w-3.5" aria-hidden />
@@ -118,44 +143,41 @@ export function AdminRecommendationOrganizationView({
                   >
                     {group.organizationName}
                   </p>
-                  <p className="text-xs text-slate-500">
+                  <p className={typography.meta}>
                     {group.total}{" "}
-                    {group.total === 1 ? "recomendação" : "recomendações"} ·{" "}
-                    {group.executionPct}% concluídas
+                    {group.total === 1 ? "recomendação" : "recomendações"} · progresso médio{" "}
+                    <span className="font-semibold tabular-nums text-slate-800">{avgProgress}%</span>
+                    {" · "}
+                    {group.overdue > 0 ? (
+                      <span className="font-medium text-rose-700">{group.overdue} atrasada(s)</span>
+                    ) : (
+                      <span>{group.executionPct}% concluídas</span>
+                    )}
                   </p>
                 </div>
               </div>
 
-              <button
-                type="button"
-                onClick={() => toggle(group.organizationId)}
-                aria-expanded={isOpen}
-                aria-label={isOpen ? "Recolher recomendações" : "Expandir recomendações"}
-                className="inline-flex shrink-0 items-center gap-1 rounded-lg border border-transparent px-2 py-1.5 text-xs font-medium text-slate-500 transition hover:border-slate-200/80 hover:bg-slate-50 hover:text-slate-700"
-              >
+              <span className="inline-flex shrink-0 items-center gap-1 rounded-lg border border-transparent px-2 py-1.5 text-xs font-medium text-slate-500">
                 <span className="hidden sm:inline">{isOpen ? "Recolher" : "Expandir"}</span>
                 <ChevronDown
                   className={`h-4 w-4 transition ${isOpen ? "rotate-180" : ""}`}
                   aria-hidden
                 />
-              </button>
-            </div>
+              </span>
+            </button>
 
-            <div className="grid grid-cols-2 gap-2 p-3 sm:grid-cols-3 lg:grid-cols-5 sm:p-3.5">
+            <div className="grid grid-cols-2 gap-2 border-b border-slate-100/80 bg-slate-50/30 p-3 sm:grid-cols-3 lg:grid-cols-6 sm:p-3.5">
               {stats.map((stat) => (
                 <OrgExecutiveStat key={stat.label} {...stat} />
               ))}
             </div>
 
             {isOpen ? (
-              <div className="border-t border-slate-100 bg-slate-50/40 p-3 sm:p-4">
-                <ul className="grid gap-2.5 lg:grid-cols-2">
-                  {rows.map((it) => (
-                    <li key={it.recommendationId}>
-                      <AdminRecommendationCard item={it} />
-                    </li>
-                  ))}
-                </ul>
+              <div className="p-2 sm:p-3">
+                <AdminRecommendationTable
+                  items={rows}
+                  hideOrganizationColumn
+                />
               </div>
             ) : null}
           </section>

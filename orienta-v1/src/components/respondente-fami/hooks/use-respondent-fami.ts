@@ -7,7 +7,7 @@ import { loadRecommendationFilters } from "@/lib/recommendations/client";
 import type { RecommendationFilterOptions } from "@/lib/recommendations/admin-service";
 import { getRespondentEvidenceStats } from "@/lib/evidences/respondent-client";
 import type { RespondentStatsResult } from "@/lib/evidences/respondent-service";
-import { listRespondentActionPlans } from "@/lib/action-plans/client";
+import { getRespondentOverviewItems } from "@/lib/hooks/respondent-overview-cache";
 import {
   toRespondentItem,
   type RespondentRecommendationItem,
@@ -58,18 +58,16 @@ export function useRespondentFami(initialOrganizationId: string | null) {
       setBootLoading(true);
       setError(null);
       try {
-        const [filtersRes, stats, plans] = await Promise.all([
+        const [filtersRes, stats, overviewItems] = await Promise.all([
           loadRecommendationFilters(),
           getRespondentEvidenceStats().catch(() => null),
-          listRespondentActionPlans({ view: "overview", limit: 200, offset: 0 }).catch(
-            () => null,
-          ),
+          getRespondentOverviewItems().catch(() => null),
         ]);
         if (cancelled) return;
         setFilters(filtersRes);
         setEvidenceStats(stats);
-        if (plans) {
-          setRecommendations(plans.items.map(toRespondentItem));
+        if (overviewItems) {
+          setRecommendations(overviewItems.map(toRespondentItem));
         } else {
           setRecommendations([]);
         }
@@ -155,8 +153,8 @@ export function useRespondentFami(initialOrganizationId: string | null) {
       getRespondentEvidenceStats()
         .then(setEvidenceStats)
         .catch(() => undefined),
-      listRespondentActionPlans({ view: "overview", limit: 200, offset: 0 })
-        .then((plans) => setRecommendations(plans.items.map(toRespondentItem)))
+      getRespondentOverviewItems({ force: true })
+        .then((items) => setRecommendations(items.map(toRespondentItem)))
         .catch(() => undefined),
     ]);
   }, [fetchSnapshots]);

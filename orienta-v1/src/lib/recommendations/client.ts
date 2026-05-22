@@ -8,6 +8,7 @@ import type {
   RecommendationsListResult,
 } from "./admin-service";
 import type { RecommendationStatus } from "./schemas";
+import type { SuggestedActionsPayload } from "./suggested-actions";
 
 type ApiError = { error: string; issues?: Array<{ path: string; message: string }> };
 
@@ -131,6 +132,38 @@ export async function regenerateRecommendations(payload: {
     throw new Error(formatError(body));
   }
   return body as RecommendationRegenerateResult;
+}
+
+export async function fetchRespondentSuggestedActions(
+  recommendationId: string,
+): Promise<SuggestedActionsPayload> {
+  const res = await fetch(
+    `/api/respondent/recommendations/${encodeURIComponent(recommendationId)}/suggested-actions`,
+  );
+  const body = await parseJson<SuggestedActionsPayload & ApiError>(res);
+  if (!res.ok || !Array.isArray(body.suggestions)) {
+    throw new Error(formatError(body));
+  }
+  return body as SuggestedActionsPayload;
+}
+
+export async function applyRespondentSuggestedActions(
+  recommendationId: string,
+  indices: number[],
+): Promise<{ created: number; skipped: number }> {
+  const res = await fetch(
+    `/api/respondent/recommendations/${encodeURIComponent(recommendationId)}/apply-suggestions`,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ indices }),
+    },
+  );
+  const body = await parseJson<{ created: number; skipped: number } & ApiError>(res);
+  if (!res.ok || typeof body.created !== "number") {
+    throw new Error(formatError(body));
+  }
+  return { created: body.created, skipped: body.skipped ?? 0 };
 }
 
 export type { RecommendationListItem };

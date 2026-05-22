@@ -13,6 +13,8 @@ import { buildFamiMaturityView } from "@/lib/fami/fami-maturity-view";
 import { levelMeta } from "@/lib/fami/respondent-presentation";
 import { createSupabaseServiceRoleClient } from "@/lib/supabase/server";
 import type { ActionPlanByFormPayload } from "@/lib/domain/action-plans";
+import { statusToVisualGroup } from "@/lib/evidences/status-groups";
+import type { ValidationStatus } from "@/lib/evidences/schemas";
 
 export type ReportEvidenceSummary = {
   total: number;
@@ -88,19 +90,35 @@ async function loadEvidenceSummary(
     .in("evidence_id", evidenceIds)
     .order("validated_at", { ascending: false });
 
-  const latestByEvidence = new Map<string, string>();
+  // `evidence_validations.status` segue `validation_status` (`valid`, `invalid`,
+  // `partially_valid`, `complementation_requested`, `waived`, `pending`).
+  // Sem validacao registrada == `pending` (em analise).
+  const latestByEvidence = new Map<string, ValidationStatus>();
   for (const row of validations ?? []) {
     const id = row.evidence_id as string;
-    if (!latestByEvidence.has(id)) latestByEvidence.set(id, String(row.status ?? "pending"));
+    if (!latestByEvidence.has(id)) {
+      latestByEvidence.set(id, (row.status as ValidationStatus | null) ?? "pending");
+    }
   }
 
   const summary = { ...empty, total: evidenceIds.length };
   for (const eid of evidenceIds) {
     const status = latestByEvidence.get(eid) ?? "pending";
-    if (status === "approved") summary.approved += 1;
-    else if (status === "rejected") summary.rejected += 1;
-    else if (status === "complementation_requested") summary.complementation += 1;
-    else summary.pending += 1;
+    switch (statusToVisualGroup(status)) {
+      case "aprovadas":
+        summary.approved += 1;
+        break;
+      case "rejeitadas":
+        summary.rejected += 1;
+        break;
+      case "complementacao":
+        summary.complementation += 1;
+        break;
+      case "em_analise":
+      default:
+        summary.pending += 1;
+        break;
+    }
   }
   return summary;
 }

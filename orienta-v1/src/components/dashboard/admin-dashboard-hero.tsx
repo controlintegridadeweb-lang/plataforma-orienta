@@ -13,9 +13,6 @@ import {
   ADMIN_PAGE_HERO_TITLE,
 } from "@/lib/admin-page-layout";
 
-/** @deprecated Use `ADMIN_PAGE_HERO_BLEED`. */
-export const ADMIN_DASHBOARD_HERO_BLEED = ADMIN_PAGE_HERO_BLEED;
-
 const HERO_IMAGE = "/assets/admin-dashboard-hero.png";
 
 type Props = {

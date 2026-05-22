@@ -177,6 +177,7 @@ export function riskLevelFromScore(score: number, hasPlan: boolean, completed: b
 export type AdminPlanItem = {
   rowKey: string;
   recommendationId: string;
+  questionId: string;
   planId: string | null;
   organizationId: string;
   organizationName: string;
@@ -225,6 +226,7 @@ export function toAdminPlanItem(
   return {
     rowKey: plan?.id ?? `np-${row.recommendationId}`,
     recommendationId: row.recommendationId,
+    questionId: row.questionId,
     planId: plan?.id ?? null,
     organizationId: row.organizationId,
     organizationName: row.organizationName,

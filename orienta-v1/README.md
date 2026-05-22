@@ -119,7 +119,7 @@ npm run test
 npm run build
 ```
 
-CI em GitHub Actions foi adicionada em `.github/workflows/ci.yml` para executar os mesmos gates.
+CI em GitHub Actions: [`.github/workflows/ci.yml`](../.github/workflows/ci.yml) (working directory `orienta-v1`).
 
 ## Deploy (Vercel + GitHub + Supabase)
 

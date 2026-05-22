@@ -34,6 +34,17 @@ function formatDeadlineInput(iso: string | null): string {
   return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
 }
 
+/**
+ * `Date.now()` é impura para o React Compiler; encapsulamos a comparação aqui
+ * para que o ponto de chamada permaneça referencialmente transparente em render.
+ */
+function isDeadlinePast(iso: string | null): boolean {
+  if (iso == null) return false;
+  const t = new Date(iso).getTime();
+  if (Number.isNaN(t)) return false;
+  return t < Date.now();
+}
+
 function formatDeadlineDisplay(iso: string | null): string | null {
   if (!iso) return null;
   const d = new Date(iso);
@@ -227,8 +238,7 @@ export function FormConfig({
   const isClosed = form.state === "closed";
   const canClose = form.state === "consolidated" && !isClosed;
   const deadlineDisplay = formatDeadlineDisplay(form.responseDeadlineAt);
-  const deadlinePast =
-    form.responseDeadlineAt != null && new Date(form.responseDeadlineAt).getTime() < Date.now();
+  const deadlinePast = isDeadlinePast(form.responseDeadlineAt);
 
   return (
     <FormTabPanel

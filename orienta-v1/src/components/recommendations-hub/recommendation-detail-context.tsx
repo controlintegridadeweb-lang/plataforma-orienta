@@ -11,6 +11,7 @@ import {
   toRespondentItem,
   type RespondentRecommendationItem,
 } from "@/lib/recommendations/respondent-presentation";
+import { invalidateRespondentOverviewCache } from "@/lib/hooks/respondent-overview-cache";
 import { describeError } from "@/lib/notify";
 
 export type RecommendationDetailRole = "respondent" | "staff";
@@ -85,6 +86,7 @@ export function RecommendationDetailProvider({
             });
       const item = result.items[0] ?? null;
       setRow(item);
+      if (role === "respondent") invalidateRespondentOverviewCache();
       if (!item) setError("Recomendação não encontrada ou sem permissão para visualizar.");
     } catch (e) {
       setRow(null);

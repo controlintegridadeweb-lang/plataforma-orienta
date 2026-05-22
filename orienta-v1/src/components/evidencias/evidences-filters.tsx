@@ -5,16 +5,10 @@ import { ChevronDown, Filter, X } from "lucide-react";
 import type { EvidenceFilterOptions } from "@/lib/evidences/admin-service";
 import type { ValidationStatus } from "@/lib/evidences/schemas";
 import { formSurface } from "@/lib/form-surface";
+import { workflowStatusFilterOptions } from "@/lib/domain/status-registry";
 import { STATUS_LABELS } from "./status-badge";
 
-const ALL_STATUSES: ValidationStatus[] = [
-  "pending",
-  "valid",
-  "invalid",
-  "partially_valid",
-  "complementation_requested",
-  "waived",
-];
+const STATUS_OPTIONS = workflowStatusFilterOptions("evidence_validation");
 
 export type EvidencesFilterState = {
   formId: string;
@@ -138,9 +132,9 @@ export function EvidencesFilters({ options, value, onChange, onClear, loading }:
           className={`${formSurface.inputSelect} font-normal normal-case tracking-normal`}
         >
           <option value="">Todos</option>
-          {ALL_STATUSES.map((s) => (
-            <option key={s} value={s}>
-              {STATUS_LABELS[s]}
+          {STATUS_OPTIONS.map((opt) => (
+            <option key={opt.value} value={opt.value}>
+              {opt.label}
             </option>
           ))}
         </select>

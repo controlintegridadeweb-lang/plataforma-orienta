@@ -3,7 +3,7 @@
 import { useState } from "react";
 import type { RecommendationChangeEntry } from "@/lib/recommendations/admin-service";
 import { listRecommendationHistory } from "@/lib/recommendations/client";
-import { STATUS_LABELS } from "./status-badge";
+import { RECOMMENDATION_STATUS_LABELS } from "@/lib/domain/status-registry";
 
 type Props = {
   recommendationId: string;
@@ -18,7 +18,7 @@ const FIELD_LABELS: Record<RecommendationChangeEntry["field"], string> = {
 function formatValue(field: RecommendationChangeEntry["field"], value: string | null) {
   if (value === null || value === undefined) return "-";
   if (field === "status")
-    return STATUS_LABELS[value as keyof typeof STATUS_LABELS] ?? value;
+    return RECOMMENDATION_STATUS_LABELS[value as keyof typeof RECOMMENDATION_STATUS_LABELS] ?? value;
   return value;
 }
 

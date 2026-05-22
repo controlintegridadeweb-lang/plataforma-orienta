@@ -57,14 +57,14 @@ export function RecommendationDocumentPanel() {
       {ctx.role === "staff" && supervisaoHref ? (
         <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-slate-200 bg-white px-4 py-3 shadow-sm">
           <p className="text-sm text-slate-600">
-            Para comentários, pareceres e validação, acesse a{" "}
-            <strong className="font-medium text-slate-800">supervisão do plano</strong>.
+            Para comentários, pareceres e validação, acesse o{" "}
+            <strong className="font-medium text-slate-800">monitoramento do plano</strong>.
           </p>
           <Link
             href={supervisaoHref}
             className={`${formSurface.primaryButtonSm} inline-flex items-center gap-1`}
           >
-            Ir para supervisão
+            Ir para monitoramento
             <ChevronRight className="h-3.5 w-3.5" aria-hidden />
           </Link>
         </div>

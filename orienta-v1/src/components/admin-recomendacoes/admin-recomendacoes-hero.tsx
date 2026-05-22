@@ -17,6 +17,7 @@ import {
   ADMIN_PAGE_HERO_TITLE,
 } from "@/lib/admin-page-layout";
 import type { AdminRecommendationSummary } from "@/lib/recommendations/admin-presentation";
+import { STAFF_ANALYSIS_MODULE_CONTEXT } from "@/lib/staff-module-context";
 import { formSurface } from "@/lib/form-surface";
 
 type Props = {
@@ -80,8 +81,11 @@ export function AdminRecommendationsHero({
           <p className={ADMIN_PAGE_HERO_OVERLINE}>Análise estratégica</p>
           <h2 className={ADMIN_PAGE_HERO_TITLE}>Recomendações</h2>
           <p className={ADMIN_PAGE_HERO_DESCRIPTION}>
-            Gerencie recomendações geradas pelo processamento FAMI, acompanhe status, priorizações
-            e vínculos com planos de ação institucionais.
+            Portfólio estratégico gerado pelo processamento FAMI: status, priorização e vínculo
+            com planos institucionais. A execução operacional fica no módulo Plano de Ação.
+          </p>
+          <p className="mt-3 text-xs font-medium leading-relaxed text-slate-500">
+            {STAFF_ANALYSIS_MODULE_CONTEXT}
           </p>
 
           {summaryLine ? (

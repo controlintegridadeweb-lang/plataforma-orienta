@@ -267,6 +267,15 @@ export const RECOMMENDATION_TABLE_REGISTRY: Record<RecommendationStatus, StatusR
   },
 };
 
+/** Rótulos do enum `RecommendationStatus` para selects e histórico. */
+export const RECOMMENDATION_STATUS_LABELS: Record<RecommendationStatus, string> =
+  Object.fromEntries(
+    (Object.keys(RECOMMENDATION_TABLE_REGISTRY) as RecommendationStatus[]).map((k) => [
+      k,
+      RECOMMENDATION_TABLE_REGISTRY[k].label,
+    ]),
+  ) as Record<RecommendationStatus, string>;
+
 /**
  * `recommendations.recommendation_type` — cenários que disparam recomendação oficial.
  * Inclui chaves canônicas (`RecommendationType`) e legados ainda presentes no banco.
@@ -944,4 +953,25 @@ export function workflowStatusEntry<D extends WorkflowStatusDomain>(
   const asRecommendationType = RECOMMENDATION_TYPE_REGISTRY[key];
   if (asRecommendationType) return asRecommendationType;
   return { ...FALLBACK_ENTRY, key };
+}
+
+export type WorkflowStatusFilterOption<D extends WorkflowStatusDomain> = {
+  value: WorkflowStatusMap[D];
+  label: string;
+};
+
+/**
+ * Gera as opções de `<select>` para filtros a partir do registry — preserva a
+ * ordem declarada no registry e permite excluir chaves específicas. NÃO inclui
+ * a opção “vazia” (use `emptyLabel` no componente para o `<option value="">`).
+ */
+export function workflowStatusFilterOptions<D extends WorkflowStatusDomain>(
+  domain: D,
+  options?: { exclude?: ReadonlyArray<WorkflowStatusMap[D]> },
+): WorkflowStatusFilterOption<D>[] {
+  const map = WORKFLOW_STATUS_REGISTRY[domain] as Record<string, StatusRegistryEntry>;
+  const exclude = new Set<string>((options?.exclude ?? []).map((v) => String(v)));
+  return (Object.keys(map) as Array<WorkflowStatusMap[D]>)
+    .filter((k) => !exclude.has(String(k)))
+    .map((k) => ({ value: k, label: map[String(k)].label }));
 }

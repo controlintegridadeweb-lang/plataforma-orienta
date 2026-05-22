@@ -47,22 +47,6 @@ export function useSidebar(): SidebarContextValue {
   return ctx;
 }
 
-/** @deprecated Use {@link useSidebar} */
-export function useSidebarMobile(): {
-  open: boolean;
-  toggle: () => void;
-  openDrawer: () => void;
-  closeDrawer: () => void;
-} {
-  const { mobileOpen, toggleMenu, openDrawer, closeDrawer } = useSidebar();
-  return {
-    open: mobileOpen,
-    toggle: toggleMenu,
-    openDrawer,
-    closeDrawer,
-  };
-}
-
 function useIsDesktop(): boolean {
   const [isDesktop, setIsDesktop] = useState(false);
 

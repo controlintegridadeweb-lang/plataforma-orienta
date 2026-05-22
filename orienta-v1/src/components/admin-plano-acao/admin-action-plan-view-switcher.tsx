@@ -2,7 +2,7 @@
 
 import { SegmentedTabs } from "@/components/ui/segmented-tabs";
 
-export type AdminPlanViewMode = "list" | "organization" | "status";
+export type AdminPlanViewMode = "list" | "organization";
 
 type Props = {
   value: AdminPlanViewMode;
@@ -10,7 +10,6 @@ type Props = {
 };
 
 const OPTIONS: { value: AdminPlanViewMode; label: string }[] = [
-  { value: "status", label: "Kanban" },
   { value: "list", label: "Lista" },
   { value: "organization", label: "Por organização" },
 ];

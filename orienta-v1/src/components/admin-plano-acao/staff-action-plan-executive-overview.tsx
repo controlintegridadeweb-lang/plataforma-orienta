@@ -262,7 +262,7 @@ export function StaffActionPlanExecutiveOverview() {
               href={monitoramentoHref}
               className={`${formSurface.primaryButtonSm} inline-flex items-center gap-1`}
             >
-              Ir para supervisão
+              Ir para monitoramento
               <ChevronRight className="h-3.5 w-3.5" aria-hidden />
             </Link>
           </div>

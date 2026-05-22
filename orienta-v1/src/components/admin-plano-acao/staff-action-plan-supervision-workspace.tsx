@@ -24,6 +24,7 @@ import type { ActionPlanAuditEntry } from "@/lib/action-plans/admin-service";
 import { computeActionSla } from "@/lib/domain/action-plans";
 import { listEvidences } from "@/lib/evidences/client";
 import type { EvidenceListItem } from "@/lib/evidences/admin-service";
+import { evidencesForRecommendationScope } from "@/lib/evidences/recommendation-scope";
 import { staffRecomendacoesHref } from "@/lib/navigation/staff-paths";
 import { formSurface } from "@/lib/form-surface";
 import { layout, typography } from "@/lib/design-system";
@@ -142,11 +143,10 @@ export function StaffActionPlanSupervisionWorkspace() {
           organizationId: row!.organizationId,
           limit: 100,
         });
-        const filtered = res.items.filter(
-          (e) =>
-            e.questionPrompt.trim() === row!.questionPrompt.trim() ||
-            e.questionPrompt.includes(row!.questionPrompt.slice(0, 40)),
-        );
+        const filtered = evidencesForRecommendationScope(res.items, {
+          questionId: row!.questionId,
+          questionPrompt: row!.questionPrompt,
+        });
         if (!cancelled) setEvidences(filtered);
       } catch {
         if (!cancelled) setEvidences([]);
@@ -158,7 +158,7 @@ export function StaffActionPlanSupervisionWorkspace() {
     return () => {
       cancelled = true;
     };
-  }, [row?.formId, row?.organizationId, row?.questionPrompt]);
+  }, [row?.formId, row?.organizationId, row?.questionId, row?.questionPrompt]);
 
   const pendingEvidences = useMemo(
     () =>

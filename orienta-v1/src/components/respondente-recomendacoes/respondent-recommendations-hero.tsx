@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Download, RefreshCw } from "lucide-react";
+import { RESPONDENT_MODULE_CONTEXT } from "@/lib/respondent-module-context";
 import { formSurface } from "@/lib/form-surface";
 import {
   RESPONDENT_PAGE_HERO_ACTIONS,
@@ -34,8 +35,11 @@ export function RespondentRecommendationsHero({ onRefresh, refreshing, onExport 
           <p className={RESPONDENT_PAGE_HERO_OVERLINE}>Gestão estratégica</p>
           <h2 className={RESPONDENT_PAGE_HERO_TITLE}>Portfólio de recomendações</h2>
           <p className={RESPONDENT_PAGE_HERO_DESCRIPTION}>
-            Central estratégica: veja status e quantidade de ações. Para cadastrar prazos,
-            responsáveis e monitorar entregas, abra o plano de ação da recomendação.
+            Visão em cards: status, motivo e próximo passo em destaque. Cadastre prazos,
+            responsáveis e acompanhe entregas no workspace de cada recomendação.
+          </p>
+          <p className="mt-3 text-xs font-medium leading-relaxed text-slate-500">
+            {RESPONDENT_MODULE_CONTEXT}
           </p>
 
           <div className={RESPONDENT_PAGE_HERO_ACTIONS}>
@@ -61,8 +65,11 @@ export function RespondentRecommendationsHero({ onRefresh, refreshing, onExport 
                 Exportar
               </button>
             ) : null}
-            <Link href="/respondente/plano-acao" className={formSurface.primaryButtonSm}>
-              Ir para Plano de Ação
+            <Link
+              href="/respondente/portfolio-recomendacoes?view=awaiting_action"
+              className={formSurface.primaryButtonSm}
+            >
+              Ver pendentes
               <ArrowRight className="h-3.5 w-3.5" aria-hidden />
             </Link>
           </div>

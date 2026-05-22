@@ -35,13 +35,13 @@ const ADMIN_HEADINGS: RouteHeading[] = [
     prefix: "/admin/recomendacoes",
     title: "Recomendações",
     description:
-      "Gerencie recomendações FAMI, status, priorizações e vínculos com planos de ação institucionais.",
+      "Portfólio estratégico FAMI: status, priorização e vínculo com planos. Execução no Plano de Ação.",
   },
   {
     prefix: "/admin/plano-acao",
     title: "Plano de Ação",
     description:
-      "Gerencie ações vinculadas às recomendações, progresso, responsáveis, prazos e execução operacional.",
+      "Execução operacional: ações, prazos, responsáveis e progresso. Monitoramento na aba de cada plano.",
   },
   {
     prefix: "/admin/maturidade",
@@ -94,12 +94,14 @@ const ANALYST_HEADINGS: RouteHeading[] = [
   {
     prefix: "/analista/recomendacoes",
     title: "Recomendações",
-    description: "Portfólio gerado pelo processamento do FAMI.",
+    description:
+      "Portfólio estratégico FAMI: status e priorização. Execução no Plano de Ação.",
   },
   {
     prefix: "/analista/plano-acao",
     title: "Plano de Ação",
-    description: "Acompanhamento de planos vinculados às recomendações.",
+    description:
+      "Execução operacional e progresso das ações. Monitoramento na aba de cada plano.",
   },
   {
     prefix: "/analista/maturidade",
@@ -130,20 +132,10 @@ const RESPONDENT_HEADINGS: RouteHeading[] = [
     description: "Evidências enviadas e pedidos de complementação do analista.",
   },
   {
-    prefix: "/respondente/complementacoes",
-    title: "Complementações",
-    description: "Evidências e ajustes solicitados pelo analista.",
-  },
-  {
-    prefix: "/respondente/evidencias",
-    title: "Evidências",
-    description: "Histórico e anexos vinculados às suas respostas.",
-  },
-  {
     prefix: "/respondente/portfolio-recomendacoes",
-    title: "Portfólio de Recomendações",
+    title: "Recomendações",
     description:
-      "Visão estratégica: status e atalho para o plano de ação operacional de cada recomendação.",
+      "Recomendações geradas pelos formulários: status, próximo passo e cadastro de ações por item.",
   },
   {
     prefix: "/respondente/plano-acao",

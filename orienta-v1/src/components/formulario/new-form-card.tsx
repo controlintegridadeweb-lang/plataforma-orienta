@@ -3,13 +3,9 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, type FormEvent } from "react";
-import { FilePlus, Loader2 } from "lucide-react";
-import { PanelSection } from "@/components/ui/panel-section";
+import { Loader2 } from "lucide-react";
 import { createForm } from "@/lib/forms/client";
 import { formSurface } from "@/lib/form-surface";
-
-const fieldClassName =
-  "w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-900 shadow-sm transition placeholder:text-slate-400 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand/25";
 
 type NewFormCardProps = {
   cancelHref?: string;
@@ -43,20 +39,12 @@ export function NewFormCard({
   }
 
   return (
-    <PanelSection
-      title="Dados do formulário"
-      description="Defina o nome de exibição. Você ajusta perguntas e publicação nas etapas seguintes."
-      icon={FilePlus}
-      variant="card"
-    >
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label htmlFor="new-form-name" className="text-sm font-medium text-slate-800">
+    <form onSubmit={handleSubmit} className="flex flex-col">
+      <div className="max-w-3xl space-y-5">
+        <div className={formSurface.fieldGroup}>
+          <label htmlFor="new-form-name" className={formSurface.label}>
             Nome do formulário
           </label>
-          <p className="mb-1.5 text-xs text-slate-500">
-            Nome de exibição. Você ajusta perguntas e publicação nas etapas seguintes.
-          </p>
           <input
             id="new-form-name"
             type="text"
@@ -65,23 +53,28 @@ export function NewFormCard({
             placeholder="Ex.: Avaliação de Integridade 2026"
             maxLength={200}
             autoFocus
-            className={fieldClassName}
+            className={formSurface.input}
           />
+          <p className="text-sm text-slate-500">
+            Nome de exibição visível para respondentes e relatórios. Você pode renomear enquanto o
+            modelo estiver em rascunho.
+          </p>
         </div>
 
         {error ? <div className={formSurface.messageError}>{error}</div> : null}
 
-        <p className="text-xs text-slate-500">
-          O formulário é criado em rascunho (v1). Depois você adiciona as perguntas e configura os vínculos antes de
-          publicar.
+        <p className={formSurface.messageNeutral}>
+          O formulário é criado em <strong className="font-medium text-slate-800">rascunho (v1)</strong>.
+          Depois você adiciona as perguntas e configura os vínculos antes de publicar.
         </p>
+      </div>
 
-        <div className="flex flex-wrap items-center gap-3 border-t border-slate-100 pt-4">
-          <button
-            type="submit"
-            disabled={busy}
-            className={`${formSurface.primaryButton} min-h-10 rounded-xl px-5`}
-          >
+      <footer className="mt-8 flex flex-col gap-3 border-t border-slate-100 pt-6 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
+        <p className="order-2 text-xs text-slate-500 sm:order-1 sm:max-w-md">
+          Ao criar, você será direcionado para a etapa de perguntas do modelo.
+        </p>
+        <div className="order-1 flex flex-wrap items-center gap-3 sm:order-2">
+          <button type="submit" disabled={busy} className={formSurface.primaryButton}>
             {busy ? (
               <>
                 <Loader2 className="h-4 w-4 animate-spin" aria-hidden />
@@ -91,11 +84,11 @@ export function NewFormCard({
               "Criar formulário"
             )}
           </button>
-          <Link href={cancelHref} className={formSurface.secondaryButtonSm}>
+          <Link href={cancelHref} className={formSurface.secondaryButton}>
             Cancelar
           </Link>
         </div>
-      </form>
-    </PanelSection>
+      </footer>
+    </form>
   );
 }

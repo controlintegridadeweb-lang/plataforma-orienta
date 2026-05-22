@@ -5,6 +5,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import type { EvidenceFilterOptions, EvidenceListItem } from "@/lib/evidences/admin-service";
 import { loadEvidenceFilters } from "@/lib/evidences/client";
 import type { ValidationStatus } from "@/lib/evidences/schemas";
+import { EVIDENCE_VALIDATION_REGISTRY } from "@/lib/domain/status-registry";
 import { useDebounce } from "@/lib/hooks/use-debounce";
 import { describeError, notify } from "@/lib/notify";
 import { layout } from "@/lib/design-system";
@@ -24,21 +25,14 @@ import { useEvidencesList } from "./hooks/use-evidences-list";
 
 const PAGE_SIZE = 50;
 
-const ALL_STATUSES: ValidationStatus[] = [
-  "pending",
-  "valid",
-  "invalid",
-  "partially_valid",
-  "complementation_requested",
-  "waived",
-];
+const VALID_STATUSES = new Set<string>(Object.keys(EVIDENCE_VALIDATION_REGISTRY));
 
 function normalizeEvidenceInitialStatus(
   value: string | ValidationStatus | undefined,
 ): "" | ValidationStatus {
   if (value == null || value === "") return "";
   const s = String(value);
-  return ALL_STATUSES.includes(s as ValidationStatus) ? (s as ValidationStatus) : "";
+  return VALID_STATUSES.has(s) ? (s as ValidationStatus) : "";
 }
 
 export type EvidencesShellInitialFilters = {

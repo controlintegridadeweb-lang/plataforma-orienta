@@ -15,7 +15,7 @@ function renderActionCard(doc: OrientaPdfDocument, c: Cursor, ac: ActionPlanActi
   const obs = ac.observations?.trim();
   const obsLines = obs ? doc.chunkText(obs, 70).length : 0;
   const h = 82 + obsLines * 12;
-  let cur = doc.ensureBlock(c, h);
+  const cur = doc.ensureBlock(c, h);
   const w = contentWidth();
 
   cur.page.drawRectangle({

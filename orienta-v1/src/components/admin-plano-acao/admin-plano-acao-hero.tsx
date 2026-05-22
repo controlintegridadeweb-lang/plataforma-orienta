@@ -17,6 +17,7 @@ import {
   ADMIN_PAGE_HERO_TITLE,
 } from "@/lib/admin-page-layout";
 import type { AdminPlanSummary } from "@/lib/action-plans/admin-monitoring";
+import { STAFF_ANALYSIS_MODULE_CONTEXT } from "@/lib/staff-module-context";
 import { formSurface } from "@/lib/form-surface";
 
 type Props = {
@@ -72,8 +73,11 @@ export function AdminActionPlanHero({
           <p className={ADMIN_PAGE_HERO_OVERLINE}>Execução e monitoramento</p>
           <h2 className={ADMIN_PAGE_HERO_TITLE}>Plano de Ação</h2>
           <p className={ADMIN_PAGE_HERO_DESCRIPTION}>
-            Gerencie ações vinculadas às recomendações institucionais, acompanhe progresso,
-            responsáveis, prazos e execução operacional.
+            Fila operacional de ações, prazos, responsáveis e progresso vinculados às
+            recomendações. O acompanhamento institucional fica na aba Monitoramento de cada plano.
+          </p>
+          <p className="mt-3 text-xs font-medium leading-relaxed text-slate-500">
+            {STAFF_ANALYSIS_MODULE_CONTEXT}
           </p>
 
           {summaryLine ? (

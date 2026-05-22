@@ -1,30 +1,10 @@
-import { getCurrentUser } from "@/lib/auth/current-user";
-import { RespondentActionPlanShell } from "@/components/respondente-plano-acao/respondent-action-plan-shell";
-import { formSurface } from "@/lib/form-surface";
-import { layout } from "@/lib/design-system";
+import { redirect } from "next/navigation";
+import { RESPONDENT_PORTFOLIO_LIST_PATH } from "@/lib/navigation/respondent-portfolio-paths";
 
 /**
- * Plano de Acao do Respondente.
- *
- * Server thin: valida `organizationId` e delega para o shell client-side.
- * Toda a lista vem de `/api/respondent/action-plans?view=overview`,
- * que entrega recomendacao + plano (quando existir).
+ * Lista operacional unificada no portfólio de recomendações.
+ * Workspace de detalhe permanece em /respondente/plano-acao/[recommendationId].
  */
-export default async function RespondentePlanoAcaoPage() {
-  const user = await getCurrentUser();
-  const organizationId = user?.organizationId ?? "";
-
-  if (!organizationId) {
-    return (
-      <div className={formSurface.messageWarning}>
-        Sua conta nao esta vinculada a uma organizacao. Entre em contato com o administrador.
-      </div>
-    );
-  }
-
-  return (
-    <div className={layout.pageStack}>
-      <RespondentActionPlanShell />
-    </div>
-  );
+export default function RespondentePlanoAcaoRedirectPage() {
+  redirect(RESPONDENT_PORTFOLIO_LIST_PATH);
 }

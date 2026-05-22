@@ -7,7 +7,7 @@ import { formSurface } from "@/lib/form-surface";
 
 /**
  * Rota canônica de evidências. Sem `view=all`, abre com filtro de complementação;
- * com `?view=all`, lista todas (rota legada `/respondente/evidencias`).
+ * com `?view=all`, lista todas as evidências.
  */
 export default async function RespondenteEvidenciasComplementacoesPage({
   searchParams,

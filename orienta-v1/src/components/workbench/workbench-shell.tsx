@@ -29,6 +29,12 @@ import {
   type YesEvidenceFieldErrors,
 } from "@/lib/workbench/validate-yes-evidence";
 import { formSurface } from "@/lib/form-surface";
+import { invalidateRespondentOverviewCache } from "@/lib/hooks/respondent-overview-cache";
+import {
+  formatSubmitRecommendationMessage,
+  notifyRespondentReprocessOutcome,
+  portfolioPendingLink,
+} from "@/lib/recommendations/post-save-feedback";
 import { describeError, notify } from "@/lib/notify";
 import {
   countCompleteRows,
@@ -181,15 +187,16 @@ export function WorkbenchShell({
     });
   }, [data]);
 
-  const displayRows = useMemo((): Row[] => {
-    if (!data?.rows) return [];
-    return data.rows.map((row) => {
+  const rawRows = data?.rows;
+  const displayRows = useMemo<Row[]>(() => {
+    if (!rawRows) return [];
+    return rawRows.map((row) => {
       if (pendingYesQuestionIds.has(row.questionId) && row.answer !== "yes") {
         return { ...row, answer: "yes" };
       }
       return row;
     });
-  }, [data?.rows, pendingYesQuestionIds]);
+  }, [rawRows, pendingYesQuestionIds]);
 
   const orgLocked = Boolean(useSessionContext && lockedOrganizationId);
   const showRespondent = mode === "respondent" || mode === "full";
@@ -468,6 +475,10 @@ export function WorkbenchShell({
       const payload = (await response.json()) as {
         error?: string;
         fields?: YesEvidenceFieldErrors;
+        famiReprocess?: {
+          recommendationsCreated?: number;
+          recommendationsUpdated?: number;
+        } | null;
       };
       if (!response.ok) {
         if (answer === "yes" && row.requiresEvidence && payload.fields) {
@@ -486,10 +497,17 @@ export function WorkbenchShell({
         return next;
       });
       await loadWorkbench();
-      if (!options?.silent && !simplifiedRespondent) {
-        setMessage("Resposta salva.");
-      } else if (simplifiedRespondent) {
+      if (mode === "respondent") {
+        invalidateRespondentOverviewCache();
+      }
+      if (simplifiedRespondent) {
+        notifyRespondentReprocessOutcome(ids.formId, payload.famiReprocess, {
+          answer,
+          requiresEvidence: row.requiresEvidence,
+        });
         setMessage("");
+      } else if (!options?.silent) {
+        setMessage("Resposta salva.");
       }
     } finally {
       setSavingQuestionId(null);
@@ -710,12 +728,8 @@ export function WorkbenchShell({
       }
       const created = payload.recommendationsCreated ?? 0;
       setSubmitSummary({ recommendationsCreated: created });
-      notify.success(
-        created > 0
-          ? `Formulario enviado. ${created} recomendacao(oes) gerada(s).`
-          : "Formulario enviado. Nenhuma recomendacao foi disparada pelas respostas atuais.",
-        { id: loadingId },
-      );
+      invalidateRespondentOverviewCache();
+      notify.success(formatSubmitRecommendationMessage(created), { id: loadingId });
     } catch (e: unknown) {
       notify.error(describeError(e, "Falha ao enviar o formulario. Tente novamente."), {
         id: loadingId,
@@ -844,10 +858,10 @@ export function WorkbenchShell({
                     </span>{" "}
                     recomendação(ões) com base nas suas respostas.{" "}
                     <Link
-                      href="/respondente/plano-acao"
+                      href={portfolioPendingLink(ids.formId)}
                       className="font-semibold underline decoration-emerald-400 underline-offset-2"
                     >
-                      Ir para o plano de ação
+                      Ver recomendações pendentes
                     </Link>
                     .
                   </>

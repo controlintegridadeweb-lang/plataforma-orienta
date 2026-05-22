@@ -18,6 +18,9 @@ export type FamiReprocessReason =
 export type FamiReprocessResult = {
   processingVersion: number;
   recommendationsCreated: number;
+  recommendationsUpdated?: number;
+  recommendationsUnchanged?: number;
+  recommendationsRemoved?: number;
   famiComputed: boolean;
 };
 
@@ -71,6 +74,9 @@ export async function triggerFamiReprocess(
     return {
       processingVersion: result.processingVersion,
       recommendationsCreated: result.recommendationsCreated,
+      recommendationsUpdated: result.updated,
+      recommendationsUnchanged: result.unchanged,
+      recommendationsRemoved: result.removed,
       famiComputed: resolved.computeFami,
     };
   } catch (error) {

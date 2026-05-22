@@ -11,6 +11,8 @@ import {
 } from "./recommendation-detail-context";
 import { RecommendationDetailHeader } from "./recommendation-detail-header";
 import { RecommendationDetailTabs } from "./recommendation-detail-tabs";
+import { WorkspaceTabIntro } from "./workspace-tab-intro";
+import { workspaceTabsForBasePath } from "./workspace-tab-meta";
 
 function RecommendationDetailBody({ children }: { children: React.ReactNode }) {
   const ctx = useRecommendationDetailContext();
@@ -37,25 +39,23 @@ function RecommendationDetailBody({ children }: { children: React.ReactNode }) {
   const tabs = isDocument
     ? []
     : isSupervision
-      ? [
-          { href: `${ctx.detailBasePath}/visao-geral`, label: "Visão geral" },
-          { href: `${ctx.detailBasePath}/acoes`, label: "Ações" },
-          { href: `${ctx.detailBasePath}/monitoramento`, label: "Monitoramento" },
-        ]
+      ? workspaceTabsForBasePath(ctx.detailBasePath, ["overview", "actions", "monitoring"], {
+          actionsHrefSegment: "acoes",
+        })
       : ctx.workspaceSurface === "operational" && ctx.role === "staff"
-        ? [
-            { href: `${ctx.detailBasePath}/monitoramento`, label: "Monitoramento" },
-            { href: `${ctx.detailBasePath}/${ctx.actionsTabHrefSegment}`, label: ctx.actionsTabLabel },
-            { href: `${ctx.detailBasePath}/visao-geral`, label: "Visão geral" },
-          ]
-        : [
-            { href: `${ctx.detailBasePath}/visao-geral`, label: "Visão geral" },
+        ? workspaceTabsForBasePath(
+            ctx.detailBasePath,
+            ["monitoring", "actions", "overview"],
+            { actionsHrefSegment: ctx.actionsTabHrefSegment, actionsLabel: ctx.actionsTabLabel },
+          )
+        : workspaceTabsForBasePath(
+            ctx.detailBasePath,
+            ["overview", "actions", "monitoring"],
             {
-              href: `${ctx.detailBasePath}/${ctx.actionsTabHrefSegment}`,
-              label: ctx.actionsTabLabel,
+              actionsHrefSegment: ctx.actionsTabHrefSegment,
+              actionsLabel: ctx.actionsTabLabel,
             },
-            { href: `${ctx.detailBasePath}/monitoramento`, label: "Monitoramento" },
-          ];
+          );
 
   const stackGap =
     ctx.workspaceSurface === "operational" ||
@@ -76,6 +76,10 @@ function RecommendationDetailBody({ children }: { children: React.ReactNode }) {
       <RecommendationDetailHeader />
       {tabs.length > 0 ? (
         <RecommendationDetailTabs tabs={tabs} aria-label="Seções do workspace" />
+      ) : null}
+      {tabs.length > 0 &&
+      (ctx.workspaceSurface === "operational" || ctx.workspaceSurface === "supervision") ? (
+        <WorkspaceTabIntro />
       ) : null}
       <div className="min-h-[14rem]">{children}</div>
     </div>

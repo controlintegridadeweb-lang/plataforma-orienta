@@ -28,7 +28,7 @@ export function RespondentRecommendationEmptyState({ variant, onClearFilters }: 
       icon: Lightbulb,
       title: "Nenhuma recomendação gerada ainda",
       description:
-        "Após validar evidências dos formulários, as recomendações aplicáveis aparecerão aqui automaticamente.",
+        "Após enviar o formulário ou quando houver não conformidade nas respostas, as recomendações aplicáveis aparecerão aqui automaticamente.",
       cta: { label: "Ir para meus formulários", href: "/respondente/formularios" },
     },
     "no-results": {
@@ -44,8 +44,11 @@ export function RespondentRecommendationEmptyState({ variant, onClearFilters }: 
       icon: ListChecks,
       title: "Nenhuma recomendação vinculada a plano",
       description:
-        "Cadastre planos de ação a partir das recomendações abertas para acompanhar progresso e prazos.",
-      cta: { label: "Ir para Plano de Ação", href: "/respondente/plano-acao" },
+        "Cadastre ações a partir das recomendações abertas para acompanhar progresso e prazos.",
+      cta: {
+        label: "Ver pendentes de ação",
+        href: "/respondente/portfolio-recomendacoes?view=awaiting_action",
+      },
     },
   };
 

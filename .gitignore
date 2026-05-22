@@ -1,8 +1,15 @@
-node_modules/
+# Monorepo: aplicacao em orienta-v1/ (regras completas em orienta-v1/.gitignore)
+
 .DS_Store
+
+# Logs (IDE, Next, npm, debug)
 *.log
-.env
-.env.*
-!.env.example
-!.env.*.example
-.vercel/
+debug-*.log
+
+# Cursor: ignora cache/logs; permite config compartilhavel do workspace
+.cursor/*
+!.cursor/settings.json
+!.cursor/extensions.json
+
+# Evita node_modules na raiz se alguem rodar npm install por engano
+/node_modules

@@ -1,23 +1,26 @@
 # Plataforma Orienta
 
-Monorepo com a aplicacao Next.js em **`orienta-v1/`**.
+Repositorio com a aplicacao Next.js em **[orienta-v1/](orienta-v1/)**.
 
 ## Desenvolvimento
 
-Na raiz deste repositorio existem atalhos npm que delegam para o pacote em `orienta-v1`:
+```bash
+cd orienta-v1
+npm install
+cp .env.example .env.local
+npm run dev
+```
 
-- `npm run dev` — servidor de desenvolvimento
-- `npm run build` — build de producao
-- `npm run start` — servidor apos build
-- `npm run lint` — ESLint
-- `npm run test` / `npm run test:coverage` — Vitest
+Documentacao, variaveis de ambiente, testes e deploy: **[orienta-v1/README.md](orienta-v1/README.md)**.
 
-Variaveis de ambiente e detalhes do app: veja **[orienta-v1/README.md](orienta-v1/README.md)**.
+## Cursor / VS Code
+
+Abra a pasta `orienta-v1` como workspace, ou use o arquivo **[Plataforma-Orienta.code-workspace](Plataforma-Orienta.code-workspace)** na raiz deste repositorio.
 
 ## CI
 
-O workflow GitHub Actions fica em [`.github/workflows/ci.yml`](.github/workflows/ci.yml) e executa `npm ci`, lint, testes e build com diretorio de trabalho `orienta-v1`.
+Workflow em [`.github/workflows/ci.yml`](.github/workflows/ci.yml) (working directory: `orienta-v1`).
 
-## Deploy na Vercel
+## Deploy (Vercel)
 
-Guia completo: **[orienta-v1/docs/DEPLOY-VERCEL.md](orienta-v1/docs/DEPLOY-VERCEL.md)** (GitHub, builds automaticos, env, Supabase, dominio `*.vercel.app`, branch `staging`).
+Configure **Root Directory** = `orienta-v1` no projeto Vercel. Guia: **[orienta-v1/docs/DEPLOY-VERCEL.md](orienta-v1/docs/DEPLOY-VERCEL.md)**.

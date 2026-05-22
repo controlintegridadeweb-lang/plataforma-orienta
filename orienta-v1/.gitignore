@@ -30,12 +30,30 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
+# env files (secrets stay local)
 .env*
 !.env.example
+!.env.*.example
+.env.local
 
 # vercel
 .vercel
 
+# TypeScript / build artifacts
+tsconfig.tsbuildinfo
+tsc-*.txt
+
+# logs
+*.log
+debug-*.log
+
 # local tooling / ad-hoc reports
 lint-out.tmp
+
+# Cursor: ignora cache/logs; permite config compartilhavel
+.cursor/*
+!.cursor/settings.json
+!.cursor/extensions.json
+
+# VS Code (logs locais)
+.vscode/*.log

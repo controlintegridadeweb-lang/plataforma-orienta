@@ -2,6 +2,11 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { describeError, notify } from "@/lib/notify";
+import {
+  downloadPdfBlob,
+  generateOfficialReportPdf,
+  loadReportOptions,
+} from "@/lib/reports/client";
 import type { RespondentReportFormat, RespondentReportKind } from "@/lib/reports/respondent-presentation";
 import {
   canGenerateOfficialPdf,
@@ -74,15 +79,11 @@ export function RespondentReportsShell() {
   const loadOrganizations = useCallback(async () => {
     setLoadingScopes(true);
     try {
-      const res = await fetch("/api/reports/options", { credentials: "include" });
-      const payload = await res.json();
-      if (!res.ok) {
-        notify.error(typeof payload.error === "string" ? payload.error : "Falha ao carregar escopo.");
-        return;
-      }
-      const orgs = (payload.organizations ?? []) as { id: string; name: string }[];
+      const { organizations: orgs } = await loadReportOptions();
       setOrganizations(orgs);
       if (orgs.length === 1) setOrganizationId(orgs[0]!.id);
+    } catch (e) {
+      notify.error(e instanceof Error ? e.message : "Falha ao carregar escopo.");
     } finally {
       setLoadingScopes(false);
     }
@@ -96,19 +97,12 @@ export function RespondentReportsShell() {
     }
     setLoadingForms(true);
     try {
-      const res = await fetch(
-        `/api/reports/options?organizationId=${encodeURIComponent(orgId)}`,
-        { credentials: "include" },
-      );
-      const payload = await res.json();
-      if (!res.ok) {
-        notify.error(typeof payload.error === "string" ? payload.error : "Falha ao carregar formulários.");
-        setForms([]);
-        return;
-      }
-      const list = (payload.forms ?? []) as ReportFormOption[];
+      const { forms: list } = await loadReportOptions(orgId);
       setForms(list);
       setFormId(list[0]?.id ?? "");
+    } catch (e) {
+      notify.error(e instanceof Error ? e.message : "Falha ao carregar formulários.");
+      setForms([]);
     } finally {
       setLoadingForms(false);
     }
@@ -209,39 +203,11 @@ export function RespondentReportsShell() {
     organizationId: string;
     processingVersion?: number;
   }): Promise<Blob> {
-    const res = await fetch("/api/reports/official", {
-      method: "POST",
-      credentials: "include",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        formId: params.formId,
-        organizationId: params.organizationId,
-        ...(params.processingVersion != null
-          ? { processingVersion: params.processingVersion }
-          : {}),
-      }),
-    });
-    if (!res.ok) {
-      const j = await res.json().catch(() => ({}));
-      const err =
-        typeof j.error === "string"
-          ? j.error
-          : "Falha ao gerar PDF.";
-      throw new Error(err);
-    }
-    return res.blob();
+    return generateOfficialReportPdf(params);
   }
 
   function triggerDownload(blob: Blob, filename: string) {
-    const downloadUrl = URL.createObjectURL(blob);
-    const anchor = document.createElement("a");
-    anchor.href = downloadUrl;
-    anchor.download = filename;
-    anchor.rel = "noopener";
-    document.body.appendChild(anchor);
-    anchor.click();
-    anchor.remove();
-    URL.revokeObjectURL(downloadUrl);
+    downloadPdfBlob(blob, filename);
   }
 
   const runGenerate = useCallback(

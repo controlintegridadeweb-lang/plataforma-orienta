@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { TableSkeleton } from "@/components/ui/loading";
 import {
   ActionPlanScopeBanner,
@@ -23,7 +23,6 @@ import {
 import { AdminActionPlanHero } from "./admin-plano-acao-hero";
 import { AdminActionPlanList } from "./admin-action-plan-list";
 import { AdminActionPlanOrganizationView } from "./admin-action-plan-organization-view";
-import { AdminActionPlanStatusView } from "./admin-action-plan-status-view";
 import {
   AdminActionPlanSummaryCards,
   type AdminPlanSummaryFilter,
@@ -34,6 +33,8 @@ import {
 } from "./admin-action-plan-view-switcher";
 import { useAdminActionPlans } from "./hooks/use-admin-action-plans";
 import { ADMIN_PAGE_HERO_BLEED } from "@/lib/admin-page-layout";
+import { useStaffListUrlSync } from "@/lib/hooks/use-staff-list-url-sync";
+import { parseStaffListLayout, parseStaffListUrlFilters } from "@/lib/staff-list-url";
 import { formSurface } from "@/lib/form-surface";
 import { layout, typography } from "@/lib/design-system";
 
@@ -174,18 +175,44 @@ export function AdminActionPlanShell({ initialFilters, initialViewMode }: Props 
     : "/admin/relatorios?focus=planos-acao";
 
   const { items, filterOptions, loading, error, refetch } = useAdminActionPlans();
+  const searchParams = useSearchParams();
 
-  const [filters, setFilters] = useState<AdminPlanFiltersState>(() => ({
-    ...initialAdminPlanFilters,
-    ...(initialFilters ?? {}),
-  }));
+  const [filters, setFilters] = useState<AdminPlanFiltersState>(() => {
+    const url = parseStaffListUrlFilters(new URLSearchParams(searchParams.toString()));
+    return {
+      ...initialAdminPlanFilters,
+      ...(initialFilters ?? {}),
+      ...(url.search !== undefined ? { search: url.search } : {}),
+      ...(url.organizationId !== undefined ? { organizationId: url.organizationId } : {}),
+      ...(url.formId !== undefined ? { formId: url.formId } : {}),
+      ...(url.from !== undefined ? { from: url.from } : {}),
+      ...(url.to !== undefined ? { to: url.to } : {}),
+      view: (url.status ?? initialFilters?.view ?? "") as AdminPlanFiltersState["view"],
+    };
+  });
   const [cardFilter, setCardFilter] = useState<AdminPlanSummaryFilter>(null);
-  const [viewMode, setViewMode] = useState<AdminPlanViewMode>(
-    () => initialViewMode ?? "status",
-  );
+  const [viewMode, setViewMode] = useState<AdminPlanViewMode>(() => {
+    const fromUrl = parseStaffListLayout(new URLSearchParams(searchParams.toString()));
+    if (initialViewMode === "organization") return "organization";
+    return fromUrl;
+  });
   const [page, setPage] = useState(0);
 
   const searchDebounced = useDebounce(filters.search, 250);
+
+  useStaffListUrlSync({
+    layout: viewMode,
+    debouncedSearch: searchDebounced,
+    filters: {
+      search: filters.search,
+      organizationId: filters.organizationId,
+      formId: filters.formId,
+      axisId: "",
+      status: filters.view,
+      from: filters.from,
+      to: filters.to,
+    },
+  });
 
   const summaryFiltered = useMemo(
     () => applyFilters(items, filters, searchDebounced, null),
@@ -336,8 +363,6 @@ export function AdminActionPlanShell({ initialFilters, initialViewMode }: Props 
               kind={emptyKind}
               onClear={emptyKind === "no-results" ? handleClearFilters : undefined}
             />
-          ) : viewMode === "organization" ? (
-            <AdminActionPlanOrganizationView items={filteredItems} />
           ) : viewMode === "list" ? (
             <>
               <AdminActionPlanList items={paged} />
@@ -373,7 +398,7 @@ export function AdminActionPlanShell({ initialFilters, initialViewMode }: Props 
               ) : null}
             </>
           ) : (
-            <AdminActionPlanStatusView items={filteredItems} />
+            <AdminActionPlanOrganizationView items={filteredItems} />
           )}
         </section>
       </div>

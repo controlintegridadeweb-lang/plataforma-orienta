@@ -1,8 +1,7 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { listRespondentActionPlans } from "@/lib/action-plans/client";
-import type { ActionPlanListItem } from "@/lib/action-plans/admin-service";
+import { useMemo } from "react";
+import { useRespondentOverviewItems } from "@/lib/hooks/use-respondent-overview-items";
 import {
   summarize,
   toRespondentItem,
@@ -26,36 +25,15 @@ const EMPTY_STATE: State = {
 };
 
 /**
- * Fonte unica de dados do Portfolio de Recomendacoes do respondente:
- * usa /api/respondent/action-plans (view=overview) — ja escopado por org
- * e ja traz `plan` por recomendacao. Mapeia para o vocabulario da UI.
+ * Portfólio estratégico do respondente — overview em cache compartilhado.
  */
 export function useRespondentRecommendations() {
-  const [state, setState] = useState<State>(EMPTY_STATE);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const { items, loading, error, refetch } = useRespondentOverviewItems();
 
-  const fetchAll = useCallback(async () => {
-    setLoading(true);
-    setError(null);
-    try {
-      const res = await listRespondentActionPlans({
-        view: "overview",
-        limit: 200,
-        offset: 0,
-      });
-      const rows = (res.items as ActionPlanListItem[]).map(toRespondentItem);
-      setState({ rows, summary: summarize(rows) });
-    } catch (e) {
-      setError(e instanceof Error ? e.message : "Falha ao carregar recomendações.");
-    } finally {
-      setLoading(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    void fetchAll();
-  }, [fetchAll]);
+  const state = useMemo<State>(() => {
+    const rows = items.map(toRespondentItem);
+    return { rows, summary: summarize(rows) };
+  }, [items]);
 
   const formOptions = useMemo(() => {
     const map = new Map<string, string>();
@@ -84,6 +62,6 @@ export function useRespondentRecommendations() {
     error,
     formOptions,
     axisOptions,
-    refetch: fetchAll,
+    refetch,
   };
 }

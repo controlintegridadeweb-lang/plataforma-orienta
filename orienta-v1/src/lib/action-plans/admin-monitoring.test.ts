@@ -17,6 +17,7 @@ const NOW = new Date("2025-06-15T12:00:00.000Z");
 function makeRow(over: Partial<ActionPlanListItem> = {}): ActionPlanListItem {
   return {
     recommendationId: "rec-1",
+    questionId: "q-1",
     formId: "form-1",
     formName: "Form 1",
     formVersion: 1,

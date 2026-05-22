@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { TableSkeleton } from "@/components/ui/loading";
 import { notify } from "@/lib/notify";
 import { useDebounce } from "@/lib/hooks/use-debounce";
@@ -20,7 +20,6 @@ import {
 } from "./admin-recommendation-filters";
 import { AdminRecommendationList } from "./admin-recommendation-list";
 import { AdminRecommendationOrganizationView } from "./admin-recommendation-organization-view";
-import { AdminRecommendationStatusView } from "./admin-recommendation-status-view";
 import {
   AdminRecommendationSummaryCards,
   type AdminRecommendationSummaryFilter,
@@ -32,6 +31,8 @@ import {
 import { AdminRecommendationsHero } from "./admin-recomendacoes-hero";
 import { useAdminRecommendations } from "./hooks/use-admin-recommendations";
 import { ADMIN_PAGE_HERO_BLEED } from "@/lib/admin-page-layout";
+import { useStaffListUrlSync } from "@/lib/hooks/use-staff-list-url-sync";
+import { parseStaffListLayout, parseStaffListUrlFilters } from "@/lib/staff-list-url";
 import { formSurface } from "@/lib/form-surface";
 import { layout, typography } from "@/lib/design-system";
 
@@ -169,16 +170,46 @@ export function AdminRecommendationsShell({
     : "/admin/relatorios?focus=recomendacoes";
 
   const { items, filterOptions, loading, error, refetch } = useAdminRecommendations();
+  const searchParams = useSearchParams();
 
-  const [filters, setFilters] = useState<AdminFiltersState>(() => ({
-    ...initialAdminFilters,
-    ...(initialFilters ?? {}),
-  }));
+  const [filters, setFilters] = useState<AdminFiltersState>(() => {
+    const url = parseStaffListUrlFilters(new URLSearchParams(searchParams.toString()), {
+      includeAxis: true,
+    });
+    return {
+      ...initialAdminFilters,
+      ...(initialFilters ?? {}),
+      ...(url.search !== undefined ? { search: url.search } : {}),
+      ...(url.organizationId !== undefined ? { organizationId: url.organizationId } : {}),
+      ...(url.formId !== undefined ? { formId: url.formId } : {}),
+      ...(url.axisId !== undefined ? { axisId: url.axisId } : {}),
+      ...(url.from !== undefined ? { from: url.from } : {}),
+      ...(url.to !== undefined ? { to: url.to } : {}),
+      view: (url.status ?? initialFilters?.view ?? "") as AdminFiltersState["view"],
+    };
+  });
   const [cardFilter, setCardFilter] = useState<AdminRecommendationSummaryFilter>(null);
-  const [viewMode, setViewMode] = useState<ViewMode>("status");
+  const [viewMode, setViewMode] = useState<ViewMode>(() =>
+    parseStaffListLayout(new URLSearchParams(searchParams.toString())),
+  );
   const [page, setPage] = useState(0);
 
   const searchDebounced = useDebounce(filters.search, 250);
+
+  useStaffListUrlSync({
+    layout: viewMode,
+    debouncedSearch: searchDebounced,
+    includeAxis: true,
+    filters: {
+      search: filters.search,
+      organizationId: filters.organizationId,
+      formId: filters.formId,
+      axisId: filters.axisId,
+      status: filters.view,
+      from: filters.from,
+      to: filters.to,
+    },
+  });
 
   const axisIdToName = useMemo(() => {
     const map = new Map<string, string>();
@@ -327,10 +358,8 @@ export function AdminRecommendationsShell({
                 </nav>
               ) : null}
             </>
-          ) : viewMode === "organization" ? (
-            <AdminRecommendationOrganizationView items={filteredItems} />
           ) : (
-            <AdminRecommendationStatusView items={filteredItems} />
+            <AdminRecommendationOrganizationView items={filteredItems} />
           )}
         </section>
       </div>

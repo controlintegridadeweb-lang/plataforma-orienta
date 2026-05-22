@@ -1,5 +1,6 @@
 "use client";
 
+import { useMemo } from "react";
 import {
   AlertCircle,
   Check,
@@ -187,7 +188,10 @@ export function RespondentSectionQuestions({
 }: SectionQuestionsProps) {
   const ws = formSurface.formWorkspace;
   const sectionAxis = axisLabelForSection(section.rows);
-  const sectionId = `section-${sectionIndex}-${section.name.replace(/\s+/g, "-")}`;
+  const sectionId = useMemo(
+    () => `section-${sectionIndex}-${section.name.replace(/\s+/g, "-")}`,
+    [sectionIndex, section.name],
+  );
 
   return (
     <section key={sectionId} aria-labelledby={sectionId} className="scroll-mt-8">

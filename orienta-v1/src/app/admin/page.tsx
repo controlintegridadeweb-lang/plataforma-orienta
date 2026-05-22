@@ -19,10 +19,8 @@ import {
   maturityByAxisGlobal,
   recentActivities,
 } from "@/lib/dashboards/queries";
-import {
-  AdminDashboardHero,
-  ADMIN_DASHBOARD_HERO_BLEED,
-} from "@/components/dashboard/admin-dashboard-hero";
+import { AdminDashboardHero } from "@/components/dashboard/admin-dashboard-hero";
+import { ADMIN_PAGE_HERO_BLEED } from "@/lib/admin-page-layout";
 import { ActivityFeed } from "@/components/dashboard/activity-feed";
 import { DashboardEvidenceStatusPanel } from "@/components/dashboard/dashboard-evidence-status-panel";
 import { DashboardMaturityByAxisPanel } from "@/components/dashboard/dashboard-maturity-by-axis-panel";
@@ -99,7 +97,7 @@ export default async function AdminDashboardPage() {
 
   return (
     <div className={layout.pageStack}>
-      <div className={ADMIN_DASHBOARD_HERO_BLEED}>
+      <div className={ADMIN_PAGE_HERO_BLEED}>
         <AdminDashboardHero
           activeForms={activeForms}
           openRecommendations={recommendationsCount}

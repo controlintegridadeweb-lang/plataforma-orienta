@@ -10,7 +10,10 @@ import { staffPlanoAcaoDetailHref, staffPlanoAcaoHref, staffRecomendacoesHref } 
 import { AdminRecommendationStatusBadge } from "@/components/admin-recomendacoes/admin-recommendation-status-badge";
 import { RecommendationTypeBadge } from "@/components/recomendacoes/recommendation-type-badge";
 import { RespondentRecommendationStatusBadge } from "@/components/respondente-recomendacoes/respondent-recommendation-status-badge";
+import { StaffModuleTrail } from "@/components/staff/staff-module-trail";
 import { useRecommendationDetailContext } from "./recommendation-detail-context";
+import { workspaceTabMeta } from "./workspace-tab-meta";
+import { firstLineRecommendation } from "@/components/respondente-recomendacoes/respondent-recommendation-row-utils";
 
 function supervisionTabLabel(pathname: string): string | null {
   if (pathname.endsWith("/monitoramento")) return "Monitoramento";
@@ -47,6 +50,17 @@ export function RecommendationDetailHeader() {
   const item = role === "respondent" ? respondentItem : staffItem;
   if (!item) return null;
 
+  const tabMeta = workspaceTabMeta(pathname);
+  const slimOperationalHeader = operational && role === "respondent";
+  const displayTitle = slimOperationalHeader
+    ? firstLineRecommendation(respondentItem!.recommendationText)
+    : titleSummary(
+        role === "respondent"
+          ? respondentItem!.recommendationText
+          : staffItem!.recommendationText,
+        operational ? 120 : 220,
+      );
+
   const breadcrumbParts =
     role === "respondent"
       ? [
@@ -75,7 +89,7 @@ export function RecommendationDetailHeader() {
 
   const planoHref =
     role === "respondent"
-      ? `/respondente/plano-acao?formId=${encodeURIComponent(item.formId)}&recommendationId=${encodeURIComponent(item.recommendationId)}`
+      ? `/respondente/portfolio-recomendacoes?formId=${encodeURIComponent(item.formId)}&recommendationId=${encodeURIComponent(item.recommendationId)}`
       : staffArea
         ? staffPlanoAcaoHref(staffArea, item.recommendationId)
         : "/admin/plano-acao";
@@ -124,6 +138,14 @@ export function RecommendationDetailHeader() {
           ? "Painel agregado"
           : "Painel do formulário";
 
+  const staffTrailActive = staffDocument
+    ? "recommendation"
+    : staffSupervision
+      ? pathname.endsWith("/monitoramento")
+        ? "monitoring"
+        : "plan"
+      : null;
+
   return (
     <header className={`${layout.sectionStack} space-y-5 border-b border-slate-100 pb-8`}>
       <div className="flex flex-wrap items-center gap-2">
@@ -135,6 +157,13 @@ export function RecommendationDetailHeader() {
           {backLabel}
         </Link>
       </div>
+
+      {role === "staff" && staffTrailActive ? (
+        <StaffModuleTrail
+          recommendationId={item.recommendationId}
+          active={staffTrailActive}
+        />
+      ) : null}
 
       <nav className="text-[13px] text-slate-500" aria-label="Navegação hierárquica">
         <ol className="flex flex-wrap items-center gap-x-2 gap-y-1">
@@ -155,31 +184,33 @@ export function RecommendationDetailHeader() {
 
       <div className="flex flex-col gap-6 xl:flex-row xl:items-start xl:justify-between">
         <div className="min-w-0 flex-1 space-y-4">
-          <h1 className="text-xl font-semibold tracking-tight text-slate-900 sm:text-2xl whitespace-pre-wrap break-words leading-snug">
-            {titleSummary(
-              role === "respondent"
-                ? respondentItem!.recommendationText
-                : staffItem!.recommendationText,
-              operational ? 280 : 220,
-            )}
+          <p className="text-[10px] font-semibold uppercase tracking-wider text-brand-700">
+            Plano de ação · {tabMeta.tagline}
+          </p>
+          <h1 className="text-xl font-semibold tracking-tight text-slate-900 sm:text-2xl break-words leading-snug">
+            {displayTitle}
           </h1>
-          <div className="flex flex-wrap items-center gap-2">
-            {role === "respondent" ? (
-              <>
-                <RespondentRecommendationStatusBadge view={respondentItem!.view} />
-                {respondentItem!.recommendationType ? (
-                  <RecommendationTypeBadge type={respondentItem!.recommendationType} />
-                ) : null}
-              </>
-            ) : (
-              <>
-                <AdminRecommendationStatusBadge view={staffItem!.view} />
-                {staffItem!.recommendationType ? (
-                  <RecommendationTypeBadge type={staffItem!.recommendationType} />
-                ) : null}
-              </>
-            )}
-          </div>
+          {!slimOperationalHeader ? (
+            <div className="flex flex-wrap items-center gap-2">
+              {role === "respondent" ? (
+                <>
+                  <RespondentRecommendationStatusBadge view={respondentItem!.view} />
+                  {respondentItem!.recommendationType ? (
+                    <RecommendationTypeBadge type={respondentItem!.recommendationType} />
+                  ) : null}
+                </>
+              ) : (
+                <>
+                  <AdminRecommendationStatusBadge view={staffItem!.view} />
+                  {staffItem!.recommendationType ? (
+                    <RecommendationTypeBadge type={staffItem!.recommendationType} />
+                  ) : null}
+                </>
+              )}
+            </div>
+          ) : (
+            <p className="text-sm text-slate-500">{tabMeta.description}</p>
+          )}
           <p className={`${typography.meta} text-[13px]`}>
             {role === "staff" && staffItem ? (
               <>
@@ -202,7 +233,7 @@ export function RecommendationDetailHeader() {
           {staffSupervision ? (
             <p className="inline-flex items-center gap-1.5 rounded-md bg-slate-100 px-2.5 py-1 text-[11px] font-semibold text-slate-700">
               <Eye className="h-3.5 w-3.5 text-slate-500" aria-hidden />
-              Plano de ação · supervisão institucional
+              Plano de ação · monitoramento institucional
             </p>
           ) : null}
         </div>
@@ -214,7 +245,7 @@ export function RecommendationDetailHeader() {
               className={`${formSurface.secondaryButtonSm} inline-flex items-center gap-1.5`}
             >
               <Eye className="h-3.5 w-3.5" aria-hidden />
-              Supervisão
+              Monitoramento
             </Link>
           ) : null}
           <Link

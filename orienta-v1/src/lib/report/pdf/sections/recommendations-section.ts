@@ -18,7 +18,7 @@ function renderRecommendationCard(
 ): Cursor {
   const descLines = doc.chunkText(rec.recommendationText, 76).length;
   const h = estimateCardHeight(descLines + 4, 92);
-  let cur = doc.ensureBlock(c, h);
+  const cur = doc.ensureBlock(c, h);
   const accent = recommendationAccent(rec.recommendationType);
   const w = contentWidth();
 

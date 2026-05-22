@@ -154,7 +154,7 @@ export function drawMiniBarChart(
 ): Cursor {
   const w = contentWidth();
   const barAreaH = chartH - 24;
-  let cur = doc.ensureSpace(c, chartH + 16);
+  const cur = doc.ensureSpace(c, chartH + 16);
   const baseY = cur.y - barAreaH - 8;
   const gap = 12;
   const barW = Math.min(48, (w - gap * (items.length + 1)) / Math.max(items.length, 1));
@@ -203,7 +203,7 @@ export function drawSparkline(
   height: number,
 ): Cursor {
   if (values.length < 2) return c;
-  let cur = doc.ensureSpace(c, height + 20);
+  const cur = doc.ensureSpace(c, height + 20);
   const x0: number = reportTheme.margin;
   const y0 = cur.y - height;
   const max = Math.max(...values, 1);

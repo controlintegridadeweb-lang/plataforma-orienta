@@ -2,7 +2,7 @@
 
 import { SegmentedTabs } from "@/components/ui/segmented-tabs";
 
-export type AdminRecommendationView = "list" | "organization" | "status";
+export type AdminRecommendationView = "list" | "organization";
 
 type Props = {
   value: AdminRecommendationView;
@@ -12,7 +12,6 @@ type Props = {
 const OPTIONS: { value: AdminRecommendationView; label: string }[] = [
   { value: "list", label: "Lista" },
   { value: "organization", label: "Por organização" },
-  { value: "status", label: "Kanban" },
 ];
 
 export function AdminRecommendationViewSwitcher({ value, onChange }: Props) {

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
 import { sidebar } from "@/lib/design-system";
-import { useSidebarMobile } from "./sidebar-shell";
+import { useSidebar } from "./sidebar-shell";
 
 /**
  * Roots de cada perfil (Dashboard) que devem casar SOMENTE com a rota exata.
@@ -30,7 +30,7 @@ export function SidebarNavLink({
 }) {
   const pathname = usePathname() ?? "";
   const active = isActive(pathname, href);
-  const { closeDrawer } = useSidebarMobile();
+  const { closeDrawer } = useSidebar();
 
   return (
     <Link

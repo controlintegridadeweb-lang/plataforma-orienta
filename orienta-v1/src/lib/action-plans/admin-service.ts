@@ -61,6 +61,7 @@ export class ActionPlansNotFoundError extends Error {
 
 export type ActionPlanListItem = {
   recommendationId: string;
+  questionId: string;
   formId: string;
   formName: string;
   formVersion: number;
@@ -717,6 +718,7 @@ export class ActionPlansAdminService {
     const slaLabel = aggregateSlaFromActions(plans);
     const item: ActionPlanListItem = {
       recommendationId: row.id,
+      questionId: (row.question_id as string) ?? "",
       formId: row.form_id,
       formName: form?.name ?? "(formulario removido)",
       formVersion: form?.version ?? 0,

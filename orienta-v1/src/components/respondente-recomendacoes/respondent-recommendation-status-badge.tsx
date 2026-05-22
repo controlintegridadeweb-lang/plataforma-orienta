@@ -19,6 +19,7 @@ export function RespondentRecommendationStatusBadge({
       domain="respondent_recommendation_view"
       status={view}
       showIcon={showIcon}
+      size="md"
       className={className}
     />
   );

@@ -8,16 +8,14 @@ export type StaffQueueSegment =
   | "recomendacoes"
   | "plano-acao"
   | "formularios"
-  | "maturidade"
-  | "complementacoes";
+  | "maturidade";
 
 export type AdminQueuePath =
   | "/admin/evidencias"
   | "/admin/recomendacoes"
   | "/admin/plano-acao"
   | "/admin/formularios"
-  | "/admin/maturidade"
-  | "/admin/complementacoes";
+  | "/admin/maturidade";
 
 export function staffAreaFromMode(mode: "admin" | "analyst"): StaffAreaPrefix {
   return mode === "admin" ? "admin" : "analista";
@@ -36,11 +34,7 @@ export function staffQueueHref(
   for (const [key, value] of Object.entries(params)) {
     if (value) u.set(key, value);
   }
-  const routeSegment = segment === "complementacoes" ? "evidencias" : segment;
-  if (segment === "complementacoes" && !u.has("status")) {
-    u.set("status", "complementation_requested");
-  }
-  const path = `/${area}/${routeSegment}`;
+  const path = `/${area}/${segment}`;
   const q = u.toString();
   return q ? `${path}?${q}` : path;
 }

@@ -8,7 +8,7 @@ import type {
 import { updateRecommendation } from "@/lib/recommendations/client";
 import type { RecommendationStatus } from "@/lib/recommendations/schemas";
 import { formSurface } from "@/lib/form-surface";
-import { STATUS_LABELS } from "./status-badge";
+import { RECOMMENDATION_STATUS_LABELS } from "@/lib/domain/status-registry";
 
 type Props = {
   item: RecommendationListItem;
@@ -87,7 +87,7 @@ export function RecommendationActions({ item, onUpdated }: Props) {
           >
             {STATUSES.map((s) => (
               <option key={s} value={s}>
-                {STATUS_LABELS[s]}
+                {RECOMMENDATION_STATUS_LABELS[s]}
               </option>
             ))}
           </select>

@@ -1,6 +1,7 @@
 import { calculateFami } from "@/lib/domain/fami";
-import { resolveScenario } from "@/lib/domain/recommendation-engine-v2";
+import { resolveScenario, RULE_VERSION } from "@/lib/domain/recommendation-engine-v2";
 import { QuestionInput, RecommendationType, ValidationStatus } from "@/lib/domain/types";
+import type { RecommendationStatus } from "@/lib/recommendations/schemas";
 import type { LibraryBindings, LibraryScenarioKey } from "@/lib/library/binding-types";
 import {
   fetchQuestionStructures,
@@ -100,9 +101,154 @@ export type CollectResult = {
       legacyText: string;
       bindings: LibraryBindings | null;
       hasEvidence: boolean;
+      snapshotHash: string | null;
     }
   >;
 };
+
+export type RecommendationReprocessStats = {
+  created: number;
+  updated: number;
+  unchanged: number;
+  removed: number;
+  /** Compatibilidade: numero de linhas novas inseridas. */
+  recommendationsCreated: number;
+};
+
+const PRESERVED_RECOMMENDATION_STATUSES = new Set<RecommendationStatus>([
+  "in_progress",
+  "resolved",
+  "dismissed",
+]);
+
+type DesiredRecommendationRow = {
+  question_id: string;
+  recommendation_type: RecommendationType;
+  original_text: string;
+  current_text: string;
+  scenario: LibraryScenarioKey;
+  snapshot_hash: string | null;
+  rule_version: string;
+  confidence_score: number;
+};
+
+type ExistingRecommendationRow = {
+  id: string;
+  question_id: string;
+  status: RecommendationStatus;
+  recommendation_type: string;
+  current_text: string;
+  original_text: string;
+  scenario: string | null;
+};
+
+async function syncRecommendationsForOrganization(
+  supabase: ReturnType<typeof createSupabaseServiceRoleClient>,
+  formId: string,
+  organizationId: string,
+  desiredRows: DesiredRecommendationRow[],
+): Promise<RecommendationReprocessStats> {
+  const { data: existingRows, error: loadError } = await supabase
+    .from("recommendations")
+    .select("id, question_id, status, recommendation_type, current_text, original_text, scenario")
+    .eq("form_id", formId)
+    .eq("organization_id", organizationId);
+  if (loadError) throw loadError;
+
+  const existingByQuestion = new Map<string, ExistingRecommendationRow>();
+  for (const row of existingRows ?? []) {
+    existingByQuestion.set(row.question_id as string, row as ExistingRecommendationRow);
+  }
+
+  const desiredByQuestion = new Map<string, DesiredRecommendationRow>();
+  for (const row of desiredRows) {
+    desiredByQuestion.set(row.question_id, row);
+  }
+
+  let created = 0;
+  let updated = 0;
+  let unchanged = 0;
+  let removed = 0;
+
+  for (const [questionId, desired] of desiredByQuestion) {
+    const existing = existingByQuestion.get(questionId);
+    if (!existing) {
+      const { error: insertError } = await supabase.from("recommendations").insert({
+        form_id: formId,
+        organization_id: organizationId,
+        question_id: desired.question_id,
+        recommendation_type: desired.recommendation_type,
+        original_text: desired.original_text,
+        current_text: desired.current_text,
+        status: "open",
+        scenario: desired.scenario,
+        snapshot_hash: desired.snapshot_hash,
+        rule_version: desired.rule_version,
+        confidence_score: desired.confidence_score,
+      });
+      if (insertError) throw insertError;
+      created += 1;
+      continue;
+    }
+
+    const typeChanged = existing.recommendation_type !== desired.recommendation_type;
+    const textChanged =
+      existing.current_text !== desired.current_text ||
+      existing.original_text !== desired.original_text;
+    const scenarioChanged = (existing.scenario ?? null) !== desired.scenario;
+    const metaChanged = typeChanged || textChanged || scenarioChanged;
+
+    if (!metaChanged) {
+      unchanged += 1;
+      continue;
+    }
+
+    const preserveStatus = PRESERVED_RECOMMENDATION_STATUSES.has(existing.status);
+    const patch: Record<string, unknown> = {
+      recommendation_type: desired.recommendation_type,
+      original_text: desired.original_text,
+      scenario: desired.scenario,
+      snapshot_hash: desired.snapshot_hash,
+      rule_version: desired.rule_version,
+      confidence_score: desired.confidence_score,
+    };
+    if (preserveStatus) {
+      if (textChanged) patch.current_text = desired.current_text;
+    } else {
+      patch.current_text = desired.current_text;
+      if (existing.status === "open") {
+        patch.status = "open";
+      }
+    }
+
+    const { error: updateError } = await supabase
+      .from("recommendations")
+      .update(patch)
+      .eq("id", existing.id);
+    if (updateError) throw updateError;
+    updated += 1;
+  }
+
+  const toRemove = [...existingByQuestion.keys()].filter((qid) => !desiredByQuestion.has(qid));
+  if (toRemove.length > 0) {
+    const { error: deleteError } = await supabase
+      .from("recommendations")
+      .delete()
+      .eq("form_id", formId)
+      .eq("organization_id", organizationId)
+      .in("question_id", toRemove);
+    if (deleteError) throw deleteError;
+    removed = toRemove.length;
+  }
+
+  return {
+    created,
+    updated,
+    unchanged,
+    removed,
+    recommendationsCreated: created,
+  };
+}
 
 export async function collectQuestionInputs(
   formId: string,
@@ -181,12 +327,13 @@ export async function collectQuestionInputs(
       : responseQuestionIds;
 
   const bindingsByQuestion = new Map<string, LibraryBindings | null>();
+  const snapshotHashByQuestion = new Map<string, string | null>();
   let structuresByQuestion = new Map<string, ResolvedQuestionStructure>();
   if (allQuestionIds.length > 0) {
     const [{ data: snaps }, structures] = await Promise.all([
       supabase
         .from("form_question_library_snapshot")
-        .select("question_id,bindings")
+        .select("question_id,bindings,hash")
         .eq("form_id", formId)
         .eq("form_version", formVersion)
         .in("question_id", allQuestionIds),
@@ -194,10 +341,9 @@ export async function collectQuestionInputs(
     ]);
     structuresByQuestion = structures;
     for (const row of snaps ?? []) {
-      bindingsByQuestion.set(
-        row.question_id as string,
-        (row.bindings as LibraryBindings | null) ?? null,
-      );
+      const qid = row.question_id as string;
+      bindingsByQuestion.set(qid, (row.bindings as LibraryBindings | null) ?? null);
+      snapshotHashByQuestion.set(qid, (row.hash as string | null) ?? null);
     }
   }
 
@@ -280,6 +426,7 @@ export async function collectQuestionInputs(
       legacyText: legacyText !== "" ? legacyText : "Recomendacao vinculada a esta pergunta.",
       bindings: bindingsByQuestion.get(response.question_id) ?? null,
       hasEvidence: hasEvidenceByResponseId.has(response.id),
+      snapshotHash: snapshotHashByQuestion.get(response.question_id) ?? null,
     });
     processedQuestionIds.add(response.question_id);
   }
@@ -318,6 +465,7 @@ export async function collectQuestionInputs(
           : "Recomendacao vinculada a esta pergunta.",
         bindings: bindingsByQuestion.get(row.questionId) ?? null,
         hasEvidence: false,
+        snapshotHash: snapshotHashByQuestion.get(row.questionId) ?? null,
       });
       processedQuestionIds.add(row.questionId);
     }
@@ -396,60 +544,52 @@ export async function reprocessFormForOrganization(
   if (famiInsertError) throw famiInsertError;
   }
 
-  const recommendationRows = questions
-    .map((question) => {
-      if (!question.famiEnabled || question.isNotApplicable) return null;
-      const meta = responseMeta.get(question.id);
-      if (!meta) return null;
+  const desiredRecommendations: DesiredRecommendationRow[] = [];
+  for (const question of questions) {
+    if (!question.famiEnabled || question.isNotApplicable) continue;
+    const meta = responseMeta.get(question.id);
+    if (!meta) continue;
 
-      const scenario = resolveScenario({
-        answer: question.answer,
-        requiresEvidence: question.requiresEvidence,
-        validationStatus: question.validationStatus,
-        isNotApplicable: question.isNotApplicable,
-        hasEvidenceSubmitted: meta.hasEvidence,
-      }).scenario;
+    const resolution = resolveScenario({
+      answer: question.answer,
+      requiresEvidence: question.requiresEvidence,
+      validationStatus: question.validationStatus,
+      isNotApplicable: question.isNotApplicable,
+      hasEvidenceSubmitted: meta.hasEvidence,
+    });
 
-      const recommendationType = SCENARIO_TO_TYPE[scenario];
-      if (!recommendationType) return null;
+    const recommendationType = SCENARIO_TO_TYPE[resolution.scenario];
+    if (!recommendationType) continue;
 
-      let text = meta.legacyText;
+    let text = meta.legacyText;
+    const binding = meta.bindings ? meta.bindings[resolution.scenario] : undefined;
+    if (binding?.recommendation?.title?.trim()) {
+      const rendered = renderInlineRecommendationText(binding.recommendation);
+      if (rendered !== "") text = rendered;
+    }
 
-      const binding = meta.bindings ? meta.bindings[scenario] : undefined;
-      if (binding?.recommendation?.title?.trim()) {
-        const rendered = renderInlineRecommendationText(binding.recommendation);
-        if (rendered !== "") text = rendered;
-      }
-
-      return {
-        form_id: formId,
-        organization_id: organizationId,
-        question_id: question.id,
-        recommendation_type: recommendationType,
-        original_text: text,
-        current_text: text,
-        status: "open",
-      };
-    })
-    .filter((item): item is NonNullable<typeof item> => item !== null);
-
-  const { error: deleteRecommendationsError } = await supabase
-    .from("recommendations")
-    .delete()
-    .eq("form_id", formId)
-    .eq("organization_id", organizationId);
-  if (deleteRecommendationsError) throw deleteRecommendationsError;
-
-  if (recommendationRows.length > 0) {
-    const { error: recommendationsError } = await supabase
-      .from("recommendations")
-      .insert(recommendationRows);
-    if (recommendationsError) throw recommendationsError;
+    desiredRecommendations.push({
+      question_id: question.id,
+      recommendation_type: recommendationType,
+      original_text: text,
+      current_text: text,
+      scenario: resolution.scenario,
+      snapshot_hash: meta.snapshotHash,
+      rule_version: RULE_VERSION,
+      confidence_score: resolution.confidence,
+    });
   }
+
+  const recommendationStats = await syncRecommendationsForOrganization(
+    supabase,
+    formId,
+    organizationId,
+    desiredRecommendations,
+  );
 
   return {
     processingVersion: nextVersion,
-    recommendationsCreated: recommendationRows.length,
+    ...recommendationStats,
     fami: summary,
   };
 }

@@ -1,83 +1,52 @@
-import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
 import { notFound } from "next/navigation";
-import { isFormOpenForRespondent } from "@/lib/dashboards/queries";
+import { getCurrentUser } from "@/lib/auth/current-user";
+import { firstSearchParam } from "@/lib/admin/search-params";
 import { createSupabaseServiceRoleClient } from "@/lib/supabase/server";
-import { formStateLabelPt } from "@/lib/respondent/form-labels";
-import { WorkbenchShell } from "@/components/workbench/workbench-shell";
 import { FormFillWorkspace } from "@/components/formulario/form-fill-workspace";
-import { formSurface } from "@/lib/form-surface";
-import { layout } from "@/lib/design-system";
+import { WorkbenchShell } from "@/components/workbench/workbench-shell";
 
 type PageProps = {
   params: Promise<{ formId: string }>;
-  searchParams: Promise<{ orgId?: string }>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
 };
 
-export default async function AnalistaFormularioResponderPage({ params, searchParams }: PageProps) {
+export default async function AnalistaFormularioResponderPage({
+  params,
+  searchParams,
+}: PageProps) {
   const { formId } = await params;
-  const { orgId } = await searchParams;
+  const organizationId = firstSearchParam(await searchParams, "orgId")?.trim() ?? "";
+  if (!organizationId) notFound();
 
-  if (!orgId) {
-    return (
-      <div className={layout.sectionStack}>
-        <Link
-          href="/analista/formularios"
-          className="inline-flex items-center gap-1.5 text-sm text-emerald-800 hover:underline"
-        >
-          <ArrowLeft className="h-4 w-4" aria-hidden />
-          Voltar para a lista
-        </Link>
-        <div className={formSurface.messageWarning}>
-          Selecione uma organizacao na lista de formularios para abrir esta tela.
-        </div>
-      </div>
-    );
-  }
+  await getCurrentUser();
 
   const supabase = createSupabaseServiceRoleClient();
-  const [formRes, orgRes] = await Promise.all([
-    supabase.from("forms").select("id,name,version,state").eq("id", formId).maybeSingle(),
-    supabase.from("organizations").select("id,name").eq("id", orgId).maybeSingle(),
+  const [{ data: form }, { data: org }] = await Promise.all([
+    supabase.from("forms").select("id,name,version").eq("id", formId).maybeSingle(),
+    supabase.from("organizations").select("id,name").eq("id", organizationId).maybeSingle(),
   ]);
 
-  if (formRes.error || !formRes.data || !isFormOpenForRespondent(formRes.data.state as string)) {
-    notFound();
-  }
-  if (orgRes.error || !orgRes.data) {
-    notFound();
-  }
-
-  const form = formRes.data;
-  const organizationName = (orgRes.data.name as string) ?? "";
+  if (!form || !org) notFound();
 
   return (
     <FormFillWorkspace
       backHref="/analista/formularios"
-      backLabel="Voltar para a lista"
+      backLabel="Voltar para formulários"
       title={form.name as string}
       subtitle={
         <>
-          {formStateLabelPt(form.state as string)}
-          {typeof form.version === "number" ? (
-            <span>
-              {" "}
-              · Versão <span className="tabular-nums">{form.version}</span>
-            </span>
-          ) : null}
-          {" · "}
-          Respondendo em nome de{" "}
-          <span className="font-medium text-slate-800">{organizationName || "—"}</span>
+          Organização{" "}
+          <span className="font-medium text-slate-800">{org.name as string}</span>
         </>
       }
     >
       <WorkbenchShell
-        mode="respondent"
+        mode="analyst"
         useSessionContext
         autoLoad
         initialFormId={formId}
-        lockedOrganizationId={orgId}
-        lockedOrganizationName={organizationName || undefined}
+        lockedOrganizationId={organizationId}
+        lockedOrganizationName={org.name as string}
       />
     </FormFillWorkspace>
   );

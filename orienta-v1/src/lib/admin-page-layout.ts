@@ -44,3 +44,18 @@ export const ADMIN_PAGE_HERO_LAYOUT_COMPACT =
 
 export const ADMIN_PAGE_HERO_MEDIA_COMPACT =
   "relative flex min-h-[14rem] flex-1 items-end justify-center px-0 pb-0 pt-2 sm:min-h-[16rem] lg:min-h-0 lg:items-center lg:justify-end lg:px-2 lg:pb-2 lg:pt-0 xl:pr-4";
+
+/** Hero enxuto para fluxos de criação ou configuração pontual (ex.: novo formulário). */
+export const ADMIN_PAGE_HERO_LAYOUT_CREATE =
+  "relative flex flex-col lg:min-h-0 lg:flex-row lg:items-center";
+
+export const ADMIN_PAGE_HERO_CONTENT_CREATE =
+  "flex min-w-0 flex-1 flex-col justify-center px-5 py-6 sm:px-7 sm:py-7 lg:px-8 lg:py-8 xl:px-9";
+
+export const ADMIN_PAGE_HERO_MEDIA_CREATE =
+  "relative flex min-h-[9.5rem] flex-1 items-end justify-center px-2 pb-0 pt-1 sm:min-h-[10.5rem] lg:min-h-0 lg:max-w-[44%] lg:items-center lg:justify-end lg:px-4 lg:pb-2 lg:pt-0";
+
+export const ADMIN_PAGE_HERO_IMAGE_CREATE =
+  "relative z-[1] h-auto w-full max-w-[min(100%,17rem)] object-contain object-bottom sm:max-w-[19rem] lg:max-h-[9.5rem] lg:max-w-[min(100%,15rem)] lg:object-center xl:max-h-[10.5rem] xl:max-w-[17rem]";
+
+export const ADMIN_PAGE_HERO_IMAGE_SIZES_CREATE = "(max-width: 1024px) 88vw, 400px";

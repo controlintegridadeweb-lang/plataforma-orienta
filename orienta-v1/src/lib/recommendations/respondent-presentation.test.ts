@@ -11,6 +11,7 @@ import type { ActionPlanListItem } from "@/lib/action-plans/admin-service";
 function baseRow(over: Partial<ActionPlanListItem> = {}): ActionPlanListItem {
   return {
     recommendationId: "rec-1",
+    questionId: "q-1",
     formId: "form-1",
     formName: "Form 1",
     formVersion: 1,
