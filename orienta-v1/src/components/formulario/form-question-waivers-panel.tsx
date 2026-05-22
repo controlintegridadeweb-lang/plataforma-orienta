@@ -1,7 +1,8 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { Loader2, Pencil, ShieldOff, X } from "lucide-react";
+import { Pencil, ShieldOff, X } from "lucide-react";
+import { InlineLoader, Spinner } from "@/components/ui/loading";
 import type { FormQuestionRow } from "@/components/formulario/form-question-bindings-panel";
 import {
   clearQuestionWaiver,
@@ -202,8 +203,8 @@ function WaiverEditorModal({
           >
             {saving ? (
               <>
-                <Loader2 className="h-3.5 w-3.5 animate-spin" aria-hidden />
-                Salvando...
+                <Spinner size="sm" />
+                Salvando…
               </>
             ) : (
               "Salvar dispensas"
@@ -371,9 +372,10 @@ export function FormQuestionWaiversPanel({ questions }: Props) {
         </label>
 
         {loading ? (
-          <p className="inline-flex items-center gap-2 text-sm text-slate-500">
-            <Loader2 className="h-4 w-4 animate-spin" aria-hidden /> Carregando dispensas...
-          </p>
+          <InlineLoader
+            label="Carregando dispensas…"
+            className="inline-flex items-center gap-2 text-sm text-slate-500"
+          />
         ) : filteredQuestions.length === 0 ? (
           <p className="text-sm text-slate-500">Nenhuma pergunta encontrada.</p>
         ) : (

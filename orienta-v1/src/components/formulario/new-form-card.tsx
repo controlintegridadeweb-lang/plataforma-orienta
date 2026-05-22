@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, type FormEvent } from "react";
-import { Loader2 } from "lucide-react";
+import { Spinner } from "@/components/ui/loading";
 import { createForm } from "@/lib/forms/client";
 import { formSurface } from "@/lib/form-surface";
 
@@ -77,7 +77,7 @@ export function NewFormCard({
           <button type="submit" disabled={busy} className={formSurface.primaryButton}>
             {busy ? (
               <>
-                <Loader2 className="h-4 w-4 animate-spin" aria-hidden />
+                <Spinner size="md" />
                 Criando…
               </>
             ) : (

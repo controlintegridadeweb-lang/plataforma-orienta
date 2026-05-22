@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Loader2 } from "lucide-react";
+import { InlineLoader } from "@/components/ui/loading";
 import type { RecommendationFilterOptions } from "@/lib/recommendations/admin-service";
 import { loadRecommendationFilters } from "@/lib/recommendations/client";
 import { StatusPieChart } from "@/components/charts/status-pie-chart";
@@ -89,9 +89,10 @@ export function DashboardEvidenceStatusPanel({
           </select>
         </label>
         {loading ? (
-          <span className="inline-flex items-center gap-2 text-sm text-slate-500">
-            <Loader2 className="h-4 w-4 animate-spin" aria-hidden /> Atualizando...
-          </span>
+          <InlineLoader
+            label="Atualizando…"
+            className="inline-flex items-center gap-2 text-sm text-slate-500"
+          />
         ) : null}
       </div>
       {filterError ? <p className="mb-2 text-sm text-rose-600">{filterError}</p> : null}

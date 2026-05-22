@@ -4,9 +4,9 @@ import {
   ChevronDown,
   ChevronUp,
   ListChecks,
-  Loader2,
   Paperclip,
 } from "lucide-react";
+import { Spinner } from "@/components/ui/loading";
 import { useEffect, useState, type FormEvent } from "react";
 import { FormEvidenceRequirementField } from "@/components/formulario/form-evidence-requirement-field";
 import { FormTabPanel } from "@/components/formulario/form-tab-panel";
@@ -202,7 +202,7 @@ export function FormQuestionsManager({ formId }: Props) {
           >
             {creating ? (
               <>
-                <Loader2 className="h-4 w-4 animate-spin" aria-hidden />
+                <Spinner size="md" />
                 Adicionando…
               </>
             ) : (
@@ -214,7 +214,7 @@ export function FormQuestionsManager({ formId }: Props) {
 
       {questions === null ? (
         <div className="flex flex-col items-center justify-center gap-3 py-8 text-center">
-          <Loader2 className="h-7 w-7 animate-spin text-brand" aria-hidden />
+          <Spinner size="xl" className="text-brand" />
           <p className="text-sm font-medium text-slate-700">Carregando perguntas…</p>
         </div>
       ) : questions.length === 0 ? (

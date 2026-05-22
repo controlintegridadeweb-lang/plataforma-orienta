@@ -8,11 +8,11 @@ import {
   ChevronDown,
   Inbox,
   Link2,
-  Loader2,
   Pencil,
   Rocket,
   Trash2,
 } from "lucide-react";
+import { Spinner } from "@/components/ui/loading";
 import { formSurface } from "@/lib/form-surface";
 import type { FormSummary } from "@/lib/forms/admin-service";
 import {
@@ -319,7 +319,7 @@ export function FormsList({ formBasePath = "/admin/formularios", showDelete = tr
 
       {forms === null ? (
         <div className="flex flex-col items-center justify-center gap-3 rounded-xl border border-slate-200/90 bg-slate-50/40 px-6 py-10 text-center">
-          <Loader2 className="h-7 w-7 animate-spin text-brand" aria-hidden />
+          <Spinner size="xl" className="text-brand" />
           <p className="text-sm font-medium text-slate-700">Carregando formulários…</p>
         </div>
       ) : forms.length === 0 ? (

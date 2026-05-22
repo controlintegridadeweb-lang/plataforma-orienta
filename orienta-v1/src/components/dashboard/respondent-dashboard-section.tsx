@@ -1,6 +1,7 @@
 "use client";
 
-import { ClipboardList, FileCheck, Loader2, MessageSquareWarning } from "lucide-react";
+import { ClipboardList, FileCheck, MessageSquareWarning } from "lucide-react";
+import { InlineLoader } from "@/components/ui/loading";
 import type { RespondentProgress } from "@/lib/dashboards/queries";
 import type { RespondentDashboardSummary } from "@/lib/dashboards/respondent-dashboard-summary";
 import {
@@ -62,9 +63,10 @@ export function RespondentDashboardSection({
             disabled={loading}
           />
           {loading ? (
-            <span className="inline-flex items-center gap-2 pb-0.5 text-sm text-slate-500 sm:pb-2">
-              <Loader2 className="h-4 w-4 animate-spin" aria-hidden /> Atualizando...
-            </span>
+            <InlineLoader
+              label="Atualizando…"
+              className="inline-flex items-center gap-2 pb-0.5 text-sm text-slate-500 sm:pb-2"
+            />
           ) : null}
         </div>
 

@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
-import { Building2, CheckCircle2, KeyRound, Loader2, Mail, User } from "lucide-react";
+import { Building2, CheckCircle2, KeyRound, Mail, User } from "lucide-react";
+import { Spinner } from "@/components/ui/loading";
 import { PanelSection } from "@/components/ui/panel-section";
 import { ProfileContentLayout } from "@/components/profile/profile-content-layout";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
@@ -184,7 +185,7 @@ export function ProfileEditForm({ user }: { user: CurrentUser }) {
             >
               {saving ? (
                 <>
-                  <Loader2 className="h-4 w-4 animate-spin" aria-hidden />
+                  <Spinner size="md" />
                   Salvando…
                 </>
               ) : (
@@ -278,7 +279,7 @@ export function ProfileEditForm({ user }: { user: CurrentUser }) {
               >
                 {savingPassword ? (
                   <>
-                    <Loader2 className="h-4 w-4 animate-spin" aria-hidden />
+                    <Spinner size="md" />
                     Atualizando…
                   </>
                 ) : (

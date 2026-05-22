@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { CheckCircle2, Loader2 } from "lucide-react";
+import { CheckCircle2 } from "lucide-react";
+import { Spinner } from "@/components/ui/loading";
 import { GENERATION_STEPS } from "@/lib/reports/respondent-presentation";
 
 type Props = {
@@ -52,7 +53,7 @@ export function RespondentReportsGenerationProgress({ active, finished }: Props)
               {done ? (
                 <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-600" aria-hidden />
               ) : current ? (
-                <Loader2 className="h-4 w-4 shrink-0 animate-spin text-sky-600" aria-hidden />
+                <Spinner size="md" className="shrink-0 text-sky-600" />
               ) : pending ? (
                 <span className="inline-block h-2 w-2 shrink-0 rounded-full bg-slate-300" />
               ) : null}
