@@ -68,8 +68,10 @@ export async function getCurrentUser(): Promise<CurrentUser | null> {
 }
 
 export function homeRouteForRole(role: AppRole): string {
-  if (role === "admin") return "/admin";
-  if (role === "analyst") return "/analista";
+  // analyst aponta para /admin (Fase 2 da remocao do perfil analyst: rotas
+  // /analista/* sao redirecionadas para /admin/* via next.config). Sera
+  // simplificado quando o role for removido (Fase 3).
+  if (role === "admin" || role === "analyst") return "/admin";
   return "/respondente";
 }
 

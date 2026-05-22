@@ -663,6 +663,31 @@ export async function formsByOrganizationGlobal(): Promise<OrganizationFormsGrou
   return groups;
 }
 
+/**
+ * Variante org-scoped de {@link formsByOrganizationGlobal}: retorna apenas
+ * a organizacao informada. Usada pelo admin com `organization_id` vinculada
+ * (apos a Fase 1 da remocao do perfil analista).
+ */
+export async function formsByOrganizationScoped(
+  organizationId: string,
+): Promise<OrganizationFormsGroup[]> {
+  const client = getClient();
+  const { data: org } = await client
+    .from("organizations")
+    .select("id,name")
+    .eq("id", organizationId)
+    .maybeSingle();
+  if (!org) return [];
+  const forms = await respondentProgress(organizationId);
+  return [
+    {
+      organizationId: org.id as string,
+      organizationName: (org.name as string) ?? "",
+      forms,
+    },
+  ];
+}
+
 export async function analystRecentRecommendations(
   organizationId: string,
   limit = 5,

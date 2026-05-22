@@ -22,6 +22,12 @@ const ADMIN_HEADINGS: RouteHeading[] = [
     description: "Lista, versões, perguntas e configuração.",
   },
   {
+    prefix: "/admin/responder",
+    title: "Responder por organização",
+    description:
+      "Responda formulários em nome de uma organização. As respostas mantêm a sua autoria para auditoria.",
+  },
+  {
     prefix: "/admin/evidencias",
     title: "Evidências e Complementações",
     description: "Validação, auditoria e pedidos de complementação das evidências enviadas.",

@@ -1,6 +1,7 @@
 import type { LucideIcon } from "lucide-react";
 import {
   BookOpen,
+  Building2,
   ClipboardList,
   FileBarChart,
   FileCheck,
@@ -35,40 +36,36 @@ export const roleLabels: Record<AppRole, string> = {
   respondent: "Respondente",
 };
 
+const ADMIN_NAV: NavItem[] = [
+  { href: "/admin", label: "Dashboard", icon: LayoutDashboard, group: "principal" },
+  { href: "/admin/biblioteca", label: "Biblioteca Geral", icon: BookOpen, group: "gestao" },
+  { href: "/admin/formularios", label: "Formulários", icon: ClipboardList, group: "gestao" },
+  {
+    href: "/admin/responder",
+    label: "Responder por organização",
+    icon: Building2,
+    group: "gestao",
+  },
+  {
+    href: "/admin/evidencias",
+    label: "Evidências e Complementações",
+    icon: FileCheck,
+    group: "gestao",
+  },
+  { href: "/admin/recomendacoes", label: "Recomendações", icon: Lightbulb, group: "analise" },
+  { href: "/admin/plano-acao", label: "Plano de Ação", icon: ListChecks, group: "analise" },
+  { href: "/admin/maturidade", label: "Maturidade FAMI", icon: Gauge, group: "analise" },
+  { href: "/admin/relatorios", label: "Relatórios", icon: FileBarChart, group: "analise" },
+  { href: "/admin/usuarios", label: "Usuários", icon: Users, group: "sistema" },
+  { href: "/admin/perfil", label: "Meu Perfil", icon: User, group: "sistema" },
+];
+
 export const navigationByRole: Record<AppRole, NavItem[]> = {
-  admin: [
-    { href: "/admin", label: "Dashboard", icon: LayoutDashboard, group: "principal" },
-    { href: "/admin/biblioteca", label: "Biblioteca Geral", icon: BookOpen, group: "gestao" },
-    { href: "/admin/formularios", label: "Formulários", icon: ClipboardList, group: "gestao" },
-    {
-      href: "/admin/evidencias",
-      label: "Evidências e Complementações",
-      icon: FileCheck,
-      group: "gestao",
-    },
-    { href: "/admin/recomendacoes", label: "Recomendações", icon: Lightbulb, group: "analise" },
-    { href: "/admin/plano-acao", label: "Plano de Ação", icon: ListChecks, group: "analise" },
-    { href: "/admin/maturidade", label: "Maturidade FAMI", icon: Gauge, group: "analise" },
-    { href: "/admin/relatorios", label: "Relatórios", icon: FileBarChart, group: "analise" },
-    { href: "/admin/usuarios", label: "Usuários", icon: Users, group: "sistema" },
-    { href: "/admin/perfil", label: "Meu Perfil", icon: User, group: "sistema" },
-  ],
-  analyst: [
-    { href: "/analista", label: "Dashboard", icon: LayoutDashboard, group: "principal" },
-    { href: "/analista/biblioteca", label: "Biblioteca Geral", icon: BookOpen, group: "gestao" },
-    { href: "/analista/formularios", label: "Formulários", icon: ClipboardList, group: "gestao" },
-    {
-      href: "/analista/evidencias",
-      label: "Evidências e Complementações",
-      icon: FileCheck,
-      group: "gestao",
-    },
-    { href: "/analista/recomendacoes", label: "Recomendações", icon: Lightbulb, group: "analise" },
-    { href: "/analista/plano-acao", label: "Plano de Ação", icon: ListChecks, group: "analise" },
-    { href: "/analista/maturidade", label: "Maturidade FAMI", icon: Gauge, group: "analise" },
-    { href: "/analista/relatorios", label: "Relatórios", icon: FileBarChart, group: "analise" },
-    { href: "/analista/perfil", label: "Meu Perfil", icon: User, group: "sistema" },
-  ],
+  admin: ADMIN_NAV,
+  // analyst usa o mesmo sidebar do admin durante a Fase 2 da remocao do
+  // perfil (rotas /analista/* sao redirecionadas para /admin/* via
+  // next.config). Sera removido em conjunto com o role na Fase 3.
+  analyst: ADMIN_NAV,
   respondent: [
     { href: "/respondente", label: "Dashboard", icon: LayoutDashboard, group: "principal" },
     { href: "/respondente/formularios", label: "Meus Formulários", icon: ClipboardList, group: "principal" },
