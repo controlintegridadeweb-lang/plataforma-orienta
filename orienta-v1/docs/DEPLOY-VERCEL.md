@@ -48,12 +48,16 @@ git push -u origin staging
 
 1. Acesse [vercel.com/new](https://vercel.com/new) → **Import Git Repository**.
 2. Autorize o GitHub e selecione o repositorio.
-3. Em **Configure Project**:
-   - **Framework Preset**: Next.js (detectado automaticamente).
-   - **Root Directory**: `orienta-v1` (obrigatorio — o app nao esta na raiz do repo).
-   - **Build Command**: `npm run build` (padrao via `vercel.json`).
-   - **Install Command**: `npm ci`.
-   - **Output Directory**: deixe em branco (Next.js App Router).
+3. Em **Configure Project**, use **uma** das opcoes abaixo (nao misture):
+
+   **Opcao A (recomendada)** — Root Directory = `orienta-v1`:
+   - **Root Directory**: `orienta-v1`
+   - **Build / Install**: deixe o padrao (usa `orienta-v1/vercel.json`)
+
+   **Opcao B** — Root Directory = `.` (raiz do repo):
+   - Deixe a raiz vazia; o `vercel.json` na raiz do repositorio ja define `npm ci --prefix orienta-v1` e o build no subpacote.
+
+   Se o log mostrar `next: command not found`, as dependencias nao foram instaladas em `orienta-v1` — confira a opcao acima.
 4. **Environment Variables**: adicione as variaveis da secao 3 (pode colar depois do primeiro deploy falhar por falta de env).
 5. Clique **Deploy**.
 

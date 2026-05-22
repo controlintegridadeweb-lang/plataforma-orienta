@@ -1,0 +1,8 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "nextjs",
+  "installCommand": "npm ci --prefix orienta-v1",
+  "buildCommand": "npm run build --prefix orienta-v1",
+  "outputDirectory": "orienta-v1/.next",
+  "regions": ["gru1"]
+}
