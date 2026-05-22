@@ -64,6 +64,12 @@ export type StatusRegistryEntry = {
   iconName?: string;
   /** Menor número = mais urgente em ordenação de filas operacionais */
   priority: number;
+  /**
+   * Quando true, indica que o valor ainda aparece em dados históricos mas
+   * não é mais gerado pelo sistema. UI pode optar por escondê-lo de filtros
+   * "default" ou exibir um marcador de descontinuado.
+   */
+  legacy?: boolean;
 };
 
 /** Superfícies discretas para badges (SSOT — alinhado a `formSurface.badge`). */
@@ -98,6 +104,7 @@ function entry(p: Omit<StatusRegistryEntry, "key"> & { key?: string }): StatusRe
     icon: p.icon,
     iconName: p.iconName,
     priority: p.priority,
+    legacy: p.legacy,
   };
 }
 
@@ -299,14 +306,22 @@ export const RECOMMENDATION_TYPE_REGISTRY: Record<string, StatusRegistryEntry> =
     iconName: "AlertTriangle",
     priority: 30,
   }),
+  /**
+   * @deprecated `missing_evidence` não é mais gerado a partir de 2026-05.
+   * Resposta positiva sem comprovante é tratada como pendência de evidência
+   * no fluxo de validação (não recomendação). Mantemos o entry apenas para
+   * renderizar dados históricos que ainda estejam em `recommendations`.
+   */
   missing_evidence: entry({
     key: "missing_evidence",
     label: "Ausência de evidência",
-    description: "Resposta positiva sem comprovante exigido.",
+    description:
+      "Legado (descontinuado): resposta positiva sem comprovante. Trate como pendência de evidência.",
     colorClass: "bg-orange-50 text-orange-700",
     icon: FileQuestion,
     iconName: "FileQuestion",
     priority: 25,
+    legacy: true,
   }),
   insufficient_evidence: entry({
     key: "insufficient_evidence",

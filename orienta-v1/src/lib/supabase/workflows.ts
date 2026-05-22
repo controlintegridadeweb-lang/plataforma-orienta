@@ -65,14 +65,19 @@ type FormQuestionRow = {
 
 /**
  * Mapeia o cenario v2 (texto curto da biblioteca) para o `recommendation_type`
- * persistido na tabela `recommendations`. So geramos linha para os 4 cenarios
- * que historicamente disparam recomendacao oficial; demais cenarios (ex.
- * `nao_se_aplica`, `sim_evidencia_valida`) sao ignorados aqui.
+ * persistido na tabela `recommendations`. Só geramos linha para cenarios que
+ * representam gaps reais de maturidade ou comprovação inválida; demais
+ * cenarios (ex. `nao_se_aplica`, `sim_evidencia_valida`, `sim_sem_evidencia`)
+ * são ignorados aqui.
+ *
+ * Nota: `sim_sem_evidencia` (resposta positiva ainda sem comprovante) NÃO
+ * gera recomendação — é uma pendência de evidência tratada no fluxo de
+ * validação. Só após a evidência ser rejeitada (`sim_evidencia_invalida`)
+ * surge `insufficient_evidence`.
  */
 const SCENARIO_TO_TYPE: Partial<Record<LibraryScenarioKey, RecommendationType>> = {
   nao: "not_implemented",
   parcialmente: "partial_implementation",
-  sim_sem_evidencia: "missing_evidence",
   sim_evidencia_invalida: "insufficient_evidence",
 };
 
