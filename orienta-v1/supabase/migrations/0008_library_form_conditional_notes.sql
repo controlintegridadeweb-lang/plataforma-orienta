@@ -1,0 +1,6 @@
+-- Notas de arquitetura (sem alteracao de schema obrigatoria):
+-- 1) Biblioteca Geral no admin passa a operar apenas library_axes, library_sections, library_metrics.
+-- 2) Recomendacoes e acoes por cenario de resposta sao armazenadas em question_library_binding.bindings
+--    (campos JSON recommendation / actions por cenario), alinhado ao motor recommendation-engine-v2.
+-- 3) library_recommendations e library_actions permanecem para leitura de versoes historicas em
+--    library_item_versions / snapshots que ainda referenciam recommendationId e actionIds.

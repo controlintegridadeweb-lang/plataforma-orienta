@@ -1,0 +1,80 @@
+"use client";
+
+import Link from "next/link";
+import { Filter, Inbox, Lightbulb, ListChecks } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
+import { formSurface } from "@/lib/form-surface";
+
+export type EmptyVariant =
+  | "no-recommendations"
+  | "no-results"
+  | "no-plan-linked";
+
+type VariantDef = {
+  icon: LucideIcon;
+  title: string;
+  description: string;
+  cta?: { label: string; href?: string; onClick?: () => void };
+};
+
+type Props = {
+  variant: EmptyVariant;
+  onClearFilters?: () => void;
+};
+
+export function RespondentRecommendationEmptyState({ variant, onClearFilters }: Props) {
+  const defs: Record<EmptyVariant, VariantDef> = {
+    "no-recommendations": {
+      icon: Lightbulb,
+      title: "Nenhuma recomendação gerada ainda",
+      description:
+        "Após validar evidências dos formulários, as recomendações aplicáveis aparecerão aqui automaticamente.",
+      cta: { label: "Ir para meus formulários", href: "/respondente/formularios" },
+    },
+    "no-results": {
+      icon: Filter,
+      title: "Nenhum resultado para os filtros aplicados",
+      description:
+        "Ajuste a busca ou o formulário para encontrar a recomendação que procura.",
+      cta: onClearFilters
+        ? { label: "Limpar filtros", onClick: onClearFilters }
+        : undefined,
+    },
+    "no-plan-linked": {
+      icon: ListChecks,
+      title: "Nenhuma recomendação vinculada a plano",
+      description:
+        "Cadastre planos de ação a partir das recomendações abertas para acompanhar progresso e prazos.",
+      cta: { label: "Ir para Plano de Ação", href: "/respondente/plano-acao" },
+    },
+  };
+
+  const def = defs[variant];
+  const Icon = def.icon ?? Inbox;
+  const cta = def.cta;
+
+  return (
+    <div className={formSurface.empty.container}>
+      <span className={formSurface.empty.iconWrap}>
+        <Icon className="h-5 w-5" aria-hidden />
+      </span>
+      <p className={formSurface.empty.title}>{def.title}</p>
+      <p className={formSurface.empty.description}>{def.description}</p>
+      {cta ? (
+        cta.href ? (
+          <Link href={cta.href} className={`${formSurface.secondaryButtonSm} mt-2`}>
+            {cta.label}
+          </Link>
+        ) : (
+          <button
+            type="button"
+            onClick={cta.onClick}
+            className={`${formSurface.secondaryButtonSm} mt-2`}
+          >
+            {cta.label}
+          </button>
+        )
+      ) : null}
+    </div>
+  );
+}

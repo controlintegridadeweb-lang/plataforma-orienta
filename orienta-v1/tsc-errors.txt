@@ -1,0 +1,158 @@
+﻿src/components/action-plans/action-plan-by-form-panel.tsx(277,50): error TS2339: Property 'priority' does not exist on type 'ActionPlanAction'.
+src/components/admin-plano-acao/admin-action-plan-shell.tsx(80,17): error TS2339: Property 'priority' does not exist on type 'AdminPlanFiltersState'.
+src/components/admin-plano-acao/admin-action-plan-shell.tsx(80,32): error TS2339: Property 'priority' does not exist on type 'AdminPlanItem'.
+src/components/admin-plano-acao/admin-action-plan-shell.tsx(80,53): error TS2339: Property 'priority' does not exist on type 'AdminPlanFiltersState'.
+src/components/admin-plano-acao/admin-action-plan-shell.tsx(190,12): error TS2339: Property 'priority' does not exist on type 'AdminPlanItem'.
+src/components/admin-recomendacoes/admin-recommendation-organization-view.tsx(129,49): error TS2339: Property 'high' does not exist on type 'OrganizationSummary'.
+src/components/admin-recomendacoes/admin-recommendation-organization-view.tsx(132,32): error TS2339: Property 'medium' does not exist on type 'OrganizationSummary'.
+src/components/admin-recomendacoes/admin-recommendation-organization-view.tsx(137,50): error TS2339: Property 'low' does not exist on type 'OrganizationSummary'.
+src/components/admin-recomendacoes/admin-recommendations-shell.tsx(65,17): error TS2339: Property 'priority' does not exist on type 'AdminFiltersState'.
+src/components/admin-recomendacoes/admin-recommendations-shell.tsx(65,32): error TS2339: Property 'priority' does not exist on type 'AdminRecommendationItem'.
+src/components/admin-recomendacoes/admin-recommendations-shell.tsx(65,53): error TS2339: Property 'priority' does not exist on type 'AdminFiltersState'.
+src/components/admin-recomendacoes/admin-recommendations-shell.tsx(80,9): error TS2367: This comparison appears to be unintentional because the types 'AdminRecommendationSummaryFilter' and '"high"' have no overlap.
+src/components/admin-recomendacoes/admin-recommendations-shell.tsx(80,37): error TS2339: Property 'priority' does not exist on type 'AdminRecommendationItem'.
+src/components/admin-recomendacoes/admin-recommendations-shell.tsx(81,9): error TS2367: This comparison appears to be unintentional because the types 'AdminRecommendationSummaryFilter' and '"medium"' have no overlap.
+src/components/admin-recomendacoes/admin-recommendations-shell.tsx(81,39): error TS2339: Property 'priority' does not exist on type 'AdminRecommendationItem'.
+src/components/admin-recomendacoes/admin-recommendations-shell.tsx(82,9): error TS2367: This comparison appears to be unintentional because the types 'AdminRecommendationSummaryFilter' and '"low"' have no overlap.
+src/components/admin-recomendacoes/admin-recommendations-shell.tsx(82,36): error TS2339: Property 'priority' does not exist on type 'AdminRecommendationItem'.
+src/components/admin-recomendacoes/admin-recommendations-shell.tsx(154,12): error TS2339: Property 'priority' does not exist on type 'AdminRecommendationItem'.
+src/components/formulario/form-question-bindings-panel.tsx(159,50): error TS2339: Property 'severity' does not exist on type 'LibraryScenarioBinding'.
+src/components/formulario/form-question-bindings-panel.tsx(167,7): error TS2353: Object literal may only specify known properties, and 'severity' does not exist in type 'LibraryScenarioBinding'.
+src/components/formulario/form-question-bindings-panel.tsx(167,22): error TS2339: Property 'severity' does not exist on type 'LibraryScenarioBinding'.
+src/components/formulario/form-question-bindings-panel.tsx(423,7): error TS2353: Object literal may only specify known properties, and 'severityHint' does not exist in type 'InlineMetric'.
+src/components/formulario/form-question-bindings-panel.tsx(423,38): error TS2339: Property 'severityHint' does not exist on type 'InlineMetric'.
+src/components/formulario/form-question-bindings-panel.tsx(641,9): error TS2353: Object literal may only specify known properties, and 'priority' does not exist in type 'InlineLibraryRecommendation'.
+src/components/formulario/form-question-bindings-panel.tsx(641,24): error TS2339: Property 'priority' does not exist on type 'InlineLibraryRecommendation'.
+src/components/formulario/form-question-bindings-panel.tsx(752,30): error TS2339: Property 'severity' does not exist on type 'LibraryScenarioBinding'.
+src/components/formulario/form-question-bindings-panel.tsx(756,21): error TS2353: Object literal may only specify known properties, and 'severity' does not exist in type 'Partial<LibraryScenarioBinding>'.
+src/components/formulario/form-question-bindings-panel.tsx(967,15): error TS2322: Type 'InlineLibraryAction | { title: string; description: null; suggestedDeadlineDays: null; suggestedPriority: null; }' is not assignable to type 'InlineLibraryAction'.
+  Object literal may only specify known properties, and 'suggestedPriority' does not exist in type 'InlineLibraryAction'.
+src/components/formulario/form-question-bindings-panel.tsx(967,15): error TS2353: Object literal may only specify known properties, and 'suggestedPriority' does not exist in type 'InlineLibraryAction'.
+src/components/plano-acao/action-plans-shell.tsx(10,3): error TS2305: Module '"@/lib/recommendations/schemas"' has no exported member 'RecommendationPriority'.
+src/components/plano-acao/action-plans-shell.tsx(14,3): error TS2305: Module '"@/components/recomendacoes/status-badge"' has no exported member 'PRIORITY_LABELS'.
+src/components/plano-acao/action-plans-shell.tsx(15,3): error TS2305: Module '"@/components/recomendacoes/status-badge"' has no exported member 'PriorityBadge'.
+src/components/plano-acao/action-plans-shell.tsx(132,11): error TS2353: Object literal may only specify known properties, and 'priority' does not exist in type 'ListActionPlansFilters'.
+src/components/plano-acao/action-plans-shell.tsx(196,9): error TS2353: Object literal may only specify known properties, and 'priority' does not exist in type '{ planId?: string | undefined; recommendationId: string; formId: string; actionText: string; dueDate: string; responsibleSector: string; responsibleName: string; status: "in_progress" | "to_implement" | "completed" | "cancelled"; observations?: string | undefined; }'.
+src/components/plano-acao/action-plans-shell.tsx(452,52): error TS2551: Property 'recommendationPriority' does not exist on type 'ActionPlanListItem'. Did you mean 'recommendationId'?
+src/components/plano-acao/action-plans-shell.tsx(567,59): error TS2339: Property 'priority' does not exist on type 'ActionPlanAction'.
+src/components/plano-acao/action-plans-shell.tsx(567,75): error TS2551: Property 'recommendationPriority' does not exist on type 'ActionPlanListItem'. Did you mean 'recommendationId'?
+src/components/recomendacoes/recommendations-shell.tsx(17,3): error TS2305: Module '"@/lib/recommendations/schemas"' has no exported member 'RecommendationPriority'.
+src/components/recomendacoes/recommendations-shell.tsx(26,3): error TS2305: Module '"./status-badge"' has no exported member 'PRIORITY_LABELS'.
+src/components/recomendacoes/recommendations-shell.tsx(27,3): error TS2305: Module '"./status-badge"' has no exported member 'PriorityBadge'.
+src/components/recomendacoes/recommendations-shell.tsx(103,11): error TS2353: Object literal may only specify known properties, and 'priority' does not exist in type 'ListRecommendationsFilters'.
+src/components/recomendacoes/recommendations-shell.tsx(469,55): error TS2339: Property 'priority' does not exist on type 'RecommendationListItem'.
+src/components/recommendations-hub/recommendation-action-task-list.tsx(66,41): error TS2551: Property 'recommendationPriority' does not exist on type 'ActionPlanListItem'. Did you mean 'recommendationId'?
+src/components/recommendations-hub/recommendation-action-task-list.tsx(142,49): error TS2551: Property 'recommendationPriority' does not exist on type 'ActionPlanListItem'. Did you mean 'recommendationId'?
+src/components/recommendations-hub/recommendation-detail-header.tsx(11,50): error TS2307: Cannot find module '@/components/admin-recomendacoes/admin-recommendation-priority-badge' or its corresponding type declarations.
+src/components/recommendations-hub/recommendation-detail-header.tsx(13,55): error TS2307: Cannot find module '@/components/respondente-recomendacoes/respondent-recommendation-priority-badge' or its corresponding type declarations.
+src/components/recommendations-hub/recommendation-detail-header.tsx(156,82): error TS2339: Property 'priority' does not exist on type 'RespondentRecommendationItem'.
+src/components/recommendations-hub/recommendation-detail-header.tsx(166,72): error TS2339: Property 'priority' does not exist on type 'AdminRecommendationItem'.
+src/components/recommendations-hub/recommendation-monitoring-panel.tsx(16,3): error TS2305: Module '"@/lib/recommendations/respondent-presentation"' has no exported member 'PRIORITY_META'.
+src/components/recommendations-hub/recommendation-monitoring-panel.tsx(19,15): error TS2305: Module '"@/lib/recommendations/schemas"' has no exported member 'RecommendationPriority'.
+src/components/recommendations-hub/recommendation-monitoring-panel.tsx(129,46): error TS2339: Property 'priority' does not exist on type 'ActionPlanAction'.
+src/components/recommendations-hub/recommendation-plan-action-form.tsx(10,15): error TS2305: Module '"@/lib/recommendations/schemas"' has no exported member 'RecommendationPriority'.
+src/components/recommendations-hub/recommendation-plan-action-form.tsx(134,33): error TS2339: Property 'priority' does not exist on type 'ActionPlanAction'.
+src/components/recommendations-hub/recommendation-portfolio-compact-card.tsx(8,10): error TS2305: Module '"@/lib/recommendations/respondent-presentation"' has no exported member 'PRIORITY_META'.
+src/components/recommendations-hub/recommendation-portfolio-compact-card.tsx(10,10): error TS2305: Module '"@/lib/recommendations/admin-presentation"' has no exported member 'PRIORITY_META'.
+src/components/recommendations-hub/recommendation-portfolio-compact-card.tsx(39,37): error TS2339: Property 'priority' does not exist on type 'RespondentRecommendationItem'.
+src/components/recommendations-hub/recommendation-portfolio-compact-card.tsx(108,41): error TS2339: Property 'priority' does not exist on type 'AdminRecommendationItem'.
+src/components/respondente-fami/hooks/use-respondent-fami.ts(155,13): error TS2339: Property 'priority' does not exist on type 'RespondentRecommendationItem'.
+src/components/respondente-plano-acao/hooks/use-respondent-action-plans.ts(27,5): error TS2353: Object literal may only specify known properties, and 'highPriority' does not exist in type 'RespondentActionPlanSummary'.
+src/components/respondente-plano-acao/respondent-action-plan-board.tsx(5,3): error TS2305: Module '"@/lib/action-plans/respondent-presentation"' has no exported member 'PRIORITY_META'.
+src/components/respondente-plano-acao/respondent-action-plan-board.tsx(10,15): error TS2305: Module '"@/lib/recommendations/schemas"' has no exported member 'RecommendationPriority'.
+src/components/respondente-plano-acao/respondent-action-plan-board.tsx(35,31): error TS2339: Property 'priority' does not exist on type 'RespondentActionPlanItem'.
+src/components/respondente-plano-acao/respondent-action-plan-board.tsx(37,19): error TS2339: Property 'priority' does not exist on type 'RespondentActionPlanItem'.
+src/components/respondente-plano-acao/respondent-action-plan-card.tsx(6,3): error TS2305: Module '"@/lib/action-plans/respondent-presentation"' has no exported member 'PRIORITY_META'.
+src/components/respondente-plano-acao/respondent-action-plan-card.tsx(34,35): error TS2339: Property 'priority' does not exist on type 'RespondentActionPlanItem'.
+src/components/respondente-plano-acao/respondent-action-plan-detail-drawer.tsx(8,3): error TS2305: Module '"@/lib/action-plans/respondent-presentation"' has no exported member 'PRIORITY_META'.
+src/components/respondente-plano-acao/respondent-action-plan-detail-drawer.tsx(14,51): error TS2307: Cannot find module './respondent-action-plan-priority-badge' or its corresponding type declarations.
+src/components/respondente-plano-acao/respondent-action-plan-detail-drawer.tsx(100,35): error TS2339: Property 'priority' does not exist on type 'RespondentActionPlanItem'.
+src/components/respondente-plano-acao/respondent-action-plan-detail-drawer.tsx(121,61): error TS2339: Property 'priority' does not exist on type 'RespondentActionPlanItem'.
+src/components/respondente-plano-acao/respondent-action-plan-filters.tsx(7,3): error TS2305: Module '"@/lib/action-plans/respondent-presentation"' has no exported member 'PRIORITY_META'.
+src/components/respondente-plano-acao/respondent-action-plan-filters.tsx(11,15): error TS2305: Module '"@/lib/recommendations/schemas"' has no exported member 'RecommendationPriority'.
+src/components/respondente-plano-acao/respondent-action-plan-form.tsx(10,3): error TS2305: Module '"@/lib/action-plans/respondent-presentation"' has no exported member 'PRIORITY_META'.
+src/components/respondente-plano-acao/respondent-action-plan-form.tsx(17,15): error TS2305: Module '"@/lib/recommendations/schemas"' has no exported member 'RecommendationPriority'.
+src/components/respondente-plano-acao/respondent-action-plan-form.tsx(49,73): error TS2339: Property 'priority' does not exist on type 'RespondentActionPlanItem'.
+src/components/respondente-plano-acao/respondent-action-plan-form.tsx(69,9): error TS2353: Object literal may only specify known properties, and 'priority' does not exist in type '{ planId?: string | undefined; recommendationId: string; formId: string; actionText: string; dueDate: string; responsibleSector: string; responsibleName: string; status: "in_progress" | "to_implement" | "completed" | "cancelled"; observations?: string | undefined; }'.
+src/components/respondente-plano-acao/respondent-action-plan-shell.tsx(13,3): error TS2305: Module '"@/lib/action-plans/respondent-presentation"' has no exported member 'PRIORITY_META'.
+src/components/respondente-plano-acao/respondent-action-plan-shell.tsx(71,28): error TS2339: Property 'priority' does not exist on type 'RespondentActionPlanItem'.
+src/components/respondente-plano-acao/respondent-action-plan-shell.tsx(171,23): error TS2339: Property 'priority' does not exist on type 'RespondentActionPlanItem'.
+src/components/respondente-plano-acao/respondent-action-plan-shell.tsx(221,5): error TS2353: Object literal may only specify known properties, and 'priority' does not exist in type 'RespondentActionPlanItem'.
+src/components/respondente-plano-acao/respondent-action-plan-shell.tsx(221,26): error TS2339: Property 'priority' does not exist on type 'RespondentActionPlanItem'.
+src/components/respondente-plano-acao/respondent-action-plan-shell.tsx(221,42): error TS2551: Property 'recommendationPriority' does not exist on type 'ActionPlanRecommendationNode'. Did you mean 'recommendationId'?
+src/components/respondente-plano-acao/respondent-action-plan-summary-cards.tsx(92,21): error TS2339: Property 'highPriority' does not exist on type 'RespondentActionPlanSummary'.
+src/components/respondente-recomendacoes/hooks/use-respondent-recommendations.ts(22,5): error TS2353: Object literal may only specify known properties, and 'high' does not exist in type 'RespondentRecommendationSummary'.
+src/components/respondente-recomendacoes/respondent-recommendation-board.tsx(5,3): error TS2305: Module '"@/lib/recommendations/respondent-presentation"' has no exported member 'PRIORITY_META'.
+src/components/respondente-recomendacoes/respondent-recommendation-board.tsx(10,15): error TS2305: Module '"@/lib/recommendations/schemas"' has no exported member 'RecommendationPriority'.
+src/components/respondente-recomendacoes/respondent-recommendation-board.tsx(34,31): error TS2339: Property 'priority' does not exist on type 'RespondentRecommendationItem'.
+src/components/respondente-recomendacoes/respondent-recommendation-board.tsx(36,19): error TS2339: Property 'priority' does not exist on type 'RespondentRecommendationItem'.
+src/components/respondente-recomendacoes/respondent-recommendation-filters.tsx(7,3): error TS2305: Module '"@/lib/recommendations/respondent-presentation"' has no exported member 'PRIORITY_META'.
+src/components/respondente-recomendacoes/respondent-recommendation-filters.tsx(11,15): error TS2305: Module '"@/lib/recommendations/schemas"' has no exported member 'RecommendationPriority'.
+src/components/respondente-recomendacoes/respondent-recommendation-summary-cards.tsx(60,21): error TS2339: Property 'high' does not exist on type 'RespondentRecommendationSummary'.
+src/components/respondente-recomendacoes/respondent-recommendation-summary-cards.tsx(68,21): error TS2339: Property 'medium' does not exist on type 'RespondentRecommendationSummary'.
+src/components/respondente-recomendacoes/respondent-recommendation-summary-cards.tsx(76,21): error TS2339: Property 'low' does not exist on type 'RespondentRecommendationSummary'.
+src/components/respondente-recomendacoes/respondent-recommendations-shell.tsx(11,3): error TS2305: Module '"@/lib/recommendations/respondent-presentation"' has no exported member 'PRIORITY_META'.
+src/components/respondente-recomendacoes/respondent-recommendations-shell.tsx(59,28): error TS2339: Property 'priority' does not exist on type 'RespondentRecommendationItem'.
+src/components/respondente-recomendacoes/respondent-recommendations-shell.tsx(145,23): error TS2339: Property 'priority' does not exist on type 'RespondentRecommendationItem'.
+src/components/respondente-recomendacoes/respondent-recommendations-shell.tsx(343,26): error TS2339: Property 'high' does not exist on type 'RespondentRecommendationSummary'.
+src/components/respondente-recomendacoes/respondent-recommendations-shell.tsx(343,56): error TS2339: Property 'medium' does not exist on type 'RespondentRecommendationSummary'.
+src/components/respondente-recomendacoes/respondent-recommendations-shell.tsx(343,89): error TS2339: Property 'low' does not exist on type 'RespondentRecommendationSummary'.
+src/components/respondente/plano-acao-panel.tsx(11,15): error TS2305: Module '"@/lib/recommendations/schemas"' has no exported member 'RecommendationPriority'.
+src/components/respondente/plano-acao-panel.tsx(13,3): error TS2305: Module '"@/components/recomendacoes/status-badge"' has no exported member 'PRIORITY_LABELS'.
+src/components/respondente/plano-acao-panel.tsx(14,3): error TS2305: Module '"@/components/recomendacoes/status-badge"' has no exported member 'PriorityBadge'.
+src/components/respondente/plano-acao-panel.tsx(106,9): error TS2353: Object literal may only specify known properties, and 'priority' does not exist in type '{ planId?: string | undefined; recommendationId: string; formId: string; actionText: string; dueDate: string; responsibleSector: string; responsibleName: string; status: "in_progress" | "to_implement" | "completed" | "cancelled"; observations?: string | undefined; }'.
+src/components/respondente/plano-acao-panel.tsx(206,52): error TS2551: Property 'recommendationPriority' does not exist on type 'ActionPlanListItem'. Did you mean 'recommendationId'?
+src/components/respondente/plano-acao-panel.tsx(314,59): error TS2339: Property 'priority' does not exist on type 'ActionPlanAction'.
+src/components/respondente/plano-acao-panel.tsx(314,75): error TS2551: Property 'recommendationPriority' does not exist on type 'ActionPlanListItem'. Did you mean 'recommendationId'?
+src/components/workflow/admin-rec-plan-timeline-shared.ts(16,10): error TS2305: Module '"@/lib/recommendations/admin-presentation"' has no exported member 'PRIORITY_META'.
+src/components/workflow/admin-rec-plan-timeline-shared.ts(17,15): error TS2305: Module '"@/lib/recommendations/schemas"' has no exported member 'RecommendationPriority'.
+src/components/workflow/admin-rec-plan-timeline-shared.ts(33,3): error TS2353: Object literal may only specify known properties, and 'priority' does not exist in type 'Record<"status" | "current_text", string>'.
+src/components/workflow/admin-rec-plan-timeline-shared.ts(57,14): error TS2367: This comparison appears to be unintentional because the types '"current_text"' and '"priority"' have no overlap.
+src/lib/action-plans/admin-monitoring.test.ts(30,5): error TS2561: Object literal may only specify known properties, but 'recommendationPriority' does not exist in type 'ActionPlanListItem'. Did you mean to write 'recommendationId'?
+src/lib/action-plans/admin-monitoring.test.ts(105,11): error TS2561: Object literal may only specify known properties, but 'recommendationPriority' does not exist in type 'Partial<ActionPlanListItem>'. Did you mean to write 'recommendationId'?
+src/lib/action-plans/admin-monitoring.test.ts(134,9): error TS2561: Object literal may only specify known properties, but 'recommendationPriority' does not exist in type 'Partial<ActionPlanListItem>'. Did you mean to write 'recommendationId'?
+src/lib/action-plans/admin-monitoring.test.ts(151,9): error TS2561: Object literal may only specify known properties, but 'recommendationPriority' does not exist in type 'Partial<ActionPlanListItem>'. Did you mean to write 'recommendationId'?
+src/lib/action-plans/respondent-presentation.test.ts(26,5): error TS2561: Object literal may only specify known properties, but 'recommendationPriority' does not exist in type 'ActionPlanListItem'. Did you mean to write 'recommendationId'?
+src/lib/action-plans/respondent-presentation.test.ts(120,17): error TS2339: Property 'priority' does not exist on type 'RespondentActionPlanItem'.
+src/lib/action-plans/respondent-presentation.test.ts(137,53): error TS2353: Object literal may only specify known properties, and 'priority' does not exist in type 'Partial<Omit<ActionPlanAction, "slaLabel">>'.
+src/lib/action-plans/respondent-presentation.test.ts(150,14): error TS2339: Property 'highPriority' does not exist on type 'RespondentActionPlanSummary'.
+src/lib/domain/action-plans.test.ts(22,5): error TS2353: Object literal may only specify known properties, and 'priority' does not exist in type 'RecommendationWithPlansRow'.
+src/lib/domain/action-plans.test.ts(22,20): error TS2339: Property 'priority' does not exist on type 'Partial<RecommendationWithPlansRow>'.
+src/lib/domain/action-plans.test.ts(160,13): error TS2353: Object literal may only specify known properties, and 'priority' does not exist in type 'ActionPlanRaw'.
+src/lib/domain/action-plans.test.ts(171,13): error TS2353: Object literal may only specify known properties, and 'priority' does not exist in type 'ActionPlanRaw'.
+src/lib/domain/recommendation-engine-v2.test.ts(100,7): error TS2353: Object literal may only specify known properties, and 'severityHint' does not exist in type 'InlineMetric'.
+src/lib/domain/recommendation-engine-v2.test.ts(108,9): error TS2353: Object literal may only specify known properties, and 'severity' does not exist in type 'LibraryScenarioBinding'.
+src/lib/domain/recommendation-engine-v2.test.ts(136,20): error TS2339: Property 'severity' does not exist on type 'RecommendationFromSnapshot'.
+src/lib/domain/recommendation-engine-v2.test.ts(149,9): error TS2353: Object literal may only specify known properties, and 'severityHint' does not exist in type 'InlineMetric'.
+src/lib/domain/recommendation-engine-v2.test.ts(195,11): error TS2353: Object literal may only specify known properties, and 'severity' does not exist in type 'LibraryScenarioBinding'.
+src/lib/library/binding-service.test.ts(109,9): error TS2353: Object literal may only specify known properties, and 'severityHint' does not exist in type 'InlineMetric'.
+src/lib/library/binding-service.test.ts(154,11): error TS2353: Object literal may only specify known properties, and 'severityHint' does not exist in type 'InlineMetric'.
+src/lib/library/binding-service.test.ts(169,11): error TS2353: Object literal may only specify known properties, and 'severityHint' does not exist in type 'InlineMetric'.
+src/lib/library/binding-service.test.ts(197,11): error TS2353: Object literal may only specify known properties, and 'severityHint' does not exist in type 'InlineMetric'.
+src/lib/library/binding-service.test.ts(227,11): error TS2353: Object literal may only specify known properties, and 'severityHint' does not exist in type 'InlineMetric'.
+src/lib/library/binding-service.test.ts(250,11): error TS2353: Object literal may only specify known properties, and 'severityHint' does not exist in type 'InlineMetric'.
+src/lib/library/binding-service.test.ts(354,7): error TS2353: Object literal may only specify known properties, and 'severityHint' does not exist in type 'InlineMetric'.
+src/lib/library/binding-service.test.ts(380,9): error TS2353: Object literal may only specify known properties, and 'severityHint' does not exist in type 'InlineMetric'.
+src/lib/recommendations/admin-presentation.test.ts(26,5): error TS2561: Object literal may only specify known properties, but 'recommendationPriority' does not exist in type 'ActionPlanListItem'. Did you mean to write 'recommendationId'?
+src/lib/recommendations/admin-presentation.test.ts(110,29): error TS2561: Object literal may only specify known properties, but 'recommendationPriority' does not exist in type 'Partial<ActionPlanListItem>'. Did you mean to write 'recommendationId'?
+src/lib/recommendations/admin-presentation.test.ts(113,11): error TS2561: Object literal may only specify known properties, but 'recommendationPriority' does not exist in type 'Partial<ActionPlanListItem>'. Did you mean to write 'recommendationId'?
+src/lib/recommendations/admin-presentation.test.ts(119,11): error TS2561: Object literal may only specify known properties, but 'recommendationPriority' does not exist in type 'Partial<ActionPlanListItem>'. Did you mean to write 'recommendationId'?
+src/lib/recommendations/admin-presentation.test.ts(126,11): error TS2561: Object literal may only specify known properties, but 'recommendationPriority' does not exist in type 'Partial<ActionPlanListItem>'. Did you mean to write 'recommendationId'?
+src/lib/recommendations/admin-presentation.test.ts(134,14): error TS2339: Property 'high' does not exist on type 'AdminRecommendationSummary'.
+src/lib/recommendations/admin-presentation.test.ts(135,14): error TS2339: Property 'medium' does not exist on type 'AdminRecommendationSummary'.
+src/lib/recommendations/admin-presentation.test.ts(136,14): error TS2339: Property 'low' does not exist on type 'AdminRecommendationSummary'.
+src/lib/recommendations/admin-service.test.ts(399,42): error TS2339: Property 'priority' does not exist on type 'RecommendationListItem'.
+src/lib/recommendations/respondent-presentation.test.ts(24,5): error TS2561: Object literal may only specify known properties, but 'recommendationPriority' does not exist in type 'ActionPlanListItem'. Did you mean to write 'recommendationId'?
+src/lib/recommendations/respondent-presentation.test.ts(55,9): error TS2353: Object literal may only specify known properties, and 'id' does not exist in type 'Pick<ActionPlanAction, "status">'.
+src/lib/recommendations/respondent-presentation.test.ts(69,9): error TS2353: Object literal may only specify known properties, and 'id' does not exist in type 'Pick<ActionPlanAction, "status">'.
+src/lib/recommendations/respondent-presentation.test.ts(83,9): error TS2353: Object literal may only specify known properties, and 'id' does not exist in type 'Pick<ActionPlanAction, "status">'.
+src/lib/recommendations/respondent-presentation.test.ts(97,9): error TS2353: Object literal may only specify known properties, and 'id' does not exist in type 'Pick<ActionPlanAction, "status">'.
+src/lib/recommendations/respondent-presentation.test.ts(117,7): error TS2561: Object literal may only specify known properties, but 'recommendationPriority' does not exist in type 'Partial<ActionPlanListItem>'. Did you mean to write 'recommendationId'?
+src/lib/recommendations/respondent-presentation.test.ts(130,34): error TS2561: Object literal may only specify known properties, but 'recommendationPriority' does not exist in type 'Partial<ActionPlanListItem>'. Did you mean to write 'recommendationId'?
+src/lib/recommendations/respondent-presentation.test.ts(132,19): error TS2561: Object literal may only specify known properties, but 'recommendationPriority' does not exist in type 'Partial<ActionPlanListItem>'. Did you mean to write 'recommendationId'?
+src/lib/recommendations/respondent-presentation.test.ts(135,19): error TS2561: Object literal may only specify known properties, but 'recommendationPriority' does not exist in type 'Partial<ActionPlanListItem>'. Did you mean to write 'recommendationId'?
+src/lib/recommendations/respondent-presentation.test.ts(140,14): error TS2339: Property 'high' does not exist on type 'RespondentRecommendationSummary'.
+src/lib/recommendations/respondent-presentation.test.ts(141,14): error TS2339: Property 'medium' does not exist on type 'RespondentRecommendationSummary'.
+src/lib/recommendations/respondent-presentation.test.ts(142,14): error TS2339: Property 'low' does not exist on type 'RespondentRecommendationSummary'.
+src/lib/report/pdf.ts(125,41): error TS2551: Property 'recommendationPriority' does not exist on type 'ActionPlanRecommendationNode'. Did you mean 'recommendationId'?
+src/lib/report/pdf.ts(137,160): error TS2339: Property 'priority' does not exist on type 'ActionPlanAction'.

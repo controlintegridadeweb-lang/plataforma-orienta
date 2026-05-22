@@ -1,0 +1,163 @@
+"use client";
+
+import { useState } from "react";
+import { CheckCircle2 } from "lucide-react";
+import type { LibraryTransition } from "@/lib/library/client";
+import type { LibraryItemStatus } from "@/lib/library/types";
+import { formSurface } from "@/lib/form-surface";
+
+type SupportedTransition = "publish";
+
+export type TransitionOption = {
+  action: LibraryTransition;
+  label: string;
+  icon: React.ReactNode;
+  requiresJustification: boolean;
+  confirmTitle: string;
+  confirmText: string;
+};
+
+const BASE_OPTIONS: Record<SupportedTransition, TransitionOption> = {
+  publish: {
+    action: "publish",
+    label: "Publicar",
+    icon: <CheckCircle2 className="h-4 w-4" aria-hidden />,
+    requiresJustification: false,
+    confirmTitle: "Publicar item",
+    confirmText: "O item ficará disponível para vínculo em formulários.",
+  },
+};
+
+const ALLOWED_BY_STATUS: Record<LibraryItemStatus, SupportedTransition[]> = {
+  draft: ["publish"],
+  in_review: ["publish"],
+  published: [],
+  deprecated: [],
+  archived: [],
+};
+
+type Props = {
+  status: LibraryItemStatus;
+  disabled?: boolean;
+  onRun: (
+    action: LibraryTransition,
+    payload: { justification?: string | null },
+  ) => Promise<void>;
+};
+
+export function LifecycleMenu({ status, disabled, onRun }: Props) {
+  const [pending, setPending] = useState<TransitionOption | null>(null);
+  const [justification, setJustification] = useState("");
+  const [running, setRunning] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const options = ALLOWED_BY_STATUS[status] ?? [];
+  if (options.length === 0) {
+    return <span className="text-xs text-slate-400">—</span>;
+  }
+
+  async function confirm() {
+    if (!pending) return;
+    setRunning(true);
+    setError(null);
+    try {
+      const normalized = justification.trim();
+      if (pending.requiresJustification && normalized.length < 5) {
+        setError("Justificativa deve ter pelo menos 5 caracteres.");
+        setRunning(false);
+        return;
+      }
+      await onRun(pending.action, {
+        justification: normalized.length > 0 ? normalized : null,
+      });
+      setPending(null);
+      setJustification("");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Falha ao aplicar transição.");
+    } finally {
+      setRunning(false);
+    }
+  }
+
+  return (
+    <>
+      <div className="flex flex-wrap items-center gap-1">
+        {options.map((action) => {
+          const option = BASE_OPTIONS[action];
+          return (
+            <button
+              key={action}
+              type="button"
+              disabled={disabled || running}
+              title={option.label}
+              aria-label={option.label}
+              onClick={() => {
+                setPending(option);
+                setJustification("");
+                setError(null);
+              }}
+              className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-slate-200 bg-white text-slate-600 transition hover:border-brand-300 hover:bg-brand-50 hover:text-brand-700 disabled:opacity-50"
+            >
+              {option.icon}
+            </button>
+          );
+        })}
+      </div>
+
+      {pending ? (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 px-4"
+          role="dialog"
+          aria-modal="true"
+        >
+          <div className="w-full max-w-md rounded-xl border border-slate-200 bg-white p-5 shadow-[var(--shadow-popover)]">
+            <h3 className="text-base font-semibold text-slate-900">
+              {pending.confirmTitle}
+            </h3>
+            <p className="mt-2 text-sm text-slate-600">{pending.confirmText}</p>
+
+            <label className="mt-4 block text-xs font-medium text-slate-600">
+              Justificativa
+              {pending.requiresJustification ? (
+                <span className="ml-1 text-rose-500">*</span>
+              ) : null}
+            </label>
+            <textarea
+              rows={3}
+              value={justification}
+              onChange={(event) => setJustification(event.target.value)}
+              className={`mt-1 w-full ${formSurface.inputTextarea}`}
+              placeholder="Motivo da ação (visível no histórico quando exigido)."
+            />
+
+            {error ? (
+              <p className="mt-2 text-sm text-rose-700">{error}</p>
+            ) : null}
+
+            <div className="mt-4 flex items-center justify-end gap-2">
+              <button
+                type="button"
+                onClick={() => {
+                  setPending(null);
+                  setJustification("");
+                }}
+                disabled={running}
+                className={`${formSurface.secondaryButton} disabled:opacity-50`}
+              >
+                Cancelar
+              </button>
+              <button
+                type="button"
+                onClick={confirm}
+                disabled={running}
+                className={`${formSurface.primaryButton} disabled:opacity-50`}
+              >
+                {running ? "Aplicando..." : "Confirmar"}
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : null}
+    </>
+  );
+}

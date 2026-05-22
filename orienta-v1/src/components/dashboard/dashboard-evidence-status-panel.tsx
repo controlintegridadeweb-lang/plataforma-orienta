@@ -1,0 +1,105 @@
+"use client";
+
+import { useCallback, useEffect, useRef, useState } from "react";
+import { Loader2 } from "lucide-react";
+import type { RecommendationFilterOptions } from "@/lib/recommendations/admin-service";
+import { loadRecommendationFilters } from "@/lib/recommendations/client";
+import { StatusPieChart } from "@/components/charts/status-pie-chart";
+import { SectionHeader } from "@/components/ui/section-header";
+import { fetchDashboardEvidenceStatus } from "@/lib/dashboards/client";
+import { formSurface } from "@/lib/form-surface";
+
+type Props = {
+  initialData: Record<string, number>;
+  /** Valor inicial do filtro: "" = todas, ou id da organizacao */
+  initialOrganizationId: string;
+};
+
+export function DashboardEvidenceStatusPanel({
+  initialData,
+  initialOrganizationId,
+}: Props) {
+  const [filters, setFilters] = useState<RecommendationFilterOptions | null>(null);
+  const [filterError, setFilterError] = useState<string | null>(null);
+  const [organizationId, setOrganizationId] = useState(initialOrganizationId);
+  const [data, setData] = useState<Record<string, number>>(initialData);
+  const [scopeHint, setScopeHint] = useState<string | null>(() =>
+    initialOrganizationId ? "Validações desta organização." : "Todas as organizações.",
+  );
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    loadRecommendationFilters()
+      .then(setFilters)
+      .catch((e: unknown) =>
+        setFilterError(e instanceof Error ? e.message : "Falha ao carregar organizacoes."),
+      );
+  }, []);
+
+  const load = useCallback(async (orgId: string) => {
+    setLoading(true);
+    setError(null);
+    try {
+      const res = await fetchDashboardEvidenceStatus(orgId.length > 0 ? orgId : null);
+      setData(res.data);
+      setScopeHint(
+        res.scope === "global" ? "Todas as organizações." : "Validações desta organização.",
+      );
+    } catch (e: unknown) {
+      setError(e instanceof Error ? e.message : "Falha ao carregar.");
+      setData({});
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  const skipFirstOrgEffect = useRef(true);
+  useEffect(() => {
+    if (skipFirstOrgEffect.current) {
+      skipFirstOrgEffect.current = false;
+      return;
+    }
+    void load(organizationId);
+  }, [organizationId, load]);
+
+  return (
+    <div
+      className={`flex h-full flex-col ${formSurface.dashboardPanel} ${formSurface.dashboardPanelPadding}`}
+    >
+      <SectionHeader
+        kicker="Evidências"
+        title="Status das evidências"
+        description="Distribuição das validações"
+      />
+      <div className="mb-4 flex flex-wrap items-end gap-4">
+        <label className="flex flex-col gap-1.5 text-sm font-medium text-slate-600">
+          Organização
+          <select
+            value={organizationId}
+            onChange={(e) => setOrganizationId(e.target.value)}
+            className={`${formSurface.inputSelect} min-w-[240px] text-[0.9375rem]`}
+          >
+            <option value="">Todas</option>
+            {filters?.organizations.map((o) => (
+              <option key={o.id} value={o.id}>
+                {o.name}
+              </option>
+            ))}
+          </select>
+        </label>
+        {loading ? (
+          <span className="inline-flex items-center gap-2 text-sm text-slate-500">
+            <Loader2 className="h-4 w-4 animate-spin" aria-hidden /> Atualizando...
+          </span>
+        ) : null}
+      </div>
+      {filterError ? <p className="mb-2 text-sm text-rose-600">{filterError}</p> : null}
+      {scopeHint ? <p className="mb-3 text-sm leading-relaxed text-slate-500">{scopeHint}</p> : null}
+      {error ? <p className="mb-2 text-sm text-rose-600">{error}</p> : null}
+      <div className="flex-1">
+        <StatusPieChart data={data} />
+      </div>
+    </div>
+  );
+}
