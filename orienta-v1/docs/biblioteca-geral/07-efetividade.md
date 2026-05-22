@@ -30,7 +30,7 @@ ritual de revisao.
 |---|---|
 | Taxa de adesao | `% das vezes em que a acao-modelo sugerida foi inserida no plano`. |
 | Taxa de edicao | `% das vezes em que a acao foi editada antes da inclusao`. |
-| Taxa de conclusao | `% das acoes modelo inseridas que chegaram a status `Concluida`. |
+| Taxa de conclusao | `% das acoes modelo inseridas que chegaram a status `Concluída`. |
 | Tempo medio de conclusao | Dias entre inclusao e conclusao. |
 
 ### C. Metricas por metrica analitica

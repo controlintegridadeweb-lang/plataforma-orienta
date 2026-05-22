@@ -264,14 +264,16 @@ export const RECOMMENDATION_REGISTRY: Record<RecommendationStatus, StatusRegistr
   }),
 };
 
-/** Mesmo enum DB que `recommendation` — visual idêntico ao registry principal. */
+/**
+ * Mesmo enum DB que `recommendation` — visual idêntico ao registry principal.
+ *
+ * Historicamente o status `resolved` exibia o rótulo "Resolvida" aqui (em
+ * tabelas administrativas), enquanto o resto da plataforma usava "Concluída".
+ * Padronizado: o rótulo passa a ser "Concluída" em todas as superfícies,
+ * alinhado com o vocabulário de planos/relatórios (`completed`).
+ */
 export const RECOMMENDATION_TABLE_REGISTRY: Record<RecommendationStatus, StatusRegistryEntry> = {
   ...RECOMMENDATION_REGISTRY,
-  resolved: {
-    ...RECOMMENDATION_REGISTRY.resolved,
-    label: "Resolvida",
-    description: "Recomendação atendida.",
-  },
 };
 
 /** Rótulos do enum `RecommendationStatus` para selects e histórico. */
@@ -497,7 +499,7 @@ export const ACTION_PLAN_REGISTRY: Record<PlanStatus, StatusRegistryEntry> = {
   }),
   completed: entry({
     key: "completed",
-    label: "Concluida",
+    label: "Concluída",
     description: "Finalizada.",
     colorClass: STATUS_BADGE_SURFACE.success,
     icon: CheckCircle2,
