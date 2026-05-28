@@ -47,3 +47,30 @@ Registrar em cada execucao:
 3. resultado de cada query (PASS/FAIL);
 4. usuario/role testado por cenario;
 5. divergencias encontradas e acao corretiva.
+
+## Execucao registrada (2026-05-28)
+
+Ambiente/projeto:
+
+- Supabase `ziszpxkivwtuhnbsbyog` (`Plataforma Orienta`)
+
+Resultados SQL (arquivo `supabase/scripts/phase6_rls_qa.sql`):
+
+1. Policies legadas por papel tecnico antigo:
+   - Resultado: `0` linhas
+   - Status: PASS
+2. Constraints de guardrail V2:
+   - Resultado: `6` linhas (todas esperadas)
+   - Status: PASS
+3. Enums com labels legados:
+   - Resultado: `0` linhas
+   - Status: PASS
+
+Evidencia de testes de escopo/autorizacao em codigo:
+
+- `npx vitest run src/lib/auth/scope.test.ts src/lib/evidences/recommendation-scope.test.ts src/lib/recommendations/admin-service.test.ts`
+- Resultado: `22/22` testes passando (3 arquivos)
+
+Observacao:
+
+- A validacao de chamadas HTTP cross-org com credenciais reais por perfil (admin/respondent) deve ser executada em homolog/prod durante janela operacional, seguindo o runbook.
