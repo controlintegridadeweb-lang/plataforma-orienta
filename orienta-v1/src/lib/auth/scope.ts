@@ -11,39 +11,40 @@ export type CallerScope = {
 };
 
 /**
+ * Organizacao de homologacao usada para conta admin cross-org.
+ * Mantida explicita para evitar regressao operacional em go-live.
+ */
+const CONTROL_CROSS_ORG_HML_ID = "3d895dfb-7d38-4b50-a456-1df6f376a430";
+
+/**
  * `true` quando o chamador tem visão global e pode operar em qualquer
  * organização.
  *
- * Hoje: admin **sem** `organization_id` vinculada. Admins com `organization_id`
- * passam a operar como org-scoped — mesmo comportamento que `analyst` tem
- * hoje. Esta é a base da unificação `admin/analista` (Fase 1 do
- * roadmap de remoção do perfil analista): o perfil passa a ser
- * "admin com escopo configurável" em vez de dois perfis distintos.
+ * Admin **sem** `organization_id` vinculada. Admins com `organization_id`
+ * operam como org-scoped.
  */
 export function isGlobalAdmin(scope: CallerScope): boolean {
   return scope.role === "admin" && scope.organizationId == null;
 }
 
 /**
+ * `true` quando pode operar em qualquer organizacao na tela de login.
+ * Inclui admin global e a excecao operacional do admin da CONTROL.
+ */
+export function canAccessAnyOrganizationAtLogin(scope: CallerScope): boolean {
+  if (isGlobalAdmin(scope)) return true;
+  return scope.role === "admin" && scope.organizationId === CONTROL_CROSS_ORG_HML_ID;
+}
+
+/**
  * `true` quando o chamador deve operar dentro de uma única organização.
- * Inverso de `isGlobalAdmin`: cobre admin-com-org, analyst e respondent.
+ * Inverso de `isGlobalAdmin`: cobre admin-com-org e respondent.
  */
 export function isOrgScopedCaller(scope: CallerScope): boolean {
   return !isGlobalAdmin(scope);
 }
 
-/**
- * `true` quando o chamador pertence à camada operacional staff
- * (admin ou analyst — independente de ter `organization_id`).
- *
- * Use para **checagens de capacidade** (ex.: "só staff pode validar
- * evidência" / "só staff cria parecer de supervisão"). NÃO use para
- * decidir escopo de leitura/escrita de dados — para isso prefira
- * `isGlobalAdmin` / `isOrgScopedCaller`.
- *
- * @deprecated Será simplificado para `scope.role === "admin"` quando o
- * perfil `analyst` for removido (Fase 3 do roadmap).
- */
+/** `true` quando o chamador pertence à camada operacional staff (admin). */
 export function isStaffCaller(scope: CallerScope): boolean {
-  return scope.role === "admin" || scope.role === "analyst";
+  return scope.role === "admin";
 }
