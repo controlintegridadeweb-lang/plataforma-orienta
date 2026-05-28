@@ -14,16 +14,6 @@ type State = {
   summary: RespondentRecommendationSummary;
 };
 
-const EMPTY_STATE: State = {
-  rows: [],
-  summary: {
-    total: 0,
-    inProgress: 0,
-    resolved: 0,
-    awaitingAction: 0,
-  },
-};
-
 /**
  * Portfólio estratégico do respondente — overview em cache compartilhado.
  */

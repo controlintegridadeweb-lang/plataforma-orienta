@@ -8,7 +8,6 @@ import { logError } from "@/lib/observability/logger";
 const payloadSchema = z.object({
   adminUserId: z.string().uuid(),
   respondentUserId: z.string().uuid(),
-  analystUserId: z.string().uuid(),
   organizationName: z.string().min(3).default("Secretaria Exemplo RN"),
   formName: z.string().min(3).default("Diagnostico PIC RN"),
 });
@@ -26,7 +25,7 @@ export async function POST(request: Request) {
   }
 
   const supabase = createSupabaseServiceRoleClient();
-  const { adminUserId, respondentUserId, analystUserId, organizationName, formName } = parsed.data;
+  const { adminUserId, respondentUserId, organizationName, formName } = parsed.data;
   if (context?.userId !== adminUserId) {
     return NextResponse.json({ error: "Usuario admin divergente do token informado." }, { status: 403 });
   }
@@ -41,7 +40,6 @@ export async function POST(request: Request) {
 
     const profiles = [
       { user_id: adminUserId, role: "admin", organization_id: org.id },
-      { user_id: analystUserId, role: "analyst", organization_id: org.id },
       { user_id: respondentUserId, role: "respondent", organization_id: org.id },
     ];
     const { error: profileError } = await supabase.from("profiles").upsert(profiles);
@@ -154,7 +152,7 @@ export async function POST(request: Request) {
         form_id: form.id,
         organization_id: org.id,
         question_id: questions?.[2]?.id,
-        answer: "partial",
+        answer: "not_applicable",
         notes: "Politica em elaboracao.",
         created_by: respondentUserId,
       },
@@ -183,8 +181,8 @@ export async function POST(request: Request) {
 
       const { error: validationError } = await supabase.from("evidence_validations").insert({
         evidence_id: evidence.id,
-        status: "valid",
-        validated_by: analystUserId,
+        status: "approved",
+        validated_by: adminUserId,
       });
       if (validationError) throw validationError;
     }

@@ -36,7 +36,7 @@ export function ActionPlanTaskRow({ plan, open, onToggle, children }: Props) {
     <article
       className={`overflow-hidden rounded-lg border bg-white transition ${
         open
-          ? "border-brand-200/80 shadow-[var(--shadow-card)] ring-1 ring-brand-100/60"
+          ? "border-brand-200/80 shadow-card ring-1 ring-brand-100/60"
           : overdue
             ? "border-rose-200/80 hover:border-rose-300"
             : "border-slate-200/90 hover:border-slate-300 hover:shadow-sm"
@@ -56,7 +56,7 @@ export function ActionPlanTaskRow({ plan, open, onToggle, children }: Props) {
           )}
         </span>
         <div className="min-w-0 flex-1">
-          <p className="line-clamp-2 text-[13px] font-medium leading-snug text-slate-900">
+          <p className="line-clamp-2 text-caption font-medium leading-snug text-slate-900">
             {plan.actionText}
           </p>
           <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
@@ -65,16 +65,16 @@ export function ActionPlanTaskRow({ plan, open, onToggle, children }: Props) {
               {formatDueDate(plan.dueDate)}
             </span>
             {plan.responsibleName?.trim() ? (
-              <span className={`${typography.meta} truncate max-w-[10rem]`}>
+              <span className={`${typography.meta} truncate max-w-40`}>
                 {plan.responsibleName}
               </span>
             ) : (
-              <span className={`${statusPillBase} ${formSurface.badge.muted}`}>Sem responsável</span>
+              <span className={`${statusPillBase} ${formSurface.badge.muted}`}>Sem respons�vel</span>
             )}
             {overdue ? (
               <span className={`${statusPillBase} ${formSurface.badge.danger}`}>Atrasada</span>
             ) : soon ? (
-              <span className={`${statusPillBase} ${formSurface.badge.warning}`}>≤ 7 dias</span>
+              <span className={`${statusPillBase} ${formSurface.badge.warning}`}>= 7 dias</span>
             ) : null}
           </div>
         </div>

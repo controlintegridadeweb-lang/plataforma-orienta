@@ -88,7 +88,7 @@ export function RespondentFormProgressItem({ form, variant = "row" }: Props) {
 
   if (variant === "card") {
     return (
-      <li className="rounded-xl border border-slate-200/90 bg-white p-4 shadow-[var(--shadow-card)] transition hover:border-slate-300 hover:shadow-[var(--shadow-card-hover)] sm:p-5">
+      <li className="rounded-xl border border-slate-200/90 bg-white p-4 shadow-card transition hover:border-slate-300 hover:shadow-card-hover sm:p-5">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-5">
           <div className="min-w-0 flex-1 space-y-3">{content}</div>
           {action}

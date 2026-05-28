@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+﻿import { NextResponse } from "next/server";
 import { z } from "zod";
 import { calculateFami } from "@/lib/domain/fami";
 import { requireAuth } from "@/lib/api/auth";
@@ -9,22 +9,15 @@ const questionSchema = z.object({
   sectionId: z.string(),
   famiEnabled: z.boolean(),
   requiresEvidence: z.boolean(),
-  answer: z.enum(["yes", "no", "partial"]),
+  answer: z.enum(["yes", "no", "not_applicable"]),
   validationStatus: z
-    .enum([
-      "pending",
-      "valid",
-      "invalid",
-      "partially_valid",
-      "complementation_requested",
-      "waived",
-    ])
+    .enum(["pending", "approved", "invalidated", "adjustment_requested"])
     .optional(),
   isNotApplicable: z.boolean().optional(),
 });
 
 export async function POST(request: Request) {
-  const { error } = await requireAuth(request, ["analyst"]);
+  const { error } = await requireAuth(request, ["admin"]);
   if (error) return error;
 
   const body = await request.json();

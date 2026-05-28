@@ -28,7 +28,7 @@ const CFG: Record<
   "no-processing": {
     icon: FolderOpen,
     title: "Nenhum processamento disponível",
-    body: "É necessário ter FAMI processado para o formulário selecionado. Use a Pontuação FAMI ou solicite reprocessamento ao analista.",
+    body: "É necessário ter FAMI processado para o formulário selecionado. Use a Pontuação FAMI ou solicite reprocessamento à administração.",
     iconBg: "bg-amber-50",
     iconColor: "text-amber-700",
   },

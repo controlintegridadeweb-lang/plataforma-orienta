@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+﻿import { NextResponse } from "next/server";
 import { requireAuth } from "@/lib/api/auth";
 import { EffectivenessService } from "@/lib/library/effectiveness-service";
 import { handleLibraryError } from "@/lib/library/http";
@@ -14,7 +14,7 @@ const VALID_TYPES: LibraryItemType[] = [
 ];
 
 export async function GET(request: Request) {
-  const { error: authError } = await requireAuth(request, ["admin", "analyst"]);
+  const { error: authError } = await requireAuth(request, ["admin"]);
   if (authError) return authError;
 
   try {

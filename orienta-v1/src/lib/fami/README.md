@@ -39,7 +39,7 @@ Pré-requisitos para encerrar (aba **Configuração** do formulário):
 
 - Formulário em estado `consolidated`.
 - **`response_deadline_at` definido** (prazo orientativo para respondentes).
-- Confirmação explícita do admin/analista.
+- Confirmação explícita do admin.
 
 No encerramento: todas as organizações ativas recebem snapshot; perguntas
 aplicáveis sem resposta = 0 pts; waivers e `is_not_applicable` saem do

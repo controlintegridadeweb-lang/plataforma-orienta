@@ -1,5 +1,6 @@
 import type { LucideIcon } from "lucide-react";
 import { EVIDENCE_VALIDATION_REGISTRY } from "@/lib/domain/status-registry";
+import { evidenceComplementation } from "@/lib/labels/complementation-terms";
 import type { ValidationStatus } from "./schemas";
 
 /** Grupo agregado para KPIs (4 visuais + total). */
@@ -20,13 +21,11 @@ export function statusToVisualGroup(status: ValidationStatus): EvidenceVisualGro
   switch (status) {
     case "pending":
       return "em_analise";
-    case "valid":
-    case "waived":
+    case "approved":
       return "aprovadas";
-    case "invalid":
-    case "partially_valid":
+    case "invalidated":
       return "rejeitadas";
-    case "complementation_requested":
+    case "adjustment_requested":
       return "complementacao";
     default:
       return "em_analise";
@@ -38,7 +37,7 @@ export const KPI_GROUP_LABEL: Record<EvidenceStatusKpiGroup, string> = {
   em_analise: "Em analise",
   aprovadas: "Aprovadas",
   rejeitadas: "Rejeitadas",
-  complementacao: "Complementacao",
+  complementacao: evidenceComplementation.statusShort,
 };
 
 /**
@@ -68,11 +67,9 @@ const VALIDATION_VARIANT: Record<
   "neutral" | "success" | "danger" | "warning" | "info" | "muted"
 > = {
   pending: "neutral",
-  valid: "success",
-  invalid: "danger",
-  partially_valid: "warning",
-  complementation_requested: "info",
-  waived: "muted",
+  approved: "success",
+  invalidated: "danger",
+  adjustment_requested: "info",
 };
 
 export const STATUS_BADGE_META: Record<

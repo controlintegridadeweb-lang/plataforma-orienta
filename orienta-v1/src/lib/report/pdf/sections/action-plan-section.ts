@@ -83,7 +83,7 @@ function renderActionCard(doc: OrientaPdfDocument, c: Cursor, ac: ActionPlanActi
   return { page: cur.page, y: cur.y - h - 14 };
 }
 
-export function renderActionPlanSection(doc: OrientaPdfDocument, _c: Cursor): Cursor {
+export function renderActionPlanSection(doc: OrientaPdfDocument): Cursor {
   let cur = doc.beginMajorSection(
     "Plano de ação",
     "Iniciativas operacionais vinculadas às recomendações.",

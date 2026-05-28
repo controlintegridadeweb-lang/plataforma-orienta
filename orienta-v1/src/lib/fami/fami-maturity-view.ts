@@ -4,7 +4,6 @@ import { createSupabaseServiceRoleClient } from "@/lib/supabase/server";
 import type { AxisMaturity } from "@/lib/fami/types";
 import { getCalendarYearBrt } from "@/lib/fami/fami-year";
 import {
-  isOfficialScoreFromFormState,
   loadFamiFormContext,
   resolveFamiContextForScope,
   type FamiScope,

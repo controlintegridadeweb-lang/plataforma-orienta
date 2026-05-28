@@ -12,7 +12,7 @@ export const FAMI_LEVEL_THRESHOLDS: { level: FamiLevel; min: number; max: number
 /** Resumo curto por nível (jornada visual). */
 export const FAMI_MATURITY_JOURNEY_SUMMARY: Record<FamiLevel, string> = {
   1: "Práticas pontuais e pouca estrutura institucional.",
-  2: "Processos parcialmente formalizados e evidências em construção.",
+  2: "Processos em formalização e evidências em construção.",
   3: "Práticas regulares e governança mais consistente.",
   4: "Processos consolidados, evidências auditáveis e monitoramento.",
   5: "Governança institucionalizada, métricas e melhoria contínua.",

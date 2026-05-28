@@ -6,11 +6,9 @@ import type { ValidationStatus } from "@/lib/evidences/schemas";
 
 export const STATUS_LABELS: Record<ValidationStatus, string> = {
   pending: EVIDENCE_VALIDATION_REGISTRY.pending.label,
-  valid: EVIDENCE_VALIDATION_REGISTRY.valid.label,
-  invalid: EVIDENCE_VALIDATION_REGISTRY.invalid.label,
-  partially_valid: EVIDENCE_VALIDATION_REGISTRY.partially_valid.label,
-  complementation_requested: EVIDENCE_VALIDATION_REGISTRY.complementation_requested.label,
-  waived: EVIDENCE_VALIDATION_REGISTRY.waived.label,
+  approved: EVIDENCE_VALIDATION_REGISTRY.approved.label,
+  invalidated: EVIDENCE_VALIDATION_REGISTRY.invalidated.label,
+  adjustment_requested: EVIDENCE_VALIDATION_REGISTRY.adjustment_requested.label,
 };
 
 export function StatusBadge({ status }: { status: ValidationStatus }) {

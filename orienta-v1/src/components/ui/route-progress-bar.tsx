@@ -118,7 +118,7 @@ export function RouteProgressBar() {
   return (
     <div
       aria-hidden
-      className="pointer-events-none fixed inset-x-0 top-0 z-[9999] h-0.5"
+      className="pointer-events-none fixed inset-x-0 top-0 z-9999 h-0.5"
     >
       <div
         className="h-full bg-brand-500 shadow-[0_0_8px_rgba(90,158,138,0.6)] transition-[width,opacity] duration-200 ease-out motion-reduce:transition-none"

@@ -20,7 +20,7 @@ function parseId(value: string, label: string) {
 }
 
 export async function PATCH(request: Request, context: RouteContext) {
-  const { error: authError } = await requireAuth(request, ["admin", "analyst"]);
+  const { error: authError } = await requireAuth(request, ["admin"]);
   if (authError) return authError;
   try {
     const { formId: rawForm, questionId: rawQ } = await context.params;
@@ -39,7 +39,7 @@ export async function PATCH(request: Request, context: RouteContext) {
 }
 
 export async function DELETE(request: Request, context: RouteContext) {
-  const { error: authError } = await requireAuth(request, ["admin", "analyst"]);
+  const { error: authError } = await requireAuth(request, ["admin"]);
   if (authError) return authError;
   try {
     const { formId: rawForm, questionId: rawQ } = await context.params;

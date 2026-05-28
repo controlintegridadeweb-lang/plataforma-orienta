@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { ArrowRight, Calendar, ExternalLink, FileText, Pencil, RefreshCw } from "lucide-react";
+import { evidenceComplementation } from "@/lib/labels/complementation-terms";
 import type { RespondentEvidenceItem } from "@/lib/evidences/respondent-service";
 import { respondentStatusNeedsAction } from "@/lib/evidences/respondent-status";
 import { normalizeWorkbenchText } from "@/lib/evidences/normalize-workbench-text";
@@ -24,7 +25,7 @@ function buildFormHref(item: RespondentEvidenceItem): string {
 function actionsFor(status: RespondentEvidenceItem["respondentStatus"]) {
   switch (status) {
     case "complementacao_solicitada":
-      return { primaryLabel: "Responder complementação", primaryIcon: ArrowRight };
+      return { primaryLabel: evidenceComplementation.respondCta, primaryIcon: ArrowRight };
     case "reprovada":
       return { primaryLabel: "Reenviar evidência", primaryIcon: RefreshCw };
     case "aprovada":
@@ -59,12 +60,12 @@ export function RespondentEvidenceCard({ item, onOpenDetail }: Props) {
   return (
     <article
       className={`group ${formSurface.entityListCard} ${
-        needsAction ? "border-l-[3px] border-l-amber-400" : ""
+        needsAction ? "border-l-3 border-l-amber-400" : ""
       }`}
     >
       <div className="flex flex-col gap-3 px-4 pt-4 sm:flex-row sm:items-start sm:justify-between sm:gap-4 sm:px-5 sm:pt-5">
         <div className="min-w-0 flex-1 space-y-2">
-          <p className="line-clamp-2 text-[11px] leading-snug text-slate-500" title={contextLine}>
+          <p className="line-clamp-2 text-micro leading-snug text-slate-500" title={contextLine}>
             {contextLine}
           </p>
           <h4 className="text-base font-semibold leading-snug text-slate-900">
@@ -84,7 +85,7 @@ export function RespondentEvidenceCard({ item, onOpenDetail }: Props) {
       <div className="mt-4 border-t border-slate-100 bg-slate-50/60 px-4 py-3.5 sm:px-5">
         <dl className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           <div className="space-y-0.5">
-            <dt className="text-[11px] font-medium uppercase tracking-wider text-slate-500">
+            <dt className="text-micro font-medium uppercase tracking-wider text-slate-500">
               Enviada
             </dt>
             <dd className="flex items-center gap-1.5 text-sm tabular-nums text-slate-800">
@@ -94,7 +95,7 @@ export function RespondentEvidenceCard({ item, onOpenDetail }: Props) {
           </div>
           {item.lastValidatedAt ? (
             <div className="space-y-0.5">
-              <dt className="text-[11px] font-medium uppercase tracking-wider text-slate-500">
+              <dt className="text-micro font-medium uppercase tracking-wider text-slate-500">
                 Última atualização
               </dt>
               <dd className="flex items-center gap-1.5 text-sm tabular-nums text-slate-800">
@@ -105,7 +106,7 @@ export function RespondentEvidenceCard({ item, onOpenDetail }: Props) {
           ) : null}
           {item.externalLink ? (
             <div className="space-y-0.5 sm:col-span-2 lg:col-span-1">
-              <dt className="text-[11px] font-medium uppercase tracking-wider text-slate-500">
+              <dt className="text-micro font-medium uppercase tracking-wider text-slate-500">
                 Anexo
               </dt>
               <dd>
@@ -122,7 +123,7 @@ export function RespondentEvidenceCard({ item, onOpenDetail }: Props) {
             </div>
           ) : item.storagePath ? (
             <div className="space-y-0.5 sm:col-span-2 lg:col-span-1">
-              <dt className="text-[11px] font-medium uppercase tracking-wider text-slate-500">
+              <dt className="text-micro font-medium uppercase tracking-wider text-slate-500">
                 Anexo
               </dt>
               <dd className="inline-flex items-center gap-1.5 text-sm text-slate-700">
@@ -145,8 +146,8 @@ export function RespondentEvidenceCard({ item, onOpenDetail }: Props) {
                   : "border-slate-200 bg-slate-50/90"
             }`}
           >
-            <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-600">
-              Observação do analista
+            <p className="text-micro font-semibold uppercase tracking-wider text-slate-600">
+              Observação da validação
             </p>
             <p className="mt-1 text-sm leading-relaxed text-slate-800">{item.lastJustification}</p>
           </div>

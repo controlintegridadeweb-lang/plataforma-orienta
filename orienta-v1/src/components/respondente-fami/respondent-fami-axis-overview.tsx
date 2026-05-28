@@ -2,11 +2,7 @@
 
 import Link from "next/link";
 import { ChevronRight, ClipboardList, Shield } from "lucide-react";
-import {
-  LEVEL_META,
-  levelMeta,
-  rankAxesByImpact,
-} from "@/lib/fami/respondent-presentation";
+import { LEVEL_META, rankAxesByImpact } from "@/lib/fami/respondent-presentation";
 import type { AxisMaturity } from "@/lib/fami/types";
 import { formSurface } from "@/lib/form-surface";
 
@@ -59,7 +55,7 @@ export function RespondentFamiAxisOverview({
         return (
           <li
             key={row.axisId ?? row.axisName}
-            className={`${formSurface.card} transition hover:-translate-y-0.5 hover:shadow-[var(--shadow-card-hover)]`}
+            className={`${formSurface.card} transition hover:-translate-y-0.5 hover:shadow-card-hover`}
           >
             <div className="border-b border-slate-100/80 px-4 py-3">
               <div className="flex items-start justify-between gap-2">
@@ -67,10 +63,10 @@ export function RespondentFamiAxisOverview({
                   <p className="line-clamp-1 text-sm font-semibold text-slate-900" title={row.axisName}>
                     {row.axisName}
                   </p>
-                  <p className="text-[11px] text-slate-500">{meta.range}</p>
+                  <p className="text-micro text-slate-500">{meta.range}</p>
                 </div>
                 <span
-                  className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] font-semibold ${meta.badgeClasses}`}
+                  className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-micro font-semibold ${meta.badgeClasses}`}
                   title={meta.description}
                 >
                   N{meta.level} · {meta.shortLabel}
@@ -81,11 +77,11 @@ export function RespondentFamiAxisOverview({
                   {row.percentage.toFixed(1)}%
                 </span>
                 {row.isCritical ? (
-                  <span className="rounded-full bg-rose-50 px-1.5 py-0.5 text-[10px] font-semibold text-rose-700">
+                  <span className="rounded-full bg-rose-50 px-1.5 py-0.5 text-2xs font-semibold text-rose-700">
                     Crítico
                   </span>
                 ) : row.isAdvanced ? (
-                  <span className="rounded-full bg-emerald-50 px-1.5 py-0.5 text-[10px] font-semibold text-emerald-700">
+                  <span className="rounded-full bg-emerald-50 px-1.5 py-0.5 text-2xs font-semibold text-emerald-700">
                     Avançado
                   </span>
                 ) : null}
@@ -96,7 +92,7 @@ export function RespondentFamiAxisOverview({
                   style={{ width: `${row.percentage}%` }}
                 />
               </div>
-              <p className="mt-2 text-[11px] text-slate-500">
+              <p className="mt-2 text-micro text-slate-500">
                 Impacto potencial:{" "}
                 <strong className="font-semibold text-slate-700">
                   +{row.impact.toFixed(1)} p.p.
@@ -104,7 +100,7 @@ export function RespondentFamiAxisOverview({
                 no global se atingir 100%.
               </p>
             </div>
-            <div className="flex flex-wrap items-center justify-between gap-2 bg-slate-50/40 px-4 py-2.5 text-[11px] text-slate-600">
+            <div className="flex flex-wrap items-center justify-between gap-2 bg-slate-50/40 px-4 py-2.5 text-micro text-slate-600">
               <div className="flex flex-wrap items-center gap-3">
                 <span className="inline-flex items-center gap-1">
                   <ClipboardList className="h-3 w-3 text-slate-400" aria-hidden />

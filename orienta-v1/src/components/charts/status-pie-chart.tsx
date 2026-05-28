@@ -3,22 +3,18 @@ import { EVIDENCE_VALIDATION_REGISTRY } from "@/lib/domain/status-registry";
 import type { ValidationStatus } from "@/lib/evidences/schemas";
 
 const STATUS_COLORS: Record<string, string> = {
-  valid: "#10b981",
-  invalid: "#f43f5e",
-  partially_valid: "#f59e0b",
+  approved: "#10b981",
+  invalidated: "#f43f5e",
+  adjustment_requested: "#f59e0b",
   pending: "#94a3b8",
-  complementation_requested: "#f97316",
-  waived: "#6366f1",
   sem_evidencia: "#cbd5e1",
 };
 
 const PLURAL_LABEL: Partial<Record<ValidationStatus | "sem_evidencia", string>> = {
-  valid: "Validadas",
-  invalid: "Inválidas",
-  partially_valid: "Parciais",
+  approved: "Aprovadas",
+  invalidated: "Invalidadas",
+  adjustment_requested: "Aguardando ajuste",
   pending: "Pendentes",
-  complementation_requested: "Complementação",
-  waived: "Dispensadas",
   sem_evidencia: "Sem evidência",
 };
 
@@ -65,7 +61,7 @@ export function StatusPieChart({ data }: { data: Record<string, number> }) {
 
   if (total === 0) {
     return (
-      <div className="flex h-full min-h-[220px] flex-col items-center justify-center gap-2 rounded-xl border border-slate-200 bg-slate-50/60 px-5 py-10 text-center">
+      <div className="flex h-full min-h-55 flex-col items-center justify-center gap-2 rounded-xl border border-slate-200 bg-slate-50/60 px-5 py-10 text-center">
         <PieChart className="mx-auto h-10 w-10 text-slate-300" aria-hidden />
         <p className="text-base font-medium text-slate-700">Nenhuma evidência com validação</p>
         <p className="max-w-sm text-sm leading-relaxed text-slate-500">
@@ -141,7 +137,7 @@ export function StatusPieChart({ data }: { data: Record<string, number> }) {
                 </span>
               </span>
               <span className="shrink-0 tabular-nums text-slate-600">
-                <span className="text-[1.0625rem] font-semibold text-slate-900">{value}</span>
+                <span className="text-kicker-md font-semibold text-slate-900">{value}</span>
                 <span className="ml-1.5 text-sm text-slate-500">({pct}%)</span>
               </span>
             </li>

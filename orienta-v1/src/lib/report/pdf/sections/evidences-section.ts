@@ -2,7 +2,7 @@ import type { Cursor, OrientaPdfDocument } from "../document";
 import { contentWidth, reportTheme } from "../theme";
 import { drawKpiTile } from "../helpers";
 
-export function renderEvidencesSection(doc: OrientaPdfDocument, _c: Cursor): Cursor {
+export function renderEvidencesSection(doc: OrientaPdfDocument): Cursor {
   let cur = doc.beginMajorSection(
     "Evidências",
     "Situação documental e fluxo de validação.",

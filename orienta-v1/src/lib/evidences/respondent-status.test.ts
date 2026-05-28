@@ -24,21 +24,19 @@ describe("deriveRespondentStatus", () => {
   it("pending sem historico vira aguardando_analise", () => {
     expect(deriveRespondentStatus("pending", [])).toBe("aguardando_analise");
   });
-  it("pending com complementation no historico vira ajustada_e_reenviada", () => {
+  it("pending com adjustment no historico vira ajustada_e_reenviada", () => {
     expect(
-      deriveRespondentStatus("pending", [entry("complementation_requested")]),
+      deriveRespondentStatus("pending", [entry("adjustment_requested")]),
     ).toBe("ajustada_e_reenviada");
   });
-  it("valid/waived viram aprovada", () => {
-    expect(deriveRespondentStatus("valid", [])).toBe("aprovada");
-    expect(deriveRespondentStatus("waived", [])).toBe("aprovada");
+  it("approved vira aprovada", () => {
+    expect(deriveRespondentStatus("approved", [])).toBe("aprovada");
   });
-  it("invalid/partially_valid viram reprovada", () => {
-    expect(deriveRespondentStatus("invalid", [])).toBe("reprovada");
-    expect(deriveRespondentStatus("partially_valid", [])).toBe("reprovada");
+  it("invalidated vira reprovada", () => {
+    expect(deriveRespondentStatus("invalidated", [])).toBe("reprovada");
   });
-  it("complementation_requested mantem como complementacao_solicitada", () => {
-    expect(deriveRespondentStatus("complementation_requested", [])).toBe(
+  it("adjustment_requested mantem como complementacao_solicitada", () => {
+    expect(deriveRespondentStatus("adjustment_requested", [])).toBe(
       "complementacao_solicitada",
     );
   });

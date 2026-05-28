@@ -18,7 +18,6 @@ import {
 import { formSurface } from "@/lib/form-surface";
 
 type Props = {
-  mode: "admin" | "analyst";
   summaryLine?: string | null;
   summaryClassName?: string;
   loading?: boolean;
@@ -32,9 +31,8 @@ type Props = {
   onReprocess: () => void;
 };
 
-/** Hero institucional de Maturidade FAMI (admin/analista). */
+/** Hero institucional de Maturidade FAMI (admin). */
 export function AdminFamiMaturityHero({
-  mode,
   summaryLine,
   summaryClassName = "text-slate-600",
   loading,
@@ -81,17 +79,15 @@ export function AdminFamiMaturityHero({
               />
               {loading ? "Atualizando…" : "Atualizar"}
             </button>
-            {mode === "admin" ? (
-              <button
-                type="button"
-                onClick={onExport}
-                disabled={exportDisabled}
-                className={`${formSurface.secondaryButtonSm} disabled:opacity-50`}
-              >
-                <Download className="h-3.5 w-3.5" aria-hidden />
-                Exportar CSV
-              </button>
-            ) : null}
+            <button
+              type="button"
+              onClick={onExport}
+              disabled={exportDisabled}
+              className={`${formSurface.secondaryButtonSm} disabled:opacity-50`}
+            >
+              <Download className="h-3.5 w-3.5" aria-hidden />
+              Exportar CSV
+            </button>
             <button
               type="button"
               onClick={onReprocess}

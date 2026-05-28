@@ -50,12 +50,12 @@ export function RespondentFamiRadarChart({ axes, title, embedded = false }: Prop
     <figure
       className={
         embedded
-          ? "flex h-full min-h-[20rem] flex-col justify-center p-2 sm:p-3"
+          ? "flex h-full min-h-80 flex-col justify-center p-2 sm:p-3"
           : `p-5 ${formSurface.card}`
       }
     >
       {title ? (
-        <figcaption className="mb-4 text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+        <figcaption className="mb-4 text-micro font-semibold uppercase tracking-wider text-slate-500">
           {title}
         </figcaption>
       ) : null}

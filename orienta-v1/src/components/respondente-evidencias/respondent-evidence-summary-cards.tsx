@@ -2,6 +2,7 @@
 
 import { CheckCircle2, FileCheck, FileQuestion, FileWarning, Hourglass } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import { evidenceComplementation } from "@/lib/labels/complementation-terms";
 import type { RespondentStatsResult } from "@/lib/evidences/respondent-service";
 import type { RespondentEvidenceStatus } from "@/lib/evidences/respondent-status";
 import { MetricCard, MetricCardSkeleton, type MetricCardVariant } from "@/components/ui/metric-card";
@@ -44,7 +45,7 @@ const DEFS: CardDef[] = [
   {
     key: "aprovadas",
     label: "Aprovadas",
-    description: "Validadas pelo analista.",
+    description: "Validadas pela equipe.",
     icon: CheckCircle2,
     variant: "success",
     value: (s) => s.aprovadas,
@@ -70,7 +71,7 @@ const DEFS: CardDef[] = [
   },
   {
     key: "complementacao",
-    label: "Complementação solicitada",
+    label: evidenceComplementation.respondentStatusLabel,
     description: "Você precisa responder.",
     icon: FileQuestion,
     variant: "warning",

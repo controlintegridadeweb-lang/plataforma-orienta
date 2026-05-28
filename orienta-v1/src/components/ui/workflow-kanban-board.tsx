@@ -88,7 +88,7 @@ export function WorkflowKanbanBoard<T>({
         </div>
 
         {footer ? (
-          <div className="mt-4 flex flex-wrap items-center justify-between gap-2 border-t border-slate-200/60 pt-3 text-[11px] text-slate-500">
+          <div className="mt-4 flex flex-wrap items-center justify-between gap-2 border-t border-slate-200/60 pt-3 text-micro text-slate-500">
             {footer}
           </div>
         ) : null}

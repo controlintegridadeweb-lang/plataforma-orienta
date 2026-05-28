@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+﻿import { NextResponse } from "next/server";
 import { z } from "zod";
 import { createSupabaseServiceRoleClient } from "@/lib/supabase/server";
 import { assertDevOnly } from "@/lib/api/dev-only";
@@ -8,14 +8,12 @@ import { logError } from "@/lib/observability/logger";
 
 const payloadSchema = z.object({
   responseId: z.string().uuid(),
-  analystUserId: z.string().uuid(),
+  staffUserId: z.string().uuid(),
   status: z.enum([
     "pending",
-    "valid",
-    "invalid",
-    "partially_valid",
-    "complementation_requested",
-    "waived",
+    "approved",
+    "invalidated",
+    "adjustment_requested",
   ]),
   justification: z.string().optional(),
 });
@@ -23,7 +21,7 @@ const payloadSchema = z.object({
 export async function POST(request: Request) {
   const devOnlyError = assertDevOnly();
   if (devOnlyError) return devOnlyError;
-  const { context, error: authError } = await requireAuth(request, ["analyst"]);
+  const { context, error: authError } = await requireAuth(request, ["admin"]);
   if (authError) return authError;
 
   const body = await request.json();
@@ -33,10 +31,10 @@ export async function POST(request: Request) {
   }
 
   const supabase = createSupabaseServiceRoleClient();
-  const { responseId, analystUserId, status, justification } = parsed.data;
+  const { responseId, staffUserId, status, justification } = parsed.data;
   const tenantError = await ensureResponseAccess(context!, responseId);
   if (tenantError) return tenantError;
-  if (context?.role !== "admin" && context?.userId !== analystUserId) {
+  if (context?.userId !== staffUserId) {
     return NextResponse.json({ error: "Usuario divergente do token informado." }, { status: 403 });
   }
 
@@ -82,8 +80,11 @@ export async function POST(request: Request) {
       .insert({
         evidence_id: evidenceId,
         status,
-        validated_by: analystUserId,
-        justification: status === "waived" ? justification ?? "Dispensa justificada em homologacao." : null,
+        validated_by: staffUserId,
+        justification:
+          status === "invalidated" || status === "adjustment_requested"
+            ? justification ?? "Justificativa registrada em homologacao."
+            : null,
       })
       .select("id,status,validated_at")
       .single();

@@ -39,7 +39,7 @@ export function EvidencesCardsList({ items, selected, onToggleSelect, onOpenDeta
                 />
                 <div className="min-w-0 flex-1 space-y-2">
                   <p
-                    className="line-clamp-2 text-[11px] leading-snug text-slate-500"
+                    className="line-clamp-2 text-micro leading-snug text-slate-500"
                     title={contextLine}
                   >
                     {contextLine}
@@ -67,7 +67,7 @@ export function EvidencesCardsList({ items, selected, onToggleSelect, onOpenDeta
               <div className="mt-4 border-t border-slate-100 bg-slate-50/50 px-4 py-3.5 sm:px-5">
                 <dl className="grid gap-3 sm:grid-cols-2">
                   <div className="space-y-0.5">
-                    <dt className="text-[11px] font-medium uppercase tracking-wider text-slate-500">
+                    <dt className="text-micro font-medium uppercase tracking-wider text-slate-500">
                       Organizacao
                     </dt>
                     <dd
@@ -78,7 +78,7 @@ export function EvidencesCardsList({ items, selected, onToggleSelect, onOpenDeta
                     </dd>
                   </div>
                   <div className="space-y-0.5">
-                    <dt className="text-[11px] font-medium uppercase tracking-wider text-slate-500">
+                    <dt className="text-micro font-medium uppercase tracking-wider text-slate-500">
                       Anexo
                     </dt>
                     <dd className="text-sm">

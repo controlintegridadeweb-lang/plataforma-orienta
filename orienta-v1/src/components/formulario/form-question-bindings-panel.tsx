@@ -6,7 +6,6 @@ import {
   AlertTriangle,
   Ban,
   CheckCircle2,
-  CircleDot,
   Clock,
   FileWarning,
   HelpCircle,
@@ -20,7 +19,6 @@ import {
   getRequiredScenariosFor,
 } from "@/lib/library/binding-types";
 import type {
-  InlineLibraryAction,
   InlineMetric,
   LibraryBindings,
   LibraryScenarioKey,
@@ -47,12 +45,11 @@ const RECOMMENDATION_TITLE_MAX = 500;
 /** Contexto do cenário (complementa o título fixo do bloco). */
 const SCENARIO_PROMPT: Record<LibraryScenarioKey, string> = {
   nao: "Quando o respondente marcar Não",
-  parcialmente: "Quando marcar Parcialmente",
+  nao_se_aplica: "Quando marcar Não se aplica",
   sim_sem_evidencia: "Quando marcar Sim sem anexar evidência",
   sim_evidencia_invalida: "Quando marcar Sim com evidência inválida ou insuficiente",
   sim_evidencia_valida:
     "Quando marcar Sim com evidência válida (em geral sem recomendação)",
-  nao_se_aplica: "Quando marcar Não se aplica",
   em_andamento: "Quando marcar Em andamento",
   nao_sabe: "Quando marcar Não sabe",
   em_revisao: "Quando marcar Em revisão",
@@ -76,13 +73,6 @@ const SCENARIO_ACCENTS: Record<
     iconBox: "bg-rose-100 text-rose-700 ring-1 ring-rose-200/90",
     badge: "bg-rose-100 text-rose-950 ring-1 ring-rose-200/80",
     Icon: XCircle,
-  },
-  parcialmente: {
-    bar: "border-l-amber-500",
-    headerTint: "from-amber-50/95 via-amber-50/35 to-white",
-    iconBox: "bg-amber-100 text-amber-800 ring-1 ring-amber-200/90",
-    badge: "bg-amber-100 text-amber-950 ring-1 ring-amber-200/80",
-    Icon: CircleDot,
   },
   sim_sem_evidencia: {
     bar: "border-l-sky-500",
@@ -358,10 +348,7 @@ function QuestionBindingCard({
     if (!binding) return;
     setAxisId(binding.axisId ?? "");
     setSectionId(binding.sectionId ?? "");
-    const rawType = binding.metric?.answerType as string | undefined;
-    setAnswerType(
-      rawType === "yes_no_partial" ? "yes_no" : (binding.metric?.answerType ?? DEFAULT_ANSWER_TYPE),
-    );
+    setAnswerType(binding.metric?.answerType ?? DEFAULT_ANSWER_TYPE);
     setBindings(
       binding.bindings && Object.keys(binding.bindings).length > 0 ? binding.bindings : {},
     );
@@ -671,7 +658,7 @@ function ScenarioRow({
           </span>
           <div className="min-w-0 flex-1">
             <span
-              className={`inline-flex max-w-full rounded-full px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide ${accent.badge}`}
+              className={`inline-flex max-w-full rounded-full px-2.5 py-1 text-micro font-bold uppercase tracking-wide ${accent.badge}`}
             >
               {LIBRARY_SCENARIO_LABEL[scenario]}
             </span>
@@ -696,14 +683,14 @@ function ScenarioRow({
           className={formSurface.inputTextarea}
         />
         <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-          <p className="text-[11px] tabular-nums text-slate-500">
+          <p className="text-micro tabular-nums text-slate-500">
             {(rec?.title?.length ?? 0)}/{RECOMMENDATION_TITLE_MAX} caracteres
           </p>
           {officialTitle ? (
             <button
               type="button"
               onClick={applySuggestedTitle}
-              className="text-[11px] font-semibold text-brand-700 underline decoration-brand-300 underline-offset-2 hover:text-brand-900"
+              className="text-micro font-semibold text-brand-700 underline decoration-brand-300 underline-offset-2 hover:text-brand-900"
             >
               Usar texto sugerido
             </button>
@@ -732,7 +719,7 @@ function ResponseMappingEditor({
         Faixas / limiares (opcional)
       </summary>
       <p className="mt-2 text-xs text-slate-600">
-        Define como os valores sao agrupados nos cenarios nao / parcialmente.
+        Define como os valores sao agrupados nos cenarios nao / nao_se_aplica.
       </p>
       {answerType === "scale" ? (
         <div className="mt-2 grid gap-2 md:grid-cols-2">
@@ -754,7 +741,7 @@ function ResponseMappingEditor({
                       ? null
                       : {
                           failMax: v,
-                          partialMax: scale?.partialMax ?? 3,
+                          notApplicableMax: scale?.notApplicableMax ?? 3,
                         },
                 });
               }}
@@ -762,13 +749,13 @@ function ResponseMappingEditor({
             />
           </label>
           <label className="text-xs text-slate-700">
-            Ate (inclusive) para &quot;parcial&quot;
+            Ate (inclusive) para &quot;nao se aplica&quot;
             <input
               type="number"
               min={1}
               max={5}
               step={1}
-              value={scale?.partialMax ?? ""}
+              value={scale?.notApplicableMax ?? ""}
               placeholder="Padrao 3"
               onChange={(e) => {
                 const v = e.target.value === "" ? null : Number(e.target.value);
@@ -779,7 +766,7 @@ function ResponseMappingEditor({
                       ? null
                       : {
                           failMax: scale?.failMax ?? 2,
-                          partialMax: v,
+                          notApplicableMax: v,
                         },
                 });
               }}
@@ -803,7 +790,7 @@ function ResponseMappingEditor({
                       ? null
                       : {
                           failBelow: v,
-                          partialBelow: numeric?.partialBelow ?? v + 1,
+                          notApplicableBelow: numeric?.notApplicableBelow ?? v + 1,
                         },
                 });
               }}
@@ -811,10 +798,10 @@ function ResponseMappingEditor({
             />
           </label>
           <label className="text-xs text-slate-700">
-            Ate (inclusive) para &quot;parcial&quot;
+            Ate (inclusive) para &quot;nao se aplica&quot;
             <input
               type="number"
-              value={numeric?.partialBelow ?? ""}
+              value={numeric?.notApplicableBelow ?? ""}
               onChange={(e) => {
                 const v = e.target.value === "" ? null : Number(e.target.value);
                 onChange({
@@ -824,7 +811,7 @@ function ResponseMappingEditor({
                       ? null
                       : {
                           failBelow: numeric?.failBelow ?? v - 1,
-                          partialBelow: v,
+                          notApplicableBelow: v,
                         },
                 });
               }}
@@ -834,81 +821,5 @@ function ResponseMappingEditor({
         </div>
       )}
     </details>
-  );
-}
-
-function ScenarioActionsEditor({
-  scenario,
-  actions,
-  onChange,
-}: {
-  scenario: string;
-  actions: InlineLibraryAction[] | undefined;
-  onChange: (next: InlineLibraryAction[]) => void;
-}) {
-  const list = actions ?? [];
-  return (
-    <div className="space-y-2">
-      <p className="text-[11px] font-semibold text-slate-700">
-        Tarefas neste vínculo (opcional)
-      </p>
-      <p className="text-[10px] text-slate-500">
-        Itens operacionais só para este formulário; não substituem o modelo de plano de ação na
-        Biblioteca.
-      </p>
-      {list.map((act, idx) => (
-        <div key={`${scenario}-act-${idx}`} className="flex flex-wrap gap-2 items-end">
-          <input
-            type="text"
-            placeholder="Título da tarefa"
-            value={act.title}
-            onChange={(e) => {
-              const next = [...list];
-              next[idx] = { ...act, title: e.target.value };
-              onChange(next);
-            }}
-            className={`min-w-[200px] flex-1 ${formSurface.input}`}
-          />
-          <input
-            type="number"
-            placeholder="Prazo dias"
-            value={act.suggestedDeadlineDays ?? ""}
-            onChange={(e) => {
-              const next = [...list];
-              const v = e.target.value;
-              next[idx] = {
-                ...act,
-                suggestedDeadlineDays: v === "" ? null : Number(v),
-              };
-              onChange(next);
-            }}
-            className={`w-24 min-w-0 ${formSurface.input}`}
-          />
-          <button
-            type="button"
-            onClick={() => onChange(list.filter((_, i) => i !== idx))}
-            className="text-xs text-rose-600 hover:underline"
-          >
-            remover
-          </button>
-        </div>
-      ))}
-      <button
-        type="button"
-        onClick={() =>
-          onChange([
-            ...list,
-            {
-              title: "Nova tarefa",
-              description: null,
-              suggestedDeadlineDays: null,
-            },
-          ])
-        }
-        className="text-xs font-medium text-emerald-700 hover:underline"
-      >
-        + Adicionar tarefa
-      </button>
-    </div>
   );
 }

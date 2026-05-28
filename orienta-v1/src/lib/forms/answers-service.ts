@@ -33,7 +33,6 @@ function normalizeAnswerType(raw: unknown): QuestionAnswerType {
   if (!raw || typeof raw !== "object") return "yes_no";
   const at = (raw as Record<string, unknown>).answerType;
   if (at === "scale" || at === "numeric" || at === "text") return at;
-  // `yes_no_partial` legado vira `yes_no` (vide migration 0016).
   return "yes_no";
 }
 
@@ -153,11 +152,11 @@ export class FormsAnswersService {
     const totalRespondents = orgIds.size;
     const questions: AnswersSummaryQuestion[] = orderedQuestions.map((q) => {
       const list = byQuestion.get(q.id) ?? [];
-      const distribution = { yes: 0, no: 0, partial: 0 };
+      const distribution = { yes: 0, no: 0, not_applicable: 0 };
       for (const row of list) {
         if (row.answer === "yes") distribution.yes += 1;
         else if (row.answer === "no") distribution.no += 1;
-        else if (row.answer === "partial") distribution.partial += 1;
+        else if (row.answer === "not_applicable") distribution.not_applicable += 1;
       }
 
       const answerType = normalizeAnswerType(bindingByQuestion.get(q.id));
@@ -429,7 +428,7 @@ export class FormsAnswersService {
 
     const hasComplementationRequested = Array.from(
       latestValidationByEvidence.values(),
-    ).some((s) => s === "complementation_requested");
+    ).some((s) => s === "adjustment_requested");
 
     const responseByQuestion = new Map(
       responses.map((r) => [r.question_id, r] as const),
@@ -670,7 +669,7 @@ export class FormsAnswersService {
    *  - lastUpdatedAt
    *  - hasSubmission (existe `fami_results`)
    *  - hasComplementationRequested (alguma evidencia da org+form com
-   *    validacao mais recente = `complementation_requested`)
+   *    validacao mais recente = `adjustment_requested`)
    *
    * Tambem retorna o `lastAnswerAt` global e o tamanho.
    *
@@ -791,7 +790,7 @@ export class FormsAnswersService {
 
         for (const ev of evRowsTyped) {
           const status = latestByEvidence.get(ev.id);
-          if (status === "complementation_requested") {
+          if (status === "adjustment_requested") {
             const orgId = responseOrgById.get(ev.response_id);
             if (orgId) complementationOrgs.add(orgId);
           }

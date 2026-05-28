@@ -19,7 +19,7 @@ const CONFIG: Record<
     icon: Sparkles,
     title: "Sua maturidade ainda não foi calculada",
     description:
-      "Quando o sistema processar suas respostas e evidências, sua pontuação FAMI aparecerá aqui.",
+      "A pontuação FAMI oficial é gerada quando a administração encerra o ciclo do formulário. Até lá, continue respondendo e acompanhe as recomendações geradas pelas suas respostas.",
     iconBg: "bg-slate-50",
     iconColor: "text-slate-500",
   },

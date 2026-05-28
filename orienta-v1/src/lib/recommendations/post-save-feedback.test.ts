@@ -13,7 +13,7 @@ describe("post-save-feedback", () => {
   });
 
   it("formats submit messages", () => {
-    expect(formatSubmitRecommendationMessage(0)).toContain("Nenhuma");
+    expect(formatSubmitRecommendationMessage(0)).toContain("Envio finalizado");
     expect(formatSubmitRecommendationMessage(1)).toContain("1 recomendação");
     expect(formatSubmitRecommendationMessage(3)).toContain("3 recomendações");
   });

@@ -10,11 +10,10 @@ function forbidden(message: string) {
 /**
  * Garante que o usuario tem acesso a organizacao informada.
  * - admin global (sem `organization_id` no perfil): visao cross-org
- * - analyst: visao cross-org (legado, sera removido na Fase 3)
  * - admin com `organization_id` / respondent: somente a propria organizacao
  */
 export function ensureOrganizationAccess(context: AuthContext, organizationId: string) {
-  if (isGlobalAdmin(context) || context.role === "analyst") {
+  if (isGlobalAdmin(context)) {
     return null;
   }
   if (!context.organizationId) {
@@ -85,7 +84,7 @@ export async function ensureResponseAccess(context: AuthContext, responseId: str
 /**
  * Garante que o usuario tem acesso a evidencia dada. Admin global pode
  * ver/validar evidencias de qualquer organizacao (visao operacional
- * cross-org). Admin com `organization_id`, analyst e respondent ficam
+ * cross-org). Admin com `organization_id` e respondent ficam
  * restritos a organizacao do proprio perfil.
  */
 export async function ensureEvidenceAccess(

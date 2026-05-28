@@ -1,6 +1,5 @@
 export type LibraryScenarioKey =
   | "nao"
-  | "parcialmente"
   | "sim_sem_evidencia"
   | "sim_evidencia_invalida"
   | "sim_evidencia_valida"
@@ -12,7 +11,6 @@ export type LibraryScenarioKey =
 
 export const LIBRARY_SCENARIOS: readonly LibraryScenarioKey[] = [
   "nao",
-  "parcialmente",
   "sim_sem_evidencia",
   "sim_evidencia_invalida",
   "sim_evidencia_valida",
@@ -25,7 +23,6 @@ export const LIBRARY_SCENARIOS: readonly LibraryScenarioKey[] = [
 
 export const LIBRARY_SCENARIO_LABEL: Record<LibraryScenarioKey, string> = {
   nao: "Não",
-  parcialmente: "Parcialmente",
   sim_sem_evidencia: "Sim, sem evidência",
   sim_evidencia_invalida: "Sim, evidência inválida",
   sim_evidencia_valida: "Sim, evidência válida",
@@ -38,7 +35,7 @@ export const LIBRARY_SCENARIO_LABEL: Record<LibraryScenarioKey, string> = {
 
 export const LIBRARY_REQUIRED_SCENARIOS: readonly LibraryScenarioKey[] = [
   "nao",
-  "parcialmente",
+  "nao_se_aplica",
   "sim_evidencia_invalida",
 ];
 
@@ -49,7 +46,7 @@ export const LIBRARY_REQUIRED_SCENARIOS: readonly LibraryScenarioKey[] = [
  * de recomendacao fazem sentido.
  *
  * - yes_no           -> { nao }                          (+ FAMI se exige evidencia)
- * - scale / numeric  -> { nao, parcialmente }            (via responseMapping)
+ * - scale / numeric  -> { nao, nao_se_aplica }           (via responseMapping)
  * - text             -> {} (apenas observacao opcional; sem cenarios obrigatorios)
  *
  * Quando `requiresEvidence=true`, acrescenta `sim_evidencia_invalida` para todos
@@ -68,7 +65,7 @@ export function getRequiredScenariosFor(
       break;
     case "scale":
     case "numeric":
-      base.push("nao", "parcialmente");
+      base.push("nao", "nao_se_aplica");
       break;
     case "text":
       return [];
@@ -87,7 +84,6 @@ export type InlineLibraryRecommendation = {
   textoBaseParametrizavel?: string | null;
   tipo?:
     | "nao_implementacao"
-    | "implementacao_parcial"
     | "ausencia_evidencia"
     | "evidencia_insuficiente"
     | null;
@@ -121,7 +117,7 @@ export type LibraryBindings = Partial<Record<LibraryScenarioKey, LibraryScenario
 
 /**
  * Mapeamento por pergunta de respostas em escala (1..5) e numericas para o trio
- * yes/no/partial usado pelo motor v2. Definicao canonica em
+ * yes/no/not_applicable usado pelo motor v2. Definicao canonica em
  * `metric-response-mapper.ts` (com `ScaleBands` e `NumericThresholds`).
  */
 import type { ResponseMapping } from "./metric-response-mapper";

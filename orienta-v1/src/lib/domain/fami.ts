@@ -14,14 +14,14 @@ export type FamiSummary = {
 };
 
 function getWeight(question: QuestionInput): number {
-  return question.requiresEvidence ? 1.5 : 1;
+  return 1;
 }
 
 function calculateLevel(percentage: number): 1 | 2 | 3 | 4 | 5 {
-  if (percentage <= 25) return 1;
-  if (percentage <= 50) return 2;
-  if (percentage <= 75) return 3;
-  if (percentage <= 90) return 4;
+  if (percentage <= 20) return 1;
+  if (percentage <= 40) return 2;
+  if (percentage <= 60) return 3;
+  if (percentage <= 80) return 4;
   return 5;
 }
 
@@ -38,8 +38,8 @@ function scoreQuestion(question: QuestionInput): number {
     return 1;
   }
 
-  if (question.validationStatus === "valid" || question.validationStatus === "waived") {
-    return 1.5;
+  if (question.validationStatus === "approved") {
+    return 1;
   }
 
   return 0;

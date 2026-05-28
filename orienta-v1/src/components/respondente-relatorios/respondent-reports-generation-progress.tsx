@@ -40,7 +40,7 @@ export function RespondentReportsGenerationProgress({ active, finished }: Props)
       role="status"
       aria-live="polite"
     >
-      <p className="mb-2 text-[11px] font-semibold uppercase tracking-wider text-sky-800">
+      <p className="mb-2 text-micro font-semibold uppercase tracking-wider text-sky-800">
         {finished ? "Geração concluída" : "Processando relatório"}
       </p>
       <ol className="space-y-2">

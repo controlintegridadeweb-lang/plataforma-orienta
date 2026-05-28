@@ -94,21 +94,21 @@ export function ActivityFeed({ activities }: { activities: RecentActivity[] }) {
   const groups = groupConsecutive(activities);
 
   return (
-    <ol className="relative space-y-4 before:absolute before:left-[17px] before:top-1 before:bottom-1 before:w-px before:bg-slate-200">
+    <ol className="relative space-y-4 before:absolute before:left-4.25 before:top-1 before:bottom-1 before:w-px before:bg-slate-200">
       {groups.map((group) => {
         const { icon: Icon, title } = eventVisuals(group.first.eventType, group.first.tableName);
         const actor = group.first.actorEmail ?? "Sistema";
         const when = formatRelative(group.first.createdAt);
         return (
           <li key={group.first.id} className="relative flex items-start gap-4 pl-0">
-            <div className="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-slate-100 text-slate-600 ring-[6px] ring-white">
+            <div className="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-slate-100 text-slate-600 ring-6 ring-white">
               <Icon className="h-5 w-5" aria-hidden />
             </div>
             <div className="min-w-0 flex-1 pt-1">
-              <p className="flex flex-wrap items-center gap-2 text-[0.9375rem] font-semibold text-slate-900">
+              <p className="flex flex-wrap items-center gap-2 text-sm font-semibold text-slate-900">
                 <span>{title}</span>
                 {group.count > 1 ? (
-                  <span className="inline-flex items-center rounded-full bg-slate-100 px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-slate-600">
+                  <span className="inline-flex items-center rounded-full bg-slate-100 px-2 py-0.5 text-micro font-semibold uppercase tracking-wide text-slate-600">
                     {group.count}x
                   </span>
                 ) : null}

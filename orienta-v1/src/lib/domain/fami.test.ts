@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { calculateFami } from "./fami";
 
 describe("calculateFami", () => {
-  it("aplica pontuacao ponderada corretamente", () => {
+  it("aplica pontuacao com peso uniforme corretamente", () => {
     const result = calculateFami([
       {
         id: "q1",
@@ -19,7 +19,7 @@ describe("calculateFami", () => {
         famiEnabled: true,
         requiresEvidence: true,
         answer: "yes",
-        validationStatus: "valid",
+        validationStatus: "approved",
       },
       {
         id: "q3",
@@ -27,13 +27,14 @@ describe("calculateFami", () => {
         sectionId: "s2",
         famiEnabled: true,
         requiresEvidence: true,
-        answer: "partial",
+        answer: "not_applicable",
+        isNotApplicable: true,
       },
     ]);
 
-    expect(result.global.pointsPossible).toBe(4);
-    expect(result.global.pointsObtained).toBe(2.5);
-    expect(result.global.percentage).toBe(62.5);
-    expect(result.global.maturityLevel).toBe(3);
+    expect(result.global.pointsPossible).toBe(2);
+    expect(result.global.pointsObtained).toBe(2);
+    expect(result.global.percentage).toBe(100);
+    expect(result.global.maturityLevel).toBe(5);
   });
 });

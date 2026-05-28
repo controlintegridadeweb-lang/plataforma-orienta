@@ -84,7 +84,7 @@ export function RespondentFamiProcessingCard({
           value={organizationName || "—"}
         />
         <label className="flex flex-col gap-1.5">
-          <span className="inline-flex items-center gap-1 text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+          <span className="inline-flex items-center gap-1 text-micro font-semibold uppercase tracking-wider text-slate-500">
             <FileText className="h-3 w-3" aria-hidden />
             Formulário
           </span>
@@ -105,7 +105,7 @@ export function RespondentFamiProcessingCard({
             )}
           </select>
           {selectedForm ? (
-            <span className="text-[11px] text-slate-500">
+            <span className="text-micro text-slate-500">
               Versão do formulário: v{selectedForm.version}
             </span>
           ) : null}
@@ -144,14 +144,14 @@ function InfoCell({
 }) {
   return (
     <div className="flex flex-col gap-1">
-      <span className="inline-flex items-center gap-1 text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+      <span className="inline-flex items-center gap-1 text-micro font-semibold uppercase tracking-wider text-slate-500">
         <Icon className="h-3 w-3" aria-hidden />
         {label}
       </span>
       <span className="line-clamp-2 text-sm font-semibold text-slate-900" title={value}>
         {value}
       </span>
-      {subtitle ? <span className="text-[11px] text-slate-500">{subtitle}</span> : null}
+      {subtitle ? <span className="text-micro text-slate-500">{subtitle}</span> : null}
     </div>
   );
 }

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useTransition } from "react";
 import { LogOut } from "lucide-react";
@@ -30,7 +30,7 @@ export function LogoutButton({ className }: { className?: string }) {
         {pending ? (
           <Spinner className="shrink-0" />
         ) : (
-          <LogOut className="h-[1.125rem] w-[1.125rem] shrink-0" aria-hidden />
+          <LogOut className="size-4.5 shrink-0" aria-hidden />
         )}
         <span className="sb-label">{pending ? "Saindo..." : "Sair"}</span>
       </button>

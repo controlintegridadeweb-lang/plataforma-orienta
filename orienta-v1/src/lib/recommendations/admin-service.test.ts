@@ -359,13 +359,13 @@ describe("RecommendationsAdminService", () => {
     expect(result.items).toHaveLength(3);
   });
 
-  it("analyst ignora organizationId passado e usa o proprio", async () => {
+  it("admin org-scoped ignora organizationId passado e usa o proprio", async () => {
     const db = emptyDb();
     const { orgA, orgB } = seed(db);
     const svc = new RecommendationsAdminService(buildMock(db));
     const result = await svc.list(
       { organizationId: orgB.id },
-      { role: "analyst", organizationId: orgA.id },
+      { role: "admin", organizationId: orgA.id },
     );
     expect(result.total).toBe(2);
     expect(result.items.every((i) => i.organizationId === orgA.id)).toBe(true);
@@ -459,7 +459,7 @@ describe("RecommendationsAdminService", () => {
     expect(db.recommendation_changes.at(-1)?.field).toBe("current_text");
   });
 
-  it("analyst nao pode editar recomendacao de outra organizacao", async () => {
+  it("admin org-scoped nao pode editar recomendacao de outra organizacao", async () => {
     const db = emptyDb();
     const { orgA, recB1 } = seed(db);
     const svc = new RecommendationsAdminService(buildMock(db));
@@ -467,13 +467,13 @@ describe("RecommendationsAdminService", () => {
       svc.update(
         recB1.id,
         { status: "resolved" },
-        "user-analyst",
-        { role: "analyst", organizationId: orgA.id },
+        "user-admin-org",
+        { role: "admin", organizationId: orgA.id },
       ),
     ).rejects.toBeInstanceOf(RecommendationsNotFoundError);
   });
 
-  it("regenerate analyst em outra organizacao dispara conflito", async () => {
+  it("regenerate admin org-scoped em outra organizacao dispara conflito", async () => {
     const db = emptyDb();
     const { orgA, orgB, form1 } = seed(db);
     const regen = vi.fn<RegenerateFn>();
@@ -481,7 +481,7 @@ describe("RecommendationsAdminService", () => {
     await expect(
       svc.regenerateForForm(
         { formId: form1.id, organizationId: orgB.id },
-        { role: "analyst", organizationId: orgA.id },
+        { role: "admin", organizationId: orgA.id },
       ),
     ).rejects.toBeInstanceOf(RecommendationsConflictError);
     expect(regen).not.toHaveBeenCalled();
@@ -552,7 +552,7 @@ describe("RecommendationsAdminService", () => {
     ).rejects.toBeInstanceOf(RecommendationsNotFoundError);
   });
 
-  it("listFilterOptions admin vs analyst", async () => {
+  it("listFilterOptions admin global vs org-scoped", async () => {
     const db = emptyDb();
     const { orgA } = seed(db);
     const svc = new RecommendationsAdminService(buildMock(db));
@@ -570,12 +570,12 @@ describe("RecommendationsAdminService", () => {
       ["nao", "sim_com_evidencia_valida", "sim_sem_evidencia"].sort(),
     );
 
-    const analystOpts = await svc.listFilterOptions({
-      role: "analyst",
+    const scopedOpts = await svc.listFilterOptions({
+      role: "admin",
       organizationId: orgA.id,
     });
-    expect(analystOpts.organizations.map((o) => o.id)).toEqual([orgA.id]);
-    expect(analystOpts.types.sort()).toEqual(
+    expect(scopedOpts.organizations.map((o) => o.id)).toEqual([orgA.id]);
+    expect(scopedOpts.types.sort()).toEqual(
       ["nao", "sim_com_evidencia_valida"].sort(),
     );
   });

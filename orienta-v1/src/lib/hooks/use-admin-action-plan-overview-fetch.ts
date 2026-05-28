@@ -19,7 +19,7 @@ export type AdminOverviewFetchState = {
 };
 
 /**
- * Busca paginada compartilhada para listas admin/analista baseadas em
+ * Busca paginada compartilhada para listas de admin baseadas em
  * `/api/admin/action-plans?view=overview`.
  */
 export function useAdminActionPlanOverviewFetch(): AdminOverviewFetchState {

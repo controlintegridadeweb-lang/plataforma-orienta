@@ -1,24 +1,22 @@
 import type { LucideIcon } from "lucide-react";
 import {
-  AlertCircle,
   CheckCircle2,
   Clock,
   FileQuestion,
   RefreshCw,
   XCircle,
 } from "lucide-react";
-import type {
-  EvidenceValidationEntry,
-} from "./admin-service";
+import { evidenceComplementation } from "@/lib/labels/complementation-terms";
+import type { EvidenceValidationEntry } from "./admin-service";
 import type { ValidationStatus } from "./schemas";
 
 /**
  * Status na visao do RESPONDENTE — vocabulario amigavel e focado em acao.
  *
- * Mapeia os 6 valores DB (`ValidationStatus`) + uma derivacao adicional
+ * Mapeia os valores DB (`ValidationStatus`) + uma derivacao adicional
  * `ajustada_e_reenviada` (quando a evidencia atual esta pending mas o
- * historico tem uma `complementation_requested`, ou seja, o respondente
- * reagiu apos pedido do analista).
+ * historico tem uma `adjustment_requested`, ou seja, o respondente
+ * reagiu apos pedido de complementacao).
  */
 export type RespondentEvidenceStatus =
   | "enviada"
@@ -47,13 +45,13 @@ export const RESPONDENT_STATUS_META: Record<
   },
   aguardando_analise: {
     label: "Aguardando análise",
-    description: "O analista ainda não revisou esta evidência.",
+    description: "A equipe de validação ainda não revisou esta evidência.",
     variant: "info",
     icon: Clock,
   },
   aprovada: {
     label: "Aprovada",
-    description: "Evidência considerada válida pelo analista.",
+    description: "Evidência considerada válida.",
     variant: "success",
     icon: CheckCircle2,
   },
@@ -65,16 +63,15 @@ export const RESPONDENT_STATUS_META: Record<
     icon: XCircle,
   },
   complementacao_solicitada: {
-    label: "Complementação solicitada",
-    description:
-      "O analista pediu ajustes — responda a complementação para reenviar.",
+    label: evidenceComplementation.respondentStatusLabel,
+    description: evidenceComplementation.respondentStatusDescription,
     variant: "warning",
     icon: FileQuestion,
   },
   ajustada_e_reenviada: {
     label: "Ajustada e reenviada",
     description:
-      "Você respondeu uma complementação. Aguarde nova revisão do analista.",
+      "Você respondeu uma complementação de evidência. Aguarde nova revisão.",
     variant: "info",
     icon: RefreshCw,
   },
@@ -90,25 +87,25 @@ export function respondentStatusNeedsAction(
 /**
  * Deriva o status do respondente a partir do status DB atual e do historico.
  * - `pending` puro                  -> aguardando_analise
- * - `pending` apos complementation  -> ajustada_e_reenviada
- * - `valid` / `waived`              -> aprovada
- * - `invalid` / `partially_valid`   -> reprovada
- * - `complementation_requested`     -> complementacao_solicitada
+ * - `pending` apos ajuste           -> ajustada_e_reenviada
+ * - `approved`                      -> aprovada
+ * - `invalidated`                   -> reprovada
+ * - `adjustment_requested`          -> complementacao_solicitada
  */
 export function deriveRespondentStatus(
   currentStatus: ValidationStatus,
   history: EvidenceValidationEntry[],
 ): RespondentEvidenceStatus {
-  if (currentStatus === "valid" || currentStatus === "waived") return "aprovada";
-  if (currentStatus === "invalid" || currentStatus === "partially_valid") {
+  if (currentStatus === "approved") return "aprovada";
+  if (currentStatus === "invalidated") {
     return "reprovada";
   }
-  if (currentStatus === "complementation_requested") {
+  if (currentStatus === "adjustment_requested") {
     return "complementacao_solicitada";
   }
   // currentStatus === "pending"
   const hadComplementation = history.some(
-    (h) => h.status === "complementation_requested",
+    (h) => h.status === "adjustment_requested",
   );
   return hadComplementation ? "ajustada_e_reenviada" : "aguardando_analise";
 }
@@ -126,7 +123,7 @@ export const RESPONDENT_KPI_LABEL: Record<RespondentKpiKey, string> = {
   aprovadas: "Aprovadas",
   aguardando: "Aguardando análise",
   reprovadas: "Reprovadas",
-  complementacao: "Complementação solicitada",
+  complementacao: evidenceComplementation.statusShort,
 };
 
 /** Mapa de status -> bucket KPI. */

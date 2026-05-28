@@ -44,7 +44,7 @@ export function WorkflowStatusBadge(props: WorkflowStatusBadgeProps) {
   const surfaceClass = meta.chipColorClass ?? meta.colorClass;
 
   const textSize =
-    size === "compact" ? "text-[10px]" : size === "md" ? "text-xs" : "text-[11px]";
+    size === "compact" ? "text-2xs" : size === "md" ? "text-xs" : "text-micro";
   const pad = size === "md" ? "px-2.5 py-1" : "px-2 py-0.5";
 
   const labelParts = [ariaPrefix, meta.label].filter(Boolean);

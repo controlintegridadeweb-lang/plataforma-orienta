@@ -1,5 +1,7 @@
-/** Lista estratégica do respondente (sem workspace operacional). */
+/** Rótulo unificado: menu, cabeçalhos da página e breadcrumbs do workspace. */
+export const RESPONDENT_RECOMMENDATIONS_MODULE_LABEL = "Recomendações e plano";
 
+/** Lista estratégica do respondente (sem workspace operacional). */
 export const RESPONDENT_PORTFOLIO_LIST_PATH = "/respondente/portfolio-recomendacoes";
 
 /** Workspace operacional (abas Visão geral, Ações, Monitoramento). */

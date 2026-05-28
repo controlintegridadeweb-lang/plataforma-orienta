@@ -2,7 +2,7 @@ import { reportLevelLabel } from "@/lib/report/build-official-report-data";
 import type { Cursor, OrientaPdfDocument } from "../document";
 import { reportTheme } from "../theme";
 
-export function renderConclusionSection(doc: OrientaPdfDocument, _c: Cursor): Cursor {
+export function renderConclusionSection(doc: OrientaPdfDocument): Cursor {
   let cur = doc.beginMajorSection(
     "Conclusão técnica",
     "Síntese para governança e encaminhamentos prioritários.",

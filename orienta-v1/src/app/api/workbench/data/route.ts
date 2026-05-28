@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+﻿import { NextResponse } from "next/server";
 import { z } from "zod";
 import { createSupabaseServiceRoleClient } from "@/lib/supabase/server";
 import { requireAuth } from "@/lib/api/auth";
@@ -16,7 +16,7 @@ const querySchema = z.object({
  * sessao do usuario ou token (requireAuth) — sem exigir ambiente de homolog.
  */
 export async function GET(request: Request) {
-  const { context, error: authError } = await requireAuth(request, ["analyst", "respondent"]);
+  const { context, error: authError } = await requireAuth(request, ["admin", "respondent"]);
   if (authError) return authError;
 
   const url = new URL(request.url);

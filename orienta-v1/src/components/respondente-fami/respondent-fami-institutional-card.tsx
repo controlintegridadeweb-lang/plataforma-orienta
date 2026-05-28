@@ -34,7 +34,7 @@ export function RespondentFamiInstitutionalCard({
     >
       <div className="flex flex-col gap-8 p-6 sm:p-8 lg:flex-row lg:items-center lg:gap-10 xl:gap-14">
         <div className="flex shrink-0 items-center justify-center lg:justify-start">
-          <FamiMaturityIllustration className="h-36 w-auto sm:h-40 lg:h-[11rem]" />
+          <FamiMaturityIllustration className="h-36 w-auto sm:h-40 lg:h-44" />
         </div>
 
         <div className="min-w-0 flex-1 space-y-4">

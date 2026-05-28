@@ -70,7 +70,7 @@ export function Drawer({
       <button
         type="button"
         aria-label="Fechar painel"
-        className="absolute inset-0 bg-slate-900/40 backdrop-blur-[1px] transition-opacity"
+        className="absolute inset-0 bg-slate-900/40 backdrop-blur-xs transition-opacity"
         onClick={onClose}
       />
       <div
@@ -79,7 +79,7 @@ export function Drawer({
         aria-modal="true"
         aria-labelledby={titleId}
         aria-describedby={description ? descId : undefined}
-        className="relative flex h-full w-full min-w-0 max-h-full max-w-[100vw] flex-col border-l border-slate-200 bg-white shadow-2xl md:max-w-[540px] md:shadow-xl"
+        className="relative flex h-full w-full min-w-0 max-h-full max-w-screen flex-col border-l border-slate-200 bg-white shadow-2xl md:max-w-135 md:shadow-xl"
         tabIndex={-1}
         onKeyDown={(e) => {
           if (e.key !== "Tab" || !panelRef.current) return;

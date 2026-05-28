@@ -20,12 +20,12 @@ export function AuthSplitLayout({ children }: { children: ReactNode }) {
               quality={95}
               sizes="(min-width: 1024px) min(500px, 48vw), min(92vw, 440px)"
               priority
-              className="mx-auto h-auto w-auto max-h-[10.25rem] max-w-[min(100%,440px)] object-contain object-center sm:max-h-[10.75rem] sm:max-w-[480px] lg:max-h-[11.25rem] lg:max-w-[530px]"
+              className="mx-auto h-auto w-auto max-h-41 max-w-110 object-contain object-center sm:max-h-43 sm:max-w-120 lg:max-h-45 lg:max-w-[530px]"
             />
-            <h2 className="max-w-[min(100%,28rem)] text-pretty text-balance text-[clamp(1.375rem,4.2vw+0.5rem,1.75rem)] font-semibold leading-[1.3] tracking-normal text-slate-950 sm:text-[1.875rem] sm:leading-[1.32] lg:text-[1.9375rem] lg:leading-[1.34]">
+            <h2 className="max-w-md text-balance text-[clamp(1.375rem,4.2vw+0.5rem,1.75rem)] font-semibold leading-[1.3] tracking-normal text-slate-950 sm:text-3xl sm:leading-[1.32] lg:text-4xl lg:leading-[1.34]">
               Diagnóstico e gestão da maturidade organizacional
             </h2>
-            <p className="max-w-[min(100%,26rem)] text-pretty text-[clamp(1rem,1.2vw+0.9rem,1.0625rem)] font-normal leading-[1.55] text-slate-800 sm:text-[1.09375rem] sm:leading-[1.58]">
+            <p className="max-w-104 text-pretty text-[clamp(1rem,1.2vw+0.9rem,1.0625rem)] font-normal leading-[1.55] text-slate-800 sm:text-kicker-md sm:leading-[1.58]">
               Formulários, evidências, recomendações e planos de ação integrados ao trabalho da
               Controladoria-Geral do Estado do Rio Grande do Norte.
             </p>

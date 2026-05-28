@@ -35,7 +35,7 @@ function parseIdParam(value: string) {
 }
 
 export async function POST(request: Request, context: RouteContext) {
-  const { context: authContext, error: authError } = await requireAuth(request, ["admin", "analyst"]);
+  const { context: authContext, error: authError } = await requireAuth(request, ["admin"]);
   if (authError) return authError;
 
   try {

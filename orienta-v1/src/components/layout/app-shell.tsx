@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+﻿import type { ReactNode } from "react";
 import { headers } from "next/headers";
 import { getCurrentUserDisplayName, type CurrentUser } from "@/lib/auth/current-user";
 import {
@@ -58,7 +58,7 @@ export async function AppShell({
         {displayName.charAt(0)}
       </div>
       <div className="sb-label min-w-0 leading-snug">
-        <p className="truncate text-[0.9375rem] font-semibold text-white">{displayName}</p>
+        <p className="truncate text-sm font-semibold text-white">{displayName}</p>
         <p className="mt-0.5 text-sm text-white/85">{roleLabel}</p>
         {user.organizationName ? (
           <p className="truncate text-sm text-white/75">{user.organizationName}</p>
@@ -86,7 +86,7 @@ export async function AppShell({
                 const Icon = item.icon;
                 return (
                   <SidebarNavLink key={item.href} href={item.href} label={item.label}>
-                    <Icon className="h-[1.125rem] w-[1.125rem] shrink-0 opacity-95" aria-hidden />
+                    <Icon className="size-4.5 shrink-0 opacity-95" aria-hidden />
                   </SidebarNavLink>
                 );
               })}
@@ -99,7 +99,7 @@ export async function AppShell({
 
   const footer = (
     <div className="sb-footer border-t border-white/15 px-4 py-5">
-      <LogoutButton className="flex w-full items-center justify-start gap-3 rounded-lg px-3.5 py-2.5 text-[0.9375rem] font-medium text-white/92 transition hover:bg-white/10 hover:text-white focus-visible:bg-white/10 focus-visible:text-white disabled:opacity-60" />
+      <LogoutButton className="flex w-full items-center justify-start gap-3 rounded-lg px-3.5 py-2.5 text-sm font-medium text-white/92 transition hover:bg-white/10 hover:text-white focus-visible:bg-white/10 focus-visible:text-white disabled:opacity-60" />
     </div>
   );
 

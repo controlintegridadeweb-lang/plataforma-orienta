@@ -65,7 +65,7 @@ export function RespondentFamiSectionList({ sections }: Props) {
             Detalhamento da maturidade dentro de cada eixo.
           </p>
         </div>
-        <div className="flex flex-wrap items-center gap-1.5 text-[11px] text-slate-500">
+        <div className="flex flex-wrap items-center gap-1.5 text-micro text-slate-500">
           <span className="uppercase tracking-wider">Ordenar:</span>
           {(
             [
@@ -79,7 +79,7 @@ export function RespondentFamiSectionList({ sections }: Props) {
               type="button"
               onClick={() => toggleSort(opt.id)}
               aria-pressed={sort === opt.id}
-              className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] font-medium transition ${
+              className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-micro font-medium transition ${
                 sort === opt.id
                   ? "bg-brand-50 text-brand-800 ring-1 ring-brand-200"
                   : "bg-white text-slate-600 ring-1 ring-slate-200 hover:bg-slate-50"
@@ -107,7 +107,7 @@ export function RespondentFamiSectionList({ sections }: Props) {
                 >
                   {section.sectionName}
                 </p>
-                <p className="text-[11px] text-slate-500">
+                <p className="text-micro text-slate-500">
                   {section.pointsObtained.toFixed(2)} / {section.pointsPossible.toFixed(2)} pontos
                 </p>
               </div>
@@ -124,7 +124,7 @@ export function RespondentFamiSectionList({ sections }: Props) {
                   {section.percentage.toFixed(1)}%
                 </span>
                 <span
-                  className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-semibold ${lvl.badgeClasses}`}
+                  className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-2xs font-semibold ${lvl.badgeClasses}`}
                 >
                   N{lvl.level}
                 </span>

@@ -21,7 +21,7 @@ import type { RecommendationStatus } from "./schemas";
 export type { AdminRecommendationView };
 
 /**
- * Vocabulario do Administrador/Analista para Recomendacoes.
+ * Vocabulario do Administrador para Recomendacoes.
  *
  * Centraliza labels, cores, icones e regras de derivacao. Toda a UI consome
  * esta lib. Status visual estende os 4 estados do banco (`open`, `in_progress`,

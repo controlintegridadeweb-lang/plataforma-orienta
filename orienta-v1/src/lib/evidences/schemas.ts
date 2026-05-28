@@ -7,11 +7,9 @@ import { z } from "zod";
 
 export const validationStatusSchema = z.enum([
   "pending",
-  "valid",
-  "invalid",
-  "partially_valid",
-  "complementation_requested",
-  "waived",
+  "approved",
+  "invalidated",
+  "adjustment_requested",
 ]);
 
 export type ValidationStatus = z.infer<typeof validationStatusSchema>;
@@ -23,11 +21,11 @@ export const validateEvidenceSchema = z
   })
   .refine(
     (v) =>
-      v.status !== "waived" ||
+      (v.status !== "invalidated" && v.status !== "adjustment_requested") ||
       (typeof v.justification === "string" && v.justification.length > 0),
     {
       path: ["justification"],
-      message: "Justificativa obrigatoria para dispensa (waived).",
+      message: "Justificativa obrigatoria para invalidated/adjustment_requested.",
     },
   );
 

@@ -94,7 +94,7 @@ export function RecommendationPlanActionForm({
       {error ? <p className={formSurface.messageError}>{error}</p> : null}
 
       {actionCount > 1 && plan && !compact ? (
-        <p className="rounded-md border border-slate-200 bg-slate-50 px-2.5 py-2 text-[11px] leading-relaxed text-slate-700">
+        <p className="rounded-md border border-slate-200 bg-slate-50 px-2.5 py-2 text-micro leading-relaxed text-slate-700">
           Esta recomendação possui <strong>{actionCount} ações</strong>. Você está editando uma linha
           específica.
         </p>

@@ -7,7 +7,7 @@ export function AnswersOverviewSkeleton() {
       {Array.from({ length: 4 }, (_, i) => (
         <div
           key={i}
-          className={`${formSurface.nestedCard} flex h-[148px] flex-col justify-between`}
+          className={`${formSurface.nestedCard} flex h-37 flex-col justify-between`}
         >
           <Skeleton className="h-3 w-2/3" />
           <Skeleton className="h-7 w-1/3" />

@@ -44,7 +44,7 @@ export function RespondentReportsPreviewDrawer({
       {!row ? null : (
         <div className="space-y-4">
           <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
-            <p className="text-[10px] font-semibold uppercase tracking-wider text-slate-500">
+            <p className="text-2xs font-semibold uppercase tracking-wider text-slate-500">
               Capa institucional
             </p>
             <p className="mt-1 text-lg font-semibold text-slate-900">Orienta · Relatório oficial</p>
@@ -80,7 +80,7 @@ export function RespondentReportsPreviewDrawer({
               <iframe
                 title="Pré-visualização PDF"
                 src={previewUrl}
-                className="h-[70vh] w-full min-h-[320px]"
+                className="h-[70vh] w-full min-h-80"
               />
             ) : (
               <div className="px-4 py-8 text-center text-xs text-slate-500">

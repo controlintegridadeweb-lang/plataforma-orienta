@@ -1,6 +1,6 @@
-"use client";
+﻿"use client";
 
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import type { ActionPlanAction } from "@/lib/domain/action-plans";
 import { computeActionSla } from "@/lib/domain/action-plans";
 import { PlanStatusBadge } from "@/components/plano-acao/plan-status-badge";
@@ -44,7 +44,7 @@ export function StaffActionPlanReadonlyActions({ plans }: Props) {
 
   return (
     <div className={formSurface.table.wrapper}>
-      <table className={`${formSurface.table.table} min-w-[640px]`}>
+      <table className={`${formSurface.table.table} min-w-160`}>
         <thead className={formSurface.table.head}>
           <tr>
             <th className={formSurface.table.headCell}>Ação</th>
@@ -64,7 +64,7 @@ export function StaffActionPlanReadonlyActions({ plans }: Props) {
                 key={plan.id}
                 className={`${formSurface.table.row} ${index % 2 === 0 ? "bg-white" : "bg-slate-50/50"}`}
               >
-                <td className={`${formSurface.table.cell} min-w-[12rem] max-w-xs`}>
+                <td className={`${formSurface.table.cell} min-w-48 max-w-xs`}>
                   <p className="line-clamp-2 text-sm font-medium text-slate-900">{plan.actionText}</p>
                   {plan.observations?.trim() ? (
                     <p className={`mt-1 line-clamp-2 ${typography.meta}`}>{plan.observations}</p>
@@ -92,7 +92,7 @@ export function StaffActionPlanReadonlyActions({ plans }: Props) {
                 <td className={formSurface.table.cell}>
                   <PlanStatusBadge status={plan.status} />
                 </td>
-                <td className={`${formSurface.table.cell} min-w-[7rem]`}>
+                <td className={`${formSurface.table.cell} min-w-28`}>
                   <div className="flex items-center gap-2">
                     <span className="shrink-0 text-xs tabular-nums text-slate-600">{progress}%</span>
                     <AdminActionPlanProgress value={progress} overdue={sla === "overdue"} size="xs" showLabel={false} />

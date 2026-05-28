@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, RefreshCw } from "lucide-react";
+import { evidenceComplementation } from "@/lib/labels/complementation-terms";
 import { formSurface } from "@/lib/form-surface";
 import {
   RESPONDENT_PAGE_HERO_ACTIONS,
@@ -33,8 +34,7 @@ export function RespondentEvidencesHero({ onRefresh, refreshing }: Props) {
           <p className={RESPONDENT_PAGE_HERO_OVERLINE}>Acompanhamento de envios</p>
           <h2 className={RESPONDENT_PAGE_HERO_TITLE}>Evidências e complementações</h2>
           <p className={RESPONDENT_PAGE_HERO_DESCRIPTION}>
-            Acompanhe o que você enviou, o status de validação do analista e responda pedidos de
-            complementação pelos formulários.
+            {evidenceComplementation.sectionDescription}
           </p>
 
           <div className={RESPONDENT_PAGE_HERO_ACTIONS}>

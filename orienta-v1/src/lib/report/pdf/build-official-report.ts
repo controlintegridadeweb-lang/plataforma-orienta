@@ -21,13 +21,13 @@ export async function buildOfficialReportPdfDocument(
   renderCoverPage(doc);
   doc.reserveTocPage();
 
-  let c = renderExecutiveSummary(doc);
-  c = renderFamiSection(doc, c);
-  c = renderRecommendationsSection(doc, c);
-  c = renderActionPlanSection(doc, c);
-  c = renderEvidencesSection(doc, c);
-  c = renderEvolutionSection(doc, c);
-  renderConclusionSection(doc, c);
+  renderExecutiveSummary(doc);
+  renderFamiSection(doc);
+  renderRecommendationsSection(doc);
+  renderActionPlanSection(doc);
+  renderEvidencesSection(doc);
+  renderEvolutionSection(doc);
+  renderConclusionSection(doc);
 
   fillTableOfContents(doc);
   doc.applyFooters();

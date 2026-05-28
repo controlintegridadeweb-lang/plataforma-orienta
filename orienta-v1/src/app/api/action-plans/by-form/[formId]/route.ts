@@ -13,7 +13,6 @@ const uuid = z.string().uuid();
 export async function GET(request: Request, ctx: RouteContext) {
   const { context, error: authError } = await requireAuth(request, [
     "admin",
-    "analyst",
     "respondent",
   ]);
   if (authError) return authError;
@@ -39,7 +38,7 @@ export async function GET(request: Request, ctx: RouteContext) {
       );
     }
     return NextResponse.json(
-      { error: "organizationId obrigatorio (UUID) para admin/analista." },
+      { error: "organizationId obrigatorio (UUID) para admin com escopo de organizacao." },
       { status: 400 },
     );
   }

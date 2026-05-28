@@ -78,7 +78,7 @@ export type RespondentCaller = { organizationId: string };
 
 /**
  * Servico que entrega a fila escopada para o respondente (mesma fonte do
- * analista — `evidences` + `evidence_validations`).
+ * admin — `evidences` + `evidence_validations`).
  *
  * Estende {@link EvidencesAdminService} apenas para reusar o motor de
  * leitura (`loadHydratedItems` + `applyEvidenceQueryFilters`). Nao usa
@@ -178,7 +178,7 @@ export class RespondentEvidencesService extends EvidencesAdminService {
 function toRespondentItem(item: EvidenceListItem): RespondentEvidenceItem {
   const respondentStatus = deriveRespondentStatus(item.currentStatus, item.history);
   const lastComplementationAt =
-    item.history.find((h) => h.status === "complementation_requested")?.validatedAt ?? null;
+    item.history.find((h) => h.status === "adjustment_requested")?.validatedAt ?? null;
   return {
     ...item,
     respondentStatus,

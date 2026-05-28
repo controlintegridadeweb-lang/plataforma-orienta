@@ -10,7 +10,6 @@ import { logError } from "@/lib/observability/logger";
 export async function GET(request: Request) {
   const { context, error: authError } = await requireAuth(request, [
     "admin",
-    "analyst",
   ]);
   if (authError) return authError;
   try {

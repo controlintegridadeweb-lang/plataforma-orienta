@@ -140,7 +140,7 @@ export function RecommendationSuggestedActionsPanel({ recommendationId, onApplie
                 {item.description ? (
                   <span className="mt-0.5 block text-xs text-slate-600">{item.description}</span>
                 ) : null}
-                <span className="mt-1 block text-[11px] text-slate-500">
+                <span className="mt-1 block text-micro text-slate-500">
                   Prazo sugerido: {item.suggestedDeadlineDays} dias
                   {item.suggestedResponsibleArea
                     ? ` · Área: ${item.suggestedResponsibleArea}`

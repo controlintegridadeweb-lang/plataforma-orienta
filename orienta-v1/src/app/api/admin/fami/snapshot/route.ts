@@ -43,7 +43,6 @@ const querySchema = z.object({
 export async function GET(request: Request) {
   const { context, error: authError } = await requireAuth(request, [
     "admin",
-    "analyst",
     "respondent",
   ]);
   if (authError) return authError;

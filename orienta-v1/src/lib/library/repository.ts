@@ -197,16 +197,13 @@ function mapSection(row: SectionRow): LibrarySection {
 }
 
 function mapMetric(row: MetricRow): LibraryMetric {
-  const at = row.answer_type as string;
-  const answerType: LibraryMetricAnswerType =
-    at === "yes_no_partial" ? "yes_no" : (row.answer_type as LibraryMetricAnswerType);
   return {
     ...mapCommon(row),
     id: row.id,
     code: row.code,
     name: row.name,
     description: row.description,
-    answerType,
+    answerType: row.answer_type as LibraryMetricAnswerType,
     interpretation: row.interpretation,
     triggerSummary: row.trigger_summary,
     createdAt: row.created_at,

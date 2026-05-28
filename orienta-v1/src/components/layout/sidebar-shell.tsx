@@ -161,7 +161,7 @@ export function SidebarShell({
     toggleCollapsed,
   };
 
-  const desktopWidth = collapsed ? "md:w-[4.75rem]" : "md:w-80";
+  const desktopWidth = collapsed ? "md:w-19" : "md:w-80";
 
   return (
     <SidebarContext.Provider value={ctxValue}>
@@ -193,7 +193,7 @@ export function SidebarShell({
           tabIndex={mobileOpen ? 0 : -1}
           onClick={closeDrawer}
           className={[
-            "fixed inset-0 z-30 bg-slate-900/50 backdrop-blur-[2px]",
+            "fixed inset-0 z-30 bg-slate-900/50 backdrop-blur-xs",
             "transition-opacity duration-300 ease-out md:hidden",
             mobileOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0",
           ].join(" ")}

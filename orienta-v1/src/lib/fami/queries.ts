@@ -459,13 +459,11 @@ export async function getFamiSnapshotGlobal(
   if (latestByOrg.size === 0) return null;
 
   let sumPct = 0;
-  let sumLvl = 0;
   let sumObt = 0;
   let sumPos = 0;
   let latestCreatedAt = "";
   for (const v of latestByOrg.values()) {
     sumPct += v.percentage;
-    sumLvl += v.maturityLevel;
     sumObt += v.pointsObtained;
     sumPos += v.pointsPossible;
     if (v.createdAt > latestCreatedAt) latestCreatedAt = v.createdAt;

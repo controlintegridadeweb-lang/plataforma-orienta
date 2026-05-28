@@ -11,7 +11,7 @@ import { useSidebar } from "./sidebar-shell";
  * Sem esta lista, "/admin" fica ativo em todas as sub-rotas (ex.: /admin/biblioteca),
  * e dois itens do menu pintam como ativos ao mesmo tempo.
  */
-const EXACT_MATCH_ROOTS = new Set(["/", "/admin", "/analista", "/respondente"]);
+const EXACT_MATCH_ROOTS = new Set(["/", "/admin", "/respondente"]);
 
 function isActive(pathname: string, href: string): boolean {
   if (EXACT_MATCH_ROOTS.has(href)) return pathname === href;

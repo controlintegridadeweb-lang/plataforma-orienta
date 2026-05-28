@@ -1,13 +1,12 @@
-import { usePathname } from "next/navigation";
 import type { StaffAreaPrefix } from "@/lib/admin/queue-links";
 
-/** Prefixo de rota staff (`/admin` ou `/analista`) a partir do pathname atual. */
-export function staffAreaFromPathname(pathname: string): StaffAreaPrefix {
-  return pathname.startsWith("/analista") ? "analista" : "admin";
+/** Prefixo de rota staff — sempre `/admin`. */
+export function staffAreaFromPathname(): StaffAreaPrefix {
+  return "admin";
 }
 
 export function useStaffArea(): StaffAreaPrefix {
-  return staffAreaFromPathname(usePathname() ?? "");
+  return "admin";
 }
 
 export function staffPath(

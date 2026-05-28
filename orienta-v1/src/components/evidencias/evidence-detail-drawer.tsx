@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { ExternalLink, FileText } from "lucide-react";
+import { ExternalLink, FileText, ListFilter } from "lucide-react";
 import type { EvidenceListItem, EvidenceValidationEntry } from "@/lib/evidences/admin-service";
+import { adminEvidenceQueueHref } from "@/lib/admin/queue-links";
 import { normalizeWorkbenchText } from "@/lib/evidences/normalize-workbench-text";
 import { formSurface } from "@/lib/form-surface";
 import { Drawer } from "@/components/ui/drawer";
@@ -15,7 +16,7 @@ type Props = {
   open: boolean;
   onClose: () => void;
   onValidated: (evidenceId: string, entry: EvidenceValidationEntry) => void;
-  formsAreaPrefix: "admin" | "analista";
+  formsAreaPrefix: "admin";
 };
 
 export function EvidenceDetailDrawer({
@@ -28,6 +29,11 @@ export function EvidenceDetailDrawer({
   if (!item) return null;
 
   const formLink = `/${formsAreaPrefix}/formularios/${item.formId}/perguntas?questionId=${item.questionId}`;
+  const queueLink = adminEvidenceQueueHref({
+    organizationId: item.organizationId,
+    formId: item.formId,
+    status: item.currentStatus,
+  });
 
   return (
     <Drawer
@@ -124,13 +130,20 @@ export function EvidenceDetailDrawer({
             evidenceId={item.id}
             onValidated={(entry) => onValidated(item.id, entry)}
           />
-          <div className="border-t border-slate-100 pt-4">
-            <p className={formSurface.label}>Formulário</p>
+          <div className="border-t border-slate-100 pt-4 space-y-3">
+            <p className={formSurface.label}>Atalhos</p>
+            <Link
+              href={queueLink}
+              className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-700 hover:underline"
+            >
+              <ListFilter className="h-4 w-4 shrink-0" aria-hidden />
+              Ver na fila (mesma organização e formulário)
+            </Link>
             <Link
               href={formLink}
-              className="mt-2 inline-flex text-sm font-semibold text-brand-700 hover:underline"
+              className="block text-sm font-semibold text-brand-700 hover:underline"
             >
-              Abrir formulário (perguntas)
+              Abrir pergunta no formulário
             </Link>
           </div>
         </section>

@@ -12,7 +12,7 @@ type Props = {
   archived: boolean;
   backHref: string;
   backLabel: string;
-  scope?: "admin" | "analista";
+  scope?: "admin";
   showTabs?: boolean;
   children: ReactNode;
 };

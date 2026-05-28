@@ -15,28 +15,27 @@ import type {
   RespondentAnswerCell,
   RespondentDetail,
 } from "@/lib/forms/answers-types";
+import { evidenceComplementation } from "@/lib/labels/complementation-terms";
 import { formSurface } from "@/lib/form-surface";
 import { AnswersStatusBadge } from "./answers-status-badge";
 
 const ANSWER_LABEL: Record<AnswerValue, string> = {
   yes: "Sim",
   no: "Nao",
-  partial: "Parcial",
+  not_applicable: "Nao se aplica",
 };
 
 const ANSWER_BADGE: Record<AnswerValue, string> = {
   yes: `${formSurface.badge.base} ${formSurface.badge.success}`,
   no: `${formSurface.badge.base} ${formSurface.badge.danger}`,
-  partial: `${formSurface.badge.base} ${formSurface.badge.warning}`,
+  not_applicable: `${formSurface.badge.base} ${formSurface.badge.warning}`,
 };
 
 const VALIDATION_LABEL: Record<string, string> = {
-  valid: "Validada",
-  invalid: "Invalida",
-  partially_valid: "Parcialmente valida",
+  approved: "Aprovada",
+  invalidated: "Invalidada",
   pending: "Pendente",
-  complementation_requested: "Em complementacao",
-  waived: "Dispensada",
+  adjustment_requested: evidenceComplementation.statusLabel,
 };
 
 function formatDate(iso: string | null): string {

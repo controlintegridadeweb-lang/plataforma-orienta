@@ -23,7 +23,7 @@ type Props = {
 };
 
 /** Alinha botões à linha dos selects (label + espaçamento do fieldGroup). */
-const ACTIONS_ROW_PT = "sm:pt-[1.375rem]";
+const ACTIONS_ROW_PT = "sm:pt-5.5";
 
 const FILTER_ROW =
   "flex w-full min-w-0 flex-col gap-4 border-b border-slate-200/50 bg-slate-50/50 px-4 py-4 sm:flex-row sm:flex-wrap sm:items-start sm:gap-x-4 sm:gap-y-3 sm:px-5 sm:py-3.5";
@@ -62,7 +62,7 @@ export function RespondentFamiFilters({
               </option>
             ))}
           </select>
-          <span className="text-[11px] leading-relaxed text-slate-500">
+          <span className="text-micro leading-relaxed text-slate-500">
             Consolidado ou detalhe de um diagnóstico.
           </span>
         </label>

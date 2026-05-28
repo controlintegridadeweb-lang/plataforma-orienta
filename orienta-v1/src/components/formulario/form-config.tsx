@@ -1,9 +1,13 @@
-"use client";
+﻿"use client";
 
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Lock, LockOpen, Settings } from "lucide-react";
 import type { FormSummary } from "@/lib/forms/admin-service";
+import {
+  evidenceComplementation,
+  formCycleComplementation,
+} from "@/lib/labels/complementation-terms";
 import { FormTabPanel } from "@/components/formulario/form-tab-panel";
 import {
   closeForm,
@@ -13,14 +17,20 @@ import {
   renameForm,
   setFormArchived,
   setFormDeadline,
+  transitionForm,
 } from "@/lib/forms/client";
+import {
+  INTERMEDIATE_TRANSITION_LABELS,
+  allowedTransitions,
+} from "@/lib/domain/workflow";
+import type { WorkflowState } from "@/lib/domain/types";
 import { formSurface } from "@/lib/form-surface";
 
 const STATE_LABELS: Record<string, string> = {
   draft: "Rascunho",
   submitted: "Publicado",
   under_review: "Em revisão",
-  complementation_requested: "Complementação",
+  complementation_requested: formCycleComplementation.stateLabel,
   resubmitted: "Reenviado",
   consolidated: "Consolidado",
   closed: "Encerrado",
@@ -185,6 +195,21 @@ export function FormConfig({
     }
   }
 
+  async function handleTransition(to: WorkflowState, label: string) {
+    if (!form) return;
+    if (!confirm(`${label}?`)) return;
+    setBusy(true);
+    setError(null);
+    try {
+      const updated = await transitionForm(formId, to);
+      setForm(updated);
+    } catch (e: unknown) {
+      setError(e instanceof Error ? e.message : "Falha ao atualizar estado.");
+    } finally {
+      setBusy(false);
+    }
+  }
+
   async function handleArchive() {
     if (!form) return;
     const target = !form.archivedAt;
@@ -239,6 +264,14 @@ export function FormConfig({
   const canClose = form.state === "consolidated" && !isClosed;
   const deadlineDisplay = formatDeadlineDisplay(form.responseDeadlineAt);
   const deadlinePast = isDeadlinePast(form.responseDeadlineAt);
+  const currentState = form.state as WorkflowState;
+  const lifecycleTransitions = allowedTransitions(currentState)
+    .map((to) => {
+      const key = `${currentState}->${to}` as `${WorkflowState}->${WorkflowState}`;
+      const label = INTERMEDIATE_TRANSITION_LABELS[key];
+      return label ? { to, label } : null;
+    })
+    .filter((item): item is { to: WorkflowState; label: string } => item != null);
 
   return (
     <FormTabPanel
@@ -262,7 +295,7 @@ export function FormConfig({
             onChange={(e) => setName(e.target.value)}
             disabled={!isDraft || archived || busy}
             maxLength={200}
-            className={`min-w-[280px] flex-1 ${formSurface.input}`}
+            className={`min-w-70 flex-1 ${formSurface.input}`}
           />
           <button
             type="button"
@@ -324,6 +357,23 @@ export function FormConfig({
             </div>
 
             <div className="flex flex-wrap gap-2 border-t border-slate-100 pt-3">
+              <p className="w-full text-xs text-slate-500" title={formCycleComplementation.configHint}>
+                {formCycleComplementation.configHint}
+              </p>
+              {lifecycleTransitions.length > 0 && !archived && !isClosed
+                ? lifecycleTransitions.map(({ to, label }) => (
+                    <button
+                      key={to}
+                      type="button"
+                      disabled={busy}
+                      onClick={() => void handleTransition(to, label)}
+                      className={`${formSurface.secondaryButtonSm} disabled:opacity-50`}
+                      title={formCycleComplementation.configHint}
+                    >
+                      {label}
+                    </button>
+                  ))
+                : null}
               {canClose ? (
                 <button
                   type="button"

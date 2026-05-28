@@ -37,7 +37,7 @@ export const RESPONDENT_ACTION_PLAN_COLUMN_ACCENT: Record<ActionPlanView, string
   paused: "bg-[color-mix(in_srgb,var(--color-slate-400)_32%,transparent)]",
 };
 
-/** Ordem das colunas no quadro Kanban de plano de ação (admin/analista). */
+/** Ordem das colunas no quadro Kanban de plano de ação (admin). */
 export const ADMIN_ACTION_PLAN_KANBAN_ORDER: AdminPlanView[] = [
   "not_started",
   "awaiting_update",

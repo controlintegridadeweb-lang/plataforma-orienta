@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+﻿import { NextResponse } from "next/server";
 import { z } from "zod";
 import { createSupabaseServiceRoleClient } from "@/lib/supabase/server";
 import { assertDevOnly } from "@/lib/api/dev-only";
@@ -16,7 +16,7 @@ const querySchema = z.object({
 export async function GET(request: Request) {
   const devOnlyError = assertDevOnly();
   if (devOnlyError) return devOnlyError;
-  const { context, error: authError } = await requireAuth(request, ["analyst"]);
+  const { context, error: authError } = await requireAuth(request, ["admin"]);
   if (authError) return authError;
 
   const url = new URL(request.url);

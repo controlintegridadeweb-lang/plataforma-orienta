@@ -10,9 +10,9 @@ import type { AnswerValue } from "@/lib/domain/types";
  * sentido de `interpretation`:
  *
  * - `failMax`: maior valor que ainda conta como resposta "negativa" (no).
- * - `partialMax`: maior valor que ainda conta como resposta "parcial" (partial).
+ * - `notApplicableMax`: maior valor que ainda conta como resposta "não se aplica" (not_applicable).
  *
- * Deve valer `1 <= failMax < partialMax < 5`.
+ * Deve valer `1 <= failMax < notApplicableMax < 5`.
  *
  * Quando `interpretation = higher_better`, valores altos sao melhores, entao a
  * faixa "no" fica nas notas baixas (1..failMax) e "yes" nas altas.
@@ -21,7 +21,7 @@ import type { AnswerValue } from "@/lib/domain/types";
  */
 export type ScaleBands = {
   failMax: number;
-  partialMax: number;
+  notApplicableMax: number;
 };
 
 /**
@@ -29,9 +29,9 @@ export type ScaleBands = {
  * limites superiores inclusivos, igualmente organizados no eixo do valor bruto:
  *
  * - `failBelow`: ate esse valor a resposta conta como "no".
- * - `partialBelow`: ate esse valor a resposta conta como "partial".
+ * - `notApplicableBelow`: ate esse valor a resposta conta como "not_applicable".
  *
- * Deve valer `failBelow < partialBelow`.
+ * Deve valer `failBelow < notApplicableBelow`.
  *
  * Como em `ScaleBands`, o sentido da interpretacao (melhor = maior ou menor)
  * inverte o mapeamento para `AnswerValue`, mas os limiares sao sempre no eixo
@@ -39,7 +39,7 @@ export type ScaleBands = {
  */
 export type NumericThresholds = {
   failBelow: number;
-  partialBelow: number;
+  notApplicableBelow: number;
 };
 
 /** Mapeamento opcional por pergunta, sobrescreve os defaults. */
@@ -50,7 +50,7 @@ export type ResponseMapping = {
 
 export const DEFAULT_SCALE_BANDS: ScaleBands = {
   failMax: 2,
-  partialMax: 3,
+  notApplicableMax: 3,
 };
 
 export type MapMetricValueInput = {
@@ -66,23 +66,23 @@ export type MapMetricValueResult =
   | { kind: "skipped"; reason: string };
 
 function clampBands(bands: ScaleBands): ScaleBands | null {
-  const { failMax, partialMax } = bands;
-  if (!Number.isFinite(failMax) || !Number.isFinite(partialMax)) return null;
-  if (failMax < 1 || partialMax > 5) return null;
-  if (failMax >= partialMax) return null;
+  const { failMax, notApplicableMax } = bands;
+  if (!Number.isFinite(failMax) || !Number.isFinite(notApplicableMax)) return null;
+  if (failMax < 1 || notApplicableMax > 5) return null;
+  if (failMax >= notApplicableMax) return null;
   return bands;
 }
 
 function mapByBands(value: number, bands: ScaleBands): AnswerValue {
   if (value <= bands.failMax) return "no";
-  if (value <= bands.partialMax) return "partial";
+  if (value <= bands.notApplicableMax) return "not_applicable";
   return "yes";
 }
 
 function invertAnswer(answer: AnswerValue): AnswerValue {
   if (answer === "yes") return "no";
   if (answer === "no") return "yes";
-  return "partial";
+  return "not_applicable";
 }
 
 export function mapScaleValue(
@@ -125,12 +125,12 @@ export function mapNumericValue(
   }
   if (
     !Number.isFinite(thresholds.failBelow) ||
-    !Number.isFinite(thresholds.partialBelow) ||
-    thresholds.failBelow >= thresholds.partialBelow
+    !Number.isFinite(thresholds.notApplicableBelow) ||
+    thresholds.failBelow >= thresholds.notApplicableBelow
   ) {
     return {
       kind: "skipped",
-      reason: "numericThresholds invalidos (failBelow deve ser menor que partialBelow)",
+      reason: "numericThresholds invalidos (failBelow deve ser menor que notApplicableBelow)",
     };
   }
   if (interpretation === "qualitative") {
@@ -143,15 +143,15 @@ export function mapNumericValue(
   const raw: AnswerValue =
     numericValue <= thresholds.failBelow
       ? "no"
-      : numericValue <= thresholds.partialBelow
-        ? "partial"
+      : numericValue <= thresholds.notApplicableBelow
+        ? "not_applicable"
         : "yes";
   const answer = interpretation === "lower_better" ? invertAnswer(raw) : raw;
   return { kind: "mapped", answer };
 }
 
 /**
- * Converte uma resposta em escala ou numerica para o trio yes/no/partial usado
+ * Converte uma resposta em escala ou numerica para o trio yes/no/not_applicable usado
  * pelo motor v2. Retorna `{ kind: "skipped", reason }` quando nao ha como
  * inferir (tipo nao suportado, valor ausente ou metrica qualitative sem
  * override). O caller decide se isso vira erro de API ou fallback.

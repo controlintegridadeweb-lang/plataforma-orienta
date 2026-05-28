@@ -92,7 +92,7 @@ function renderRecommendationCard(
   return { page: cur.page, y: cur.y - h - 14 };
 }
 
-export function renderRecommendationsSection(doc: OrientaPdfDocument, _c: Cursor): Cursor {
+export function renderRecommendationsSection(doc: OrientaPdfDocument): Cursor {
   let cur = doc.beginMajorSection(
     "Recomendações",
     "Portfólio por eixo com prioridade, status e planos vinculados.",

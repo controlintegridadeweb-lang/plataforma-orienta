@@ -29,7 +29,7 @@ export function RespondentRecommendationProgress({
   return (
     <div className="w-full space-y-1">
       {label ? (
-        <div className="flex items-center justify-between text-[11px] font-medium text-slate-500">
+        <div className="flex items-center justify-between text-micro font-medium text-slate-500">
           <span>{label}</span>
           <span className="tabular-nums text-slate-700">{clamped}%</span>
         </div>

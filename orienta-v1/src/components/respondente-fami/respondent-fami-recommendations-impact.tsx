@@ -68,14 +68,14 @@ export function RespondentFamiRecommendationsImpact({
                 <p className="line-clamp-1 text-sm font-semibold text-slate-900" title={row.axisName}>
                   {row.axisName}
                 </p>
-                <p className="text-[11px] text-slate-500">
+                <p className="text-micro text-slate-500">
                   Resolver as recomendações deste eixo pode elevar sua pontuação em até{" "}
                   <strong className="font-semibold text-slate-700">
                     {row.impact.toFixed(1)} p.p.
                   </strong>
                 </p>
               </div>
-              <div className="flex flex-wrap items-center gap-2 text-[11px]">
+              <div className="flex flex-wrap items-center gap-2 text-micro">
                 <span className="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-0.5 font-semibold text-indigo-700">
                   <ClipboardList className="h-3 w-3" aria-hidden />
                   {row.stats.open} abertas / {row.stats.total}

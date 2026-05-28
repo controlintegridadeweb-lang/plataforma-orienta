@@ -16,15 +16,17 @@ type Props = {
 type Action = {
   status: ValidationStatus;
   label: string;
-  tone: "emerald" | "rose" | "amber" | "sky" | "violet";
+  tone: "emerald" | "rose" | "sky";
 };
 
 const ACTIONS: Action[] = [
-  { status: "valid", label: "Aprovar", tone: "emerald" },
-  { status: "invalid", label: "Rejeitar", tone: "rose" },
-  { status: "partially_valid", label: "Parcial", tone: "amber" },
-  { status: "complementation_requested", label: "Solicitar ajuste", tone: "sky" },
-  { status: "waived", label: "Dispensar", tone: "violet" },
+  { status: "approved", label: "Aprovar", tone: "emerald" },
+  { status: "invalidated", label: "Invalidar", tone: "rose" },
+  {
+    status: "adjustment_requested",
+    label: "Solicitar ajuste",
+    tone: "sky",
+  },
 ];
 
 /** Neutro como `secondaryButtonSm`, com faixa lateral discreta para distinguir ações. */
@@ -32,19 +34,13 @@ const VALIDATION_ACTION_BASE =
   "inline-flex h-8 items-center justify-center rounded-lg border border-slate-200 bg-white px-3 text-xs font-medium text-slate-800 shadow-sm transition hover:border-slate-300 hover:bg-slate-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-400";
 
 const TONE_ACCENT: Record<Action["tone"], string> = {
-  emerald: "border-l-[3px] border-l-emerald-700/30 pl-[10px]",
-  rose: "border-l-[3px] border-l-rose-700/30 pl-[10px]",
-  amber: "border-l-[3px] border-l-amber-700/28 pl-[10px]",
-  sky: "border-l-[3px] border-l-sky-700/30 pl-[10px]",
-  violet: "border-l-[3px] border-l-violet-700/30 pl-[10px]",
+  emerald: "border-l-3 border-l-emerald-700/30 pl-2.5",
+  rose: "border-l-3 border-l-rose-700/30 pl-2.5",
+  sky: "border-l-3 border-l-sky-700/30 pl-2.5",
 };
 
 function needsJustification(status: ValidationStatus): boolean {
-  return (
-    status === "invalid" ||
-    status === "complementation_requested" ||
-    status === "waived"
-  );
+  return status === "invalidated" || status === "adjustment_requested";
 }
 
 export function EvidenceValidatePanel({ evidenceId, onValidated }: Props) {

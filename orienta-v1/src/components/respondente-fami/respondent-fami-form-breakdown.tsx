@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { FAMI_ALL_FORMS } from "@/lib/fami/constants";
 import type { InstitutionalFormScore } from "@/lib/fami/constants";
@@ -31,7 +31,7 @@ export function RespondentFamiFormBreakdown({
         </p>
       </div>
       <div className="overflow-x-auto">
-        <table className="w-full min-w-[32rem] text-left text-sm">
+        <table className="w-full min-w-128 text-left text-sm">
           <thead>
             <tr className="border-b border-slate-100 bg-slate-50/80 text-xs font-medium uppercase tracking-wider text-slate-500">
               <th className="px-4 py-2.5 sm:px-5">Formulário</th>

@@ -12,7 +12,7 @@ export type AdminPlanView =
   | "overdue"
   | "critical";
 
-/** Admin/analista — recomendações (`deriveAdminRecommendationView`). */
+/** Admin — recomendações (`deriveAdminRecommendationView`). */
 export type AdminRecommendationView =
   | "open"
   | "awaiting_plan"

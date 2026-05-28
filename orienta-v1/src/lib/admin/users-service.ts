@@ -36,7 +36,7 @@ export async function listUsersForAdmin(): Promise<ListedUserRow[]> {
   }));
 }
 
-const EDITABLE_ROLES = ["analyst", "respondent"] as const;
+const EDITABLE_ROLES = ["respondent"] as const;
 
 export async function updateUserProfileAdmin(input: {
   userId: string;
@@ -122,8 +122,8 @@ export async function removeUserAdmin(actorUserId: string, userId: string): Prom
     .maybeSingle();
 
   const targetRole = profile?.role as AppRole | undefined;
-  if (!targetRole || (targetRole !== "analyst" && targetRole !== "respondent")) {
-    throw new Error("Remoção permitida apenas para analistas ou respondentes.");
+  if (targetRole !== "respondent") {
+    throw new Error("Remoção permitida apenas para respondentes.");
   }
 
   await client.auth.admin.deleteUser(userId);

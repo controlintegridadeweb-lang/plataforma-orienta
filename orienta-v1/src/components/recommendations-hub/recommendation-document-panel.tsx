@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { ChevronRight, ClipboardCopy, Sparkles } from "lucide-react";
-import { usePathname } from "next/navigation";
 import { PanelSection } from "@/components/ui/panel-section";
 import { RecommendationHistory } from "@/components/recomendacoes/recommendation-history";
 import { formSurface } from "@/lib/form-surface";
@@ -33,8 +32,7 @@ function formatDate(value: string | undefined | null): string {
 export function RecommendationDocumentPanel() {
   const ctx = useRecommendationDetailContext();
   const row = ctx.row;
-  const pathname = usePathname() ?? "";
-  const area = staffAreaFromPathname(pathname);
+  const area = staffAreaFromPathname();
 
   if (!row) return null;
 

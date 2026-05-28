@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Plataforma Orienta — sistema de design (tokens utilitarios).
  *
  * Estes tokens sao apenas strings de classes Tailwind. As cores reais ficam
@@ -18,7 +18,7 @@ export const formSurface = {
   // ----------------------------------------------------------------- CARDS
   /** Painel branco tipo dashboard admin (KPI cards usam a mesma sombra; sem ring). */
   dashboardPanel:
-    "rounded-xl border border-slate-200/80 bg-white shadow-[var(--shadow-card)]",
+    "rounded-xl border border-slate-200/80 bg-white shadow-card",
   /** Padding padrão dos blocos “Maturidade / Atividades” no admin. */
   dashboardPanelPadding: "p-6 md:p-7",
   /**
@@ -26,16 +26,16 @@ export const formSurface = {
    * `dashboardPanel` / `card` (radius xl, sombra token), hover alinhado ao KPI.
    */
   entityListCard:
-    "relative flex flex-col overflow-hidden rounded-xl border border-slate-200 bg-white shadow-[var(--shadow-card)] transition hover:border-slate-300 hover:shadow-[var(--shadow-card-hover)]",
+    "relative flex flex-col overflow-hidden rounded-xl border border-slate-200 bg-white shadow-card transition hover:border-slate-300 hover:shadow-card-hover",
   /** Rótulo de seção como no dashboard admin (“Visão geral”, “Sistema”, …). */
   sectionKicker: "text-sm font-medium tracking-normal text-slate-600",
-  card: "overflow-hidden rounded-xl border border-slate-200 bg-white shadow-[var(--shadow-card)]",
+  card: "overflow-hidden rounded-xl border border-slate-200 bg-white shadow-card",
   cardHeader: "border-b border-slate-100/80 bg-brand-50 px-5 py-4 sm:px-6",
   cardTitle: "text-base font-medium tracking-normal text-slate-900",
   cardDescription: "mt-0.5 text-sm text-slate-600",
   body: "space-y-5 px-5 py-5 sm:px-6",
-  nestedCard: "overflow-hidden rounded-xl border border-slate-200 bg-white p-4 shadow-[var(--shadow-card)]",
-  nestedCardWithHeader: "overflow-hidden rounded-xl border border-slate-200 bg-white shadow-[var(--shadow-card)]",
+  nestedCard: "overflow-hidden rounded-xl border border-slate-200 bg-white p-4 shadow-card",
+  nestedCardWithHeader: "overflow-hidden rounded-xl border border-slate-200 bg-white shadow-card",
 
   // ----------------------------------------------------------------- LABELS
   label: "text-xs font-medium uppercase tracking-wider text-slate-500",
@@ -53,7 +53,7 @@ export const formSurface = {
   inputSelectToolbar:
     "h-10 w-full max-w-full rounded-lg border border-slate-200 bg-white px-3 text-sm text-slate-800 shadow-sm transition focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand/25 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-500 sm:w-44",
   inputTextarea:
-    "min-h-[4.5rem] w-full resize-y rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-900 shadow-sm transition placeholder:text-slate-400 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand/25 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-500",
+    "min-h-18 w-full resize-y rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-900 shadow-sm transition placeholder:text-slate-400 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand/25 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-500",
   readOnlyField:
     "rounded-lg border border-slate-100 bg-slate-50/80 px-3 py-2.5 text-sm font-medium text-slate-800",
 
@@ -86,9 +86,9 @@ export const formSurface = {
   table: {
     /** Wrapper externo: borda + sombra + scroll horizontal em mobile. */
     wrapper:
-      "min-w-0 overflow-x-auto overscroll-x-contain rounded-xl border border-slate-200 bg-white shadow-[var(--shadow-card)]",
+      "min-w-0 overflow-x-auto overscroll-x-contain rounded-xl border border-slate-200 bg-white shadow-card",
     table: "w-full text-sm",
-    head: "sticky top-0 z-10 bg-slate-50/95 text-left text-[11px] font-medium uppercase tracking-wider text-slate-500 backdrop-blur",
+    head: "sticky top-0 z-10 bg-slate-50/95 text-left text-micro font-medium uppercase tracking-wider text-slate-500 backdrop-blur",
     headCell: "px-3 py-2.5",
     body: "divide-y divide-slate-100",
     row: "transition hover:bg-slate-50/70",
@@ -109,7 +109,7 @@ export const formSurface = {
 
   // ----------------------------------------------------------------- BADGES & CHIPS
   badge: {
-    base: "inline-flex items-center rounded-md px-2 py-0.5 text-[11px] font-normal leading-snug",
+    base: "inline-flex items-center rounded-md px-2 py-0.5 text-micro font-normal leading-snug",
     neutral: "bg-slate-50 text-slate-600",
     brand: "bg-brand-50/70 text-brand-700",
     success: "bg-emerald-50/70 text-emerald-700",
@@ -127,24 +127,24 @@ export const formSurface = {
   /** Quadro Kanban (workspace operacional — colunas + cards). */
   kanban: {
     board:
-      "overflow-hidden rounded-xl border border-slate-200/80 bg-white shadow-[var(--shadow-card)] ring-1 ring-slate-900/[0.02]",
+      "overflow-hidden rounded-xl border border-slate-200/80 bg-white shadow-card ring-1 ring-slate-900/[0.02]",
     boardInner: "bg-gradient-to-b from-slate-50/50 to-white p-3 sm:p-4",
     scrollX: "kanban-scroll-x -mx-0.5 overflow-x-auto pb-1",
-    columnsRow: "flex min-h-[11rem] max-h-[min(68vh,40rem)] items-stretch gap-3 sm:gap-3.5",
+    columnsRow: "flex min-h-44 max-h-[min(68vh,160)] items-stretch gap-3 sm:gap-3.5",
     column:
-      "flex w-[min(100%,17.5rem)] shrink-0 flex-col overflow-hidden rounded-xl border border-slate-200/80 bg-white shadow-[var(--shadow-card)]",
+      "flex w-full max-w-70 shrink-0 flex-col overflow-hidden rounded-xl border border-slate-200/80 bg-white shadow-card",
     /** Faixa superior (altura alinhada ao accent dos KPIs). */
     columnAccent: "h-1 w-full shrink-0 rounded-t-[calc(var(--radius-card)-1px)]",
     columnHeader: "border-b border-slate-100/90 bg-slate-50/40 px-3 py-2.5",
-    columnTitle: "text-[13px] font-semibold tracking-normal text-slate-900",
-    columnDescription: "mt-0.5 line-clamp-2 text-[11px] leading-snug text-slate-500",
+    columnTitle: "text-caption font-semibold tracking-normal text-slate-900",
+    columnDescription: "mt-0.5 line-clamp-2 text-micro leading-snug text-slate-500",
     columnCount:
-      "shrink-0 rounded-md border border-slate-200/60 bg-white px-2 py-0.5 text-[11px] font-semibold tabular-nums text-slate-700 shadow-sm",
+      "shrink-0 rounded-md border border-slate-200/60 bg-white px-2 py-0.5 text-micro font-semibold tabular-nums text-slate-700 shadow-sm",
     columnBody: "kanban-scroll-y flex min-h-0 flex-1 flex-col gap-2 overflow-y-auto p-2",
     card:
-      "group relative block rounded-lg border border-slate-200/90 bg-white p-3 shadow-[var(--shadow-card)] transition duration-200 hover:border-slate-300/90 hover:shadow-[var(--shadow-card-hover)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500",
-    cardContext: "text-[10px] font-medium uppercase tracking-wide text-slate-500",
-    cardTitle: "mt-1.5 line-clamp-3 text-[13px] font-semibold leading-snug text-slate-900",
+      "group relative block rounded-lg border border-slate-200/90 bg-white p-3 shadow-card transition duration-200 hover:border-slate-300/90 hover:shadow-card-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500",
+    cardContext: "text-2xs font-medium uppercase tracking-wide text-slate-500",
+    cardTitle: "mt-1.5 line-clamp-3 text-caption font-semibold leading-snug text-slate-900",
     cardFooter: "mt-2.5 border-t border-slate-100/90 pt-2",
     empty:
       "flex flex-1 flex-col items-center justify-center rounded-lg border border-dashed border-slate-200/70 bg-slate-50/40 px-3 py-10 text-center text-xs leading-relaxed text-slate-400",
@@ -169,15 +169,15 @@ export const formSurface = {
       "w-full min-w-0 bg-gradient-to-b from-slate-100/95 via-slate-50/90 to-slate-100/95 px-3 py-5 sm:px-4 sm:py-6 md:px-5 md:py-7 lg:px-6 lg:py-8",
     /** Centralizado e amplo (Typeform / Google Forms moderno), sem ocupar a tela inteira. */
     inner:
-      "mx-auto w-full min-w-0 space-y-4 max-w-[min(100%,40rem)] sm:max-w-[min(100%,48rem)] md:max-w-[min(100%,56rem)] lg:max-w-[min(100%,60rem)] xl:max-w-[min(100%,64rem)] 2xl:max-w-[min(100%,68rem)]",
+      "mx-auto w-full min-w-0 space-y-4 max-w-160 sm:max-w-192 md:max-w-224 lg:max-w-240 xl:max-w-256 2xl:max-w-272",
     backLink:
       "inline-flex items-center gap-1.5 text-sm font-medium text-slate-600 transition hover:text-slate-900",
     shell:
-      "overflow-hidden rounded-2xl border border-slate-200/70 bg-white shadow-[var(--shadow-popover)] ring-1 ring-slate-900/[0.04]",
+      "overflow-hidden rounded-2xl border border-slate-200/70 bg-white shadow-popover ring-1 ring-slate-900/[0.04]",
     header:
       "border-b border-slate-100/90 bg-gradient-to-b from-white via-white to-slate-50/40 px-6 py-5 sm:px-10 sm:py-6 lg:px-12",
-    title: "text-pretty text-xl font-medium tracking-normal text-slate-900 sm:text-2xl lg:text-[1.75rem]",
-    subtitle: "mt-2 max-w-none text-sm leading-relaxed text-slate-600 sm:text-[0.9375rem]",
+    title: "text-pretty text-xl font-medium tracking-normal text-slate-900 sm:text-2xl lg:text-panel-hero",
+    subtitle: "mt-2 max-w-none text-sm leading-relaxed text-slate-600 sm:text-sm",
     toolbar:
       "flex flex-wrap items-center justify-between gap-3 border-b border-slate-100/90 bg-slate-50/50 px-6 py-3.5 sm:px-10 lg:px-12",
     body: "space-y-6 px-6 py-6 sm:px-10 sm:py-8 lg:px-12",
@@ -188,14 +188,14 @@ export const formSurface = {
     sectionStepRow: "flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1",
     sectionStepKicker:
       "inline-flex items-center rounded-full border border-brand-100 bg-brand-50/80 px-3 py-1 text-xs font-medium text-brand-800",
-    sectionTitle: "text-pretty text-xl font-medium text-slate-900 sm:text-2xl lg:text-[1.65rem]",
+    sectionTitle: "text-pretty text-xl font-medium text-slate-900 sm:text-2xl lg:text-panel-hero-lg",
     sectionProgressTrack:
       "h-2.5 w-full overflow-hidden rounded-full bg-slate-200/70 sm:h-3",
     sectionProgressFill:
       "h-full rounded-full bg-brand/90 transition-[width] duration-500 ease-out",
     questionsList: "mt-8 space-y-6 lg:space-y-7",
     questionCard:
-      "w-full rounded-xl border border-slate-200/80 bg-white p-6 shadow-[var(--shadow-card)] sm:p-7 lg:p-8",
+      "w-full rounded-xl border border-slate-200/80 bg-white p-6 shadow-card sm:p-7 lg:p-8",
     questionPrompt:
       "text-base font-medium leading-relaxed text-pretty text-slate-900 sm:text-lg lg:leading-relaxed",
     stepEnterForward: "form-step-enter-forward",

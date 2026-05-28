@@ -1,7 +1,9 @@
 /**
- * Links das filas operacionais (admin / analista) com escopo opcional.
+ * Links das filas operacionais (admin) com escopo opcional.
  */
-export type StaffAreaPrefix = "admin" | "analista";
+import { staffPlanoAcaoDetailHref } from "@/lib/navigation/staff-paths";
+
+export type StaffAreaPrefix = "admin";
 
 export type StaffQueueSegment =
   | "evidencias"
@@ -16,10 +18,6 @@ export type AdminQueuePath =
   | "/admin/plano-acao"
   | "/admin/formularios"
   | "/admin/maturidade";
-
-export function staffAreaFromMode(mode: "admin" | "analyst"): StaffAreaPrefix {
-  return mode === "admin" ? "admin" : "analista";
-}
 
 export function staffQueueHref(
   area: StaffAreaPrefix,
@@ -39,6 +37,24 @@ export function staffQueueHref(
   return q ? `${path}?${q}` : path;
 }
 
+export function adminEvidenceQueueHref(params: {
+  organizationId?: string;
+  formId?: string;
+  status?: string;
+}): string {
+  const u = new URLSearchParams();
+  if (params.organizationId) u.set("organizationId", params.organizationId);
+  if (params.formId) u.set("formId", params.formId);
+  if (params.status) u.set("status", params.status);
+  const q = u.toString();
+  return q ? `/admin/evidencias?${q}` : "/admin/evidencias";
+}
+
+/** Deep link para supervisão de recomendação sem plano (pendências do dashboard). */
+export function adminPlanPendencyHref(recommendationId: string): string {
+  return staffPlanoAcaoDetailHref("admin", recommendationId, "visao-geral");
+}
+
 /** Compat: links admin com `adminGlobalView`. */
 export function adminQueueHref(
   path: AdminQueuePath,
@@ -52,13 +68,4 @@ export function adminQueueHref(
     { globalView: opts.adminGlobalView, organizationId: opts.organizationId },
     params,
   );
-}
-
-export function staffQueueHrefFromMode(
-  mode: "admin" | "analyst",
-  segment: StaffQueueSegment,
-  opts: { globalView: boolean; organizationId: string },
-  params: Record<string, string>,
-): string {
-  return staffQueueHref(staffAreaFromMode(mode), segment, opts, params);
 }

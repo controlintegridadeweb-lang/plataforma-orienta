@@ -66,7 +66,7 @@ export function RecommendationHistory({ recommendationId, initial }: Props) {
             {entries.map((entry) => (
               <li key={entry.id} className="space-y-1 py-2">
                 <div className="flex flex-wrap items-center gap-2">
-                  <span className="rounded bg-slate-200 px-1.5 py-0.5 text-[10px] font-medium text-slate-700">
+                  <span className="rounded bg-slate-200 px-1.5 py-0.5 text-2xs font-medium text-slate-700">
                     {FIELD_LABELS[entry.field]}
                   </span>
                   <span className="text-slate-500">

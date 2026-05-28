@@ -64,7 +64,7 @@ function buildSummaryLine(summary: AdminRecommendationSummary): {
   };
 }
 
-/** Hero institucional de Recomendações (admin/analista). */
+/** Hero institucional de Recomendações (admin). */
 export function AdminRecommendationsHero({
   summary,
   loading,

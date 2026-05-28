@@ -26,7 +26,7 @@ export function planLinkSummary(item: RespondentRecommendationItem): {
   tone: "muted" | "ok" | "warn";
 } {
   if (!item.hasPlan) {
-    return { label: "Sem plano", tone: "warn" };
+    return { label: "Aguardando ação", tone: "warn" };
   }
   const count = item.actionCount;
   return {

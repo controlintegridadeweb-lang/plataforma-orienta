@@ -11,12 +11,12 @@ const payloadSchema = z.object({
 });
 
 /**
- * Submissao do formulario pelo respondente.
+ * Submissao do formulario pelo respondente (finalizar envio da organizacao).
  *
  * Dispara o reprocessamento (FAMI + recomendacoes) usando os bindings da
  * biblioteca vinculados na aba do formulario. As recomendacoes sao geradas
  * por cenario (resposta x evidencia) e ficam imediatamente visiveis na
- * area "Plano de acao" do respondente.
+ * area "Recomendacoes e plano" do respondente.
  *
  * Escopo: o respondente so pode submeter para a propria organizacao,
  * derivada do `profile.organization_id`. Nao recebe `organizationId` do
@@ -89,7 +89,7 @@ export async function POST(request: Request) {
       formId: parsed.data.formId,
       organizationId: context.organizationId,
     });
-    const message = err instanceof Error ? err.message : "Falha ao enviar o formulario.";
+    const message = err instanceof Error ? err.message : "Falha ao finalizar o envio.";
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }

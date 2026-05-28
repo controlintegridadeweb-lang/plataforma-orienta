@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { MoreHorizontal, Pencil, Trash2 } from "lucide-react";
 import type { ColumnSpec, EntityConfig } from "@/lib/library/config";
@@ -113,7 +113,7 @@ export function EntityTable({
 
   return (
     <div className={formSurface.table.wrapper}>
-      <table className={`${formSurface.table.table} min-w-[920px]`}>
+      <table className={`${formSurface.table.table} min-w-230`}>
         <thead className={formSurface.table.head}>
           <tr>
             {config.columns.map((column) => (
@@ -175,7 +175,7 @@ export function EntityTable({
                       <MoreHorizontal className="h-4 w-4" aria-hidden />
                     </summary>
                     <div
-                      className="absolute right-0 z-20 mt-1 min-w-[9rem] rounded-lg border border-slate-200 bg-white py-1 text-left text-sm shadow-lg"
+                      className="absolute right-0 z-20 mt-1 min-w-36 rounded-lg border border-slate-200 bg-white py-1 text-left text-sm shadow-lg"
                       role="menu"
                     >
                       <button

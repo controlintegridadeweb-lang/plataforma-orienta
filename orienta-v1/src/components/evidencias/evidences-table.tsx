@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import type { EvidenceListItem } from "@/lib/evidences/admin-service";
 import { formSurface } from "@/lib/form-surface";
@@ -30,12 +30,12 @@ export function EvidencesTable({
         </caption>
         <colgroup>
           <col className="w-10" />
-          <col className="w-[11%]" />
-          <col className="w-[22%]" />
-          <col className="w-[13%]" />
-          <col className="w-[9.5rem]" />
-          <col className="w-[10.5rem]" />
-          <col className="min-w-[12rem]" />
+          <col className="w-11/100" />
+          <col className="w-11/50" />
+          <col className="w-13/100" />
+          <col className="w-38" />
+          <col className="w-42" />
+          <col className="min-w-48" />
           <col className="w-28" />
         </colgroup>
         <thead className={formSurface.table.head}>

@@ -64,10 +64,10 @@ export function RespondentFamiInsights({ summary, cards }: Props) {
             return (
               <li
                 key={card.id}
-                className={`flex h-full min-h-[7.5rem] flex-col rounded-lg border border-slate-200/60 border-l-[3px] p-4 shadow-[var(--shadow-card)] ${style.accent} ${style.surface}`}
+                className={`flex h-full min-h-30 flex-col rounded-lg border border-slate-200/60 border-l-3 p-4 shadow-card ${style.accent} ${style.surface}`}
               >
                 <span
-                  className={`inline-flex w-fit rounded-md px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider ring-1 ${style.badge}`}
+                  className={`inline-flex w-fit rounded-md px-2 py-0.5 text-2xs font-semibold uppercase tracking-wider ring-1 ${style.badge}`}
                 >
                   {KIND_LABEL[card.kind]}
                 </span>

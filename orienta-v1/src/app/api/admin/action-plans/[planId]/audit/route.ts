@@ -9,7 +9,6 @@ type RouteContext = { params: Promise<{ planId: string }> };
 export async function GET(request: Request, ctx: RouteContext) {
   const { context, error: authError } = await requireAuth(request, [
     "admin",
-    "analyst",
   ]);
   if (authError) return authError;
   const { planId } = await ctx.params;

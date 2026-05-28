@@ -373,7 +373,7 @@ export function BibliotecaShell({ initial, layout: pageLayout = "default", error
           role="alertdialog"
           aria-modal="true"
         >
-          <div className="w-full max-w-md rounded-xl border border-slate-200 bg-white p-5 shadow-[var(--shadow-popover)]">
+          <div className="w-full max-w-md rounded-xl border border-slate-200 bg-white p-5 shadow-popover">
             <h3 className="text-base font-semibold text-slate-900">
               Remover {LIBRARY_CONFIG[deleteTarget.entity].singular}?
             </h3>

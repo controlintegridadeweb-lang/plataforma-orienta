@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { ChevronDown, Filter, Search, X } from "lucide-react";
 import { useState } from "react";
@@ -69,7 +69,7 @@ export function RespondentRecommendationFilters({
     >
       <div className="flex flex-col gap-3 px-4 py-3 sm:px-5">
         <div className="flex flex-wrap items-center gap-2">
-          <label className="relative flex-1 min-w-[14rem]">
+          <label className="relative flex-1 min-w-56">
             <span className="sr-only">Buscar</span>
             <Search
               className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400"

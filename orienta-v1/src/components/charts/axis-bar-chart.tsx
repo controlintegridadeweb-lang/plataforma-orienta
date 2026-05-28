@@ -12,7 +12,7 @@ const TARGET_PCT = 70;
 export function AxisBarChart({ data }: { data: AxisMaturity[] }) {
   if (data.length === 0) {
     return (
-      <div className="flex h-full min-h-[220px] flex-col items-center justify-center gap-2 rounded-xl border border-slate-200 bg-slate-50/60 px-5 py-10 text-center">
+      <div className="flex h-full min-h-55 flex-col items-center justify-center gap-2 rounded-xl border border-slate-200 bg-slate-50/60 px-5 py-10 text-center">
         <BarChart3 className="mx-auto h-10 w-10 text-slate-300" aria-hidden />
         <p className="text-base font-medium text-slate-700">Sem dados FAMI ainda</p>
         <p className="max-w-sm text-sm leading-relaxed text-slate-500">

@@ -11,7 +11,7 @@ type Props = {
   children: ReactNode;
 };
 
-/** Shell institucional da página de criação de formulário (admin e analista). */
+/** Shell institucional da página de criação de formulário (admin). */
 export function NewFormShell({ backHref, backLabel, children }: Props) {
   return (
     <div className={layout.pageStack}>

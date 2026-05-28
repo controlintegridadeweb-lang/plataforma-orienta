@@ -18,14 +18,10 @@ async function parseJson<T>(response: Response): Promise<T> {
   }
 }
 
-function buildAuthHeaders(role: "admin" | "analyst" | "respondent"): Record<string, string> {
+function buildAuthHeaders(role: "admin" | "respondent"): Record<string, string> {
   const defaults = getRuntimeDefaults();
   const userId =
-    role === "admin"
-      ? defaults.adminUserId
-      : role === "analyst"
-        ? defaults.analystUserId
-        : defaults.respondentUserId;
+    role === "admin" ? defaults.adminUserId : defaults.respondentUserId;
   if (!userId) return {};
   return buildDevAuthHeaders(userId, role);
 }
@@ -49,7 +45,7 @@ export async function loadFamiSnapshot(params: {
   /** UUID do formulário ou `"all"` para visão institucional consolidada. */
   formId: string;
   organizationId: string;
-  authRole: "admin" | "analyst" | "respondent";
+  authRole: "admin" | "respondent";
   /** Fechamento FAMI daquele ano civil (BRT); omitir = ultimo processamento */
   year?: number | null;
   evolutionMode?: "versions" | "years";
@@ -92,7 +88,7 @@ export type { InstitutionalFormScore } from "@/lib/fami/constants";
 export async function reprocessFamiRequest(params: {
   formId: string;
   organizationId: string;
-  authRole: "admin" | "analyst";
+  authRole: "admin";
 }): Promise<{ processingVersion: number; recommendationsCreated: number }> {
   const res = await fetch("/api/fami/reprocess", {
     method: "POST",

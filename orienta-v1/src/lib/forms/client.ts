@@ -153,6 +153,17 @@ export async function deleteForm(formId: string): Promise<void> {
   if (!res.ok) throw new Error(formatError(body));
 }
 
+export async function transitionForm(formId: string, to: string): Promise<FormSummary> {
+  const res = await fetch(`/api/admin/forms/${formId}/transition`, {
+    method: "POST",
+    headers: buildHeaders(),
+    body: JSON.stringify({ to }),
+  });
+  const body = await parseJson<{ form?: { state?: string } } & ApiError>(res);
+  if (!res.ok) throw new Error(formatError(body));
+  return getForm(formId);
+}
+
 export async function publishForm(
   formId: string,
   action?: "publish" | "approve",

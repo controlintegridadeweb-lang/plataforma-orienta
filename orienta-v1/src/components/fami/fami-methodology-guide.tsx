@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import type { LucideIcon } from "lucide-react";
@@ -29,7 +29,7 @@ type ExplainStep = (typeof FAMI_EXPLAIN_CARDS)[number];
 
 /** Escala da timeline — presença visual + compactação de espaços. */
 const TIMELINE_SCALE = {
-  wrap: "w-full max-w-none lg:max-w-[56rem] xl:max-w-[60rem]",
+  wrap: "w-full max-w-none lg:max-w-224 xl:max-w-240",
   /** Linha vertical contínua (atrás dos nós). */
   spine:
     "pointer-events-none absolute z-0 w-0.5 -translate-x-1/2 rounded-full bg-gradient-to-b from-brand-300/70 via-slate-300/75 to-brand-400/55",
@@ -195,7 +195,7 @@ function TimelineNode({
 
   return (
     <div
-      className={`relative z-[2] flex shrink-0 items-center justify-center rounded-full border shadow-[var(--shadow-card)] ${dim} ${t.node} ${t.nodeBorder}`}
+      className={`relative z-2 flex shrink-0 items-center justify-center rounded-full border shadow-card ${dim} ${t.node} ${t.nodeBorder}`}
       aria-hidden
     >
       <Icon className={`${iconDim} ${t.nodeIcon}`} strokeWidth={1.75} />
@@ -221,9 +221,9 @@ function TimelineStepContent({
   return (
     <article
       className={[
-        "w-full rounded-xl p-4 text-left shadow-[var(--shadow-card)] sm:p-5",
+        "w-full rounded-xl p-4 text-left shadow-card sm:p-5",
         t.panelTint,
-        desktopCard ? "lg:max-w-[26rem]" : "max-w-none",
+        desktopCard ? "lg:max-w-104" : "max-w-none",
         alignEnd ? "lg:text-right" : "",
       ].join(" ")}
     >
@@ -310,7 +310,7 @@ function FamiExplainTimeline() {
         aria-hidden
       />
 
-      <ol className="relative z-[1]">
+      <ol className="relative z-1">
         {FAMI_EXPLAIN_CARDS.map((step, index) => (
           <FamiExplainTimelineStep key={step.id} step={step} index={index} />
         ))}
@@ -327,7 +327,7 @@ function FamiExplainTimelineCompact() {
         className={`${TIMELINE_SCALE.spine} ${TIMELINE_SCALE.spineAxisLeft} top-4 bottom-4`}
         aria-hidden
       />
-      <ol className="relative z-[1] grid grid-cols-[3rem_minmax(0,1fr)] items-start gap-x-4">
+      <ol className="relative z-1 grid grid-cols-[3rem_minmax(0,1fr)] items-start gap-x-4">
         {FAMI_EXPLAIN_CARDS.map((step, index) => {
           const Icon = STEP_ICONS[step.id];
           const t = TONE[step.tone];

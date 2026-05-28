@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { CheckCircle2, FileSearch, Inbox, Sparkles, X } from "lucide-react";
+import { evidenceComplementation } from "@/lib/labels/complementation-terms";
 import { formSurface } from "@/lib/form-surface";
 
 type Variant = "nothing-sent" | "no-pendency" | "no-approved" | "no-results";
@@ -32,13 +33,13 @@ const COPY: Record<
     icon: CheckCircle2,
     title: "Nenhuma pendência por enquanto",
     description:
-      "Sempre que o analista solicitar complementação ou reprovar uma evidência, ela aparecerá aqui com a justificativa.",
+      `Sempre que a equipe solicitar ${evidenceComplementation.statusLabel.toLowerCase()} ou reprovar uma evidência, ela aparecerá aqui com a justificativa.`,
   },
   "no-approved": {
     icon: Sparkles,
     title: "Nenhuma evidência aprovada ainda",
     description:
-      "Quando o analista validar suas evidências, elas aparecerão neste recorte como aprovadas.",
+      "Quando suas evidências forem validadas, elas aparecerão neste recorte como aprovadas.",
   },
   "no-results": {
     icon: FileSearch,

@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+﻿import { NextResponse } from "next/server";
 import { requireAuth } from "@/lib/api/auth";
 import { ensureOrganizationAccess } from "@/lib/api/tenant-guard";
 import { createSupabaseServiceRoleClient } from "@/lib/supabase/server";
@@ -7,7 +7,7 @@ import { createSupabaseServiceRoleClient } from "@/lib/supabase/server";
  * Opcoes de escopo para geracao de relatorio oficial (organizacoes e formularios com FAMI global persistido).
  */
 export async function GET(request: Request) {
-  const { context, error } = await requireAuth(request, ["admin", "analyst", "respondent"]);
+  const { context, error } = await requireAuth(request, ["admin", "respondent"]);
   if (error) return error;
   const ctx = context!;
 

@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+﻿import { NextResponse } from "next/server";
 import { z } from "zod";
 import { nextStateFromEvent, shouldReprocessFami } from "@/lib/domain/operational";
 import { requireAuth } from "@/lib/api/auth";
@@ -17,12 +17,12 @@ const eventSchema = z.object({
     "formal_submit",
     "validation_change",
     "authorized_reopen",
-    "complementation_request",
+    "adjustment_request",
   ]),
 });
 
 export async function POST(request: Request) {
-  const { error } = await requireAuth(request, ["admin", "analyst", "respondent"]);
+  const { error } = await requireAuth(request, ["admin", "respondent"]);
   if (error) return error;
 
   const body = await request.json();

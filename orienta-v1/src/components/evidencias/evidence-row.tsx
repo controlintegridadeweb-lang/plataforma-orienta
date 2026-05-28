@@ -58,7 +58,7 @@ export function EvidenceRow({
       </td>
       <td className={`${formSurface.table.cell} whitespace-nowrap text-xs tabular-nums text-slate-600`}>
         {new Date(item.submittedAt).toLocaleDateString("pt-BR")}
-        <span className={`block text-[10px] font-normal text-slate-400`}>
+        <span className={`block text-2xs font-normal text-slate-400`}>
           {new Date(item.submittedAt).toLocaleTimeString("pt-BR", {
             hour: "2-digit",
             minute: "2-digit",
@@ -74,7 +74,7 @@ export function EvidenceRow({
         <p className="line-clamp-2 text-sm font-medium text-slate-900" title={titleText || undefined}>
           {titleText}
         </p>
-        <div className="mt-1 flex min-h-[1.25rem] flex-wrap items-center gap-2 text-[11px]">
+        <div className="mt-1 flex min-h-5 flex-wrap items-center gap-2 text-micro">
           {item.externalLink ? (
             <a
               href={item.externalLink}

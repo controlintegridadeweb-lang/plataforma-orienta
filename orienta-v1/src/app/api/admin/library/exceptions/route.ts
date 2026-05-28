@@ -8,7 +8,6 @@ import { logError } from "@/lib/observability/logger";
 export async function POST(request: Request) {
   const { context: authContext, error: authError } = await requireAuth(request, [
     "admin",
-    "analyst",
     "respondent",
   ]);
   if (authError) return authError;
@@ -50,7 +49,6 @@ export async function POST(request: Request) {
 export async function GET(request: Request) {
   const { context: authContext, error: authError } = await requireAuth(request, [
     "admin",
-    "analyst",
   ]);
   if (authError) return authError;
 

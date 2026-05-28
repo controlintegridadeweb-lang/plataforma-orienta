@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { Fragment, useState } from "react";
 import { ArrowRight, ChevronDown, Eye, FileText, MoreHorizontal } from "lucide-react";
 import { AdminActionPlanProgress } from "@/components/admin-plano-acao/admin-action-plan-progress";
@@ -37,8 +36,7 @@ export function AdminActionPlanTable({
   onExpandedChange,
   hideOrganizationColumn = false,
 }: Props) {
-  const pathname = usePathname() ?? "";
-  const area = staffAreaFromPathname(pathname);
+  const area = staffAreaFromPathname();
   const [internalExpanded, setInternalExpanded] = useState<Set<string>>(new Set());
 
   const expanded = controlledExpanded ?? internalExpanded;
@@ -61,18 +59,18 @@ export function AdminActionPlanTable({
 
   return (
     <div className={formSurface.table.wrapper}>
-      <table className={`${formSurface.table.table} min-w-[1140px]`}>
+      <table className={`${formSurface.table.table} min-w-285`}>
         <thead className={formSurface.table.head}>
           <tr>
-            <th className={`${formSurface.table.headCell} min-w-[12rem]`}>Ação</th>
+            <th className={`${formSurface.table.headCell} min-w-48`}>Ação</th>
             {hideOrganizationColumn ? null : (
-              <th className={`${formSurface.table.headCell} min-w-[8rem]`}>Órgão</th>
+              <th className={`${formSurface.table.headCell} min-w-32`}>Órgão</th>
             )}
-            <th className={`${formSurface.table.headCell} min-w-[6rem]`}>Eixo</th>
+            <th className={`${formSurface.table.headCell} min-w-24`}>Eixo</th>
             <th className={formSurface.table.headCell}>Status</th>
-            <th className={`${formSurface.table.headCell} min-w-[8rem]`}>Recomendação</th>
+            <th className={`${formSurface.table.headCell} min-w-32`}>Recomendação</th>
             <th className={formSurface.table.headCell}>Responsável</th>
-            <th className={`${formSurface.table.headCell} min-w-[7rem]`}>Progresso</th>
+            <th className={`${formSurface.table.headCell} min-w-28`}>Progresso</th>
             <th className={formSurface.table.headCell}>Prazo</th>
             <th className={formSurface.table.headCell}>Risco</th>
             <th className={`${formSurface.table.headCell} whitespace-nowrap`}>Atualização</th>
@@ -110,7 +108,7 @@ export function AdminActionPlanTable({
                       <span className="min-w-0">
                         <span className="line-clamp-2 text-sm font-medium text-slate-900">{title}</span>
                         {item.planStatus ? (
-                          <span className="mt-0.5 block text-[11px] text-slate-500">
+                          <span className="mt-0.5 block text-micro text-slate-500">
                             {planStatusLabel(item.planStatus)}
                           </span>
                         ) : null}
@@ -126,7 +124,7 @@ export function AdminActionPlanTable({
                   )}
                   <td className={`${formSurface.table.cellMuted} align-top`}>
                     <span className="line-clamp-2" title={item.axisName}>
-                      {item.axisName || "—"}
+                      {item.axisName || ""}
                     </span>
                   </td>
                   <td className={`${formSurface.table.cell} align-top`}>
@@ -138,12 +136,12 @@ export function AdminActionPlanTable({
                     </span>
                   </td>
                   <td className={`${formSurface.table.cell} align-top text-sm text-slate-700`}>
-                    <span className="line-clamp-1">{item.responsibleName || "—"}</span>
+                    <span className="line-clamp-1">{item.responsibleName || ""}</span>
                     {item.responsibleSector ? (
-                      <span className="block text-[11px] text-slate-500">{item.responsibleSector}</span>
+                      <span className="block text-micro text-slate-500">{item.responsibleSector}</span>
                     ) : null}
                   </td>
-                  <td className={`${formSurface.table.cell} align-top min-w-[7rem]`}>
+                  <td className={`${formSurface.table.cell} align-top min-w-28`}>
                     <div className="flex items-center gap-2">
                       <span className="shrink-0 text-xs tabular-nums font-semibold text-slate-800">
                         {item.progress}%
@@ -164,7 +162,7 @@ export function AdminActionPlanTable({
                   </td>
                   <td className={`${formSurface.table.cell} align-top`}>
                     <span
-                      className={`inline-flex rounded-md px-2 py-0.5 text-[11px] font-semibold ${risk.className}`}
+                      className={`inline-flex rounded-md px-2 py-0.5 text-micro font-semibold ${risk.className}`}
                     >
                       {risk.label}
                     </span>

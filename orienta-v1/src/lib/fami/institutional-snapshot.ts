@@ -69,13 +69,11 @@ function pickLatestGlobalPerForm(
 function averageGlobalFromForms(latestByForm: Map<string, FormLatestGlobal>): FamiGlobalSnapshot | null {
   if (latestByForm.size === 0) return null;
   let sumPct = 0;
-  let sumLvl = 0;
   let sumObt = 0;
   let sumPos = 0;
   let latestCreatedAt = "";
   for (const v of latestByForm.values()) {
     sumPct += v.percentage;
-    sumLvl += v.maturityLevel;
     sumObt += v.pointsObtained;
     sumPos += v.pointsPossible;
     if (v.createdAt > latestCreatedAt) latestCreatedAt = v.createdAt;
@@ -347,14 +345,12 @@ export async function buildFamiSnapshotInstitutionalForYear(
   if (snapshots.length === 0) return null;
 
   let sumPct = 0;
-  let sumLvl = 0;
   let sumObt = 0;
   let sumPos = 0;
   let latestCreatedAt = "";
   for (const s of snapshots) {
     if (!s.global) continue;
     sumPct += s.global.percentage;
-    sumLvl += s.global.maturityLevel;
     sumObt += s.global.pointsObtained;
     sumPos += s.global.pointsPossible;
     if (s.global.createdAt > latestCreatedAt) latestCreatedAt = s.global.createdAt;

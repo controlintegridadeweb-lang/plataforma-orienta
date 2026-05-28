@@ -9,7 +9,7 @@ import type { RespondentStatus } from "./answers-types";
  *   (form, org). O reprocessamento FAMI roda no submit, entao a presenca
  *   indica que houve pelo menos uma submissao.
  * - `hasComplementationRequested`: existe alguma evidencia ligada a respostas
- *   deste par com a validacao mais recente igual a `complementation_requested`.
+ *   deste par com a validacao mais recente igual a `adjustment_requested`.
  *
  * A funcao e pura para facilitar teste e reuso na UI (badges, filtros).
  */

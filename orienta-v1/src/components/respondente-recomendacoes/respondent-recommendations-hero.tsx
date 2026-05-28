@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Download, RefreshCw } from "lucide-react";
 import { RESPONDENT_MODULE_CONTEXT } from "@/lib/respondent-module-context";
+import { RESPONDENT_RECOMMENDATIONS_MODULE_LABEL } from "@/lib/navigation/respondent-portfolio-paths";
 import { formSurface } from "@/lib/form-surface";
 import {
   RESPONDENT_PAGE_HERO_ACTIONS,
@@ -26,14 +27,14 @@ type Props = {
   onExport?: () => void;
 };
 
-/** Hero do Portfólio de recomendações — integrado ao `PageShell` (bleed no pai). */
+/** Hero de Recomendações e plano — integrado ao `PageShell` (bleed no pai). */
 export function RespondentRecommendationsHero({ onRefresh, refreshing, onExport }: Props) {
   return (
-    <header className={RESPONDENT_PAGE_HERO_CLASS} aria-label="Portfólio de recomendações">
+    <header className={RESPONDENT_PAGE_HERO_CLASS} aria-label={RESPONDENT_RECOMMENDATIONS_MODULE_LABEL}>
       <div className={RESPONDENT_PAGE_HERO_LAYOUT_COMPACT}>
         <div className={RESPONDENT_PAGE_HERO_CONTENT_COMPACT}>
           <p className={RESPONDENT_PAGE_HERO_OVERLINE}>Gestão estratégica</p>
-          <h2 className={RESPONDENT_PAGE_HERO_TITLE}>Portfólio de recomendações</h2>
+          <h2 className={RESPONDENT_PAGE_HERO_TITLE}>{RESPONDENT_RECOMMENDATIONS_MODULE_LABEL}</h2>
           <p className={RESPONDENT_PAGE_HERO_DESCRIPTION}>
             Visão em cards: status, motivo e próximo passo em destaque. Cadastre prazos,
             responsáveis e acompanhe entregas no workspace de cada recomendação.

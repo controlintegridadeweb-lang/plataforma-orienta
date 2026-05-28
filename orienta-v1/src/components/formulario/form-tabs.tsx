@@ -22,8 +22,8 @@ export function FormTabs({
   embedded = false,
 }: {
   formId: string;
-  /** Base do app (rotas de edicao de formulario replicam admin em /analista). */
-  scope?: "admin" | "analista";
+  /** Prefixo de rota staff (sempre `/admin`). */
+  scope?: "admin";
   embedded?: boolean;
 }) {
   const base = `/${scope}/formularios/${formId}`;

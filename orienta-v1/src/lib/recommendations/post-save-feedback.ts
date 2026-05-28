@@ -20,7 +20,7 @@ export function portfolioPendingLink(formId: string): string {
 export function notifyRespondentReprocessOutcome(
   formId: string,
   fami: FamiReprocessToastPayload,
-  context?: { answer?: "yes" | "no" | "partial"; requiresEvidence?: boolean },
+  context?: { answer?: "yes" | "no" | "not_applicable"; requiresEvidence?: boolean },
 ): void {
   const now = Date.now();
   if (now - lastToastAt < DEBOUNCE_MS) return;
@@ -35,7 +35,7 @@ export function notifyRespondentReprocessOutcome(
         ? "Nova recomendação gerada."
         : `${created} novas recomendações geradas.`,
       {
-        description: "No portfólio, use «Cadastrar ações» em cada item pendente.",
+        description: "Em Recomendações e plano, use «Cadastrar ações» em cada item pendente.",
         duration: 5000,
       },
     );
@@ -59,8 +59,8 @@ export function notifyRespondentReprocessOutcome(
 
 export function formatSubmitRecommendationMessage(created: number): string {
   if (created === 0) {
-    return "Formulário enviado. Nenhuma recomendação foi disparada pelas respostas atuais.";
+    return "Envio finalizado. Nenhuma recomendação foi disparada pelas respostas atuais.";
   }
-  if (created === 1) return "Formulário enviado. Foi gerada 1 recomendação.";
-  return `Formulário enviado. Foram geradas ${created} recomendações.`;
+  if (created === 1) return "Envio finalizado. Foi gerada 1 recomendação.";
+  return `Envio finalizado. Foram geradas ${created} recomendações.`;
 }

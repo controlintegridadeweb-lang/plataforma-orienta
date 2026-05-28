@@ -1,7 +1,6 @@
 import type { LucideIcon } from "lucide-react";
 import {
   AlertCircle,
-  ArrowRightLeft,
   CheckCircle2,
   MessageSquare,
   Scale,
@@ -66,6 +65,5 @@ export const SUPERVISION_NOTE_TYPE_ORDER: SupervisionNoteType[] = [
 
 export function supervisionRoleLabel(role: string | null | undefined): string {
   if (role === "admin") return "Administrador";
-  if (role === "analyst") return "Analista";
   return "Equipe de supervisão";
 }

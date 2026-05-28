@@ -12,8 +12,8 @@ export type RecommendationDetailTabDef = {
 
 function tabClass(active: boolean): string {
   return active
-    ? "rounded-xl bg-brand-600 px-4 py-3 text-white shadow-sm ring-1 ring-brand-700/20 sm:min-w-[8.5rem]"
-    : "rounded-xl px-4 py-3 text-slate-600 ring-1 ring-transparent transition hover:bg-slate-50 hover:text-slate-900 sm:min-w-[8.5rem]";
+    ? "rounded-xl bg-brand-600 px-4 py-3 text-white shadow-sm ring-1 ring-brand-700/20 sm:min-w-34"
+    : "rounded-xl px-4 py-3 text-slate-600 ring-1 ring-transparent transition hover:bg-slate-50 hover:text-slate-900 sm:min-w-34";
 }
 
 export function RecommendationDetailTabs({
@@ -46,8 +46,8 @@ export function RecommendationDetailTabs({
                 className={`flex flex-col ${tabClass(active)}`}
                 aria-current={active ? "page" : undefined}
               >
-                <span className="text-[10px] font-semibold uppercase tracking-wider opacity-80">
-                  {tagline ?? "—"}
+                <span className="text-2xs font-semibold uppercase tracking-wider opacity-80">
+                  {tagline ?? ""}
                 </span>
                 <span className={`mt-0.5 text-sm font-semibold ${active ? "" : "text-slate-800"}`}>
                   {tab.label}

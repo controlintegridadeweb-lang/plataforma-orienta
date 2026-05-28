@@ -7,7 +7,6 @@ import {
   Percent,
   Sparkles,
   Clock,
-  FileStack,
 } from "lucide-react";
 import type { RecommendationFilterOptions } from "@/lib/recommendations/admin-service";
 import { loadRecommendationFilters } from "@/lib/recommendations/client";
@@ -32,7 +31,7 @@ import { SegmentedTabs } from "@/components/ui/segmented-tabs";
 import { YearSelect } from "@/components/ui/year-select";
 import { AdminFamiMaturityHero } from "@/components/fami/admin-fami-maturity-hero";
 import { RespondentFamiRadarChart } from "@/components/respondente-fami/respondent-fami-radar-chart";
-import { staffQueueHrefFromMode } from "@/lib/admin/queue-links";
+import { staffQueueHref } from "@/lib/admin/queue-links";
 import { ADMIN_PAGE_HERO_BLEED } from "@/lib/admin-page-layout";
 import { formatFamiUpdatedAt } from "@/lib/fami/format-updated-at";
 import { describeError, notify } from "@/lib/notify";
@@ -47,10 +46,10 @@ const FAMI_SECTION_STACK = "space-y-10 lg:space-y-12";
 const FAMI_KPI_GRID = "grid gap-5 md:grid-cols-2 md:gap-6 xl:grid-cols-4 xl:gap-6";
 
 type Props = {
-  mode: "admin" | "analyst" | "respondent";
+  mode: "admin" | "respondent";
   /**
    * Para admin: aceita uma UUID, string vazia (Geral / todas as organizacoes)
-   * ou `null` quando nao houve escolha. Para analyst/respondent: aceita a
+   * ou `null` quando nao houve escolha. Para respondent: aceita a
    * UUID da organizacao do perfil.
    */
   defaultOrganizationId: string | null;
@@ -216,7 +215,7 @@ export function FamiMaturityShell({
       const result = await reprocessFamiRequest({
         formId: effectiveFormId,
         organizationId,
-        authRole: mode === "admin" ? "admin" : "analyst",
+        authRole: "admin",
       });
       notify.success(
         `Pontuação atualizada. ${result.recommendationsCreated} recomendações sincronizadas.`,
@@ -294,14 +293,12 @@ export function FamiMaturityShell({
     [organizationId, isGlobalView],
   );
 
-  const staffMode = mode === "respondent" ? null : mode;
-
   function queueHref(
     segment: "evidencias" | "recomendacoes" | "plano-acao",
     params: Record<string, string>,
   ): string | null {
-    if (!staffMode || !organizationId || !effectiveFormId) return null;
-    return staffQueueHrefFromMode(staffMode, segment, queueScope, params);
+    if (mode === "respondent" || !organizationId || !effectiveFormId) return null;
+    return staffQueueHref("admin", segment, queueScope, params);
   }
 
   const adminInsightSummary = adminInsights?.summary.replace(
@@ -309,8 +306,7 @@ export function FamiMaturityShell({
     "A maturidade",
   );
 
-  const modeLabel =
-    mode === "admin" ? "Administrador" : mode === "analyst" ? "Analista" : "Respondente";
+  const modeLabel = mode === "admin" ? "Administrador" : "Respondente";
 
   const heroSummaryLine = useMemo(() => {
     if (!snapshot?.global) return null;
@@ -329,7 +325,7 @@ export function FamiMaturityShell({
 
   const modeBadge = (
     <span
-      className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-slate-200/80 bg-white px-3 py-1.5 text-[11px] font-semibold uppercase tracking-wide text-slate-600 shadow-sm"
+      className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-slate-200/80 bg-white px-3 py-1.5 text-micro font-semibold uppercase tracking-wide text-slate-600 shadow-sm"
       title="Perfil de acesso"
     >
       <Sparkles className="h-3.5 w-3.5 text-brand" aria-hidden />
@@ -342,7 +338,6 @@ export function FamiMaturityShell({
       {mode === "respondent" ? null : (
         <div className={ADMIN_PAGE_HERO_BLEED}>
           <AdminFamiMaturityHero
-            mode={mode}
             summaryLine={heroSummaryLine}
             summaryClassName={heroSummaryClass}
             loading={loading}
@@ -392,7 +387,7 @@ export function FamiMaturityShell({
                 </select>
                 <p
                   id="fami-organization-hint"
-                  className="text-[11px] leading-relaxed text-slate-500"
+                  className="text-micro leading-relaxed text-slate-500"
                 >
                   {isGlobalView
                     ? "Visão agregada: percentuais por eixo/seção são médias entre organizações; pontos são somados."
@@ -590,9 +585,9 @@ export function FamiMaturityShell({
             </p>
           )}
 
-          {organizationId && effectiveFormId && staffMode ? (
+          {organizationId && effectiveFormId && mode === "admin" ? (
             <nav
-              className="flex flex-wrap gap-x-6 gap-y-2 rounded-xl border border-slate-200/80 bg-white px-5 py-4 shadow-[var(--shadow-card)]"
+              className="flex flex-wrap gap-x-6 gap-y-2 rounded-xl border border-slate-200/80 bg-white px-5 py-4 shadow-card"
               aria-label="Atalhos operacionais"
             >
               <Link
@@ -625,16 +620,16 @@ export function FamiMaturityShell({
             contentClassName="p-0"
           >
             <div className="grid gap-6 p-6 sm:p-8 xl:grid-cols-2">
-              <div className="min-h-[22rem] rounded-xl border border-slate-200/80 bg-slate-50/30 p-4 sm:p-5">
+              <div className="min-h-88 rounded-xl border border-slate-200/80 bg-slate-50/30 p-4 sm:p-5">
                 <RespondentFamiRadarChart
                   embedded
                   axes={snapshot.axes}
                   title="Radar de eixos"
                 />
               </div>
-              <div className="flex min-h-[22rem] flex-col rounded-xl border border-slate-200/80 bg-white p-5 sm:p-6">
+              <div className="flex min-h-88 flex-col rounded-xl border border-slate-200/80 bg-white p-5 sm:p-6">
                 <p className={formSurface.label}>Percentual por eixo</p>
-                <div className="mt-5 min-h-[18rem] flex-1">
+                <div className="mt-5 min-h-72 flex-1">
                   <AxisBarChart data={snapshot.axes} />
                 </div>
               </div>
@@ -663,8 +658,8 @@ export function FamiMaturityShell({
                 <ul className="divide-y divide-slate-100">
                   {axesRanked.slice(0, 6).map((row) => {
                     const href =
-                      staffMode && organizationId && effectiveFormId && row.axisId
-                        ? staffQueueHrefFromMode(staffMode, "recomendacoes", queueScope, {
+                      mode === "admin" && organizationId && effectiveFormId && row.axisId
+                        ? staffQueueHref("admin", "recomendacoes", queueScope, {
                             formId: effectiveFormId,
                             axisId: row.axisId,
                           })
@@ -707,11 +702,11 @@ export function FamiMaturityShell({
             <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
               {snapshot.axes.map((axis) => {
                 const showDrill = Boolean(
-                  staffMode && organizationId && effectiveFormId && axis.axisId,
+                  mode === "admin" && organizationId && effectiveFormId && axis.axisId,
                 );
                 const drillHref =
-                  showDrill && axis.axisId && staffMode
-                    ? staffQueueHrefFromMode(staffMode, "recomendacoes", queueScope, {
+                  showDrill && axis.axisId && mode === "admin"
+                    ? staffQueueHref("admin", "recomendacoes", queueScope, {
                         formId: effectiveFormId,
                         axisId: axis.axisId,
                       })
@@ -731,9 +726,9 @@ export function FamiMaturityShell({
         </div>
       ) : tab === "resumo" ? (
         <div className={FAMI_SECTION_STACK}>
-          {organizationId && effectiveFormId && staffMode ? (
+          {organizationId && effectiveFormId && mode === "admin" ? (
             <nav
-              className="flex flex-wrap gap-x-6 gap-y-2 rounded-xl border border-slate-200/80 bg-white px-5 py-4 shadow-[var(--shadow-card)]"
+              className="flex flex-wrap gap-x-6 gap-y-2 rounded-xl border border-slate-200/80 bg-white px-5 py-4 shadow-card"
               aria-label="Atalhos operacionais"
             >
               <Link
@@ -786,17 +781,17 @@ export function FamiMaturityShell({
             variant="card"
             contentClassName="space-y-6"
           >
-            <div className="min-h-[20rem] rounded-xl border border-slate-200/80 bg-slate-50/30 p-5 sm:p-6">
+            <div className="min-h-80 rounded-xl border border-slate-200/80 bg-slate-50/30 p-5 sm:p-6">
               <AxisBarChart data={snapshot.axes} />
             </div>
             <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
               {snapshot.axes.map((axis) => {
                 const showDrill = Boolean(
-                  staffMode && organizationId && effectiveFormId && axis.axisId,
+                  mode === "admin" && organizationId && effectiveFormId && axis.axisId,
                 );
                 const drillHref =
-                  showDrill && axis.axisId && staffMode
-                    ? staffQueueHrefFromMode(staffMode, "recomendacoes", queueScope, {
+                  showDrill && axis.axisId && mode === "admin"
+                    ? staffQueueHref("admin", "recomendacoes", queueScope, {
                         formId: effectiveFormId,
                         axisId: axis.axisId,
                       })
@@ -870,7 +865,7 @@ export function FamiMaturityShell({
           variant="card"
           contentClassName="p-5 sm:p-6"
         >
-          <div className="min-h-[22rem]">
+          <div className="min-h-88">
             <FamiEvolutionChart variant="years" data={data?.evolutionByYear ?? []} />
           </div>
         </PanelSection>

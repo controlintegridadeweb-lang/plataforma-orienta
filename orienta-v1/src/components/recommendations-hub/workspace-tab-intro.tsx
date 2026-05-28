@@ -14,7 +14,7 @@ export function WorkspaceTabIntro() {
       aria-label={`Aba ${meta.label}: ${meta.tagline}`}
     >
       <div className="min-w-0">
-        <p className="text-[10px] font-semibold uppercase tracking-wider text-brand-700">
+        <p className="text-2xs font-semibold uppercase tracking-wider text-brand-700">
           {meta.tagline}
         </p>
         <p className="text-sm text-slate-600">{meta.description}</p>

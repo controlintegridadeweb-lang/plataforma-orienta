@@ -28,7 +28,7 @@ type Props = {
 function StatPill({ label, value }: { label: string; value: number }) {
   return (
     <div className="flex min-w-0 flex-col gap-0.5 rounded-lg border border-slate-100/90 bg-white px-3 py-2 shadow-sm">
-      <span className="text-[10px] font-medium uppercase tracking-wide text-slate-500">
+      <span className="text-2xs font-medium uppercase tracking-wide text-slate-500">
         {label}
       </span>
       <span className={`text-lg font-medium tabular-nums leading-none text-slate-900`}>
@@ -59,7 +59,7 @@ export function RecommendationMonitoringSnapshot({
           ) : null}
         </div>
         <div className="w-full max-w-xs sm:shrink-0">
-          <div className="mb-1.5 flex items-center justify-between text-[11px] text-slate-500">
+          <div className="mb-1.5 flex items-center justify-between text-micro text-slate-500">
             <span>Progresso geral</span>
             <span className="font-medium tabular-nums text-slate-800">{progress}%</span>
           </div>
@@ -76,7 +76,7 @@ export function RecommendationMonitoringSnapshot({
 
       {metrics.upcoming.length > 0 ? (
         <div className="rounded-lg border border-slate-100/90 bg-slate-50/40 px-3 py-3">
-          <p className="mb-2 flex items-center gap-1.5 text-[11px] font-medium text-slate-700">
+          <p className="mb-2 flex items-center gap-1.5 text-micro font-medium text-slate-700">
             <CalendarClock className="h-3.5 w-3.5 text-slate-400" aria-hidden />
             Próximas entregas (7 dias)
           </p>
@@ -86,7 +86,7 @@ export function RecommendationMonitoringSnapshot({
               return (
                 <li
                   key={p.id}
-                  className="flex items-start justify-between gap-2 text-[13px] leading-snug"
+                  className="flex items-start justify-between gap-2 text-caption leading-snug"
                 >
                   <span className="min-w-0 font-medium text-slate-800 line-clamp-2">
                     {p.actionText}

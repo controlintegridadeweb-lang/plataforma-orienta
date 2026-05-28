@@ -81,7 +81,7 @@ export function YearSelect({
         ))}
       </select>
       {hint ? (
-        <span id={`${id ?? "year"}-hint`} className="text-[11px] leading-relaxed text-slate-500">
+        <span id={`${id ?? "year"}-hint`} className="text-micro leading-relaxed text-slate-500">
           {hint}
         </span>
       ) : null}

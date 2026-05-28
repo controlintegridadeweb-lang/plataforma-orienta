@@ -1,7 +1,5 @@
 import Image from "next/image";
-import { ClipboardList, Lightbulb, ListChecks } from "lucide-react";
 import {
-  ADMIN_PAGE_HERO_BLEED,
   ADMIN_PAGE_HERO_CLASS,
   ADMIN_PAGE_HERO_CONTENT,
   ADMIN_PAGE_HERO_DESCRIPTION,
@@ -15,38 +13,8 @@ import {
 
 const HERO_IMAGE = "/assets/admin-dashboard-hero.png";
 
-type Props = {
-  activeForms: number;
-  openRecommendations: number;
-  plansInProgress: number;
-};
-
-function QuickBadge({
-  icon: Icon,
-  label,
-  value,
-}: {
-  icon: typeof ClipboardList;
-  label: string;
-  value: number;
-}) {
-  return (
-    <span className="inline-flex items-center gap-2 rounded-full border border-slate-200/80 bg-slate-50/90 px-3 py-1.5 text-sm text-slate-700">
-      <Icon className="h-3.5 w-3.5 shrink-0 text-brand-700" aria-hidden />
-      <span>
-        <span className="font-semibold tabular-nums text-slate-900">{value}</span>
-        <span className="text-slate-600"> {label}</span>
-      </span>
-    </span>
-  );
-}
-
-/** Hero institucional do dashboard administrativo. */
-export function AdminDashboardHero({
-  activeForms,
-  openRecommendations,
-  plansInProgress,
-}: Props) {
+/** Hero institucional do dashboard administrativo (sem métricas — KPIs carregam em streaming). */
+export function AdminDashboardHero() {
   return (
     <header className={ADMIN_PAGE_HERO_CLASS} aria-label="Dashboard administrativo">
       <div className={ADMIN_PAGE_HERO_LAYOUT}>
@@ -57,16 +25,6 @@ export function AdminDashboardHero({
             Acompanhe formulários, evidências, recomendações, planos de ação e indicadores
             institucionais da plataforma.
           </p>
-
-          <div className="mt-5 flex flex-wrap gap-2 sm:mt-6">
-            <QuickBadge icon={ClipboardList} label="formulários ativos" value={activeForms} />
-            <QuickBadge
-              icon={Lightbulb}
-              label="recomendações abertas"
-              value={openRecommendations}
-            />
-            <QuickBadge icon={ListChecks} label="planos em andamento" value={plansInProgress} />
-          </div>
         </div>
 
         <div className={ADMIN_PAGE_HERO_MEDIA}>
@@ -75,7 +33,7 @@ export function AdminDashboardHero({
             alt=""
             width={800}
             height={560}
-            priority
+            loading="lazy"
             sizes={ADMIN_PAGE_HERO_IMAGE_SIZES}
             className={ADMIN_PAGE_HERO_IMAGE}
           />

@@ -8,17 +8,17 @@ import type {
 const ANSWER_LABELS = {
   yes: "Sim",
   no: "Nao",
-  partial: "Parcial",
+  not_applicable: "Nao se aplica",
 } as const;
 
 const ANSWER_COLORS = {
   yes: "#10b981",
   no: "#f43f5e",
-  partial: "#f59e0b",
+  not_applicable: "#f59e0b",
 } as const;
 
 type AnswerKey = keyof typeof ANSWER_LABELS;
-const ANSWER_KEYS: readonly AnswerKey[] = ["yes", "no", "partial"];
+const ANSWER_KEYS: readonly AnswerKey[] = ["yes", "no", "not_applicable"];
 
 function polarToCartesian(
   cx: number,

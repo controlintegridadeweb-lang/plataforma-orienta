@@ -21,7 +21,7 @@ export function RespondentFamiLevelBadge({
   const pad =
     size === "lg" ? "px-3 py-1.5" : size === "md" ? "px-2.5 py-1" : "px-2 py-0.5";
   const text =
-    size === "lg" ? "text-sm" : size === "md" ? "text-xs" : "text-[11px]";
+    size === "lg" ? "text-sm" : size === "md" ? "text-xs" : "text-micro";
   return (
     <span
       className={`${statusPillBase} ${pad} ${text} ${meta.badgeClasses}`}
@@ -48,7 +48,7 @@ export function RespondentFamiLevelLegend() {
       {Object.values(LEVEL_META).map((meta) => (
         <span
           key={meta.level}
-          className={`${statusPillBase} px-2 py-0.5 text-[10px] ${meta.badgeClasses}`}
+          className={`${statusPillBase} px-2 py-0.5 text-2xs ${meta.badgeClasses}`}
           title={`${meta.description} · ${meta.range}`}
         >
           N{meta.level}

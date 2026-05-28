@@ -47,7 +47,7 @@ describe("computeCoverageScore with inline recommendations", () => {
         actionIds: [],
         recommendation: { title: "R1" },
       },
-      parcialmente: {
+      nao_se_aplica: {
         recommendationId: null,
         actionIds: [],
         recommendation: { title: "R2" },
@@ -75,7 +75,7 @@ describe("validateBindingForPublish", () => {
         actionIds: [],
         recommendation: { title: "A" },
       },
-      parcialmente: {
+      nao_se_aplica: {
         recommendationId: null,
         actionIds: [],
         recommendation: { title: "B" },
@@ -156,7 +156,7 @@ describe("validateBindingForPublish", () => {
     expect(r.valid).toBe(false);
   });
 
-  it("passes without FAMI slots when requiresEvidence=false (scale com nao e parcialmente)", () => {
+  it("passes without FAMI slots when requiresEvidence=false (scale com nao e nao_se_aplica)", () => {
     const r = validateBindingForPublish(
       baseBinding({
         metric: {
@@ -171,7 +171,7 @@ describe("validateBindingForPublish", () => {
             actionIds: [],
             recommendation: { title: "A" },
           },
-          parcialmente: {
+          nao_se_aplica: {
             recommendationId: null,
             actionIds: [],
             recommendation: { title: "B" },
@@ -198,7 +198,7 @@ describe("validateBindingForPublish", () => {
             actionIds: [],
             recommendation: { title: "A" },
           },
-          parcialmente: {
+          nao_se_aplica: {
             recommendationId: null,
             actionIds: [],
             recommendation: { title: "B" },
@@ -267,14 +267,14 @@ describe("getRequiredScenariosFor", () => {
     expect(getRequiredScenariosFor("text", false)).toEqual([]);
   });
 
-  it("scale e numeric incluem parcialmente nos cenarios base", () => {
+  it("scale e numeric incluem nao_se_aplica nos cenarios base", () => {
     expect(getRequiredScenariosFor("scale", false)).toEqual([
       "nao",
-      "parcialmente",
+      "nao_se_aplica",
     ]);
     expect(getRequiredScenariosFor("numeric", true)).toEqual([
       "nao",
-      "parcialmente",
+      "nao_se_aplica",
       "sim_evidencia_invalida",
     ]);
   });
@@ -286,7 +286,7 @@ describe("getRequiredScenariosFor", () => {
 });
 
 describe("computeCoverageScore dinamico", () => {
-  it("scale sem evidencia exige 2 slots (nao e parcialmente)", () => {
+  it("scale sem evidencia exige 2 slots (nao e nao_se_aplica)", () => {
     const score = computeCoverageScore(
       {
         nao: {
@@ -294,7 +294,7 @@ describe("computeCoverageScore dinamico", () => {
           actionIds: [],
           recommendation: { title: "A" },
         },
-        parcialmente: {
+        nao_se_aplica: {
           recommendationId: null,
           actionIds: [],
           recommendation: { title: "B" },
@@ -313,7 +313,7 @@ describe("computeCoverageScore dinamico", () => {
           actionIds: [],
           recommendation: { title: "A" },
         },
-        parcialmente: {
+        nao_se_aplica: {
           recommendationId: null,
           actionIds: [],
           recommendation: { title: "B" },
@@ -375,7 +375,7 @@ describe("computeSnapshotHash", () => {
   it("changes when responseMapping changes", () => {
     const other = computeSnapshotHashInput({
       ...baseInput,
-      responseMapping: { scaleBands: { failMax: 2, partialMax: 4 } },
+      responseMapping: { scaleBands: { failMax: 2, notApplicableMax: 4 } },
     });
     expect(computeSnapshotHash(baseInput)).not.toBe(computeSnapshotHash(other));
   });

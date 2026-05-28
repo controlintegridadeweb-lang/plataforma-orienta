@@ -15,7 +15,7 @@ type Props = {
   onEvidenceDraftChange: (questionId: string, patch: Partial<EvidenceDraft>) => void;
   onFileSelected: (row: WorkbenchRow, file: File) => void;
   onRemoveAttachment?: (row: WorkbenchRow) => void | Promise<void>;
-  onSelectAnswer: (row: WorkbenchRow, value: "yes" | "no" | "partial") => void;
+  onSelectAnswer: (row: WorkbenchRow, value: "yes" | "no" | "not_applicable") => void;
   disabled?: boolean;
   activeQuestionId?: string | null;
   uploadingQuestionId?: string | null;
@@ -50,7 +50,6 @@ export function RespondentSectionWizard({
       <RespondentSectionQuestions
         section={section}
         sectionIndex={safeIndex}
-        sectionTotal={sectionTotal}
         stepLabel={stepLabel}
         stepProgressPct={stepProgressPct}
         evidenceDrafts={evidenceDrafts}

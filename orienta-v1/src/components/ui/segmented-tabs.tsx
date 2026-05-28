@@ -46,7 +46,7 @@ export function SegmentedTabs<T extends string>({
             title={tab.title}
             aria-selected={selected}
             onClick={() => onChange(tab.id)}
-            className={`min-h-[2.5rem] rounded-lg px-4 py-2 text-sm font-medium transition ${tabClasses(
+            className={`min-h-10 rounded-lg px-4 py-2 text-sm font-medium transition ${tabClasses(
               selected,
             )}`}
           >

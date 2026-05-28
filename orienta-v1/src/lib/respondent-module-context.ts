@@ -1,3 +1,3 @@
-/** Linha de orientação — portfólio (estratégico) vs plano de ação (execução). */
+/** Linha de orientação na lista de recomendações. */
 export const RESPONDENT_MODULE_CONTEXT =
-  "Portfólio = diagnóstico e prioridades · Plano de Ação = execução das ações";
+  "Lista = prioridades e status · Detalhe de cada item = cadastro de ações e monitoramento";

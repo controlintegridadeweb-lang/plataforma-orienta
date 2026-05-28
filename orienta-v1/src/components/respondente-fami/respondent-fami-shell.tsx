@@ -19,6 +19,7 @@ import { RespondentFamiRecommendationsImpact } from "./respondent-fami-recommend
 import { RespondentFamiEvidenceImpact } from "./respondent-fami-evidence-impact";
 import { RespondentFamiEmptyState } from "./respondent-fami-empty-state";
 import { FamiMethodologyGuide } from "@/components/fami/fami-methodology-guide";
+import { RespondentFamiScoreNotice } from "./respondent-fami-score-notice";
 
 type Props = {
   defaultOrganizationId: string | null;
@@ -136,6 +137,8 @@ export function RespondentFamiShell({ defaultOrganizationId }: Props) {
         pointsPossible={institutionalSnapshot?.global?.pointsPossible}
         lastProcessedAt={institutionalLastAt}
       />
+
+      <RespondentFamiScoreNotice />
 
       <FamiMethodologyGuide
         currentLevel={

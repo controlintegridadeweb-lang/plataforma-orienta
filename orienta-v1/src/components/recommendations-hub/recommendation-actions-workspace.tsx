@@ -28,15 +28,15 @@ function sortPlans(plans: ActionPlanAction[]): ActionPlanAction[] {
 }
 
 function formatDueShort(value: string | null | undefined): string {
-  if (!value) return "—";
+  if (!value) return "";
   try {
     return new Date(value).toLocaleDateString("pt-BR", { day: "2-digit", month: "short" });
   } catch {
-    return "—";
+    return "";
   }
 }
 
-/** Workspace operacional — aba Ações. */
+/** Workspace operacional  aba Ações. */
 export function RecommendationActionsWorkspace() {
   const ctx = useRecommendationDetailContext();
   const row = ctx.row;
@@ -84,33 +84,33 @@ export function RecommendationActionsWorkspace() {
       <div className="flex flex-col gap-4 rounded-xl border border-slate-200/90 bg-white p-4 shadow-sm sm:flex-row sm:items-center sm:justify-between sm:p-5">
         <div className="flex flex-wrap gap-4 sm:gap-6">
           <div>
-            <p className="text-[10px] font-semibold uppercase tracking-wide text-slate-500">
+            <p className="text-2xs font-semibold uppercase tracking-wide text-slate-500">
               Tarefas
             </p>
             <p className="text-2xl font-semibold tabular-nums text-slate-900">{ordered.length}</p>
           </div>
           <div>
-            <p className="text-[10px] font-semibold uppercase tracking-wide text-slate-500">
+            <p className="text-2xs font-semibold uppercase tracking-wide text-slate-500">
               Em andamento
             </p>
             <p className="text-2xl font-semibold tabular-nums text-sky-700">{active}</p>
           </div>
           <div>
-            <p className="text-[10px] font-semibold uppercase tracking-wide text-slate-500">
+            <p className="text-2xs font-semibold uppercase tracking-wide text-slate-500">
               Concluídas
             </p>
             <p className="text-2xl font-semibold tabular-nums text-emerald-700">{completed}</p>
           </div>
           {overdue > 0 ? (
             <div>
-              <p className="text-[10px] font-semibold uppercase tracking-wide text-rose-600">
+              <p className="text-2xs font-semibold uppercase tracking-wide text-rose-600">
                 Atrasadas
               </p>
               <p className="text-2xl font-semibold tabular-nums text-rose-700">{overdue}</p>
             </div>
           ) : null}
         </div>
-        <div className="w-full max-w-[12rem] sm:shrink-0">
+        <div className="w-full max-w-48 sm:shrink-0">
           <RespondentRecommendationProgress value={progress} size="sm" label="Progresso do plano" />
         </div>
       </div>
@@ -165,7 +165,7 @@ export function RecommendationActionsWorkspace() {
         </div>
       ) : (
         <div className="overflow-hidden rounded-xl border border-slate-200/90 bg-white shadow-sm">
-          <div className="hidden border-b border-slate-100 bg-slate-50/80 px-4 py-2.5 text-[10px] font-semibold uppercase tracking-wide text-slate-500 sm:grid sm:grid-cols-[1fr_6.5rem_5.5rem_7rem_2.5rem] sm:gap-3">
+          <div className="hidden border-b border-slate-100 bg-slate-50/80 px-4 py-2.5 text-2xs font-semibold uppercase tracking-wide text-slate-500 sm:grid sm:grid-cols-[1fr_6.5rem_5.5rem_7rem_2.5rem] sm:gap-3">
             <span>Tarefa</span>
             <span>Status</span>
             <span>Prazo</span>
@@ -205,7 +205,7 @@ export function RecommendationActionsWorkspace() {
                       <span className={`mt-1 truncate text-xs text-slate-600 sm:mt-0`}>
                         {plan.responsibleName?.trim() || (
                           <span className={`${statusPillBase} ${formSurface.badge.muted}`}>
-                            —
+                            
                           </span>
                         )}
                       </span>

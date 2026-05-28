@@ -12,7 +12,7 @@ type WorkbenchIdentifiers = {
   formId: string;
   organizationId: string;
   respondentUserId: string;
-  analystUserId: string;
+  staffUserId: string;
 };
 
 const WORKBENCH_PROD_PREFIX = "/api/workbench";
@@ -29,11 +29,11 @@ function sessionInit(method: string, body?: object): RequestInit {
 
 export async function fetchWorkbenchData(
   ids: WorkbenchIdentifiers,
-  role: "analyst" | "respondent",
+  role: "admin" | "respondent",
   useSessionContext: boolean,
 ) {
   const withSession = sessionBacked(useSessionContext);
-  const authUserId = role === "respondent" ? ids.respondentUserId : ids.analystUserId;
+  const authUserId = role === "respondent" ? ids.respondentUserId : ids.staffUserId;
   const orgParam = new URLSearchParams({ formId: ids.formId, organizationId: ids.organizationId });
   const url = withSession
     ? `${WORKBENCH_PROD_PREFIX}/data?${orgParam.toString()}`
@@ -55,7 +55,7 @@ export async function submitWorkbenchResponse(
   ids: WorkbenchIdentifiers,
   payload: {
     questionId: string;
-    answer: "yes" | "no" | "partial";
+    answer: "yes" | "no" | "not_applicable";
     notes: string;
     evidence?: WorkbenchEvidencePayload;
     isNotApplicable?: boolean;
@@ -140,43 +140,6 @@ export async function uploadEvidenceFile(
     method: "POST",
     body: fd,
     headers: buildDevAuthHeaders(ids.respondentUserId, "respondent"),
-  });
-}
-
-export async function submitEvidenceValidation(
-  ids: WorkbenchIdentifiers,
-  payload: { responseId: string; status: "valid" | "invalid" | "complementation_requested" },
-  useSessionContext: boolean,
-) {
-  const withSession = sessionBacked(useSessionContext);
-  if (withSession) {
-    return fetch(
-      `${WORKBENCH_PROD_PREFIX}/validate-evidence`,
-      sessionInit("POST", { responseId: payload.responseId, status: payload.status }),
-    );
-  }
-  return fetch("/api/dev/workbench-validate-evidence", {
-    method: "POST",
-    headers: buildDevAuthHeaders(ids.analystUserId, "analyst"),
-    body: JSON.stringify({
-      responseId: payload.responseId,
-      analystUserId: ids.analystUserId,
-      status: payload.status,
-    }),
-  });
-}
-
-export async function reprocessFami(ids: WorkbenchIdentifiers, useSessionContext: boolean) {
-  if (sessionBacked(useSessionContext)) {
-    return fetch(
-      "/api/fami/reprocess",
-      sessionInit("POST", { formId: ids.formId, organizationId: ids.organizationId }),
-    );
-  }
-  return fetch("/api/fami/reprocess", {
-    method: "POST",
-    headers: buildDevAuthHeaders(ids.analystUserId, "analyst"),
-    body: JSON.stringify({ formId: ids.formId, organizationId: ids.organizationId }),
   });
 }
 

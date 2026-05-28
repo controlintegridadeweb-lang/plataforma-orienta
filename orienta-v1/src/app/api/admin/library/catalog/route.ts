@@ -1,11 +1,11 @@
-import { NextResponse } from "next/server";
+﻿import { NextResponse } from "next/server";
 import { requireAuth } from "@/lib/api/auth";
 import { LibraryService } from "@/lib/library/service";
 import { handleLibraryError } from "@/lib/library/http";
 import { logError } from "@/lib/observability/logger";
 
 export async function GET(request: Request) {
-  const { error: authError } = await requireAuth(request, ["admin", "analyst"]);
+  const { error: authError } = await requireAuth(request, ["admin"]);
   if (authError) return authError;
 
   try {

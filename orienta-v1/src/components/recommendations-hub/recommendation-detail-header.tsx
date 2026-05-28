@@ -7,6 +7,7 @@ import { formSurface } from "@/lib/form-surface";
 import { layout, typography } from "@/lib/design-system";
 import { notify } from "@/lib/notify";
 import { staffPlanoAcaoDetailHref, staffPlanoAcaoHref, staffRecomendacoesHref } from "@/lib/navigation/staff-paths";
+import { RESPONDENT_RECOMMENDATIONS_MODULE_LABEL } from "@/lib/navigation/respondent-portfolio-paths";
 import { AdminRecommendationStatusBadge } from "@/components/admin-recomendacoes/admin-recommendation-status-badge";
 import { RecommendationTypeBadge } from "@/components/recomendacoes/recommendation-type-badge";
 import { RespondentRecommendationStatusBadge } from "@/components/respondente-recomendacoes/respondent-recommendation-status-badge";
@@ -17,17 +18,16 @@ import { firstLineRecommendation } from "@/components/respondente-recomendacoes/
 
 function supervisionTabLabel(pathname: string): string | null {
   if (pathname.endsWith("/monitoramento")) return "Monitoramento";
-  if (pathname.endsWith("/acoes")) return "Ações";
-  if (pathname.endsWith("/visao-geral")) return "Visão geral";
+  if (pathname.endsWith("/acoes")) return "A??es";
+  if (pathname.endsWith("/visao-geral")) return "Vis?o geral";
   return null;
 }
 
 function titleSummary(text: string, maxLen = 140): string {
   const t = text.trim();
   if (t.length <= maxLen) return t;
-  return `${t.slice(0, maxLen).trim()}…`;
+  return `${t.slice(0, maxLen).trim()}?`;
 }
-
 
 export function RecommendationDetailHeader() {
   const ctx = useRecommendationDetailContext();
@@ -35,7 +35,6 @@ export function RecommendationDetailHeader() {
   const {
     role,
     listPath,
-    row,
     respondentItem,
     staffItem,
     staffArea,
@@ -66,26 +65,26 @@ export function RecommendationDetailHeader() {
       ? [
           respondentItem?.axisName,
           respondentItem?.sectionName,
-          "Recomendação",
-          ...(operational ? (["Plano de ação"] as const) : []),
+          RESPONDENT_RECOMMENDATIONS_MODULE_LABEL,
+          ...(operational ? [tabMeta.label] : []),
         ].filter(Boolean)
       : staffDocument
-        ? [staffItem?.axisName, staffItem?.sectionName, "Recomendação"].filter(Boolean)
+        ? [staffItem?.axisName, staffItem?.sectionName, "Recomenda??o"].filter(Boolean)
         : staffSupervision
-        ? [
-            staffItem?.axisName,
-            staffItem?.sectionName,
-            "Plano de ação",
-            supervisionTabLabel(pathname),
-          ].filter(Boolean)
-        : staffOperational
-        ? [
-            staffItem?.axisName,
-            staffItem?.sectionName,
-            "Plano de ação",
-            "Monitoramento",
-          ].filter(Boolean)
-        : [staffItem?.axisName, staffItem?.sectionName, "Recomendação"].filter(Boolean);
+          ? [
+              staffItem?.axisName,
+              staffItem?.sectionName,
+              "Plano de A??o",
+              supervisionTabLabel(pathname),
+            ].filter(Boolean)
+          : staffOperational
+            ? [
+                staffItem?.axisName,
+                staffItem?.sectionName,
+                "Plano de A??o",
+                "Monitoramento",
+              ].filter(Boolean)
+            : [staffItem?.axisName, staffItem?.sectionName, "Recomenda??o"].filter(Boolean);
 
   const planoHref =
     role === "respondent"
@@ -113,30 +112,29 @@ export function RecommendationDetailHeader() {
       await navigator.clipboard.writeText(text);
       notify.success("Texto copiado.");
     } catch {
-      notify.error("Não foi possível copiar.");
+      notify.error("N?o foi poss?vel copiar.");
     }
   }
 
   const backLabel = staffDocument
-    ? "Voltar às Recomendações"
+    ? "Voltar ?s Recomenda??es"
     : staffSupervision || staffOperational
-      ? "Voltar ao Plano de Ação"
-      : operational && role === "respondent"
-        ? "Voltar ao Portfólio"
-        : role === "respondent"
-          ? "Voltar ao portfólio"
-          : "Voltar à lista";
+      ? "Voltar ao Plano de A??o"
+      : role === "respondent"
+        ? `Voltar a ${RESPONDENT_RECOMMENDATIONS_MODULE_LABEL}`
+        : "Voltar ? lista";
 
-  const secondaryCtaHref = staffSupervision || staffDocument ? recHref : staffOperational ? recHref ?? listPath : planoHref;
+  const secondaryCtaHref =
+    staffSupervision || staffDocument ? recHref : staffOperational ? (recHref ?? listPath) : planoHref;
   const secondaryCtaLabel = staffDocument
-    ? "Abrir plano de ação"
+    ? "Abrir plano de a??o"
     : staffSupervision
-      ? "Ver recomendação"
+      ? "Ver recomenda??o"
       : staffOperational
-        ? "Fila de recomendações"
+        ? "Fila de recomenda??es"
         : operational
-          ? "Painel agregado"
-          : "Painel do formulário";
+          ? "Ver lista"
+          : "Painel do formul?rio";
 
   const staffTrailActive = staffDocument
     ? "recommendation"
@@ -145,6 +143,11 @@ export function RecommendationDetailHeader() {
         ? "monitoring"
         : "plan"
       : null;
+
+  const moduleTagline =
+    role === "respondent"
+      ? `${RESPONDENT_RECOMMENDATIONS_MODULE_LABEL} ? ${tabMeta.tagline}`
+      : `Plano de a??o ? ${tabMeta.tagline}`;
 
   return (
     <header className={`${layout.sectionStack} space-y-5 border-b border-slate-100 pb-8`}>
@@ -159,13 +162,10 @@ export function RecommendationDetailHeader() {
       </div>
 
       {role === "staff" && staffTrailActive ? (
-        <StaffModuleTrail
-          recommendationId={item.recommendationId}
-          active={staffTrailActive}
-        />
+        <StaffModuleTrail recommendationId={item.recommendationId} active={staffTrailActive} />
       ) : null}
 
-      <nav className="text-[13px] text-slate-500" aria-label="Navegação hierárquica">
+      <nav className="text-caption text-slate-500" aria-label="Navega??o hier?rquica">
         <ol className="flex flex-wrap items-center gap-x-2 gap-y-1">
           {breadcrumbParts.map((part, i) => (
             <li key={`${part}-${i}`} className="flex items-center gap-2">
@@ -184,9 +184,7 @@ export function RecommendationDetailHeader() {
 
       <div className="flex flex-col gap-6 xl:flex-row xl:items-start xl:justify-between">
         <div className="min-w-0 flex-1 space-y-4">
-          <p className="text-[10px] font-semibold uppercase tracking-wider text-brand-700">
-            Plano de ação · {tabMeta.tagline}
-          </p>
+          <p className="text-2xs font-semibold uppercase tracking-wider text-brand-700">{moduleTagline}</p>
           <h1 className="text-xl font-semibold tracking-tight text-slate-900 sm:text-2xl break-words leading-snug">
             {displayTitle}
           </h1>
@@ -211,11 +209,11 @@ export function RecommendationDetailHeader() {
           ) : (
             <p className="text-sm text-slate-500">{tabMeta.description}</p>
           )}
-          <p className={`${typography.meta} text-[13px]`}>
+          <p className={`${typography.meta} text-caption`}>
             {role === "staff" && staffItem ? (
               <>
                 <span className="font-medium text-slate-600">{staffItem.organizationName}</span>
-                <span className="mx-1.5 text-slate-300">·</span>
+                <span className="mx-1.5 text-slate-300">?</span>
               </>
             ) : null}
             <span>{item.formName}</span>
@@ -225,15 +223,15 @@ export function RecommendationDetailHeader() {
           </p>
 
           {staffDocument && staffItem ? (
-            <p className="inline-flex items-center gap-1.5 rounded-md bg-slate-100 px-2.5 py-1 text-[11px] font-semibold text-slate-700">
-              Documento institucional · somente contexto
+            <p className="inline-flex items-center gap-1.5 rounded-md bg-slate-100 px-2.5 py-1 text-micro font-semibold text-slate-700">
+              Documento institucional ? somente contexto
             </p>
           ) : null}
 
           {staffSupervision ? (
-            <p className="inline-flex items-center gap-1.5 rounded-md bg-slate-100 px-2.5 py-1 text-[11px] font-semibold text-slate-700">
+            <p className="inline-flex items-center gap-1.5 rounded-md bg-slate-100 px-2.5 py-1 text-micro font-semibold text-slate-700">
               <Eye className="h-3.5 w-3.5 text-slate-500" aria-hidden />
-              Plano de ação · monitoramento institucional
+              Plano de a??o ? monitoramento institucional
             </p>
           ) : null}
         </div>
@@ -249,7 +247,7 @@ export function RecommendationDetailHeader() {
             </Link>
           ) : null}
           <Link
-            href={staffDocument ? planoHref : secondaryCtaHref ?? listPath}
+            href={staffDocument ? planoHref : (secondaryCtaHref ?? listPath)}
             className={`${staffDocument ? formSurface.primaryButtonSm : formSurface.secondaryButtonSm} inline-flex items-center gap-1.5`}
           >
             {staffDocument ? (
@@ -264,18 +262,18 @@ export function RecommendationDetailHeader() {
           <details className="relative">
             <summary
               className={`${formSurface.ghostButton} inline-flex cursor-pointer list-none items-center gap-1 px-2 py-1.5 text-xs [&::-webkit-details-marker]:hidden`}
-              aria-label="Mais opções"
+              aria-label="Mais op??es"
             >
               <MoreHorizontal className="h-4 w-4" aria-hidden />
             </summary>
-            <div className="absolute right-0 z-20 mt-1 min-w-[11rem] rounded-lg border border-slate-200 bg-white py-1 shadow-lg">
+            <div className="absolute right-0 z-20 mt-1 min-w-44 rounded-lg border border-slate-200 bg-white py-1 shadow-lg">
               <button
                 type="button"
                 className="flex w-full items-center gap-2 px-3 py-2 text-left text-xs text-slate-700 hover:bg-slate-50"
                 onClick={() => void copyText()}
               >
                 <ClipboardCopy className="h-3.5 w-3.5 shrink-0 text-slate-400" aria-hidden />
-                Copiar recomendação
+                Copiar recomenda??o
               </button>
             </div>
           </details>

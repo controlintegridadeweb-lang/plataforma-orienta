@@ -40,7 +40,7 @@ type QuestionJoined = {
 type ResponseRow = {
   id: string;
   question_id: string;
-  answer: "yes" | "no" | "partial";
+  answer: "yes" | "no" | "not_applicable";
   is_not_applicable: boolean | null;
   questions: QuestionJoined | QuestionJoined[] | null;
 };
@@ -77,7 +77,6 @@ type FormQuestionRow = {
  */
 const SCENARIO_TO_TYPE: Partial<Record<LibraryScenarioKey, RecommendationType>> = {
   nao: "not_implemented",
-  parcialmente: "partial_implementation",
   sim_evidencia_invalida: "insufficient_evidence",
 };
 

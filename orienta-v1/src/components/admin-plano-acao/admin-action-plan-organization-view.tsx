@@ -24,14 +24,14 @@ type OrgStatDef = {
 function OrgExecutiveStat({ label, value, accentClass }: OrgStatDef) {
   return (
     <div
-      className="relative min-w-0 overflow-hidden rounded-lg border border-slate-200/90 bg-white px-2.5 py-2 shadow-[var(--shadow-card)]"
+      className="relative min-w-0 overflow-hidden rounded-lg border border-slate-200/90 bg-white px-2.5 py-2 shadow-card"
       title={label}
     >
       <span
         aria-hidden
         className={`pointer-events-none absolute inset-y-0 left-0 w-0.5 rounded-l-lg ${accentClass}`}
       />
-      <p className="pl-1.5 text-[10px] font-semibold uppercase tracking-wider text-slate-500">
+      <p className="pl-1.5 text-2xs font-semibold uppercase tracking-wider text-slate-500">
         {label}
       </p>
       <p className="mt-0.5 pl-1.5 text-lg font-semibold tabular-nums leading-none text-slate-900">
@@ -113,7 +113,7 @@ export function AdminActionPlanOrganizationView({
           <section
             key={group.organizationId}
             role="listitem"
-            className="overflow-hidden rounded-xl border border-slate-200/95 bg-white shadow-[var(--shadow-card)]"
+            className="overflow-hidden rounded-xl border border-slate-200/95 bg-white shadow-card"
           >
             <button
               type="button"

@@ -25,7 +25,7 @@ export default async function AdminUsuariosPage({
     <div className={`mx-auto max-w-6xl ${layout.panelStack}`}>
       <SectionHeader
         title="Usuários"
-        description="Consulte perfis, papéis e organização vinculada. Novos acessos são criados pelo fluxo de cadastro ou administração do Supabase Auth — esta tela não envia convites. Você pode editar analistas e respondentes, gerar link de recuperação de senha ou removê-los."
+        description="Consulte perfis, papéis e organização vinculada. Novos acessos são criados pelo fluxo de cadastro ou administração do Supabase Auth — esta tela não envia convites. Você pode editar respondentes, gerar link de recuperação de senha ou removê-los."
       />
 
       {recoveryLink ? (
@@ -61,7 +61,7 @@ export default async function AdminUsuariosPage({
               <h2 className="text-base font-semibold text-slate-900">Cadastro de usuários</h2>
               <p className="text-sm text-slate-600">
                 Lista de contas com acesso à plataforma. Administradores aparecem só para consulta — edição
-                restrita a analistas e respondentes.
+                restrita a respondentes.
               </p>
             </div>
           </div>
@@ -74,7 +74,7 @@ export default async function AdminUsuariosPage({
             </p>
           ) : (
             <div className="overflow-x-auto rounded-xl border border-slate-100">
-              <div className="min-w-[960px]">
+              <div className="min-w-240">
                 <UserRowGridHeader />
                 {users.map((u) =>
                   u.role === "admin" ? (

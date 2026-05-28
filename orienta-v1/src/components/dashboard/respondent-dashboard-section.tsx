@@ -1,6 +1,7 @@
 "use client";
 
 import { ClipboardList, FileCheck, MessageSquareWarning } from "lucide-react";
+import { evidenceComplementation } from "@/lib/labels/complementation-terms";
 import { InlineLoader } from "@/components/ui/loading";
 import type { RespondentProgress } from "@/lib/dashboards/queries";
 import type { RespondentDashboardSummary } from "@/lib/dashboards/respondent-dashboard-summary";
@@ -92,10 +93,19 @@ export function RespondentDashboardSection({
               hint={progressHint}
             />
             <KpiCard
-              label="Complementacoes solicitadas"
+              label={evidenceComplementation.kpiLabel}
               value={summary.totalComplementation}
               icon={MessageSquareWarning}
               tone={summary.totalComplementation > 0 ? "rose" : "slate"}
+              href="/respondente/evidencias-complementacoes"
+              ctaLabel={
+                summary.totalComplementation > 0 ? "Ver pendências" : "Abrir evidências"
+              }
+              hint={
+                summary.totalComplementation > 0
+                  ? evidenceComplementation.kpiHintPending
+                  : evidenceComplementation.kpiHintEmpty
+              }
             />
           </div>
         </section>

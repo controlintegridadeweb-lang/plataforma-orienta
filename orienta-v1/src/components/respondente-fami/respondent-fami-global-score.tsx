@@ -66,14 +66,14 @@ export function RespondentFamiGlobalScore({
           <span className={`text-3xl font-bold tabular-nums ${meta.textColor}`}>
             {safe.toFixed(1)}%
           </span>
-          <span className="text-[11px] uppercase tracking-wider text-slate-500">
+          <span className="text-micro uppercase tracking-wider text-slate-500">
             Pontuação FAMI
           </span>
         </div>
       </div>
       <div className="flex flex-1 flex-col justify-center gap-3">
         <div>
-          <p className="text-[11px] uppercase tracking-wider text-slate-500">
+          <p className="text-micro uppercase tracking-wider text-slate-500">
             Nível atual
           </p>
           <p className={`mt-0.5 text-lg font-semibold ${meta.textColor}`}>
@@ -84,7 +84,7 @@ export function RespondentFamiGlobalScore({
           </p>
         </div>
         <div className="space-y-1">
-          <div className="flex items-center justify-between text-[11px] uppercase tracking-wider text-slate-500">
+          <div className="flex items-center justify-between text-micro uppercase tracking-wider text-slate-500">
             <span className="inline-flex items-center gap-1">
               <Target className="h-3 w-3" aria-hidden />
               Meta de maturidade (≥ {goalTarget}%)
@@ -108,7 +108,7 @@ export function RespondentFamiGlobalScore({
             />
           </div>
           {typeof pointsObtained === "number" && typeof pointsPossible === "number" ? (
-            <p className="text-[11px] text-slate-500">
+            <p className="text-micro text-slate-500">
               {pointsObtained.toFixed(2)} / {pointsPossible.toFixed(2)} pontos elegíveis
             </p>
           ) : null}

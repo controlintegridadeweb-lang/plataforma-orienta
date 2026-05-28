@@ -20,7 +20,7 @@ export function FamiMaturityAxisCard({
 }: Props) {
   return (
     <article
-      className={`flex h-full flex-col rounded-xl border border-slate-200/90 bg-white px-5 py-6 shadow-[var(--shadow-card)] transition hover:border-slate-300/90 sm:px-6 sm:py-7`}
+      className={`flex h-full flex-col rounded-xl border border-slate-200/90 bg-white px-5 py-6 shadow-card transition hover:border-slate-300/90 sm:px-6 sm:py-7`}
     >
       <p className={formSurface.label}>{axisName}</p>
       <p className="mt-3 text-3xl font-semibold tabular-nums tracking-tight text-slate-900">
@@ -41,7 +41,7 @@ export function FamiMaturityAxisCard({
           Ver recomendações deste eixo
         </Link>
       ) : (
-        <span className="mt-5 block min-h-[1.25rem]" aria-hidden />
+        <span className="mt-5 block min-h-5" aria-hidden />
       )}
     </article>
   );

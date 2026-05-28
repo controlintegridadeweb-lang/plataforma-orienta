@@ -69,7 +69,7 @@ export function RecommendationKanbanCard(props: Props) {
           ) : null}
         </div>
         <div className={k.cardFooter}>
-          <div className="mb-1.5 flex items-center justify-between text-[10px] text-slate-500">
+          <div className="mb-1.5 flex items-center justify-between text-2xs text-slate-500">
             <span>Progresso</span>
             <span className="tabular-nums font-medium text-slate-700">{item.progress}%</span>
           </div>
@@ -116,7 +116,7 @@ export function RecommendationKanbanCard(props: Props) {
         ) : null}
       </div>
       <div className={k.cardFooter}>
-        <div className="mb-1 flex items-center justify-between text-[10px] font-medium text-slate-500">
+        <div className="mb-1 flex items-center justify-between text-2xs font-medium text-slate-500">
           <span>Progresso</span>
           <span className="tabular-nums text-slate-800">{item.progress}%</span>
         </div>

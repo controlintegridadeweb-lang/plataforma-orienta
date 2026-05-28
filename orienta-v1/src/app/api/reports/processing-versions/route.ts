@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+﻿import { NextResponse } from "next/server";
 import { z } from "zod";
 import { requireAuth } from "@/lib/api/auth";
 import { ensureOrganizationAccess } from "@/lib/api/tenant-guard";
@@ -13,7 +13,7 @@ const querySchema = z.object({
  * Versoes de processamento FAMI (global) disponiveis para org + formulario.
  */
 export async function GET(request: Request) {
-  const { context, error } = await requireAuth(request, ["admin", "analyst", "respondent"]);
+  const { context, error } = await requireAuth(request, ["admin", "respondent"]);
   if (error) return error;
   const ctx = context!;
 

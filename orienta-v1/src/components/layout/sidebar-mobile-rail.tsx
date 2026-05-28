@@ -10,7 +10,7 @@ export function SidebarMobileRail() {
   return (
     <div
       className={[
-        "flex h-full w-[4.75rem] shrink-0 items-center justify-center",
+        "flex h-full w-19 shrink-0 items-center justify-center",
         "border-r border-white/10 bg-brand-800",
         "md:hidden",
       ].join(" ")}

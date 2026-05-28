@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -180,7 +180,7 @@ export function ProfileEditForm({ user }: { user: CurrentUser }) {
           <div className="flex flex-col gap-2 border-t border-slate-100 pt-4 sm:flex-row sm:items-center sm:justify-end">
             <button
               type="submit"
-              className={`${formSurface.primaryButton} min-h-10 min-w-[7.5rem] rounded-xl px-5`}
+              className={`${formSurface.primaryButton} min-h-10 min-w-30 rounded-xl px-5`}
               disabled={saving}
             >
               {saving ? (
@@ -274,7 +274,7 @@ export function ProfileEditForm({ user }: { user: CurrentUser }) {
             <div className="flex flex-col gap-3 border-t border-slate-100 pt-4 sm:flex-row sm:items-center sm:justify-between">
               <button
                 type="submit"
-                className={`${formSurface.primaryButton} min-h-10 min-w-[7.5rem] rounded-xl px-5`}
+                className={`${formSurface.primaryButton} min-h-10 min-w-30 rounded-xl px-5`}
                 disabled={savingPassword}
               >
                 {savingPassword ? (

@@ -1,32 +1,33 @@
-import { NextResponse } from "next/server";
+﻿import { NextResponse } from "next/server";
 import { z } from "zod";
-import { createSupabaseServiceRoleClient } from "@/lib/supabase/server";
 import { requireAuth } from "@/lib/api/auth";
 import { ensureResponseAccess } from "@/lib/api/tenant-guard";
 import {
-  resolveFamiScopeFromResponseId,
-  triggerFamiReprocess,
-} from "@/lib/fami/trigger-reprocess";
-import { logError } from "@/lib/observability/logger";
+  EvidencesAdminService,
+  EvidencesValidationError,
+} from "@/lib/evidences/admin-service";
+import { handleEvidencesError } from "@/lib/evidences/http";
+import { logError, logInfo } from "@/lib/observability/logger";
+import { triggerFamiReprocess } from "@/lib/fami/trigger-reprocess";
+import { createSupabaseServiceRoleClient } from "@/lib/supabase/server";
 
 const payloadSchema = z.object({
   responseId: z.string().uuid(),
   status: z.enum([
     "pending",
-    "valid",
-    "invalid",
-    "partially_valid",
-    "complementation_requested",
-    "waived",
+    "approved",
+    "invalidated",
+    "adjustment_requested",
   ]),
   justification: z.string().optional(),
 });
 
 /**
- * Validacao de evidencia por analista (producao; mesma regra de negocio de /api/dev/workbench-validate-evidence).
+ * Compatibilidade legada: valida evidência por responseId delegando a EvidencesAdminService.
+ * Preferir POST /api/admin/evidences/:evidenceId/validate na fila admin.
  */
 export async function POST(request: Request) {
-  const { context, error: authError } = await requireAuth(request, ["analyst", "admin"]);
+  const { context, error: authError } = await requireAuth(request, ["admin"]);
   if (authError) return authError;
 
   const body = await request.json();
@@ -35,12 +36,11 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: parsed.error.flatten() }, { status: 400 });
   }
 
-  const supabase = createSupabaseServiceRoleClient();
   const { responseId, status, justification } = parsed.data;
   const tenantError = await ensureResponseAccess(context!, responseId);
   if (tenantError) return tenantError;
 
-  const analystUserId = context!.userId;
+  const supabase = createSupabaseServiceRoleClient();
 
   try {
     const { data: evidence, error: evidenceError } = await supabase
@@ -60,27 +60,38 @@ export async function POST(request: Request) {
         { status: 409 },
       );
     }
-    const evidenceId: string = evidence.id;
 
-    const { data: validation, error: validationError } = await supabase
-      .from("evidence_validations")
-      .insert({
-        evidence_id: evidenceId,
-        status,
-        validated_by: analystUserId,
-        justification: status === "waived" ? justification ?? "Dispensa justificada." : null,
-      })
-      .select("id,status,validated_at")
-      .single();
-    if (validationError) throw validationError;
+    const service = new EvidencesAdminService();
+    const { entry, scope } = await service.validate(
+      evidence.id,
+      { status, justification },
+      context!.userId,
+    );
 
-    const scope = await resolveFamiScopeFromResponseId(responseId);
-    const famiReprocess = scope
-      ? await triggerFamiReprocess(scope.formId, scope.organizationId, "evidence_validated")
-      : null;
+    let recommendationsCreated: number | null = null;
+    if (scope) {
+      const result = await triggerFamiReprocess(
+        scope.formId,
+        scope.organizationId,
+        "evidence_validated",
+      );
+      if (result) {
+        recommendationsCreated = result.recommendationsCreated;
+        logInfo("workbench.validate-evidence.reprocessed", {
+          evidenceId: evidence.id,
+          responseId,
+          formId: scope.formId,
+          organizationId: scope.organizationId,
+          recommendationsCreated: result.recommendationsCreated,
+        });
+      }
+    }
 
-    return NextResponse.json({ validation, famiReprocess });
+    return NextResponse.json({ validation: entry, famiReprocess: scope ? { recommendationsCreated } : null });
   } catch (error) {
+    if (error instanceof EvidencesValidationError) {
+      return handleEvidencesError(error);
+    }
     logError("Failed to validate evidence", error, { route: "/api/workbench/validate-evidence" });
     const message = error instanceof Error ? error.message : "Falha ao validar evidencia.";
     return NextResponse.json({ error: message }, { status: 500 });

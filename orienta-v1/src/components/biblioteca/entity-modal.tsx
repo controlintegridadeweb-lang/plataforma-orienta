@@ -230,7 +230,7 @@ function EntityForm({
               )}
               Opcoes avancadas
             </span>
-            <span className="text-[10px] font-normal normal-case text-slate-400">
+            <span className="text-2xs font-normal normal-case text-slate-400">
               Identificador, ordenacao e campos tecnicos
             </span>
           </button>

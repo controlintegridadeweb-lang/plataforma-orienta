@@ -14,7 +14,7 @@ const cellClass = "px-3 py-3 align-top text-sm";
 const headerCellClass =
   "px-3 py-3 text-xs font-semibold uppercase tracking-wide text-slate-500";
 
-const fieldClass = `max-w-[240px] min-w-0 ${formSurface.input}`;
+const fieldClass = `max-w-60 min-w-0 ${formSurface.input}`;
 
 const saveButtonClass =
   "rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-xs font-semibold text-emerald-900 shadow-sm transition hover:bg-emerald-100 disabled:cursor-not-allowed disabled:opacity-60";
@@ -25,7 +25,7 @@ const secondaryButtonClass =
 const dangerButtonClass =
   "rounded-xl border border-red-200 bg-white px-3 py-1.5 text-xs font-semibold text-red-700 shadow-sm transition hover:bg-red-50 disabled:cursor-not-allowed disabled:opacity-60";
 
-const EDITABLE_ROLES: AppRole[] = ["analyst", "respondent"];
+const EDITABLE_ROLES: AppRole[] = ["respondent"];
 
 export function UserRowGridHeader() {
   return (
@@ -186,7 +186,6 @@ export function EditableUserRow({
           disabled={anyPending}
           aria-label="Perfil"
         >
-          <option value="analyst">{roleLabels.analyst}</option>
           <option value="respondent">{roleLabels.respondent}</option>
         </select>
       </div>

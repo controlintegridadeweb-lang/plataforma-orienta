@@ -39,7 +39,7 @@ export function AdminActionPlanProgress({
         />
       </div>
       {showLabel ? (
-        <p className="text-[10px] font-semibold tabular-nums text-slate-500">
+        <p className="text-2xs font-semibold tabular-nums text-slate-500">
           {safe}%
         </p>
       ) : null}

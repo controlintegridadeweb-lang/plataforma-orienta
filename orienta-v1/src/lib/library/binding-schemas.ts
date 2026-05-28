@@ -21,7 +21,6 @@ const inlineRecommendationSchema = z
     tipo: z
       .enum([
         "nao_implementacao",
-        "implementacao_parcial",
         "ausencia_evidencia",
         "evidencia_insuficiente",
       ])
@@ -59,19 +58,19 @@ export const libraryBindingsSchema = z.object(bindingsShape).partial();
 const scaleBandsSchema = z
   .object({
     failMax: z.number().min(1).max(5),
-    partialMax: z.number().min(1).max(5),
+    notApplicableMax: z.number().min(1).max(5),
   })
-  .refine((v) => v.failMax < v.partialMax, {
-    message: "failMax deve ser menor que partialMax",
+  .refine((v) => v.failMax < v.notApplicableMax, {
+    message: "failMax deve ser menor que notApplicableMax",
   });
 
 const numericThresholdsSchema = z
   .object({
     failBelow: z.number(),
-    partialBelow: z.number(),
+    notApplicableBelow: z.number(),
   })
-  .refine((v) => v.failBelow < v.partialBelow, {
-    message: "failBelow deve ser menor que partialBelow",
+  .refine((v) => v.failBelow < v.notApplicableBelow, {
+    message: "failBelow deve ser menor que notApplicableBelow",
   });
 
 export const responseMappingSchema = z.object({

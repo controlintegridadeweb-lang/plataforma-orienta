@@ -27,7 +27,7 @@ function formatDate(value: string | undefined | null): string {
 function MetaChip({ label, value }: { label: string; value: string }) {
   return (
     <div className="rounded-lg border border-slate-100 bg-white px-3 py-2.5 shadow-sm">
-      <dt className="text-[10px] font-semibold uppercase tracking-wide text-slate-500">
+      <dt className="text-2xs font-semibold uppercase tracking-wide text-slate-500">
         {label}
       </dt>
       <dd className="mt-1 text-sm font-medium text-slate-900 line-clamp-2">{value}</dd>
@@ -73,7 +73,7 @@ export function OverviewStrategicLayout({ row }: Props) {
 
       {/* Recomendação principal */}
       <section className="space-y-3">
-        <p className="text-[10px] font-semibold uppercase tracking-wider text-slate-500">
+        <p className="text-2xs font-semibold uppercase tracking-wider text-slate-500">
           Recomendação oficial
         </p>
         {executiveSummary && executiveSummary.length < row.recommendationText.trim().length ? (
@@ -82,7 +82,7 @@ export function OverviewStrategicLayout({ row }: Props) {
           </p>
         ) : null}
         <div className="rounded-xl border border-slate-200/90 bg-slate-50/40 px-5 py-5 sm:px-6">
-          <p className="text-sm leading-relaxed text-slate-800 whitespace-pre-wrap sm:text-[15px]">
+          <p className="text-sm leading-relaxed text-slate-800 whitespace-pre-wrap sm:text-body-15">
             {row.recommendationText || "(sem texto)"}
           </p>
           <button

@@ -10,7 +10,7 @@ type Props = {
   level: number;
   /** Omitir para exibir apenas o percentual central. */
   label?: string | null;
-  /** Percentual central maior (ex.: score do diagnóstico). */
+  /** Percentual central maior (ex.: score do diagn�stico). */
   emphasizePercent?: boolean;
 };
 
@@ -29,7 +29,7 @@ export function FamiScoreRing({ percentage, level, label, emphasizePercent }: Pr
       aria-label={
         showLabel
           ? `${label} ${safe.toFixed(1)} por cento`
-          : `Pontuação FAMI ${safe.toFixed(1)} por cento`
+          : `Pontua��o FAMI ${safe.toFixed(1)} por cento`
       }
     >
       <svg width={SIZE} height={SIZE} viewBox={`0 0 ${SIZE} ${SIZE}`} className="block">
@@ -56,13 +56,13 @@ export function FamiScoreRing({ percentage, level, label, emphasizePercent }: Pr
       <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
         <span
           className={`font-semibold tabular-nums tracking-normal ${meta.textColor} ${
-            emphasizePercent ? "text-3xl sm:text-[2rem]" : "text-2xl font-medium"
+            emphasizePercent ? "text-3xl sm:text-hero-title" : "text-2xl font-medium"
           }`}
         >
           {safe.toFixed(1)}%
         </span>
         {showLabel ? (
-          <span className="mt-0.5 max-w-[5.5rem] text-[10px] font-medium leading-tight text-slate-500">
+          <span className="mt-0.5 max-w-22 text-2xs font-medium leading-tight text-slate-500">
             {label}
           </span>
         ) : null}

@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { ArrowRight, Eye, FileText, Paperclip } from "lucide-react";
 import { AdminRecommendationTimeline } from "@/components/admin-recomendacoes/admin-recommendation-timeline";
 import { recommendationTypeLabel } from "@/lib/domain/status-registry";
@@ -24,8 +23,7 @@ type Props = {
 };
 
 export function AdminActionPlanRowDetail({ item }: Props) {
-  const pathname = usePathname() ?? "";
-  const area = staffAreaFromPathname(pathname);
+  const area = staffAreaFromPathname();
   const recHref = staffRecomendacoesHref(area, item.recommendationId);
   const planoHref = staffPlanoAcaoDetailHref(area, item.recommendationId, "visao-geral");
   const monitoramentoHref = staffPlanoAcaoDetailHref(area, item.recommendationId, "monitoramento");
@@ -35,7 +33,7 @@ export function AdminActionPlanRowDetail({ item }: Props) {
   return (
     <div className="grid gap-5 border-t border-slate-100 bg-slate-50/50 px-4 py-4 sm:grid-cols-2 sm:px-5 lg:grid-cols-3">
       <div className="min-w-0 space-y-2 sm:col-span-2 lg:col-span-1">
-        <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+        <p className="text-micro font-semibold uppercase tracking-wider text-slate-500">
           Resumo da ação
         </p>
         <p className="text-sm font-medium text-slate-900">{firstLineAction(item)}</p>
@@ -73,7 +71,7 @@ export function AdminActionPlanRowDetail({ item }: Props) {
       </div>
 
       <div className="min-w-0 space-y-2">
-        <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+        <p className="text-micro font-semibold uppercase tracking-wider text-slate-500">
           Últimas movimentações
         </p>
         <div className="rounded-lg border border-slate-200/80 bg-white px-3 py-2.5">
@@ -86,7 +84,7 @@ export function AdminActionPlanRowDetail({ item }: Props) {
 
       <div className="flex min-w-0 flex-col gap-4">
         <div className="space-y-2">
-          <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+          <p className="text-micro font-semibold uppercase tracking-wider text-slate-500">
             Evidências vinculadas
           </p>
           <div className="rounded-lg border border-slate-200/80 bg-white px-3 py-2.5">

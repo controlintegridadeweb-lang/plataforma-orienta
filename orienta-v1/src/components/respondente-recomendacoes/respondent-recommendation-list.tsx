@@ -75,7 +75,6 @@ export function RespondentRecommendationList({ items }: Props) {
               className={`overflow-hidden rounded-xl border border-slate-200/90 bg-white shadow-sm transition-shadow hover:shadow-md border-l-4 ${VIEW_ACCENT[item.view]} ${isOpen ? "ring-1 ring-brand-200/60" : ""}`}
             >
               <div className="flex flex-col gap-4 p-4 sm:gap-5 sm:p-5">
-                {/* Cabeçalho operacional: status + CTA */}
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
                   <RespondentRecommendationStatusBadge
                     view={item.view}
@@ -86,7 +85,7 @@ export function RespondentRecommendationList({ items }: Props) {
                     href={cta.href}
                     className={
                       cta.primary
-                        ? `${formSurface.primaryButton} w-full justify-center sm:w-auto sm:min-w-[11rem]`
+                        ? `${formSurface.primaryButton} w-full justify-center sm:w-auto sm:min-w-44`
                         : `${formSurface.secondaryButton} w-full justify-center sm:w-auto`
                     }
                   >
@@ -95,7 +94,6 @@ export function RespondentRecommendationList({ items }: Props) {
                   </Link>
                 </div>
 
-                {/* Título e contexto */}
                 <div className="space-y-1.5 min-w-0">
                   <h3 className="text-base font-semibold leading-snug text-slate-900 sm:text-lg">
                     {title}
@@ -103,9 +101,8 @@ export function RespondentRecommendationList({ items }: Props) {
                   <p className="text-xs leading-relaxed text-slate-500 sm:text-sm">{contextMeta}</p>
                 </div>
 
-                {/* Motivo — bloco separado */}
                 <div className="rounded-lg border border-slate-100 bg-slate-50/70 px-3.5 py-3 sm:px-4">
-                  <p className="text-[10px] font-semibold uppercase tracking-wider text-slate-500">
+                  <p className="text-2xs font-semibold uppercase tracking-wider text-slate-500">
                     Motivo
                   </p>
                   <div className="mt-2 flex flex-wrap items-center gap-2">
@@ -127,11 +124,10 @@ export function RespondentRecommendationList({ items }: Props) {
                   </div>
                 </div>
 
-                {/* Rodapé: progresso compacto + data + expandir */}
                 <div className="flex flex-col gap-3 border-t border-slate-100 pt-4 sm:flex-row sm:items-center sm:justify-between">
                   <div className="flex min-w-0 flex-1 flex-wrap items-center gap-x-4 gap-y-2">
                     {showProgress ? (
-                      <div className="flex min-w-[7rem] max-w-[10rem] items-center gap-2">
+                      <div className="flex min-w-28 max-w-40 items-center gap-2">
                         <RespondentRecommendationProgress
                           value={item.progress}
                           size="sm"
@@ -182,6 +178,3 @@ export function RespondentRecommendationList({ items }: Props) {
     </ul>
   );
 }
-
-/** @deprecated Use {@link RespondentRecommendationList}. Mantido por compatibilidade. */
-export const RespondentRecommendationTable = RespondentRecommendationList;

@@ -94,4 +94,4 @@ de aceite e backlog tecnico.
 - Job agendado para popular `library_effectiveness_snapshots`.
 - Extrair o pacote como workspace interno quando outros produtos
   reaproveitarem o dominio.
-- Introduzir UI read-only para analistas e diff visual entre versoes.
+- Introduzir UI read-only para perfis administrativos org-scoped e diff visual entre versoes.

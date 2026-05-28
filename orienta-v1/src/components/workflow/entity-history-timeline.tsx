@@ -41,12 +41,12 @@ export function EntityHistoryTimeline({ events }: Props) {
         return (
           <li key={e.id} className="relative">
             <span
-              className={`absolute -left-[26px] top-0.5 flex h-5 w-5 items-center justify-center rounded-full ring-2 ring-white ${e.iconBg}`}
+              className={`absolute left-[-26px] top-0.5 flex h-5 w-5 items-center justify-center rounded-full ring-2 ring-white ${e.iconBg}`}
             >
               <Icon className={`h-3 w-3 ${e.iconColor}`} aria-hidden />
             </span>
             <div className="flex flex-col gap-0.5">
-              <p className="text-[10px] uppercase tracking-wider text-slate-400">
+              <p className="text-2xs uppercase tracking-wider text-slate-400">
                 {formatDateTime(e.ts)}
               </p>
               <p className="text-xs font-semibold text-slate-800">{e.title}</p>

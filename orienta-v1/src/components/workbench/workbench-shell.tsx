@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
@@ -7,16 +7,13 @@ import { getRuntimeDefaults } from "@/lib/client/runtime-defaults";
 import { RespondentSectionWizard } from "@/components/respondente/respondent-section-wizard";
 import {
   fetchWorkbenchData,
-  reprocessFami,
   removeEvidenceAttachment,
-  submitEvidenceValidation,
   submitRespondentForm,
   submitWorkbenchResponse,
   uploadEvidenceFile,
   type WorkbenchEvidencePayload,
 } from "@/lib/client/workbench-api";
 import {
-  workbenchRowAllowsPartial,
   type WorkbenchRow,
 } from "@/lib/workbench/load-workbench-payload";
 import type { EvidenceDraft } from "@/components/respondente/respondent-question-panel";
@@ -36,13 +33,9 @@ import {
   portfolioPendingLink,
 } from "@/lib/recommendations/post-save-feedback";
 import { describeError, notify } from "@/lib/notify";
-import {
-  countCompleteRows,
-  draftFromRow,
-  sectionStorageKey,
-} from "@/lib/workbench/section-progress";
+import { draftFromRow, sectionStorageKey } from "@/lib/workbench/section-progress";
 
-type Mode = "respondent" | "analyst" | "full";
+type Mode = "respondent";
 type Row = WorkbenchRow;
 
 type WorkbenchPayload = {
@@ -70,23 +63,16 @@ function formatDeadline(iso: string | null | undefined): string | null {
   });
 }
 
-type ValidationAction = "valid" | "invalid" | "complementation_requested";
-
-function truncatePrompt(prompt: string, max = 80): string {
-  const trimmed = prompt.trim();
-  return trimmed.length <= max ? trimmed : `${trimmed.slice(0, max - 1)}…`;
-}
-
-/** Mensagens de rotina no fluxo por etapas — não exibir faixa no topo. */
+/** Mensagens de rotina no fluxo por etapas  no exibir faixa no topo. */
 function isRoutineWorkbenchMessage(msg: string): boolean {
   const m = msg.toLowerCase();
   return (
     m.includes("salva") ||
     m.includes("removido") ||
     m.includes("registrad") ||
-    m.includes("carregando questoes") ||
-    m.includes("ultima secao") ||
-    m.includes("continue no proximo") ||
+    m.includes("carregando quest�es") ||
+    m.includes("ultima se��o") ||
+    m.includes("continue no pr�ximo") ||
     m.includes("revise o resumo")
   );
 }
@@ -97,9 +83,9 @@ export function WorkbenchShell({
   initialFormId,
   lockedOrganizationId,
   lockedOrganizationName,
-  /** Se true, busca as questoes ao abrir a tela (fluxo "Responder" do respondente). */
+  /** Se true, busca as quest�es ao abrir a tela (fluxo "Responder" do respondente). */
   autoLoad = false,
-  /** Quando informado, exibe um dropdown de formularios em vez do campo de UUID livre. */
+  /** Quando informado, exibe um dropdown de formul�rios em vez do campo de UUID livre. */
   availableForms,
 }: {
   mode: Mode;
@@ -117,25 +103,24 @@ export function WorkbenchShell({
     formId: initialFormId ?? runtime.formId,
     organizationId: lockedOrganizationId ?? runtime.organizationId,
     respondentUserId: runtime.respondentUserId,
-    analystUserId: runtime.analystUserId,
+    staffUserId: runtime.adminUserId,
   }));
   const canAutoLoad = Boolean(
     autoLoad && (initialFormId ?? runtime.formId) && (lockedOrganizationId ?? runtime.organizationId),
   );
   const [data, setData] = useState<WorkbenchPayload | null>(null);
   const [message, setMessage] = useState(() =>
-    canAutoLoad ? "Carregando questoes..." : "Carregue o formulario para iniciar.",
+    canAutoLoad ? "Carregando quest�es..." : "Carregue o formul�rio para iniciar.",
   );
   const [loading, setLoading] = useState(() => canAutoLoad);
   const [savingQuestionId, setSavingQuestionId] = useState<string | null>(null);
   const [uploadingQuestionId, setUploadingQuestionId] = useState<string | null>(null);
   const [evidenceDrafts, setEvidenceDrafts] = useState<Record<string, EvidenceDraft>>({});
-  const [statusFilter, setStatusFilter] = useState("all");
   const [submittingForm, setSubmittingForm] = useState(false);
   const [submitSummary, setSubmitSummary] = useState<{ recommendationsCreated: number } | null>(
     null,
   );
-  /** Sim escolhido antes de anexar evidencia (ainda nao persistido). */
+  /** Sim escolhido antes de anexar evid�ncia (ainda n�o persistido). */
   const [pendingYesQuestionIds, setPendingYesQuestionIds] = useState<Set<string>>(
     () => new Set(),
   );
@@ -199,27 +184,14 @@ export function WorkbenchShell({
   }, [rawRows, pendingYesQuestionIds]);
 
   const orgLocked = Boolean(useSessionContext && lockedOrganizationId);
-  const showRespondent = mode === "respondent" || mode === "full";
-  const showAnalyst = mode === "analyst" || mode === "full";
   const simplifiedRespondent = Boolean(
     autoLoad && useSessionContext && orgLocked && mode === "respondent",
   );
-
-  const groupedByAxis = useMemo(() => {
-    const map = new Map<string, Row[]>();
-    for (const row of data?.rows ?? []) {
-      if (statusFilter !== "all" && (row.validationStatus ?? "none") !== statusFilter) continue;
-      if (!map.has(row.axisName)) map.set(row.axisName, []);
-      map.get(row.axisName)?.push(row);
-    }
-    return [...map.entries()];
-  }, [data, statusFilter]);
 
   const groupedBySection = useMemo(() => {
     const sections: { name: string; rows: Row[] }[] = [];
     const indexByName = new Map<string, number>();
     for (const row of displayRows) {
-      if (statusFilter !== "all" && (row.validationStatus ?? "none") !== statusFilter) continue;
       const name = row.sectionName?.trim() || "Geral";
       let idx = indexByName.get(name);
       if (idx === undefined) {
@@ -230,9 +202,9 @@ export function WorkbenchShell({
       sections[idx].rows.push(row);
     }
     return sections;
-  }, [displayRows, statusFilter]);
+  }, [displayRows]);
 
-  const role: "analyst" | "respondent" = mode === "respondent" ? "respondent" : "analyst";
+  const role = "respondent" as const;
 
   const loadWorkbench = useCallback(async () => {
     const isRefresh = hasLoadedWorkbenchRef.current;
@@ -242,7 +214,7 @@ export function WorkbenchShell({
     if (simplifiedRespondent && isRefresh) {
       setMessage("");
     } else if (!isRefresh) {
-      setMessage("Carregando questoes...");
+      setMessage("Carregando quest�es...");
     }
     const response = await fetchWorkbenchData(ids, role, useSessionContext);
     const payload = await response.json();
@@ -259,7 +231,7 @@ export function WorkbenchShell({
     setData(payload);
     hasLoadedWorkbenchRef.current = true;
     if (!simplifiedRespondent) {
-      setMessage("Pronto. Responda as questoes abaixo; use Atualizar se precisar recarregar.");
+      setMessage("Pronto. Responda as quest�es abaixo; use Atualizar se precisar recarregar.");
     }
   }, [ids, role, useSessionContext, simplifiedRespondent]);
 
@@ -273,39 +245,8 @@ export function WorkbenchShell({
     if (canAutoLoad) void loadWorkbench();
   }, [canAutoLoad, loadWorkbench]);
 
-  async function validate(row: Row, status: ValidationAction) {
-    if (!row.responseId) {
-      setMessage("Nao ha resposta salva para validar.");
-      return;
-    }
-    const response = await submitEvidenceValidation(
-      ids,
-      { responseId: row.responseId, status },
-      useSessionContext,
-    );
-    const payload = await response.json();
-    if (!response.ok) {
-      setMessage(
-        typeof payload.error === "string" ? payload.error : "Falha ao validar evidencia.",
-      );
-      return;
-    }
-    await loadWorkbench();
-    setMessage("Validacao registrada.");
-  }
-
-  async function reprocess() {
-    const response = await reprocessFami(ids, useSessionContext);
-    const payload = await response.json();
-    if (!response.ok) {
-      setMessage(typeof payload.error === "string" ? payload.error : "Falha ao reprocessar FAMI.");
-      return;
-    }
-    setMessage("FAMI reprocessado.");
-  }
-
   async function handleRemoveEvidence(row: Row) {
-    if (!window.confirm("Remover anexo ou link desta evidencia?")) return;
+    if (!window.confirm("Remover anexo ou link desta evid�ncia?")) return;
     const draft = evidenceDrafts[row.questionId] ?? emptyEvidenceDraft();
     const hasPersistedEvidence = Boolean(row.evidenceId);
     const isLinkOnlyDraft =
@@ -369,7 +310,7 @@ export function WorkbenchShell({
           ...(p[row.questionId] ?? emptyEvidenceDraft()),
           kind: "file",
           storagePath: body.storagePath ?? null,
-          title: p[row.questionId]?.title?.trim() || file.name.replace(/\.[^.]+$/, "") || "Evidencia",
+          title: p[row.questionId]?.title?.trim() || file.name.replace(/\.[^.]+$/, "") || "Evid�ncia",
         },
       }));
     } finally {
@@ -394,7 +335,7 @@ export function WorkbenchShell({
     return false;
   }
 
-  async function handleSelectAnswer(row: Row, answer: "yes" | "no" | "partial") {
+  async function handleSelectAnswer(row: Row, answer: "yes" | "no" | "not_applicable") {
     if (answer !== "yes") {
       setPendingYesQuestionIds((prev) => {
         const next = new Set(prev);
@@ -426,7 +367,7 @@ export function WorkbenchShell({
 
   async function saveResponse(
     row: Row,
-    answer: "yes" | "no" | "partial",
+    answer: "yes" | "no" | "not_applicable",
     options?: { silent?: boolean },
   ) {
     const draft = evidenceDrafts[row.questionId] ?? emptyEvidenceDraft();
@@ -451,7 +392,7 @@ export function WorkbenchShell({
           externalLink: draft.externalLink.trim(),
         };
       } else if (canSubmitYesWithEvidence(row, draft)) {
-        // Evidencia ja persistida no servidor; resposta Sim sem payload novo.
+        // Evid�ncia ja persistida no servidor; resposta Sim sem payload novo.
         evidence = undefined;
       } else {
         applyYesEvidenceValidation(row, draft);
@@ -513,17 +454,6 @@ export function WorkbenchShell({
       setSavingQuestionId(null);
     }
   }
-
-  const sectionDraftsForProgress = useMemo(() => {
-    const m: Record<
-      string,
-      { kind: EvidenceDraft["kind"]; title: string; storagePath: string | null; externalLink: string }
-    > = {};
-    for (const row of data?.rows ?? []) {
-      m[row.questionId] = evidenceDrafts[row.questionId] ?? draftFromRow(row);
-    }
-    return m;
-  }, [data?.rows, evidenceDrafts]);
 
   useEffect(() => {
     if (!simplifiedRespondent || !ids.formId || !ids.organizationId) return;
@@ -618,9 +548,9 @@ export function WorkbenchShell({
         parts.push(`${missingAnswer.length} sem resposta`);
       }
       if (missingEvidence.length > 0) {
-        parts.push(`${missingEvidence.length} com evidencia pendente`);
+        parts.push(`${missingEvidence.length} com evid�ncia pendente`);
       }
-      notify.warning(`Conclua esta seção antes de continuar.`, {
+      notify.warning(`Conclua esta se��o antes de continuar.`, {
         description: parts.join(" \u2022 "),
         duration: 7000,
       });
@@ -694,23 +624,23 @@ export function WorkbenchShell({
         parts.push(`${missingAnswer.length} sem resposta`);
       }
       if (missingEvidence.length > 0) {
-        parts.push(`${missingEvidence.length} com evidencia pendente`);
+        parts.push(`${missingEvidence.length} com evid�ncia pendente`);
       }
       notify.warning(
-        `Faltam ${totalPending} pergunta(s) para concluir o formulario.`,
+        `Faltam ${totalPending} pergunta(s) para concluir o formul�rio.`,
         { description: parts.join(" \u2022 "), duration: 8000 },
       );
       return;
     }
 
     if (mode !== "respondent") {
-      notify.success("Formulario completo: todas as respostas ja estao salvas.");
+      notify.success("Formul�rio completo: todas as respostas ja estao salvas.");
       return;
     }
 
     setSubmittingForm(true);
     setSubmitSummary(null);
-    const loadingId = notify.loading("Enviando formulario e gerando recomendacoes…");
+    const loadingId = notify.loading("Finalizando envio e gerando recomenda��es�");
     try {
       const response = await submitRespondentForm(ids, useSessionContext);
       const payload = (await response.json()) as {
@@ -721,7 +651,7 @@ export function WorkbenchShell({
         notify.error(
           typeof payload.error === "string"
             ? payload.error
-            : "Falha ao enviar o formulario. Tente novamente.",
+            : "Falha ao finalizar o envio. Tente novamente.",
           { id: loadingId },
         );
         return;
@@ -731,7 +661,7 @@ export function WorkbenchShell({
       invalidateRespondentOverviewCache();
       notify.success(formatSubmitRecommendationMessage(created), { id: loadingId });
     } catch (e: unknown) {
-      notify.error(describeError(e, "Falha ao enviar o formulario. Tente novamente."), {
+      notify.error(describeError(e, "Falha ao finalizar o envio. Tente novamente."), {
         id: loadingId,
       });
     } finally {
@@ -769,7 +699,7 @@ export function WorkbenchShell({
             </div>
           ) : null}
           {data && (data.rows?.length ?? 0) === 0 && !loading ? (
-            <p className="text-center text-sm text-slate-500">Nao ha questoes vinculadas a este formulario.</p>
+            <p className="text-center text-sm text-slate-500">N�o ha quest�es vinculadas a este formul�rio.</p>
           ) : null}
           {data && (data.rows?.length ?? 0) > 0 ? (
             <RespondentSectionWizard
@@ -797,7 +727,7 @@ export function WorkbenchShell({
                   type="button"
                   onClick={handleSectionBack}
                   disabled={currentSectionIndex <= 0 || navBusy}
-                  className={`${formSurface.secondaryButton} inline-flex items-center justify-center gap-2 sm:min-w-[140px]`}
+                  className={`${formSurface.secondaryButton} inline-flex items-center justify-center gap-2 sm:min-w-35`}
                 >
                   <ChevronLeft className="h-4 w-4" aria-hidden />
                   Voltar
@@ -820,9 +750,9 @@ export function WorkbenchShell({
                     type="button"
                     onClick={() => void handleSectionContinue()}
                     disabled={navBusy}
-                    className={`${formSurface.primaryButton} inline-flex items-center justify-center gap-2 sm:min-w-[180px]`}
+                    className={`${formSurface.primaryButton} inline-flex items-center justify-center gap-2 sm:min-w-45`}
                   >
-                    {advancingSection ? "Salvando…" : "Continuar"}
+                    {advancingSection ? "Salvando��" : "Continuar"}
                     <ArrowRight className="h-4 w-4" aria-hidden />
                   </button>
                 ) : (
@@ -831,18 +761,18 @@ export function WorkbenchShell({
                       type="button"
                       onClick={() => void handleSectionContinue()}
                       disabled={navBusy}
-                      className={`${formSurface.secondaryButton} inline-flex items-center justify-center gap-2 sm:min-w-[160px]`}
+                      className={`${formSurface.secondaryButton} inline-flex items-center justify-center gap-2 sm:min-w-40`}
                     >
-                      {advancingSection ? "Salvando…" : "Concluir seção"}
+                      {advancingSection ? "Salvando��" : "Concluir se��o"}
                     </button>
                     <button
                       type="button"
                       onClick={() => void handleSubmitForm()}
                       disabled={navBusy}
-                      className={`${formSurface.primaryButton} inline-flex items-center justify-center gap-2 sm:min-w-[200px]`}
+                      className={`${formSurface.primaryButton} inline-flex items-center justify-center gap-2 sm:min-w-50`}
                     >
                       <SendHorizontal className="h-4 w-4" aria-hidden />
-                      {submittingForm ? "Enviando…" : "Enviar formulário"}
+                      {submittingForm ? "Finalizando�" : "Finalizar envio"}
                     </button>
                   </>
                 )}
@@ -852,22 +782,22 @@ export function WorkbenchShell({
               <div className={formSurface.messageSuccess}>
                 {submitSummary.recommendationsCreated > 0 ? (
                   <>
-                    Formulário enviado. Foram geradas{" "}
+                    Envio finalizado. Foram geradas{" "}
                     <span className="font-semibold">
                       {submitSummary.recommendationsCreated}
                     </span>{" "}
-                    recomendação(ões) com base nas suas respostas.{" "}
+                    recomenda��o(�es) com base nas suas respostas.{" "}
                     <Link
                       href={portfolioPendingLink(ids.formId)}
                       className="font-semibold underline decoration-emerald-400 underline-offset-2"
                     >
-                      Ver recomendações pendentes
+                      Ver recomenda��es pendentes
                     </Link>
                     .
                   </>
                 ) : (
                   <>
-                    Formulário enviado. Nenhuma recomendação foi disparada pelas respostas
+                    Envio finalizado. Nenhuma recomenda��o foi disparada pelas respostas
                     atuais.
                   </>
                 )}
@@ -878,270 +808,18 @@ export function WorkbenchShell({
         <details className="border-t border-slate-100 px-5 py-2 text-xs text-slate-500 sm:px-8">
           <summary className="cursor-pointer list-none text-slate-500 marker:content-none [&::-webkit-details-marker]:hidden">
             <span className="underline decoration-slate-300 underline-offset-2 group-open:text-slate-700">
-              Suporte: identificador do formulario
+              Suporte: identificador do formul�rio
             </span>
           </summary>
-          <p className="mt-1 break-all font-mono text-[11px] text-slate-600">{ids.formId}</p>
+          <p className="mt-1 break-all font-mono text-micro text-slate-600">{ids.formId}</p>
         </details>
       </>
     );
   }
 
-  const heading =
-    mode === "respondent"
-      ? "Area do Respondente"
-      : mode === "analyst"
-        ? "Validacao de evidencias"
-        : "Bancada Operacional";
-  const subheading =
-    mode === "analyst"
-      ? "Selecione o formulario para revisar as respostas e validar evidencias da organizacao."
-      : mode === "respondent"
-        ? "Carregue o formulario para iniciar o preenchimento."
-        : "Operacao avancada com visao do respondente e analista no mesmo lugar.";
-  const messageTone = (() => {
-    if (!message) return "neutral" as const;
-    const lower = message.toLowerCase();
-    if (/falha|erro|nao (foi|est)|invalido|expirado/.test(lower)) return "error" as const;
-    if (/salva|registrada|reprocessado|pronto/.test(lower)) return "success" as const;
-    return "neutral" as const;
-  })();
-
-  const formDeadline = formatDeadline(data?.form.responseDeadlineAt);
-  const formClosed = data?.form.state === "closed";
-  const formClosedAt = formatDeadline(data?.form.closedAt);
-
   return (
-    <section className={formSurface.card}>
-      <header className={formSurface.cardHeader}>
-        <h2 className={formSurface.cardTitle}>{heading}</h2>
-        <p className={formSurface.cardDescription}>{subheading}</p>
-      </header>
-
-      <div className={formSurface.body}>
-        {formClosed ? (
-          <div
-            className="rounded-md border border-rose-200 bg-rose-50 px-3 py-2 text-sm text-rose-800"
-            role="status"
-          >
-            Ciclo encerrado{formClosedAt ? ` em ${formClosedAt}` : ""}. Novas respostas
-            estao bloqueadas; FAMI exibido e oficial (perguntas aplicaveis sem
-            resposta contam 0 ponto).
-          </div>
-        ) : formDeadline ? (
-          <div
-            className="rounded-md border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-800"
-            role="status"
-          >
-            Prazo para responder este formulario: <strong>{formDeadline}</strong>.
-            Após o encerramento, perguntas aplicaveis sem resposta entram com 0
-            ponto no FAMI.
-          </div>
-        ) : null}
-
-        <div className="grid gap-4 md:grid-cols-2">
-          <div className={formSurface.fieldGroup}>
-            <label htmlFor="workbench-form-id" className={formSurface.label}>
-              Formulario
-            </label>
-            {availableForms && availableForms.length > 0 ? (
-              <select
-                id="workbench-form-id"
-                className={formSurface.inputSelect}
-                value={ids.formId}
-                onChange={(e) => setIds((p) => ({ ...p, formId: e.target.value }))}
-              >
-                <option value="">Selecione um formulario…</option>
-                {availableForms.map((f) => (
-                  <option key={f.id} value={f.id}>
-                    {f.name || "Formulario"}
-                  </option>
-                ))}
-              </select>
-            ) : (
-              <input
-                id="workbench-form-id"
-                className={formSurface.input}
-                value={ids.formId}
-                onChange={(e) => setIds((p) => ({ ...p, formId: e.target.value }))}
-                readOnly={false}
-                autoComplete="off"
-                placeholder="Identificador do formulario"
-              />
-            )}
-          </div>
-
-          {orgLocked ? (
-            <div className={formSurface.fieldGroup}>
-              <p className={formSurface.label}>Organizacao</p>
-              <div className={formSurface.readOnlyField}>{lockedOrganizationName ?? "—"}</div>
-            </div>
-          ) : (
-            <div className={formSurface.fieldGroup}>
-              <label htmlFor="workbench-org-id" className={formSurface.label}>
-                Organizacao
-              </label>
-              <input
-                id="workbench-org-id"
-                className={formSurface.input}
-                value={ids.organizationId}
-                onChange={(e) => setIds((p) => ({ ...p, organizationId: e.target.value }))}
-                placeholder="Identificador da organizacao"
-              />
-            </div>
-          )}
-        </div>
-
-        <div className="flex flex-wrap items-center gap-2 border-t border-slate-100 pt-4">
-          <button
-            type="button"
-            onClick={() => void loadWorkbench()}
-            disabled={loading || !ids.formId || !ids.organizationId}
-            className={formSurface.primaryButton}
-          >
-            <RefreshCw className={`h-4 w-4 ${loading ? "animate-spin" : ""}`} aria-hidden />
-            {loading ? "Carregando…" : "Carregar"}
-          </button>
-          {showAnalyst ? (
-            <button
-              type="button"
-              onClick={reprocess}
-              disabled={!ids.formId || !ids.organizationId}
-              className={formSurface.secondaryButton}
-            >
-              Reprocessar FAMI
-            </button>
-          ) : null}
-          {showAnalyst ? (
-            <label className="flex w-full min-w-0 flex-col gap-2 text-xs font-semibold uppercase tracking-wider text-slate-500 sm:ml-auto sm:w-auto sm:flex-row sm:items-center">
-              <span>Filtrar validacao</span>
-              <select
-                className={`${formSurface.inputSelect} w-full min-w-0 sm:w-auto sm:min-w-[11rem] font-normal normal-case tracking-normal text-slate-800`}
-                value={statusFilter}
-                onChange={(e) => setStatusFilter(e.target.value)}
-              >
-                <option value="all">Todos</option>
-                <option value="none">Nao validada</option>
-                <option value="valid">Valida</option>
-                <option value="invalid">Invalida</option>
-                <option value="complementation_requested">Complementacao</option>
-              </select>
-            </label>
-          ) : null}
-        </div>
-
-        {message ? (
-          <div
-            role="status"
-            className={
-              messageTone === "error"
-                ? formSurface.messageError
-                : messageTone === "success"
-                  ? formSurface.messageSuccess
-                  : formSurface.messageNeutral
-            }
-          >
-            {message}
-          </div>
-        ) : null}
-
-        <div className="space-y-4">
-          {groupedByAxis.map(([axis, rows]) => (
-            <article key={axis} className="overflow-hidden rounded-xl border border-slate-200">
-              <div className="border-b border-slate-100/80 bg-brand-50 px-4 py-2.5 text-sm font-semibold text-slate-800">
-                {axis}
-              </div>
-              <div className="divide-y divide-slate-100">
-                {rows.map((row) => (
-                  <div key={row.questionId} className="space-y-3 px-4 py-3 text-sm">
-                    <p className="font-medium text-slate-900">{row.prompt}</p>
-                    <p className="text-xs text-slate-500">
-                      Secao: <span className="text-slate-700">{row.sectionName}</span>
-                      <span className="mx-2 text-slate-300">·</span>
-                      Resposta:{" "}
-                      <span className="text-slate-700">{row.answer ?? "Nao respondida"}</span>
-                      <span className="mx-2 text-slate-300">·</span>
-                      Validacao:{" "}
-                      <span className="text-slate-700">{row.validationStatus ?? "Nao validada"}</span>
-                    </p>
-                    {showRespondent ? (
-                      <div className="flex flex-wrap gap-2">
-                        <button
-                          type="button"
-                          onClick={() => saveResponse(row, "yes")}
-                          className={formSurface.secondaryButtonSm}
-                        >
-                          Sim
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => saveResponse(row, "no")}
-                          className={formSurface.secondaryButtonSm}
-                        >
-                          Nao
-                        </button>
-                        {workbenchRowAllowsPartial(row) ? (
-                          <button
-                            type="button"
-                            onClick={() => saveResponse(row, "partial")}
-                            className={formSurface.secondaryButtonSm}
-                          >
-                            Parcialmente
-                          </button>
-                        ) : null}
-                      </div>
-                    ) : null}
-                    {showAnalyst && row.requiresEvidence ? (
-                      <div className="flex flex-wrap gap-2">
-                        <button
-                          type="button"
-                          onClick={() => validate(row, "valid")}
-                          className={formSurface.secondaryButtonSm}
-                        >
-                          Validar
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => validate(row, "invalid")}
-                          className={formSurface.secondaryButtonSm}
-                        >
-                          Invalida
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => validate(row, "complementation_requested")}
-                          className={formSurface.secondaryButtonSm}
-                        >
-                          Complementacao
-                        </button>
-                      </div>
-                    ) : null}
-                  </div>
-                ))}
-              </div>
-            </article>
-          ))}
-        </div>
-
-        {ids.formId ? (
-          <details className="group rounded-xl border border-slate-100 bg-slate-50/40 px-4 py-2 text-xs text-slate-500">
-            <summary className="cursor-pointer list-none text-slate-500 marker:content-none [&::-webkit-details-marker]:hidden">
-              <span className="underline decoration-slate-300 underline-offset-2 group-open:text-slate-700">
-                Suporte: identificadores
-              </span>
-            </summary>
-            <p className="mt-1 break-all font-mono text-[11px] text-slate-600">
-              Formulario: {ids.formId}
-              {ids.organizationId ? (
-                <>
-                  <br />
-                  Organizacao: {ids.organizationId}
-                </>
-              ) : null}
-            </p>
-          </details>
-        ) : null}
-      </div>
-    </section>
+    <p className={formSurface.messageNeutral}>
+      Abra o formulário pelo fluxo do respondente para preencher as questões.
+    </p>
   );
 }

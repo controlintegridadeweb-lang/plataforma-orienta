@@ -5,7 +5,6 @@ import type { ActionPlanListItem } from "@/lib/action-plans/admin-service";
 import { listActionPlans, listRespondentActionPlans } from "@/lib/action-plans/client";
 import type { StaffAreaPrefix } from "@/lib/admin/queue-links";
 import { staffAreaFromPathname } from "@/lib/navigation/staff-paths";
-import { usePathname } from "next/navigation";
 import { toAdminItem, type AdminRecommendationItem } from "@/lib/recommendations/admin-presentation";
 import {
   toRespondentItem,
@@ -58,8 +57,7 @@ export function RecommendationDetailProvider({
   workspaceSurface?: RecommendationWorkspaceSurface;
   children: React.ReactNode;
 }) {
-  const pathname = usePathname() ?? "";
-  const staffArea = role === "staff" ? staffAreaFromPathname(pathname) : null;
+  const staffArea = role === "staff" ? staffAreaFromPathname() : null;
   const detailBasePath = detailBasePathOverride ?? `${listPath}/${recommendationId}`;
 
   const [row, setRow] = useState<ActionPlanListItem | null>(null);

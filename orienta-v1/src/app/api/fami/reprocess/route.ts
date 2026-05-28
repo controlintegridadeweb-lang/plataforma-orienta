@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+﻿import { NextResponse } from "next/server";
 import { z } from "zod";
 import { triggerFamiReprocess } from "@/lib/fami/trigger-reprocess";
 import { requireAuth } from "@/lib/api/auth";
@@ -12,7 +12,7 @@ const payloadSchema = z.object({
 });
 
 export async function POST(request: Request) {
-  const { context, error } = await requireAuth(request, ["admin", "analyst"]);
+  const { context, error } = await requireAuth(request, ["admin"]);
   if (error) return error;
 
   const body = await request.json();

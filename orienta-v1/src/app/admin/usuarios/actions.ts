@@ -1,4 +1,4 @@
-"use server";
+﻿"use server";
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
@@ -10,7 +10,7 @@ import {
   updateUserProfileAdmin,
 } from "@/lib/admin/users-service";
 
-const EDITABLE_ROLES: AppRole[] = ["analyst", "respondent"];
+const EDITABLE_ROLES: AppRole[] = ["admin", "respondent"];
 
 export async function saveUserProfileAction(formData: FormData) {
   await requireRole(["admin"]);
@@ -27,7 +27,7 @@ export async function saveUserProfileAction(formData: FormData) {
     throw new Error("Papel inválido.");
   }
   if (!orgRaw) {
-    throw new Error("Selecione uma organização para analistas e respondentes.");
+    throw new Error("Selecione uma organização para respondentes.");
   }
 
   await updateUserProfileAdmin({

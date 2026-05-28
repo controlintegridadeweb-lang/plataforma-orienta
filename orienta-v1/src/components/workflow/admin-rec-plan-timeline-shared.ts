@@ -43,7 +43,7 @@ function fromRecommendationChange(entry: RecommendationChangeEntry): AdminRecPla
   if (entry.field === "status") {
     description = `${labelRecStatus(entry.oldValue)} → ${labelRecStatus(entry.newValue)}`;
   } else if (entry.field === "current_text") {
-    description = "Texto da recomendação ajustado pelo analista";
+    description = "Texto da recomendação ajustado pela equipe administrativa";
   }
   if (entry.comment) description += description ? ` · ${entry.comment}` : entry.comment;
   return {

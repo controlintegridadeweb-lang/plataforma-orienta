@@ -23,11 +23,11 @@ export function LoginForm({ organizations }: { organizations: LoginOrganizationO
   return (
     <AuthGlassCard>
       <header className="mb-10 space-y-3">
-        <p className="text-[1rem] font-medium text-slate-700">Plataforma Orienta</p>
-        <h1 className="text-balance text-[clamp(1.5rem,4.5vw+0.6rem,1.875rem)] font-semibold tracking-normal text-slate-900 sm:text-[2.125rem]">
+        <p className="text-base font-medium text-slate-700">Plataforma Orienta</p>
+        <h1 className="text-balance text-[clamp(1.5rem,4.5vw+0.6rem,1.875rem)] font-semibold tracking-normal text-slate-900 sm:text-4xl">
           Entrar na conta
         </h1>
-        <p className="max-w-lg text-pretty text-[1.0625rem] leading-relaxed text-slate-600">
+        <p className="max-w-lg text-pretty text-kicker-md leading-relaxed text-slate-600">
           Informe o e-mail e a senha fornecidos pelo administrador.
           {showOrgSelect ? (
             <>
@@ -100,7 +100,7 @@ export function LoginForm({ organizations }: { organizations: LoginOrganizationO
         <div className="flex justify-end pt-1">
           <Link
             href="/auth/forgot-password"
-            className="text-[1rem] font-medium text-brand-800 underline decoration-brand-800/30 underline-offset-[5px] transition hover:text-brand-900 hover:decoration-brand-900/50 focus-visible:rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-700"
+            className="text-base font-medium text-brand-800 underline decoration-brand-800/30 underline-offset-1 transition hover:text-brand-900 hover:decoration-brand-900/50 focus-visible:rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-700"
           >
             Esqueci minha senha
           </Link>

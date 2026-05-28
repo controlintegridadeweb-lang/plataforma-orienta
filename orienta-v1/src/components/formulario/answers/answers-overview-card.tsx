@@ -70,7 +70,7 @@ export function AnswersOverviewCard({ overview }: { overview: AnswersOverview })
               value={overview.statusBreakdown[status]}
               density="compact"
               contentClassName="py-3 sm:py-3.5"
-              className="min-h-[108px] sm:min-h-[112px]"
+              className="min-h-27 sm:min-h-28"
             />
           ))}
         </div>

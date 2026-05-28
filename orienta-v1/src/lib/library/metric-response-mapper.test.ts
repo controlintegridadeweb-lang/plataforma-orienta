@@ -10,7 +10,7 @@ describe("mapScaleValue (defaults, higher_better)", () => {
   it.each([
     [1, "no"],
     [2, "no"],
-    [3, "partial"],
+    [3, "not_applicable"],
     [4, "yes"],
     [5, "yes"],
   ])("value %s -> %s", (value, expected) => {
@@ -24,7 +24,7 @@ describe("mapScaleValue (lower_better inverts)", () => {
   it.each([
     [1, "yes"],
     [2, "yes"],
-    [3, "partial"],
+    [3, "not_applicable"],
     [4, "no"],
     [5, "no"],
   ])("value %s -> %s", (value, expected) => {
@@ -43,13 +43,13 @@ describe("mapScaleValue (qualitative)", () => {
 
 describe("mapScaleValue (custom bands)", () => {
   it("honors narrower failMax", () => {
-    const result = mapScaleValue(2, "higher_better", { failMax: 1, partialMax: 3 });
+    const result = mapScaleValue(2, "higher_better", { failMax: 1, notApplicableMax: 3 });
     expect(result.kind).toBe("mapped");
-    if (result.kind === "mapped") expect(result.answer).toBe("partial");
+    if (result.kind === "mapped") expect(result.answer).toBe("not_applicable");
   });
 
   it("falls back to defaults when bands invalid", () => {
-    const result = mapScaleValue(2, "higher_better", { failMax: 4, partialMax: 2 });
+    const result = mapScaleValue(2, "higher_better", { failMax: 4, notApplicableMax: 2 });
     expect(result.kind).toBe("mapped");
     if (result.kind === "mapped") expect(result.answer).toBe("no");
     expect(DEFAULT_SCALE_BANDS.failMax).toBe(2);
@@ -64,13 +64,13 @@ describe("mapScaleValue (validation)", () => {
 });
 
 describe("mapNumericValue", () => {
-  const thresholds = { failBelow: 30, partialBelow: 70 };
+  const thresholds = { failBelow: 30, notApplicableBelow: 70 };
 
   it.each([
     [10, "higher_better", "no"],
     [30, "higher_better", "no"],
-    [50, "higher_better", "partial"],
-    [70, "higher_better", "partial"],
+    [50, "higher_better", "not_applicable"],
+    [70, "higher_better", "not_applicable"],
     [90, "higher_better", "yes"],
   ])("higher_better %s -> %s", (value, interp, expected) => {
     const result = mapNumericValue(value, interp as "higher_better", thresholds);
@@ -90,7 +90,7 @@ describe("mapNumericValue", () => {
 
   it("skips when thresholds inverted", () => {
     expect(
-      mapNumericValue(10, "higher_better", { failBelow: 70, partialBelow: 30 }).kind,
+      mapNumericValue(10, "higher_better", { failBelow: 70, notApplicableBelow: 30 }).kind,
     ).toBe("skipped");
   });
 
@@ -114,7 +114,7 @@ describe("mapMetricValueToAnswer dispatch", () => {
       answerType: "numeric",
       interpretation: "higher_better",
       numericValue: 80,
-      mapping: { numericThresholds: { failBelow: 30, partialBelow: 70 } },
+      mapping: { numericThresholds: { failBelow: 30, notApplicableBelow: 70 } },
     });
     expect(result).toEqual({ kind: "mapped", answer: "yes" });
   });

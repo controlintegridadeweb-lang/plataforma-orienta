@@ -34,12 +34,16 @@ import type {
   AdminRecommendationView,
   RespondentRecommendationView,
 } from "@/lib/domain/workflow-status-keys";
-import type { RecommendationType, WorkflowState } from "@/lib/domain/types";
+import type { WorkflowState } from "@/lib/domain/types";
 import type { ValidationStatus } from "@/lib/evidences/schemas";
 import type { RespondentEvidenceStatus } from "@/lib/evidences/respondent-status";
 import { formSurface } from "@/lib/form-surface";
 import type { RecommendationStatus } from "@/lib/recommendations/schemas";
 import type { RespondentReportJobStatus } from "@/lib/reports/respondent-presentation";
+import {
+  evidenceComplementation,
+  formCycleComplementation,
+} from "@/lib/labels/complementation-terms";
 
 /**
  * SSOT de metadados visuais para status de workflow (rótulo, cor, ícone, prioridade de ordenação).
@@ -119,8 +123,8 @@ export const EVIDENCE_VALIDATION_REGISTRY: Record<ValidationStatus, StatusRegist
     iconName: "Clock",
     priority: 40,
   }),
-  valid: entry({
-    key: "valid",
+  approved: entry({
+    key: "approved",
     label: "Valida",
     description: "Evidência aceita.",
     colorClass: badgeTone.validationSuccess,
@@ -128,8 +132,8 @@ export const EVIDENCE_VALIDATION_REGISTRY: Record<ValidationStatus, StatusRegist
     iconName: "CheckCircle2",
     priority: 100,
   }),
-  invalid: entry({
-    key: "invalid",
+  invalidated: entry({
+    key: "invalidated",
     label: "Invalida",
     description: "Evidência rejeitada.",
     colorClass: badgeTone.validationDanger,
@@ -137,32 +141,14 @@ export const EVIDENCE_VALIDATION_REGISTRY: Record<ValidationStatus, StatusRegist
     iconName: "XCircle",
     priority: 15,
   }),
-  partially_valid: entry({
-    key: "partially_valid",
-    label: "Parcial",
-    description: "Validação parcial — requer atenção.",
-    colorClass: badgeTone.validationWarning,
-    icon: AlertCircle,
-    iconName: "AlertCircle",
-    priority: 25,
-  }),
-  complementation_requested: entry({
-    key: "complementation_requested",
-    label: "Complementação",
-    description: "Aguardando complementação do respondente.",
+  adjustment_requested: entry({
+    key: "adjustment_requested",
+    label: evidenceComplementation.statusLabel,
+    description: evidenceComplementation.statusDescription,
     colorClass: badgeTone.validationInfo,
     icon: FileQuestion,
     iconName: "FileQuestion",
     priority: 20,
-  }),
-  waived: entry({
-    key: "waived",
-    label: "Dispensada",
-    description: "Dispensada com justificativa.",
-    colorClass: badgeTone.validationMuted,
-    icon: ShieldOff,
-    iconName: "ShieldOff",
-    priority: 90,
   }),
 };
 
@@ -180,7 +166,7 @@ export const EVIDENCE_RESPONDENT_REGISTRY: Record<RespondentEvidenceStatus, Stat
   aguardando_analise: entry({
     key: "aguardando_analise",
     label: "Aguardando análise",
-    description: "O analista ainda não revisou esta evidência.",
+    description: "A equipe de validação ainda não revisou esta evidência.",
     colorClass: badgeTone.validationInfo,
     icon: Clock,
     iconName: "Clock",
@@ -189,7 +175,7 @@ export const EVIDENCE_RESPONDENT_REGISTRY: Record<RespondentEvidenceStatus, Stat
   aprovada: entry({
     key: "aprovada",
     label: "Aprovada",
-    description: "Evidência considerada válida pelo analista.",
+    description: "Evidência considerada válida pela equipe de validação.",
     colorClass: badgeTone.validationSuccess,
     icon: CheckCircle2,
     iconName: "CheckCircle2",
@@ -206,8 +192,8 @@ export const EVIDENCE_RESPONDENT_REGISTRY: Record<RespondentEvidenceStatus, Stat
   }),
   complementacao_solicitada: entry({
     key: "complementacao_solicitada",
-    label: "Complementação solicitada",
-    description: "O analista pediu ajustes.",
+    label: evidenceComplementation.respondentStatusLabel,
+    description: evidenceComplementation.respondentStatusDescription,
     colorClass: badgeTone.validationWarning,
     icon: FileQuestion,
     iconName: "FileQuestion",
@@ -216,7 +202,7 @@ export const EVIDENCE_RESPONDENT_REGISTRY: Record<RespondentEvidenceStatus, Stat
   ajustada_e_reenviada: entry({
     key: "ajustada_e_reenviada",
     label: "Ajustada e reenviada",
-    description: "Aguarde nova revisão após complementação.",
+    description: "Aguarde nova revisão após complementação de evidência.",
     colorClass: badgeTone.validationInfo,
     icon: RefreshCw,
     iconName: "RefreshCw",
@@ -328,7 +314,7 @@ export const RECOMMENDATION_TYPE_REGISTRY: Record<string, StatusRegistryEntry> =
   insufficient_evidence: entry({
     key: "insufficient_evidence",
     label: "Evidência insuficiente",
-    description: "Comprovante rejeitado ou parcialmente aceito.",
+    description: "Comprovante rejeitado ou com ajuste solicitado.",
     colorClass: "bg-amber-50 text-amber-700",
     icon: AlertCircle,
     iconName: "AlertCircle",
@@ -342,15 +328,6 @@ export const RECOMMENDATION_TYPE_REGISTRY: Record<string, StatusRegistryEntry> =
     icon: XCircle,
     iconName: "XCircle",
     priority: 20,
-  }),
-  parcialmente: entry({
-    key: "parcialmente",
-    label: "Implementação parcial",
-    description: "Legado: resposta parcial.",
-    colorClass: "bg-amber-50 text-amber-700",
-    icon: AlertTriangle,
-    iconName: "AlertTriangle",
-    priority: 30,
   }),
   sim_sem_evidencia: entry({
     key: "sim_sem_evidencia",
@@ -390,7 +367,7 @@ export const RECOMMENDATION_TYPE_REGISTRY: Record<string, StatusRegistryEntry> =
   }),
 };
 
-/** Visão analítica admin/analista — derivação em `deriveAdminRecommendationView`. */
+/** Visão analítica admin — derivação em `deriveAdminRecommendationView`. */
 export const ADMIN_RECOMMENDATION_VIEW_REGISTRY: Record<
   AdminRecommendationView,
   StatusRegistryEntry
@@ -407,8 +384,8 @@ export const ADMIN_RECOMMENDATION_VIEW_REGISTRY: Record<
   }),
   awaiting_plan: entry({
     key: "awaiting_plan",
-    label: "Aguardando plano",
-    description: "Recomendação ativa sem plano de ação cadastrado.",
+    label: "Aguardando ação",
+    description: "Recomendação aberta sem plano de ação cadastrado pela organização.",
     colorClass: "bg-brand-50 text-brand-700",
     columnBg: "bg-brand-50/40",
     icon: Hourglass,
@@ -448,7 +425,8 @@ export const ADMIN_RECOMMENDATION_VIEW_REGISTRY: Record<
   in_review: entry({
     key: "in_review",
     label: "Em revisão",
-    description: "Plano concluído pela organização; aguarda revisão do analista.",
+    description:
+      "Plano concluído pela organização; aguarda validação administrativa antes de encerrar a recomendação.",
     colorClass: "bg-amber-50 text-amber-700",
     columnBg: "bg-amber-50/60",
     icon: Eye,
@@ -670,8 +648,8 @@ export const FORM_WORKFLOW_REGISTRY: Record<WorkflowState, StatusRegistryEntry> 
   }),
   complementation_requested: entry({
     key: "complementation_requested",
-    label: "Complementação solicitada",
-    description: "Respondente deve complementar.",
+    label: formCycleComplementation.stateLabel,
+    description: formCycleComplementation.stateDescription,
     colorClass: "bg-amber-50 text-amber-700",
     icon: FileQuestion,
     iconName: "FileQuestion",
@@ -680,7 +658,7 @@ export const FORM_WORKFLOW_REGISTRY: Record<WorkflowState, StatusRegistryEntry> 
   resubmitted: entry({
     key: "resubmitted",
     label: "Reenviado",
-    description: "Retorno após complementação.",
+    description: formCycleComplementation.resubmittedDescription,
     colorClass: "bg-sky-50 text-sky-700",
     icon: RefreshCw,
     iconName: "RefreshCw",
@@ -734,7 +712,7 @@ export const RESPONDENT_RECOMMENDATION_VIEW_REGISTRY: Record<
   awaiting_action: entry({
     key: "awaiting_action",
     label: "Aguardando ação",
-    description: "Recomendação aberta sem plano de ação cadastrado.",
+    description: "Recomendação aberta sem plano de ação cadastrado pela organização.",
     colorClass: "bg-amber-50 text-amber-700",
     columnBg: "bg-amber-50/40",
     icon: Hourglass,
@@ -767,8 +745,8 @@ export const RESPONDENT_RECOMMENDATION_VIEW_REGISTRY: Record<
 export const RESPONDENT_ACTION_PLAN_VIEW_REGISTRY: Record<ActionPlanView, StatusRegistryEntry> = {
   no_plan: entry({
     key: "no_plan",
-    label: "Sem plano",
-    description: "Recomendação aberta sem plano de ação cadastrado.",
+    label: "Aguardando ação",
+    description: "Recomendação aberta sem plano de ação cadastrado pela organização.",
     colorClass: "bg-violet-50 text-violet-700",
     columnBg: "bg-violet-50/50",
     icon: Hourglass,
@@ -845,7 +823,7 @@ export const FAMI_MATURITY_LEVEL_REGISTRY: Record<FamiMaturityLevel, StatusRegis
     key: "fami_level_2",
     label: "Nível 2 · Em desenvolvimento",
     description:
-      "Maturidade em desenvolvimento: processos parcialmente formalizados, com evidências em construção.",
+      "Maturidade em desenvolvimento: processos em formalização, com evidências em construção.",
     colorClass: "bg-amber-50 text-amber-700",
     icon: Compass,
     iconName: "Compass",

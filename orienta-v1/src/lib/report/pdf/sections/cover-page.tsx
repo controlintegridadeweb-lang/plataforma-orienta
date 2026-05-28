@@ -5,7 +5,7 @@
 import type { PDFPage } from "pdf-lib";
 import { levelMeta } from "@/lib/fami/respondent-presentation";
 import type { OfficialReportData } from "@/lib/report/build-official-report-data";
-import type { Cursor, OrientaPdfDocument, ReportFonts } from "../document";
+import type { OrientaPdfDocument, ReportFonts } from "../document";
 import { reportTheme } from "../theme";
 import { drawCoverGeometricPanel } from "./cover-geometric-panel";
 

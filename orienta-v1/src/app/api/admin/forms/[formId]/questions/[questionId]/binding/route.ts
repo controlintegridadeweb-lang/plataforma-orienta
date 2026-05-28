@@ -23,7 +23,7 @@ function parseId(value: string, label: string) {
 }
 
 export async function GET(request: Request, context: RouteContext) {
-  const { error: authError } = await requireAuth(request, ["admin", "analyst"]);
+  const { error: authError } = await requireAuth(request, ["admin"]);
   if (authError) return authError;
   try {
     const { questionId: rawQ } = await context.params;
@@ -42,7 +42,6 @@ export async function GET(request: Request, context: RouteContext) {
 export async function PUT(request: Request, context: RouteContext) {
   const { context: authContext, error: authError } = await requireAuth(request, [
     "admin",
-    "analyst",
   ]);
   if (authError) return authError;
   try {

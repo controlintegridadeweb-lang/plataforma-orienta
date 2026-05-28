@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Image from "next/image";
 import {
@@ -10,10 +10,10 @@ import { LEVEL_META, type FamiLevel } from "@/lib/fami/respondent-presentation";
 
 /** Estrutura fixa — baseline uniforme entre os 5 cards. */
 const CARD = {
-  height: "h-[34.5rem] sm:h-[35.5rem]",
-  header: "h-[10.75rem] sm:h-[11.5rem]",
-  illus: "h-[15rem] sm:h-[15.75rem]",
-  footer: "min-h-[3.75rem]",
+  height: "h-138 sm:h-142",
+  header: "h-43 sm:h-46",
+  illus: "h-60 sm:h-63",
+  footer: "min-h-15",
 } as const;
 
 /** Uma cor sólida por nível (topo colorido + tipografia harmonizada). */
@@ -92,14 +92,14 @@ function JourneyStepCard({
         "relative flex w-full flex-col overflow-hidden rounded-2xl border bg-white transition-[border-color,box-shadow] duration-200",
         CARD.height,
         isCurrent
-          ? "border-brand-400/80 shadow-[var(--shadow-card-hover)]"
-          : "border-stone-200/90 shadow-[var(--shadow-card)] hover:border-stone-300",
-        isPast && !isCurrent ? "opacity-[0.94]" : "",
+          ? "border-brand-400/80 shadow-card-hover"
+          : "border-stone-200/90 shadow-card hover:border-stone-300",
+        isPast && !isCurrent ? "opacity-94" : "",
       ].join(" ")}
       aria-current={isCurrent ? "step" : undefined}
     >
       {isCurrent ? (
-        <span className="absolute right-3 top-3 z-[2] rounded-full bg-white/95 px-2.5 py-0.5 text-[10px] font-medium text-brand-800 ring-1 ring-brand-200/90">
+        <span className="absolute right-3 top-3 z-2 rounded-full bg-white/95 px-2.5 py-0.5 text-2xs font-medium text-brand-800 ring-1 ring-brand-200/90">
           Seu nível
         </span>
       ) : null}
@@ -109,13 +109,13 @@ function JourneyStepCard({
         className={`flex shrink-0 flex-col items-center justify-center px-5 py-6 text-center sm:px-6 sm:py-7 ${CARD.header} ${tone.headerBg}`}
       >
         <p
-          className={`select-none text-[4.25rem] font-medium leading-none tabular-nums sm:text-[4.75rem] ${tone.stepNumber}`}
+          className={`select-none text-display-step font-medium leading-none tabular-nums sm:text-display-step-lg ${tone.stepNumber}`}
           aria-hidden
         >
           {level}
         </p>
         <h3
-          className={`mt-4 text-[15px] font-semibold leading-snug tracking-tight sm:mt-5 sm:text-base ${tone.title}`}
+          className={`mt-4 text-body-15 font-semibold leading-snug tracking-tight sm:mt-5 sm:text-base ${tone.title}`}
         >
           {meta.shortLabel}
         </h3>
@@ -143,7 +143,7 @@ function JourneyStepCard({
         <div
           className={`flex shrink-0 items-start justify-center px-5 pb-5 pt-1 text-center ${CARD.footer}`}
         >
-          <p className={`max-w-[16rem] text-xs leading-relaxed ${tone.desc}`}>{summary}</p>
+          <p className={`max-w-64 text-xs leading-relaxed ${tone.desc}`}>{summary}</p>
         </div>
       </div>
     </article>
@@ -177,13 +177,13 @@ export function FamiMaturityRoadmap({ currentLevel, className = "" }: Props) {
 
       <div className="relative">
         <div
-          className="pointer-events-none absolute left-[4%] right-[4%] top-[11.75rem] z-0 hidden h-px bg-stone-200/90 lg:block"
+          className="pointer-events-none absolute inset-x-[4%] top-47 z-0 hidden h-px bg-stone-200/90 lg:block"
           aria-hidden
         />
 
         <div className="overflow-x-auto overflow-y-hidden overscroll-x-contain pb-1 scroll-smooth snap-x snap-mandatory [-webkit-overflow-scrolling:touch] lg:pb-0">
           <ol
-            className="relative z-[1] flex min-w-[min(100%,60rem)] items-stretch gap-3 sm:min-w-[70rem] sm:gap-3.5 lg:min-w-0 lg:grid lg:grid-cols-5 lg:gap-3.5"
+            className="relative z-1 flex w-full items-stretch gap-3 sm:min-w-280 sm:gap-3.5 lg:min-w-0 lg:grid lg:grid-cols-5 lg:gap-3.5"
             aria-label="Progressão dos níveis de maturidade FAMI"
           >
             {FAMI_LEVEL_THRESHOLDS.map(({ level }) => {
@@ -194,7 +194,7 @@ export function FamiMaturityRoadmap({ currentLevel, className = "" }: Props) {
               return (
                 <li
                   key={level}
-                  className="flex min-w-[14.5rem] max-w-[16.5rem] flex-1 snap-center sm:min-w-[15.25rem] lg:min-w-0 lg:max-w-none"
+                  className="flex min-w-58 max-w-66 flex-1 snap-center sm:min-w-61 lg:min-w-0 lg:max-w-none"
                 >
                   <JourneyStepCard level={step} isCurrent={isCurrent} isPast={isPast} />
                 </li>

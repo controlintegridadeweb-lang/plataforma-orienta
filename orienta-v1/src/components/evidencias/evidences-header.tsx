@@ -7,6 +7,7 @@ import { RefreshCw } from "lucide-react";
 import { PanelHeroHeader } from "@/components/ui/panel-hero-header";
 
 import { formSurface } from "@/lib/form-surface";
+import { evidenceComplementation } from "@/lib/labels/complementation-terms";
 
 import type { ListEvidencesFilters } from "@/lib/evidences/client";
 
@@ -36,7 +37,7 @@ export function EvidencesHeader({
 
   title = "Evidências e Complementações",
 
-  subtitle = "Filtre, exporte e valide evidências enviadas e pedidos de complementação.",
+  subtitle = evidenceComplementation.navDescription,
 
   onRefresh,
 

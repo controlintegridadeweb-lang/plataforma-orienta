@@ -68,9 +68,9 @@ export function FamiMaturityExecutiveInsights({ summary, cards }: Props) {
             return (
               <li
                 key={card.id}
-                className={`rounded-xl border border-slate-200/80 px-5 py-5 shadow-[var(--shadow-card)] ring-1 ${tone.ring} ${tone.bg}`}
+                className={`rounded-xl border border-slate-200/80 px-5 py-5 shadow-card ring-1 ${tone.ring} ${tone.bg}`}
               >
-                <p className="text-[11px] font-semibold uppercase tracking-wide text-slate-500">
+                <p className="text-micro font-semibold uppercase tracking-wide text-slate-500">
                   {tone.label}
                 </p>
                 <p className={`mt-2 text-sm font-semibold leading-snug ${tone.title}`}>

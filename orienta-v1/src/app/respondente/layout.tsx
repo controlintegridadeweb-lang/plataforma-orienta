@@ -8,7 +8,7 @@ export default async function RespondenteLayout({ children }: { children: ReactN
     <AppShell
       user={user}
       title="Area do respondente"
-      description="Formulários, complementações, relatórios, pontuação FAMI e perfil"
+      description="Formulários, evidências, recomendações e plano, pontuação FAMI, relatórios e perfil"
     >
       {children}
     </AppShell>

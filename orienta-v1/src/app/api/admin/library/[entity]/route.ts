@@ -23,7 +23,7 @@ async function listByEntity(entity: LibraryCatalogEntity) {
 }
 
 export async function GET(request: Request, context: RouteContext) {
-  const { error: authError } = await requireAuth(request, ["admin", "analyst"]);
+  const { error: authError } = await requireAuth(request, ["admin"]);
   if (authError) return authError;
 
   try {
@@ -38,7 +38,7 @@ export async function GET(request: Request, context: RouteContext) {
 }
 
 export async function POST(request: Request, context: RouteContext) {
-  const { context: authContext, error: authError } = await requireAuth(request, ["admin", "analyst"]);
+  const { context: authContext, error: authError } = await requireAuth(request, ["admin"]);
   if (authError) return authError;
 
   try {

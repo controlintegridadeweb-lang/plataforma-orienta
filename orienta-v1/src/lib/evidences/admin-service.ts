@@ -363,7 +363,7 @@ export class EvidencesAdminService {
 
     const justification = payload.justification?.trim();
     const persisted =
-      payload.status === "waived"
+      payload.status === "invalidated" || payload.status === "adjustment_requested"
         ? justification ?? null
         : justification && justification.length > 0
           ? justification

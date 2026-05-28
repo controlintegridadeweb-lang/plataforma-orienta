@@ -119,7 +119,7 @@ export function buildAnswersCsv(payload: ExportPayload): string {
       "Respostas",
       "Sim",
       "Nao",
-      "Parcial",
+      "Nao se aplica",
     ]),
   );
   for (const q of payload.summary.questions) {
@@ -131,7 +131,7 @@ export function buildAnswersCsv(payload: ExportPayload): string {
         q.totalResponses,
         q.distribution.yes,
         q.distribution.no,
-        q.distribution.partial,
+        q.distribution.not_applicable,
       ]),
     );
   }
@@ -345,7 +345,7 @@ export async function buildAnswersPdf(
     );
     drawText(
       ctx,
-      `Sim: ${q.distribution.yes} | Nao: ${q.distribution.no} | Parcial: ${q.distribution.partial}`,
+      `Sim: ${q.distribution.yes} | Nao: ${q.distribution.no} | Nao se aplica: ${q.distribution.not_applicable}`,
       { size: 10, indent: 6 },
     );
     if (q.answerType === "text" && q.textEntries.length > 0) {

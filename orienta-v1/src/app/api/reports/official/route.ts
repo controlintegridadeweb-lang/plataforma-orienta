@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+﻿import { NextResponse } from "next/server";
 import { z } from "zod";
 import { buildOfficialReportPdf } from "@/lib/report/pdf";
 import { loadOfficialReportData } from "@/lib/report/build-official-report-data";
@@ -17,7 +17,7 @@ const bodySchema = z.object({
  * Gera PDF oficial a partir de fami_results / contagens no banco (nao aceita numeros arbitrarios do cliente).
  */
 export async function POST(request: Request) {
-  const { context, error } = await requireAuth(request, ["admin", "analyst", "respondent"]);
+  const { context, error } = await requireAuth(request, ["admin", "respondent"]);
   if (error) return error;
 
   let parsedBody: z.infer<typeof bodySchema>;

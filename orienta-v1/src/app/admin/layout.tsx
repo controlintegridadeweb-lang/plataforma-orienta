@@ -3,9 +3,7 @@ import { requireRole } from "@/lib/auth/current-user";
 import { AppShell } from "@/components/layout/app-shell";
 
 export default async function AdminLayout({ children }: { children: ReactNode }) {
-  // analyst aceito durante a transicao (Fase 2 da remocao do perfil).
-  // Sera simplificado para ["admin"] na Fase 3.
-  const user = await requireRole(["admin", "analyst"]);
+  const user = await requireRole(["admin"]);
 
   return (
     <AppShell

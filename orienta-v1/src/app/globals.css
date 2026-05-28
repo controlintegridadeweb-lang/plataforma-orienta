@@ -41,9 +41,9 @@
   --color-foreground: #0f172a;
 
   /* Sombras (mais suaves, padronizadas para cards e popovers). */
-  --shadow-card: 0 1px 2px -1px rgb(15 23 42 / 0.06), 0 2px 4px -2px rgb(15 23 42 / 0.06);
-  --shadow-card-hover: 0 4px 8px -2px rgb(15 23 42 / 0.10), 0 2px 4px -2px rgb(15 23 42 / 0.06);
-  --shadow-popover: 0 12px 24px -6px rgb(15 23 42 / 0.18), 0 4px 8px -4px rgb(15 23 42 / 0.10);
+  --ds-shadow-card: 0 1px 2px -1px rgb(15 23 42 / 0.06), 0 2px 4px -2px rgb(15 23 42 / 0.06);
+  --ds-shadow-card-hover: 0 4px 8px -2px rgb(15 23 42 / 0.10), 0 2px 4px -2px rgb(15 23 42 / 0.06);
+  --ds-shadow-popover: 0 12px 24px -6px rgb(15 23 42 / 0.18), 0 4px 8px -4px rgb(15 23 42 / 0.10);
 
   /* Radii de uso geral. */
   --radius-card: 0.75rem; /* rounded-xl */
@@ -88,9 +88,37 @@
   --color-brand-900: var(--color-brand-900);
   --color-brand-950: var(--color-brand-950);
 
-  --shadow-card: var(--shadow-card);
-  --shadow-card-hover: var(--shadow-card-hover);
-  --shadow-popover: var(--shadow-popover);
+  --shadow-card: var(--ds-shadow-card);
+  --shadow-card-hover: var(--ds-shadow-card-hover);
+  --shadow-popover: var(--ds-shadow-popover);
+
+  /* Micro tipografia UI (tabelas, badges, labels densos) — evita text-[Npx] arbitrário. */
+  --text-2xs: 0.625rem;
+  --text-2xs--line-height: 0.875rem;
+  --text-micro: 0.6875rem;
+  --text-micro--line-height: 1rem;
+  --text-caption: 0.8125rem;
+  --text-caption--line-height: 1.125rem;
+  --text-body-15: 0.9375rem;
+  --text-body-15--line-height: 1.25rem;
+
+  /* Títulos de painel / hero (escala entre text-2xl e text-3xl). */
+  --text-panel-section: 1.375rem;
+  --text-panel-section--line-height: 1.75rem;
+  --text-panel-hero: 1.75rem;
+  --text-panel-hero--line-height: 2.125rem;
+  --text-panel-hero-lg: 1.65rem;
+  --text-panel-hero-lg--line-height: 2rem;
+  --text-kicker-md: 1.0625rem;
+  --text-kicker-md--line-height: 1.5rem;
+  --text-hero-title: 2rem;
+  --text-hero-title--line-height: 2.375rem;
+
+  /* Números grandes (roadmap FAMI). */
+  --text-display-step: 4.25rem;
+  --text-display-step--line-height: 1;
+  --text-display-step-lg: 4.75rem;
+  --text-display-step-lg--line-height: 1;
 }
 
 /* =============================================================================

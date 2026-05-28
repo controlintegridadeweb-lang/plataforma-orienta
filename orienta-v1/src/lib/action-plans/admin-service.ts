@@ -34,13 +34,13 @@ import { displayNameFromProfile } from "@/lib/auth/profile-types";
 type Client = SupabaseClient;
 type Caller = { role: AppRole; organizationId: string | null };
 
-/** Mensagem técnica para admin/analista (quem corrige vínculos). */
+/** Mensagem técnica para admin (quem corrige vínculos). */
 const STAFF_AXIS_UNRESOLVED_MESSAGE =
   "Nao foi possivel resolver eixo estrutural para esta recomendacao (vincule pergunta a secao ou biblioteca).";
 
 /** Mensagem para respondente (sem linguagem de configuração técnica). */
 const RESPONDENT_AXIS_UNRESOLVED_MESSAGE =
-  "Não foi possível salvar a ação porque esta recomendação ainda não está corretamente associada a um eixo no sistema. Isso é configurado pelo analista ou administrador (pergunta, seção e biblioteca). Entre em contato com eles informando que não foi possível registrar o plano de ação para esta recomendação.";
+  "Não foi possível salvar a ação porque esta recomendação ainda não está corretamente associada a um eixo no sistema. Isso é configurado pela administração (pergunta, seção e biblioteca). Entre em contato informando que não foi possível registrar o plano de ação para esta recomendação.";
 
 export type { ActionPlanByFormPayload };
 
@@ -199,10 +199,7 @@ export class ActionPlansAdminService {
     organizationId: string,
     caller: Caller,
   ): Promise<ActionPlanByFormPayload | null> {
-    // Cross-org permitido para admin global e analyst (legado).
-    // Demais (admin com org, respondent) precisam matchar a organizacao.
-    const canCrossOrg = isGlobalAdmin(caller) || caller.role === "analyst";
-    if (!canCrossOrg) {
+    if (!isGlobalAdmin(caller)) {
       if (!caller.organizationId || caller.organizationId !== organizationId) {
         throw new ActionPlansNotFoundError();
       }
@@ -617,9 +614,9 @@ export class ActionPlansAdminService {
     caller: Caller,
     actorUserId: string,
   ): Promise<SupervisionNoteEntry> {
-    if (caller.role !== "admin" && caller.role !== "analyst") {
+    if (caller.role !== "admin") {
       throw new ActionPlansValidationError([
-        { path: "_", message: "Somente admin ou analista podem registrar pareceres." },
+        { path: "_", message: "Somente administradores podem registrar pareceres." },
       ]);
     }
 

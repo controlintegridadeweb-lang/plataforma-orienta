@@ -222,7 +222,7 @@ export function EvidencesFilters({ options, value, onChange, onClear, loading }:
       </div>
       {activeChips.length > 0 ? (
         <div className="flex flex-wrap items-center gap-2 border-t border-slate-100 bg-slate-50/40 px-4 py-3 sm:px-5">
-          <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+          <span className="text-micro font-semibold uppercase tracking-wider text-slate-500">
             Ativos
           </span>
           {activeChips.map((chip) => (

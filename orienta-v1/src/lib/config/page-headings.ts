@@ -1,6 +1,8 @@
 /**
  * Titulos e subtitulos do cabeçalho principal por rota (prefixo mais longo vence).
  */
+import { evidenceComplementation } from "@/lib/labels/complementation-terms";
+
 export type PageHeading = { title: string; description?: string };
 
 type RouteHeading = { prefix: string } & PageHeading;
@@ -19,18 +21,13 @@ const ADMIN_HEADINGS: RouteHeading[] = [
   {
     prefix: "/admin/formularios",
     title: "Formulários",
-    description: "Lista, versões, perguntas e configuração.",
-  },
-  {
-    prefix: "/admin/responder",
-    title: "Responder por organização",
     description:
-      "Responda formulários em nome de uma organização. As respostas mantêm a sua autoria para auditoria.",
+      "Lista, versões, perguntas, configuração e ciclo institucional (inclui complementação do ciclo, se aplicável).",
   },
   {
     prefix: "/admin/evidencias",
     title: "Evidências e Complementações",
-    description: "Validação, auditoria e pedidos de complementação das evidências enviadas.",
+    description: evidenceComplementation.navDescription,
   },
   {
     prefix: "/admin/perfil",
@@ -75,24 +72,25 @@ const RESPONDENT_HEADINGS: RouteHeading[] = [
   {
     prefix: "/respondente/formularios",
     title: "Meus Formulários",
-    description: "Responder questões e acompanhar o progresso do envio.",
+    description:
+      "Responder questões, anexar evidências e finalizar o envio da sua organização quando concluir.",
   },
   {
     prefix: "/respondente/evidencias-complementacoes",
     title: "Evidências e Complementações",
-    description: "Evidências enviadas e pedidos de complementação do analista.",
+    description: `${evidenceComplementation.navDescription} Distinto da complementação do ciclo do formulário (configuração admin).`,
   },
   {
     prefix: "/respondente/portfolio-recomendacoes",
-    title: "Recomendações",
+    title: "Recomendações e plano",
     description:
-      "Recomendações geradas pelos formulários: status, próximo passo e cadastro de ações por item.",
+      "Lista de recomendações da sua organização: status, prioridade e acesso ao cadastro de ações de cada item.",
   },
   {
     prefix: "/respondente/plano-acao",
-    title: "Plano de Ação",
+    title: "Recomendações e plano",
     description:
-      "Workspace operacional: visão agregada ou detalhamento por recomendação (ações, prazos e monitoramento).",
+      "Detalhe da recomendação: visão geral, ações, prazos, responsáveis e monitoramento.",
   },
   {
     prefix: "/respondente/relatorios",
@@ -102,7 +100,8 @@ const RESPONDENT_HEADINGS: RouteHeading[] = [
   {
     prefix: "/respondente/pontuacao-fami",
     title: "Pontuação FAMI",
-    description: "Indicadores de maturidade da sua organização.",
+    description:
+      "Indicadores oficiais de maturidade. A pontuação consolidada é calculada quando a administração encerra o ciclo do formulário; até lá, respostas e evidências atualizam recomendações.",
   },
   {
     prefix: "/respondente/perfil",

@@ -382,13 +382,13 @@ function seed(db: Db) {
   };
   db.evidences.push(evA1, evA2, evB1);
 
-  // Evidencia A1 ja tem uma validacao "valid".
+  // Evidencia A1 ja tem uma validacao "approved".
   db.evidence_validations.push({
     id: genId(),
     evidence_id: evA1.id,
-    status: "valid",
+    status: "approved",
     justification: "ok",
-    validated_by: "analyst-1",
+    validated_by: "admin-org-1",
     validated_at: "2025-01-05T10:00:00.000Z",
   });
 
@@ -413,13 +413,13 @@ describe("EvidencesAdminService", () => {
     ]);
   });
 
-  it("analyst ve apenas a propria organizacao mesmo se passar outro organizationId", async () => {
+  it("admin org-scoped ve apenas a propria organizacao mesmo se passar outro organizationId", async () => {
     const db = emptyDb();
     const { orgA, orgB } = seed(db);
     const svc = new EvidencesAdminService(buildMock(db));
     const result = await svc.list(
       { organizationId: orgB.id },
-      { role: "analyst", organizationId: orgA.id },
+      { role: "admin", organizationId: orgA.id },
     );
     expect(result.total).toBe(2);
     expect(result.items.every((i) => i.organizationId === orgA.id)).toBe(true);
@@ -440,11 +440,11 @@ describe("EvidencesAdminService", () => {
     const db = emptyDb();
     seed(db);
     const svc = new EvidencesAdminService(buildMock(db));
-    const valid = await svc.list(
-      { status: "valid" },
+    const approved = await svc.list(
+      { status: "approved" },
       { role: "admin", organizationId: null },
     );
-    expect(valid.items.map((i) => i.title)).toEqual(["Ev A1"]);
+    expect(approved.items.map((i) => i.title)).toEqual(["Ev A1"]);
     const pending = await svc.list(
       { status: "pending" },
       { role: "admin", organizationId: null },
@@ -459,25 +459,29 @@ describe("EvidencesAdminService", () => {
     const before = db.evidence_validations.length;
     const result = await svc.validate(
       evA2.id,
-      { status: "invalid", justification: "faltou anexo" },
+      { status: "invalidated", justification: "faltou anexo" },
       "user-admin",
     );
-    expect(result.entry.status).toBe("invalid");
+    expect(result.entry.status).toBe("invalidated");
     expect(result.entry.justification).toBe("faltou anexo");
     expect(result.entry.validatedBy).toBe("user-admin");
     expect(result.scope).toEqual({ formId: form2.id, organizationId: orgA.id });
     expect(db.evidence_validations.length).toBe(before + 1);
   });
 
-  it("validate com status=waived sem justificativa lanca EvidencesValidationError", async () => {
+  it("validate com status=adjustment_requested sem justificativa lanca EvidencesValidationError", async () => {
     const db = emptyDb();
     const { evA2 } = seed(db);
     const svc = new EvidencesAdminService(buildMock(db));
     await expect(
-      svc.validate(evA2.id, { status: "waived" }, "user-admin"),
+      svc.validate(evA2.id, { status: "adjustment_requested" }, "user-admin"),
     ).rejects.toBeInstanceOf(EvidencesValidationError);
     await expect(
-      svc.validate(evA2.id, { status: "waived", justification: "   " }, "user-admin"),
+      svc.validate(
+        evA2.id,
+        { status: "adjustment_requested", justification: "   " },
+        "user-admin",
+      ),
     ).rejects.toBeInstanceOf(EvidencesValidationError);
   });
 
@@ -485,13 +489,13 @@ describe("EvidencesAdminService", () => {
     const db = emptyDb();
     const { evA2 } = seed(db);
     const svc = new EvidencesAdminService(buildMock(db));
-    await svc.validate(evA2.id, { status: "valid" }, "user-admin");
+    await svc.validate(evA2.id, { status: "approved" }, "user-admin");
     const row = db.evidence_validations.at(-1);
-    expect(row?.status).toBe("valid");
+    expect(row?.status).toBe("approved");
     expect(row?.justification).toBeNull();
   });
 
-  it("listFilterOptions devolve todas as orgs para admin e apenas uma para analyst", async () => {
+  it("listFilterOptions devolve todas as orgs para admin global e apenas uma para org-scoped", async () => {
     const db = emptyDb();
     const { orgA } = seed(db);
     const svc = new EvidencesAdminService(buildMock(db));
@@ -505,10 +509,10 @@ describe("EvidencesAdminService", () => {
       "Org B",
     ]);
 
-    const analystOpts = await svc.listFilterOptions({
-      role: "analyst",
+    const scopedOpts = await svc.listFilterOptions({
+      role: "admin",
       organizationId: orgA.id,
     });
-    expect(analystOpts.organizations.map((o) => o.id)).toEqual([orgA.id]);
+    expect(scopedOpts.organizations.map((o) => o.id)).toEqual([orgA.id]);
   });
 });

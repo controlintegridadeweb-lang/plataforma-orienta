@@ -60,19 +60,19 @@ function formatDateTime(iso: string): string {
 function trendIcon(delta: number) {
   if (delta > 0.5)
     return (
-      <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-1.5 py-0.5 text-[10px] font-semibold text-emerald-700">
+      <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-1.5 py-0.5 text-2xs font-semibold text-emerald-700">
         <ArrowUpRight className="h-3 w-3" aria-hidden />+{delta.toFixed(1)} p.p.
       </span>
     );
   if (delta < -0.5)
     return (
-      <span className="inline-flex items-center gap-1 rounded-full bg-rose-50 px-1.5 py-0.5 text-[10px] font-semibold text-rose-700">
+      <span className="inline-flex items-center gap-1 rounded-full bg-rose-50 px-1.5 py-0.5 text-2xs font-semibold text-rose-700">
         <ArrowDownRight className="h-3 w-3" aria-hidden />
         {delta.toFixed(1)} p.p.
       </span>
     );
   return (
-    <span className="inline-flex items-center gap-1 rounded-full bg-slate-100 px-1.5 py-0.5 text-[10px] font-semibold text-slate-600">
+    <span className="inline-flex items-center gap-1 rounded-full bg-slate-100 px-1.5 py-0.5 text-2xs font-semibold text-slate-600">
       <Minus className="h-3 w-3" aria-hidden />
       Estável
     </span>
@@ -107,7 +107,7 @@ export function RespondentFamiEvolution(props: Props) {
         <p className="mt-1 text-xs text-slate-500">
           {granularity === "years" ? `Ano ${pt.subtitle}` : pt.subtitle} ·{" "}
           {formatDateTime(pt.createdAt)} ·{" "}
-          {pt.globalPercentage != null ? `${pt.globalPercentage.toFixed(1)}%` : "—"}
+          {pt.globalPercentage != null ? `${pt.globalPercentage.toFixed(1)}%` : ""}
         </p>
         <p className="mt-3 rounded-lg border border-slate-200 bg-slate-50/70 px-3 py-2 text-xs text-slate-600">
           {granularity === "years"
@@ -195,7 +195,7 @@ export function RespondentFamiEvolution(props: Props) {
           viewBox={`0 0 ${width} ${height}`}
           role="img"
           aria-label={ariaLabel}
-          className="h-auto w-full min-w-[480px]"
+          className="h-auto w-full min-w-120"
         >
           {[0, 25, 50, 75, 100].map((t) => (
             <g key={t}>
@@ -270,7 +270,7 @@ export function RespondentFamiEvolution(props: Props) {
         </svg>
       </div>
 
-      <div className="flex flex-wrap items-center gap-3 text-[11px] text-slate-600">
+      <div className="flex flex-wrap items-center gap-3 text-micro text-slate-600">
         <span className="inline-flex items-center gap-1">
           <span className="inline-block h-0.5 w-4 bg-slate-900" aria-hidden />
           Global
@@ -288,7 +288,7 @@ export function RespondentFamiEvolution(props: Props) {
       </div>
 
       <section aria-label={granularity === "years" ? "Histórico por ano" : "Histórico de processamentos"}>
-        <p className="mb-2 text-[11px] uppercase tracking-wider text-slate-500">Histórico</p>
+        <p className="mb-2 text-micro uppercase tracking-wider text-slate-500">Histórico</p>
         <ol className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
           {variations.map(({ pt, delta }) => {
             const pct = pt.globalPercentage ?? 0;
@@ -300,7 +300,7 @@ export function RespondentFamiEvolution(props: Props) {
               >
                 <div>
                   <p className="text-xs font-semibold text-slate-900">{pt.subtitle}</p>
-                  <p className="text-[10px] text-slate-500">{formatDateTime(pt.createdAt)}</p>
+                  <p className="text-2xs text-slate-500">{formatDateTime(pt.createdAt)}</p>
                 </div>
                 <div className="flex items-center gap-2">
                   <span className={`text-sm font-bold tabular-nums ${lvl.textColor}`}>

@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import { ArrowRight, type LucideIcon } from "lucide-react";
 import type { ReactNode } from "react";
 
@@ -51,7 +51,7 @@ const STATUS_STYLES: Record<StatusTone, { dot: string; label: string; text: stri
 
 const DENSITY = {
   comfortable: {
-    root: "min-h-[148px]",
+    root: "min-h-37",
     iconBox: "h-14 w-14 rounded-xl [&_svg]:h-7 [&_svg]:w-7",
     value:
       "mt-3 text-[clamp(2rem,4.5vw,2.75rem)] font-medium tabular-nums tracking-normal leading-none text-slate-900",
@@ -59,7 +59,7 @@ const DENSITY = {
     padY: "py-[var(--card-padding-y)]",
   },
   compact: {
-    root: "min-h-[120px]",
+    root: "min-h-30",
     iconBox: "h-11 w-11 rounded-xl [&_svg]:h-5 [&_svg]:w-5",
     value: "mt-2 text-2xl font-semibold tabular-nums leading-none tracking-normal text-slate-900",
     mainRow: "items-start gap-3 sm:gap-4",
@@ -156,7 +156,7 @@ export function MetricCard({
       >
         <div className={mergeClasses("flex w-full min-w-0 flex-1", den.mainRow)}>
           <div className="min-w-0 flex-1 py-0.5">
-            <p className="text-[0.9375rem] font-medium leading-snug text-slate-600">{label}</p>
+            <p className="text-sm font-medium leading-snug text-slate-600">{label}</p>
             <div
               className={
                 valueClassName
@@ -199,9 +199,9 @@ export function MetricCard({
   );
 
   const surfaceClass = mergeClasses(
-    "group relative flex h-full w-full min-w-0 overflow-hidden rounded-xl border border-slate-200/95 bg-white text-left shadow-[var(--shadow-card)] transition",
+    "group relative flex h-full w-full min-w-0 overflow-hidden rounded-xl border border-slate-200/95 bg-white text-left shadow-card transition",
     interactive && !disabled
-      ? "hover:border-slate-300/90 hover:shadow-[var(--shadow-card-hover)]"
+      ? "hover:border-slate-300/90 hover:shadow-card-hover"
       : "",
     interactive && onClick && !href && !disabled ? "cursor-pointer hover:-translate-y-0.5" : "",
     den.root,
@@ -252,7 +252,7 @@ export function MetricCardSkeleton({ className }: { className?: string }) {
   return (
     <div
       className={mergeClasses(
-        "relative flex min-h-[148px] w-full min-w-0 overflow-hidden rounded-xl border border-slate-200/95 bg-white shadow-[var(--shadow-card)]",
+        "relative flex min-h-37 w-full min-w-0 overflow-hidden rounded-xl border border-slate-200/95 bg-white shadow-card",
         className,
       )}
     >

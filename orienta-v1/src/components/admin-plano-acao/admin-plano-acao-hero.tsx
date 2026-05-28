@@ -56,7 +56,7 @@ function buildSummaryLine(summary: AdminPlanSummary): {
   };
 }
 
-/** Hero institucional de Plano de Ação (admin/analista). */
+/** Hero institucional de Plano de Ação (admin). */
 export function AdminActionPlanHero({
   summary,
   loading,

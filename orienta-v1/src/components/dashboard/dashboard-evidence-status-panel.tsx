@@ -1,9 +1,8 @@
-"use client";
+﻿"use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { InlineLoader } from "@/components/ui/loading";
 import type { RecommendationFilterOptions } from "@/lib/recommendations/admin-service";
-import { loadRecommendationFilters } from "@/lib/recommendations/client";
 import { StatusPieChart } from "@/components/charts/status-pie-chart";
 import { SectionHeader } from "@/components/ui/section-header";
 import { fetchDashboardEvidenceStatus } from "@/lib/dashboards/client";
@@ -13,13 +12,17 @@ type Props = {
   initialData: Record<string, number>;
   /** Valor inicial do filtro: "" = todas, ou id da organizacao */
   initialOrganizationId: string;
+  filterOptions?: RecommendationFilterOptions;
 };
 
 export function DashboardEvidenceStatusPanel({
   initialData,
   initialOrganizationId,
+  filterOptions: filterOptionsProp,
 }: Props) {
-  const [filters, setFilters] = useState<RecommendationFilterOptions | null>(null);
+  const [filters, setFilters] = useState<RecommendationFilterOptions | null>(
+    filterOptionsProp ?? null,
+  );
   const [filterError, setFilterError] = useState<string | null>(null);
   const [organizationId, setOrganizationId] = useState(initialOrganizationId);
   const [data, setData] = useState<Record<string, number>>(initialData);
@@ -30,12 +33,15 @@ export function DashboardEvidenceStatusPanel({
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    loadRecommendationFilters()
-      .then(setFilters)
-      .catch((e: unknown) =>
-        setFilterError(e instanceof Error ? e.message : "Falha ao carregar organizacoes."),
-      );
-  }, []);
+    if (filterOptionsProp) return;
+    void import("@/lib/recommendations/client").then(({ loadRecommendationFilters }) =>
+      loadRecommendationFilters()
+        .then(setFilters)
+        .catch((e: unknown) =>
+          setFilterError(e instanceof Error ? e.message : "Falha ao carregar organizacoes."),
+        ),
+    );
+  }, [filterOptionsProp]);
 
   const load = useCallback(async (orgId: string) => {
     setLoading(true);
@@ -78,7 +84,7 @@ export function DashboardEvidenceStatusPanel({
           <select
             value={organizationId}
             onChange={(e) => setOrganizationId(e.target.value)}
-            className={`${formSurface.inputSelect} min-w-[240px] text-[0.9375rem]`}
+            className={`${formSurface.inputSelect} min-w-60 text-sm`}
           >
             <option value="">Todas</option>
             {filters?.organizations.map((o) => (

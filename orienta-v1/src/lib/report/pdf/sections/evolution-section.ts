@@ -2,7 +2,7 @@ import type { Cursor, OrientaPdfDocument } from "../document";
 import { contentWidth, reportTheme } from "../theme";
 import { drawSparkline } from "../helpers";
 
-export function renderEvolutionSection(doc: OrientaPdfDocument, _c: Cursor): Cursor {
+export function renderEvolutionSection(doc: OrientaPdfDocument): Cursor {
   let cur = doc.beginMajorSection(
     "Evolução institucional",
     "Tendência de maturidade entre processamentos e anos de referência.",

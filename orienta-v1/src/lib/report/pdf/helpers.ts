@@ -13,7 +13,8 @@ export function statusLabelPt(status: string): string {
     approved: "Aprovada",
     pending: "Pendente",
     rejected: "Rejeitada",
-    complementation_requested: "Complementação",
+    complementation_requested: "Ajuste solicitado",
+    adjustment_requested: "Ajuste solicitado",
   };
   return map[status] ?? status.replace(/_/g, " ");
 }

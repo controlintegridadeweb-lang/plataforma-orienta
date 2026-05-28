@@ -9,8 +9,10 @@
  * os usuarios que contribuiram via `responses.created_by`.
  */
 
+import { evidenceComplementation } from "@/lib/labels/complementation-terms";
+
 /** Resposta enumerada (DB enum `answer_value`). */
-export type AnswerValue = "yes" | "no" | "partial";
+export type AnswerValue = "yes" | "no" | "not_applicable";
 
 /**
  * Tipo de metrica do binding (espelha `LibraryMetricAnswerType`). Quando a
@@ -48,7 +50,7 @@ export type AnswersOverview = {
 export type AnswerValueDistribution = {
   yes: number;
   no: number;
-  partial: number;
+  not_applicable: number;
 };
 
 /** Linha textual exibida em perguntas discursivas (tipo `text`). */
@@ -187,5 +189,5 @@ export const RESPONDENT_STATUS_LABEL: Record<RespondentStatus, string> = {
   em_preenchimento: "Em preenchimento",
   completa: "Completa",
   submetida: "Submetida",
-  em_complementacao: "Em complementacao",
+  em_complementacao: evidenceComplementation.answersOrgStatus,
 };

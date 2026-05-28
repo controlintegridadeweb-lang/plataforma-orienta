@@ -1,12 +1,10 @@
 export type ValidationStatus =
   | "pending"
-  | "valid"
-  | "invalid"
-  | "partially_valid"
-  | "complementation_requested"
-  | "waived";
+  | "approved"
+  | "invalidated"
+  | "adjustment_requested";
 
-export type AnswerValue = "yes" | "no" | "partial";
+export type AnswerValue = "yes" | "no" | "not_applicable";
 
 export type WorkflowState =
   | "draft"
@@ -19,7 +17,6 @@ export type WorkflowState =
 
 export type RecommendationType =
   | "not_implemented"
-  | "partial_implementation"
   | "missing_evidence"
   | "insufficient_evidence";
 

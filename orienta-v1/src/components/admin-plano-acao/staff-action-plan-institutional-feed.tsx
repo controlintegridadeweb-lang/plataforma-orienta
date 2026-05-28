@@ -279,7 +279,7 @@ export function StaffActionPlanInstitutionalFeed({
                       <p className={typography.meta}>{item.roleLabel}</p>
                     </div>
                   </div>
-                  <time className="shrink-0 text-[11px] tabular-nums text-slate-400" dateTime={item.ts}>
+                  <time className="shrink-0 text-micro tabular-nums text-slate-400" dateTime={item.ts}>
                     {formatDateTime(item.ts)}
                   </time>
                 </div>

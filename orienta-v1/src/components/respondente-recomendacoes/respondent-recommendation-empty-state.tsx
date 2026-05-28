@@ -28,7 +28,7 @@ export function RespondentRecommendationEmptyState({ variant, onClearFilters }: 
       icon: Lightbulb,
       title: "Nenhuma recomendação gerada ainda",
       description:
-        "Após enviar o formulário ou quando houver não conformidade nas respostas, as recomendações aplicáveis aparecerão aqui automaticamente.",
+        "Após finalizar o envio do formulário ou quando houver não conformidade nas respostas, as recomendações aplicáveis aparecerão aqui automaticamente.",
       cta: { label: "Ir para meus formulários", href: "/respondente/formularios" },
     },
     "no-results": {

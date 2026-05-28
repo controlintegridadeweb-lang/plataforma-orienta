@@ -59,7 +59,7 @@ function EvidenceCompactRow({
       </div>
       <div className="flex shrink-0 flex-col items-end gap-1.5">
         <StatusBadge status={item.currentStatus} />
-        <Link href={detailHref} className="text-[11px] font-semibold text-brand-700 hover:underline">
+        <Link href={detailHref} className="text-micro font-semibold text-brand-700 hover:underline">
           Validar
         </Link>
       </div>
@@ -163,7 +163,7 @@ export function StaffActionPlanSupervisionWorkspace() {
   const pendingEvidences = useMemo(
     () =>
       evidences.filter((e) =>
-        ["pending", "complementation_requested", "partially_valid"].includes(e.currentStatus),
+        ["pending", "adjustment_requested"].includes(e.currentStatus),
       ).length,
     [evidences],
   );
@@ -287,25 +287,25 @@ export function StaffActionPlanSupervisionWorkspace() {
 
         <aside className="space-y-4 xl:sticky xl:top-6 xl:self-start">
           <section className={`${formSurface.dashboardPanel} space-y-4 p-5`}>
-            <p className="text-[11px] font-semibold uppercase tracking-wide text-slate-500">
+            <p className="text-micro font-semibold uppercase tracking-wide text-slate-500">
               Indicadores de supervisão
             </p>
 
             <div className="grid grid-cols-2 gap-2">
               <div className="rounded-lg border border-slate-100 bg-slate-50/60 px-3 py-2">
-                <p className="text-[10px] font-medium uppercase tracking-wide text-slate-500">Evidências</p>
+                <p className="text-2xs font-medium uppercase tracking-wide text-slate-500">Evidências</p>
                 <p className="mt-1 text-lg font-semibold tabular-nums text-slate-900">{evidences.length}</p>
               </div>
               <div className="rounded-lg border border-slate-100 bg-slate-50/60 px-3 py-2">
-                <p className="text-[10px] font-medium uppercase tracking-wide text-slate-500">Pendentes</p>
+                <p className="text-2xs font-medium uppercase tracking-wide text-slate-500">Pendentes</p>
                 <p className="mt-1 text-lg font-semibold tabular-nums text-slate-900">{pendingEvidences}</p>
               </div>
               <div className="rounded-lg border border-slate-100 bg-slate-50/60 px-3 py-2">
-                <p className="text-[10px] font-medium uppercase tracking-wide text-slate-500">Ações</p>
+                <p className="text-2xs font-medium uppercase tracking-wide text-slate-500">Ações</p>
                 <p className="mt-1 text-lg font-semibold tabular-nums text-slate-900">{plans.length}</p>
               </div>
               <div className="rounded-lg border border-slate-100 bg-slate-50/60 px-3 py-2">
-                <p className="text-[10px] font-medium uppercase tracking-wide text-slate-500">Atrasadas</p>
+                <p className="text-2xs font-medium uppercase tracking-wide text-slate-500">Atrasadas</p>
                 <p className={`mt-1 text-lg font-semibold tabular-nums ${overdueActions > 0 ? "text-rose-700" : "text-slate-900"}`}>
                   {overdueActions}
                 </p>

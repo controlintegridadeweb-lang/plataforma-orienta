@@ -1,3 +1,4 @@
+import { redirect } from "next/navigation";
 import { AdminActionPlanShell } from "@/components/admin-plano-acao/admin-action-plan-shell";
 import type { AdminPlanFiltersState } from "@/components/admin-plano-acao/admin-action-plan-filters";
 import type { AdminPlanViewMode } from "@/components/admin-plano-acao/admin-action-plan-view-switcher";
@@ -15,6 +16,11 @@ export default async function AdminPlanoAcaoPage({
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
   const sp = await searchParams;
+  const recommendationId = firstSearchParam(sp, "recommendationId") ?? "";
+  if (recommendationId.trim()) {
+    redirect(`/admin/plano-acao/${recommendationId.trim()}/visao-geral`);
+  }
+
   const layout =
     firstSearchParam(sp, "layout") ??
     (firstSearchParam(sp, "view") === "organization" ? "organization" : undefined);

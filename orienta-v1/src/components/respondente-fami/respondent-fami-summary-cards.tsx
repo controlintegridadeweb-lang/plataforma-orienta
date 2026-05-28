@@ -70,28 +70,28 @@ function Sparkline({ values, color }: { values: number[]; color: string }) {
 function DeltaPill({ delta }: { delta: EvolutionDelta }) {
   if (delta.delta == null) {
     return (
-      <span className="inline-flex items-center gap-1 rounded-full bg-slate-100 px-1.5 py-0.5 text-[10px] font-semibold text-slate-500">
+      <span className="inline-flex items-center gap-1 rounded-full bg-slate-100 px-1.5 py-0.5 text-2xs font-semibold text-slate-500">
         <Minus className="h-3 w-3" aria-hidden /> Sem histórico
       </span>
     );
   }
   if (delta.trend === "up") {
     return (
-      <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-1.5 py-0.5 text-[10px] font-semibold text-emerald-700">
+      <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-1.5 py-0.5 text-2xs font-semibold text-emerald-700">
         <ArrowUpRight className="h-3 w-3" aria-hidden />+{delta.delta.toFixed(1)} p.p.
       </span>
     );
   }
   if (delta.trend === "down") {
     return (
-      <span className="inline-flex items-center gap-1 rounded-full bg-rose-50 px-1.5 py-0.5 text-[10px] font-semibold text-rose-700">
+      <span className="inline-flex items-center gap-1 rounded-full bg-rose-50 px-1.5 py-0.5 text-2xs font-semibold text-rose-700">
         <ArrowDownRight className="h-3 w-3" aria-hidden />
         {delta.delta.toFixed(1)} p.p.
       </span>
     );
   }
   return (
-    <span className="inline-flex items-center gap-1 rounded-full bg-slate-100 px-1.5 py-0.5 text-[10px] font-semibold text-slate-600">
+    <span className="inline-flex items-center gap-1 rounded-full bg-slate-100 px-1.5 py-0.5 text-2xs font-semibold text-slate-600">
       <Minus className="h-3 w-3" aria-hidden /> Estável
     </span>
   );
@@ -218,11 +218,11 @@ export function RespondentFamiSummaryCards({
           ) : card.id === "evolution" ? (
             <DeltaPill delta={delta} />
           ) : card.id === "level" ? (
-            <span className={`inline-block rounded-full px-2 py-0.5 text-[10px] font-semibold ${lvl.badgeClasses}`}>
+            <span className={`inline-block rounded-full px-2 py-0.5 text-2xs font-semibold ${lvl.badgeClasses}`}>
               {lvl.shortLabel}
             </span>
           ) : card.id === "critical" || card.id === "advanced" ? (
-            <span className="inline-flex items-center gap-1 text-[10px] text-slate-500">
+            <span className="inline-flex items-center gap-1 text-2xs text-slate-500">
               <Layers className="h-3 w-3" aria-hidden />
               {card.id === "critical" ? "Priorize estes eixos" : "Mantenha o nível"}
             </span>

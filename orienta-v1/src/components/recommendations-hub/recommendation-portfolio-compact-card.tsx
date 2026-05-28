@@ -42,8 +42,8 @@ export function RecommendationPortfolioCompactCard(props: Props) {
           : null;
     const slaTone =
       item.slaLabel === "overdue"
-        ? "bg-rose-50 text-[11px] font-semibold text-rose-800 ring-1 ring-rose-200"
-        : "bg-amber-50 text-[11px] font-semibold text-amber-900 ring-1 ring-amber-200";
+        ? "bg-rose-50 text-micro font-semibold text-rose-800 ring-1 ring-rose-200"
+        : "bg-amber-50 text-micro font-semibold text-amber-900 ring-1 ring-amber-200";
 
     return (
       <article
@@ -59,7 +59,7 @@ export function RecommendationPortfolioCompactCard(props: Props) {
               <h2 className="line-clamp-2 text-base font-semibold leading-snug text-slate-900">
                 {firstLine(item.recommendationText)}
               </h2>
-              <div className="flex flex-wrap items-center gap-2 text-[11px] text-slate-600">
+              <div className="flex flex-wrap items-center gap-2 text-micro text-slate-600">
                 <span className="rounded-full bg-slate-100 px-2 py-0.5 font-semibold text-slate-700 ring-1 ring-slate-200/80">
                   {item.actionCount === 0
                     ? "Sem ações"
@@ -78,7 +78,7 @@ export function RecommendationPortfolioCompactCard(props: Props) {
             <RespondentRecommendationStatusBadge view={item.view} />
           </div>
           <div className="space-y-1">
-            <div className="flex items-center justify-between text-[11px] text-slate-500">
+            <div className="flex items-center justify-between text-micro text-slate-500">
               <span>Progresso</span>
               <span className="tabular-nums font-semibold text-slate-700">{item.progress}%</span>
             </div>
@@ -107,8 +107,8 @@ export function RecommendationPortfolioCompactCard(props: Props) {
         : null
     : null;
   const slaTone = item.isOverdue
-    ? "bg-rose-50 text-[11px] font-semibold text-rose-800 ring-1 ring-rose-200"
-    : "bg-amber-50 text-[11px] font-semibold text-amber-900 ring-1 ring-amber-200";
+    ? "bg-rose-50 text-micro font-semibold text-rose-800 ring-1 ring-rose-200"
+    : "bg-amber-50 text-micro font-semibold text-amber-900 ring-1 ring-amber-200";
 
   return (
     <article className="group relative overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm transition hover:border-slate-300 hover:shadow-md">
@@ -121,7 +121,7 @@ export function RecommendationPortfolioCompactCard(props: Props) {
             <h2 className="line-clamp-2 text-base font-semibold leading-snug text-slate-900">
               {firstLine(item.recommendationText)}
             </h2>
-            <div className="flex flex-wrap items-center gap-2 text-[11px] text-slate-600">
+            <div className="flex flex-wrap items-center gap-2 text-micro text-slate-600">
               <span className="rounded-full bg-slate-100 px-2 py-0.5 font-semibold text-slate-700 ring-1 ring-slate-200/80">
                 {item.hasPlan
                   ? `${item.plans.length} ${item.plans.length === 1 ? "ação" : "ações"}`
@@ -138,7 +138,7 @@ export function RecommendationPortfolioCompactCard(props: Props) {
           <AdminRecommendationStatusBadge view={item.view} />
         </div>
         <div className="space-y-1">
-          <div className="flex items-center justify-between text-[11px] text-slate-500">
+          <div className="flex items-center justify-between text-micro text-slate-500">
             <span>Progresso</span>
             <span className="tabular-nums font-semibold text-slate-700">{item.progress}%</span>
           </div>

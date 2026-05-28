@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+﻿import { NextResponse } from "next/server";
 import { z } from "zod";
 import { canTransition } from "@/lib/domain/workflow";
 import { requireAuth } from "@/lib/api/auth";
@@ -25,7 +25,7 @@ const transitionSchema = z.object({
 });
 
 export async function POST(request: Request) {
-  const { error } = await requireAuth(request, ["admin", "analyst"]);
+  const { error } = await requireAuth(request, ["admin"]);
   if (error) return error;
 
   const body = await request.json();

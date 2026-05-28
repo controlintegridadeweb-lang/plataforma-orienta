@@ -27,7 +27,7 @@ export function ActionPlanScopeBanner({ parts }: Props) {
       {parts.map((part) => (
         <span
           key={`${part.label}-${part.value}`}
-          className="inline-flex max-w-full items-center gap-1 rounded-full border border-slate-200/80 bg-white py-0.5 pl-2 pr-0.5 text-[11px] text-slate-700 shadow-sm"
+          className="inline-flex max-w-full items-center gap-1 rounded-full border border-slate-200/80 bg-white py-0.5 pl-2 pr-0.5 text-micro text-slate-700 shadow-sm"
         >
           <span className="shrink-0 text-slate-500">{part.label}:</span>
           <span className="truncate font-medium text-slate-800" title={part.value}>

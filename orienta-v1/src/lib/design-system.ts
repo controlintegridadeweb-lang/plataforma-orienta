@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Plataforma Orienta — Etapa 2 · Mini design system
  *
  * Referência visual oficial: dashboard do administrador (`/admin`) — KPIs
@@ -33,10 +33,10 @@ export { formSurface, ds } from "./form-surface";
 export const typography = {
   /** `<h1>` do cabeçalho sticky da área logada. */
   pageTitle:
-    "truncate text-xl font-medium tracking-normal text-slate-900 sm:text-2xl lg:text-[1.75rem] lg:leading-snug",
+    "truncate text-xl font-medium tracking-normal text-slate-900 sm:text-2xl lg:text-panel-hero lg:leading-snug",
   /** Subtítulo sob o título da página (header). */
   pageDescription:
-    "mt-1 line-clamp-2 text-[0.9375rem] leading-relaxed text-slate-600 sm:text-base",
+    "mt-1 line-clamp-2 text-sm leading-relaxed text-slate-600 sm:text-base",
   /**
    * Rótulo curto acima de um grupo de KPIs ou bloco principal no dashboard
    * (ex.: "Visão geral", "Sistema") — `text-slate-600`.
@@ -45,7 +45,7 @@ export const typography = {
   /** Kicker opcional *dentro* de painéis, acima do `<h2>` (`SectionHeader`). */
   panelEyebrow: "text-sm font-medium text-slate-500",
   /** `<h2>` de seção em painéis e páginas de conteúdo. */
-  sectionTitle: "text-xl font-medium tracking-normal text-slate-900 sm:text-[1.375rem]",
+  sectionTitle: "text-xl font-medium tracking-normal text-slate-900 sm:text-panel-section",
   /** Parágrafo descritivo sob o título de seção. */
   sectionDescription: "mt-1 max-w-3xl text-base leading-relaxed text-slate-600",
   /**
@@ -68,13 +68,13 @@ export const typography = {
    * Título principal dentro de painel ou ferramenta (use `<h2>`: o `<h1>` é o
    * título da rota no `AppShellPageHeader`).
    */
-  panelHeroTitle: "text-xl font-medium tracking-normal text-slate-900 sm:text-[1.375rem]",
+  panelHeroTitle: "text-xl font-medium tracking-normal text-slate-900 sm:text-panel-section",
   /** Subtítulo sob o título do painel (1 linha ou poucas). */
-  panelHeroLead: "mt-0.5 max-w-3xl text-sm leading-relaxed text-slate-600 sm:text-[0.9375rem]",
+  panelHeroLead: "mt-0.5 max-w-3xl text-sm leading-relaxed text-slate-600 sm:text-sm",
 } as const;
 
 /**
- * Ritmo vertical e grids usados nos dashboards (admin, analista, respondente).
+ * Ritmo vertical e grids usados nos dashboards (admin, respondente).
  * O `<main>` do `AppShell` aplica padding e `max-width`; o conteúdo da rota fica
  * dentro de `PageShell` (painel arredondado). Na raiz do filho use `pageStack`.
  */
@@ -104,7 +104,7 @@ export const layout = {
   sectionStack: "space-y-4",
   /** Grid de KPIs do admin (4 colunas em XL). */
   kpiGrid4: "grid gap-4 md:grid-cols-2 md:gap-5 xl:grid-cols-4",
-  /** Grid de KPIs em três colunas (respondente / analista). */
+  /** Grid de KPIs em três colunas (respondente / admin). */
   kpiGrid3: "grid gap-4 md:grid-cols-3 md:gap-5",
   /** Dois KPIs lado a lado (bloco “Sistema” no admin). */
   kpiGrid2: "grid gap-4 md:grid-cols-2 md:gap-5",
@@ -117,7 +117,7 @@ export const layout = {
    * Reutilize se montar layout fora do shell por engano; o padrão é o próprio
    * `AppShell`.
    */
-  appMain: "min-w-0 flex-1 px-5 py-8 sm:px-8 sm:py-9 lg:px-10 lg:py-10 xl:mx-auto xl:w-full xl:max-w-[1440px] 2xl:max-w-[1560px]",
+  appMain: "min-w-0 flex-1 px-5 py-8 sm:px-8 sm:py-9 lg:px-10 lg:py-10 xl:mx-auto xl:w-full xl:max-w-360 2xl:max-w-390",
   /**
    * Espaço vertical entre blocos densos *dentro* de uma ferramenta (KPIs,
    * filtros, tabela) — um pouco mais ar que `sectionStack` para leitura.
@@ -128,10 +128,10 @@ export const layout = {
 /** Links da navegação lateral (fundo brand); ícone 18px + label. */
 export const sidebar = {
   groupLabel:
-    "sb-group px-3 text-[0.6875rem] font-semibold uppercase tracking-[0.08em] text-white/65",
-  link: "flex items-center gap-3 rounded-lg px-3.5 py-2.5 text-[0.9375rem] font-medium text-white/88 transition hover:bg-white/10 hover:text-white focus-visible:bg-white/10 focus-visible:text-white",
+    "sb-group px-3 text-micro font-semibold uppercase tracking-[0.08em] text-white/65",
+  link: "flex items-center gap-3 rounded-lg px-3.5 py-2.5 text-sm font-medium text-white/88 transition hover:bg-white/10 hover:text-white focus-visible:bg-white/10 focus-visible:text-white",
   linkActive:
-    "sb-link-active flex items-center gap-3 rounded-lg bg-white/18 px-3.5 py-2.5 text-[0.9375rem] font-medium text-white shadow-[inset_0_1px_0_rgb(255_255_255_/_0.12)] ring-2 ring-white/35 backdrop-blur-[2px]",
+    "sb-link-active flex items-center gap-3 rounded-lg bg-white/18 px-3.5 py-2.5 text-sm font-medium text-white shadow-[inset_0_1px_0_rgb(255_255_255_/_0.12)] ring-2 ring-white/35 backdrop-blur-xs",
 } as const;
 
 /** Superfícies e cartões (delegam a `formSurface`; uso opcional para um só import). */

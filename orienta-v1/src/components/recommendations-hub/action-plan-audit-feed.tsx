@@ -5,7 +5,6 @@ import {
   formatActivityRelative,
   parseActionPlanAuditEntry,
 } from "@/lib/action-plans/audit-presentation";
-import { formSurface } from "@/lib/form-surface";
 import { typography } from "@/lib/design-system";
 
 const TONE_ICON: Record<
@@ -55,7 +54,7 @@ export function ActionPlanAuditFeed({
       {slice.map(({ id, entry, actionLabel }) => {
         const ev = parseActionPlanAuditEntry(entry);
         const Icon = ev.icon;
-        const isInstitutional = /admin|analyst|supervision|staff|validat/i.test(
+        const isInstitutional = /admin|supervision|staff|validat/i.test(
           entry.eventType ?? "",
         );
 
@@ -79,18 +78,18 @@ export function ActionPlanAuditFeed({
                   <div className="flex flex-wrap items-baseline justify-between gap-2">
                     <p className="text-sm font-semibold text-slate-900">{ev.label}</p>
                     <time
-                      className="text-[11px] tabular-nums text-slate-400"
+                      className="text-micro tabular-nums text-slate-400"
                       dateTime={ev.date}
                     >
                       {formatActivityRelative(ev.date)}
                     </time>
                   </div>
                   {isInstitutional ? (
-                    <p className="mt-0.5 text-[10px] font-medium uppercase tracking-wide text-violet-700">
+                    <p className="mt-0.5 text-2xs font-medium uppercase tracking-wide text-violet-700">
                       Equipe de supervisão
                     </p>
                   ) : (
-                    <p className="mt-0.5 text-[10px] font-medium uppercase tracking-wide text-slate-500">
+                    <p className="mt-0.5 text-2xs font-medium uppercase tracking-wide text-slate-500">
                       Organização
                     </p>
                   )}
@@ -117,7 +116,7 @@ export function ActionPlanAuditFeed({
               <div className="flex flex-wrap items-baseline justify-between gap-x-2 gap-y-0.5">
                 <p className="text-sm font-medium text-slate-900">{ev.label}</p>
                 <time
-                  className="shrink-0 text-[11px] tabular-nums text-slate-400"
+                  className="shrink-0 text-micro tabular-nums text-slate-400"
                   dateTime={ev.date}
                   title={new Date(ev.date).toLocaleString("pt-BR")}
                 >

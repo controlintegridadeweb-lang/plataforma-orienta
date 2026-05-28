@@ -4,7 +4,7 @@ type OperationalEvent =
   | "formal_submit"
   | "validation_change"
   | "authorized_reopen"
-  | "complementation_request";
+  | "adjustment_request";
 
 export function shouldReprocessFami(event: OperationalEvent): boolean {
   return (
@@ -24,7 +24,7 @@ export function nextStateFromEvent(
   if (event === "validation_change" && current === "submitted") {
     return "under_review";
   }
-  if (event === "complementation_request") {
+  if (event === "adjustment_request") {
     return "complementation_requested";
   }
   if (event === "authorized_reopen" && current === "closed") {
@@ -35,10 +35,8 @@ export function nextStateFromEvent(
 
 export function validationAffectsScoring(status: ValidationStatus): boolean {
   return (
-    status === "valid" ||
-    status === "waived" ||
-    status === "invalid" ||
-    status === "partially_valid" ||
-    status === "complementation_requested"
+    status === "approved" ||
+    status === "invalidated" ||
+    status === "adjustment_requested"
   );
 }

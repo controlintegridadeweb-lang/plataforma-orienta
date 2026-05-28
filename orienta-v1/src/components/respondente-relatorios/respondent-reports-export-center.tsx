@@ -165,7 +165,7 @@ export function RespondentReportsExportCenter({
             <div className={formSurface.readOnlyField}>
               {REPORT_KIND_META[reportKind].label}
               {!REPORT_KIND_META[reportKind].pdfSupported ? (
-                <span className="ml-2 text-[11px] text-amber-700">(PDF em expansão)</span>
+                <span className="ml-2 text-micro text-amber-700">(PDF em expansão)</span>
               ) : null}
             </div>
           </div>

@@ -50,9 +50,9 @@ export function AdminRecommendationSummaryCards({
     },
     {
       id: "without_plan",
-      label: "Sem plano",
+      label: "Aguardando ação",
       value: summary.withoutPlan,
-      hint: "Aguardando plano de ação",
+      hint: "Organização ainda não cadastrou ações",
       variant: summary.withoutPlan > 0 ? "warning" : "neutral",
       icon: Target,
       status: summary.withoutPlan > 0 ? "attention" : "neutral",

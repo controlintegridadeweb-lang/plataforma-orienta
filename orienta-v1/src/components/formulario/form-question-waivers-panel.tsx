@@ -85,11 +85,11 @@ function WaiverEditorModal({
       aria-modal="true"
       aria-labelledby="waiver-editor-title"
     >
-      <div className="flex max-h-[min(90vh,720px)] w-full max-w-lg flex-col overflow-hidden rounded-xl bg-white shadow-xl ring-1 ring-slate-100/80">
+      <div className="flex max-h-[min(90vh,180)] w-full max-w-lg flex-col overflow-hidden rounded-xl bg-white shadow-xl ring-1 ring-slate-100/80">
         <div className="flex shrink-0 items-start justify-between gap-3 border-b border-slate-100 bg-brand-50 px-5 py-4">
           <div className="min-w-0">
             <h3 id="waiver-editor-title" className={formSurface.cardTitle}>
-              Órgãos dispensados
+              �rg�os dispensados
             </h3>
             <p className="mt-1 line-clamp-3 text-xs leading-relaxed text-slate-600">
               {questionPrompt}
@@ -108,9 +108,9 @@ function WaiverEditorModal({
 
         <div className="min-h-0 flex-1 space-y-4 overflow-y-auto px-5 py-4">
           <p className="text-xs leading-relaxed text-slate-600">
-            Marque todos os órgãos para os quais esta pergunta{" "}
-            <strong className="font-semibold text-slate-800">não se aplica</strong>. A dispensa
-            vale em qualquer formulário que inclua a pergunta.
+            Marque todos os �rg�os para os quais esta pergunta{" "}
+            <strong className="font-semibold text-slate-800">n�o se aplica</strong>. A dispensa
+            vale em qualquer formul�rio que inclua a pergunta.
           </p>
 
           <div className="flex flex-wrap items-center gap-2">
@@ -118,8 +118,8 @@ function WaiverEditorModal({
               type="search"
               value={orgFilter}
               onChange={(e) => onOrgFilterChange(e.target.value)}
-              placeholder="Filtrar órgãos..."
-              className={`min-w-[200px] flex-1 ${formSurface.input}`}
+              placeholder="Filtrar �rg�os..."
+              className={`min-w-50 flex-1 ${formSurface.input}`}
             />
             <button
               type="button"
@@ -127,7 +127,7 @@ function WaiverEditorModal({
               onClick={() => onSelectAll(filteredOrgs.map((o) => o.id))}
               className={`${formSurface.secondaryButtonSm} disabled:opacity-50`}
             >
-              Marcar visíveis
+              Marcar vis�veis
             </button>
             <button
               type="button"
@@ -142,7 +142,7 @@ function WaiverEditorModal({
           <ul className="max-h-56 space-y-1 overflow-y-auto rounded-lg border border-slate-200 bg-slate-50/50 p-2">
             {filteredOrgs.length === 0 ? (
               <li className="px-2 py-3 text-center text-xs text-slate-500">
-                Nenhum órgão encontrado.
+                Nenhum �rg�o encontrado.
               </li>
             ) : (
               filteredOrgs.map((org) => {
@@ -173,18 +173,18 @@ function WaiverEditorModal({
               disabled={saving}
               rows={3}
               maxLength={1000}
-              placeholder="Ex.: estrutura militar sem comitê de sustentabilidade"
+              placeholder="Ex.: estrutura militar sem comit� de sustentabilidade"
               className={formSurface.inputTextarea}
             />
-            <span className="text-[11px] font-normal text-slate-500">
-              Aplicada aos órgãos marcados ao salvar.
+            <span className="text-micro font-normal text-slate-500">
+              Aplicada aos �rg�os marcados ao salvar.
             </span>
           </label>
         </div>
 
         <div className="flex shrink-0 flex-wrap items-center justify-end gap-2 border-t border-slate-100 bg-slate-50/80 px-5 py-3">
           <span className="mr-auto text-xs text-slate-500">
-            {selectedOrgIds.size} órgão{selectedOrgIds.size === 1 ? "" : "s"} selecionado
+            {selectedOrgIds.size} �rg�o{selectedOrgIds.size === 1 ? "" : "s"} selecionado
             {selectedOrgIds.size === 1 ? "" : "s"}
           </span>
           <button
@@ -204,7 +204,7 @@ function WaiverEditorModal({
             {saving ? (
               <>
                 <Spinner size="sm" />
-                Salvando…
+                Salvando�
               </>
             ) : (
               "Salvar dispensas"
@@ -352,11 +352,11 @@ export function FormQuestionWaiversPanel({ questions }: Props) {
     <>
       <div className={`space-y-4 ${formSurface.nestedCard}`}>
         <div>
-          <h3 className="text-sm font-semibold text-slate-800">Dispensa por órgão</h3>
+          <h3 className="text-sm font-semibold text-slate-800">Dispensa por �rg�o</h3>
           <p className="mt-1 text-xs leading-relaxed text-slate-600">
-            Para cada pergunta, escolha um ou mais órgãos aos quais ela{" "}
-            <strong className="font-semibold text-slate-800">não se aplica</strong>. A dispensa
-            fica na pergunta e vale em todos os formulários que a incluírem.
+            Para cada pergunta, escolha um ou mais �rg�os aos quais ela{" "}
+            <strong className="font-semibold text-slate-800">n�o se aplica</strong>. A dispensa
+            fica na pergunta e vale em todos os formul�rios que a inclu�rem.
           </p>
         </div>
 
@@ -373,7 +373,7 @@ export function FormQuestionWaiversPanel({ questions }: Props) {
 
         {loading ? (
           <InlineLoader
-            label="Carregando dispensas…"
+            label="Carregando dispensas�"
             className="inline-flex items-center gap-2 text-sm text-slate-500"
           />
         ) : filteredQuestions.length === 0 ? (
@@ -406,7 +406,7 @@ export function FormQuestionWaiversPanel({ questions }: Props) {
                         ))}
                       </div>
                     ) : (
-                      <p className="text-xs text-slate-500">Nenhum órgão dispensado.</p>
+                      <p className="text-xs text-slate-500">Nenhum �rg�o dispensado.</p>
                     )}
                   </div>
                   <button
@@ -422,7 +422,7 @@ export function FormQuestionWaiversPanel({ questions }: Props) {
                     ) : (
                       <>
                         <ShieldOff className="h-3.5 w-3.5" aria-hidden />
-                        Dispensar órgãos
+                        Dispensar �rg�os
                       </>
                     )}
                   </button>

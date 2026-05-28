@@ -20,7 +20,7 @@ export function RespondentStatusBadge({ status, showDescription }: Props) {
         ariaPrefix="Status da evidência"
       />
       {showDescription ? (
-        <span className="text-[11px] text-slate-500">{meta.description}</span>
+        <span className="text-micro text-slate-500">{meta.description}</span>
       ) : null}
     </span>
   );

@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import {
   staffPlanoAcaoDetailHref,
   staffPlanoAcaoHref,
@@ -20,8 +19,7 @@ type Props = {
  * Trilha entre módulos da mesma recomendação — continuidade Recomendações ↔ Plano ↔ Monitoramento.
  */
 export function StaffModuleTrail({ recommendationId, active }: Props) {
-  const pathname = usePathname() ?? "";
-  const area = staffAreaFromPathname(pathname);
+  const area = staffAreaFromPathname();
 
   const steps = [
     {
@@ -49,7 +47,7 @@ export function StaffModuleTrail({ recommendationId, active }: Props) {
       aria-label="Módulos desta recomendação"
       className="rounded-xl border border-slate-200/90 bg-slate-50/80 px-3 py-2.5 sm:px-4"
     >
-      <p className="mb-2 text-[11px] font-medium leading-relaxed text-slate-500">
+      <p className="mb-2 text-micro font-medium leading-relaxed text-slate-500">
         {STAFF_ANALYSIS_MODULE_CONTEXT}
       </p>
       <ol className="flex flex-wrap items-center gap-1.5">
@@ -71,8 +69,8 @@ export function StaffModuleTrail({ recommendationId, active }: Props) {
                     : "text-slate-600 hover:bg-white/80 hover:text-slate-900"
                 }`}
               >
-                <span className="text-xs sm:text-[13px]">{step.label}</span>
-                <span className="text-[10px] font-normal text-slate-500 sm:text-[11px]">
+                <span className="text-xs sm:text-caption">{step.label}</span>
+                <span className="text-2xs font-normal text-slate-500 sm:text-micro">
                   {step.hint}
                 </span>
               </Link>

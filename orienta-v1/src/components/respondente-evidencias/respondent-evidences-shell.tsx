@@ -11,6 +11,7 @@ import { PanelSection } from "@/components/ui/panel-section";
 import { TableSkeleton } from "@/components/ui/loading";
 import { useRespondentEvidences } from "./hooks/use-respondent-evidences";
 import { useRespondentStats } from "./hooks/use-respondent-stats";
+import { evidenceComplementation } from "@/lib/labels/complementation-terms";
 import { RespondentComplementationRequests } from "./respondent-complementation-requests";
 import {
   RespondentEvidenceFilters,
@@ -207,11 +208,11 @@ export function RespondentEvidencesShell({
         </PanelSection>
 
         <PanelSection
-          title="Solicitações de complementação"
+          title={evidenceComplementation.sectionTitle}
           description={
             (stats?.complementacao ?? 0) > 0
-              ? "Evidências em que o analista pediu complemento — responda pelo formulário correspondente."
-              : "Quando o analista pedir um ajuste ou esclarecimento, ele aparecerá aqui."
+              ? evidenceComplementation.sectionDescription
+              : "Quando a equipe pedir complementação de evidência, ela aparecerá aqui."
           }
           actions={
             (stats?.complementacao ?? 0) > 0 ? (
@@ -237,7 +238,7 @@ export function RespondentEvidencesShell({
 
         <PanelSection
           title="Lista de evidências"
-          description="Histórico com status de validação do analista."
+          description="Histórico com status de validação."
           variant="plain"
         >
           {loading && items.length === 0 ? (

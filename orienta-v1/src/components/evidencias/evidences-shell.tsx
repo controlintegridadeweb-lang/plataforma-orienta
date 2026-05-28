@@ -23,7 +23,7 @@ import { EvidencesTable } from "./evidences-table";
 import { useEvidenceSelection } from "./hooks/use-evidence-selection";
 import { useEvidencesList } from "./hooks/use-evidences-list";
 
-const PAGE_SIZE = 50;
+const PAGE_SIZE = 25;
 
 const VALID_STATUSES = new Set<string>(Object.keys(EVIDENCE_VALIDATION_REGISTRY));
 
@@ -46,7 +46,7 @@ export function EvidencesShell({
   variant = "admin",
 }: {
   initialFilters?: EvidencesShellInitialFilters;
-  variant?: "admin" | "analista";
+  variant?: "admin";
 } = {}) {
   const [filterOptions, setFilterOptions] = useState<EvidenceFilterOptions | null>(null);
   const [filter, setFilter] = useState<EvidencesFilterState>(() => ({

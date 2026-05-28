@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -15,6 +15,7 @@ import {
 import { Spinner } from "@/components/ui/loading";
 import { formSurface } from "@/lib/form-surface";
 import type { FormSummary } from "@/lib/forms/admin-service";
+import { formCycleComplementation } from "@/lib/labels/complementation-terms";
 import {
   FormPublishPendingError,
   listForms,
@@ -27,7 +28,7 @@ const STATE_LABELS: Record<string, string> = {
   draft: "Rascunho",
   submitted: "Publicado",
   under_review: "Em revisao",
-  complementation_requested: "Complementacao",
+  complementation_requested: formCycleComplementation.stateShort,
   resubmitted: "Reenviado",
   consolidated: "Consolidado",
   closed: "Encerrado",
@@ -44,9 +45,9 @@ const STATE_BADGE_VARIANT: Record<string, keyof typeof formSurface.badge> = {
 };
 
 type FormsListProps = {
-  /** Base para links Perguntas / Vinculos (ex. /admin/formularios ou /analista/formularios). */
+  /** Base para links Perguntas / Vinculos (ex. /admin/formularios). */
   formBasePath?: string;
-  /** Exclusao definitiva: apenas admin na API; oculta o botao em telas de analista. */
+  /** Exclusao definitiva: apenas admin na API. */
   showDelete?: boolean;
 };
 
@@ -100,7 +101,7 @@ function FormRowActions({
           <ChevronDown className="h-3.5 w-3.5 opacity-70" aria-hidden />
         </summary>
         <div
-          className="absolute right-0 z-20 mt-1.5 min-w-[12.5rem] rounded-lg border border-slate-200 bg-white py-1 text-left text-sm shadow-lg"
+          className="absolute right-0 z-20 mt-1.5 min-w-50 rounded-lg border border-slate-200 bg-white py-1 text-left text-sm shadow-lg"
           role="menu"
         >
           <Link
@@ -233,7 +234,11 @@ export function FormsList({ formBasePath = "/admin/formularios", showDelete = tr
     action: "publish" | "approve",
   ) {
     const verb = action === "approve" ? "aprovar" : "publicar";
-    if (!confirm(`Deseja ${verb} "${form.name}" agora?`)) return;
+    const confirmMessage =
+      action === "publish"
+        ? `Deseja publicar "${form.name}"?\n\nO formulário ficará visível para todas as organizações cadastradas. Isso não preenche respostas — cada órgão finaliza o envio na área do respondente.`
+        : `Deseja ${verb} "${form.name}" agora?`;
+    if (!confirm(confirmMessage)) return;
     setBusyId(form.id);
     setError(null);
     setPendingNotice(null);
@@ -334,7 +339,7 @@ export function FormsList({ formBasePath = "/admin/formularios", showDelete = tr
         </div>
       ) : (
         <div className={formSurface.table.wrapper}>
-          <table className={`${formSurface.table.table} min-w-[760px]`}>
+          <table className={`${formSurface.table.table} min-w-190`}>
             <thead className={formSurface.table.head}>
               <tr>
                 <th className={`${formSurface.table.headCell} py-3`}>Nome</th>

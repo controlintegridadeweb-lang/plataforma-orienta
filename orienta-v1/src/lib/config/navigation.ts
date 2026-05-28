@@ -1,7 +1,6 @@
 import type { LucideIcon } from "lucide-react";
 import {
   BookOpen,
-  Building2,
   ClipboardList,
   FileBarChart,
   FileCheck,
@@ -32,7 +31,6 @@ export const navGroupLabels: Record<NavGroup, string> = {
 
 export const roleLabels: Record<AppRole, string> = {
   admin: "Administrador",
-  analyst: "Analista",
   respondent: "Respondente",
 };
 
@@ -40,12 +38,6 @@ const ADMIN_NAV: NavItem[] = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard, group: "principal" },
   { href: "/admin/biblioteca", label: "Biblioteca Geral", icon: BookOpen, group: "gestao" },
   { href: "/admin/formularios", label: "Formulários", icon: ClipboardList, group: "gestao" },
-  {
-    href: "/admin/responder",
-    label: "Responder por organização",
-    icon: Building2,
-    group: "gestao",
-  },
   {
     href: "/admin/evidencias",
     label: "Evidências e Complementações",
@@ -62,10 +54,6 @@ const ADMIN_NAV: NavItem[] = [
 
 export const navigationByRole: Record<AppRole, NavItem[]> = {
   admin: ADMIN_NAV,
-  // analyst usa o mesmo sidebar do admin durante a Fase 2 da remocao do
-  // perfil (rotas /analista/* sao redirecionadas para /admin/* via
-  // next.config). Sera removido em conjunto com o role na Fase 3.
-  analyst: ADMIN_NAV,
   respondent: [
     { href: "/respondente", label: "Dashboard", icon: LayoutDashboard, group: "principal" },
     { href: "/respondente/formularios", label: "Meus Formulários", icon: ClipboardList, group: "principal" },
@@ -77,7 +65,7 @@ export const navigationByRole: Record<AppRole, NavItem[]> = {
     },
     {
       href: "/respondente/portfolio-recomendacoes",
-      label: "Recomendações",
+      label: "Recomendações e plano",
       icon: Lightbulb,
       group: "principal",
     },

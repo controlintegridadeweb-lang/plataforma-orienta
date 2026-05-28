@@ -9,7 +9,6 @@ import { useDebounce } from "@/lib/hooks/use-debounce";
 import { describeError, notify } from "@/lib/notify";
 import {
   RESPONDENT_VIEW_META,
-  summarize,
   type RespondentRecommendationItem,
 } from "@/lib/recommendations/respondent-presentation";
 import { useRespondentRecommendations } from "./hooks/use-respondent-recommendations";
@@ -274,7 +273,7 @@ export function RespondentRecommendationsShell() {
 
       <PanelSection
         title="Indicadores"
-        description="Resumo do portfólio. Selecione um cartão para filtrar."
+        description="Resumo das recomendações. Selecione um cartão para filtrar."
         variant="plain"
       >
         <RespondentRecommendationSummaryCards

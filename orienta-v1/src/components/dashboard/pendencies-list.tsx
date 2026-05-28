@@ -13,7 +13,7 @@ const SEVERITY_STYLES: Record<Severity, { badge: string; label: string; iconWrap
   },
   medium: {
     badge: "bg-amber-100 text-amber-700 ring-1 ring-inset ring-amber-200",
-    label: "Media",
+    label: "Média",
     iconWrap: "bg-amber-100 text-amber-700",
   },
   low: {
@@ -26,7 +26,9 @@ const SEVERITY_STYLES: Record<Severity, { badge: string; label: string; iconWrap
 function inferSeverity(item: PendencyItem): Severity {
   const t = `${item.title} ${item.description}`.toLowerCase();
   if (t.includes("invalid") || t.includes("vencid") || t.includes("urgent")) return "high";
-  if (t.includes("pend") || t.includes("complement") || t.includes("plano")) return "medium";
+  if (t.includes("pend") || t.includes("complement") || t.includes("plano") || t.includes("ação")) {
+    return "medium";
+  }
   return "low";
 }
 
@@ -48,16 +50,16 @@ export function PendenciesList({ items }: { items: PendencyItem[] }) {
         return (
           <li
             key={item.id}
-            className="group flex items-start gap-4 rounded-xl border border-slate-200 bg-white p-4 shadow-[var(--shadow-card)] transition hover:border-slate-300 hover:shadow-[var(--shadow-card-hover)] md:p-5"
+            className="group flex items-start gap-4 rounded-xl border border-slate-200 bg-white p-4 shadow-card transition hover:border-slate-300 hover:shadow-card-hover md:p-5"
           >
             <div className={`mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-full ${style.iconWrap}`}>
               <AlertTriangle className="h-5 w-5" aria-hidden />
             </div>
             <div className="min-w-0 flex-1">
               <div className="flex flex-wrap items-center gap-2">
-                <p className="text-[0.9375rem] font-semibold text-slate-900">{item.title}</p>
+                <p className="text-sm font-semibold text-slate-900">{item.title}</p>
                 <span
-                  className={`inline-flex items-center rounded-full px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide ${style.badge} sm:text-xs`}
+                  className={`inline-flex items-center rounded-full px-2 py-0.5 text-micro font-semibold uppercase tracking-wide ${style.badge} sm:text-xs`}
                 >
                   {style.label}
                 </span>

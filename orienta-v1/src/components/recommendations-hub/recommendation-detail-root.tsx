@@ -81,7 +81,7 @@ function RecommendationDetailBody({ children }: { children: React.ReactNode }) {
       (ctx.workspaceSurface === "operational" || ctx.workspaceSurface === "supervision") ? (
         <WorkspaceTabIntro />
       ) : null}
-      <div className="min-h-[14rem]">{children}</div>
+      <div className="min-h-56">{children}</div>
     </div>
   );
 }

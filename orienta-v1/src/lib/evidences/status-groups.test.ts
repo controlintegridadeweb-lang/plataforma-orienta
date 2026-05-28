@@ -6,13 +6,11 @@ import {
 import type { ValidationStatus } from "./schemas";
 
 describe("statusToVisualGroup", () => {
-  it("mapeia os 6 status do banco para grupos visuais", () => {
+  it("mapeia os status do banco para grupos visuais", () => {
     expect(statusToVisualGroup("pending")).toBe("em_analise");
-    expect(statusToVisualGroup("complementation_requested")).toBe("complementacao");
-    expect(statusToVisualGroup("valid")).toBe("aprovadas");
-    expect(statusToVisualGroup("waived")).toBe("aprovadas");
-    expect(statusToVisualGroup("invalid")).toBe("rejeitadas");
-    expect(statusToVisualGroup("partially_valid")).toBe("rejeitadas");
+    expect(statusToVisualGroup("adjustment_requested")).toBe("complementacao");
+    expect(statusToVisualGroup("approved")).toBe("aprovadas");
+    expect(statusToVisualGroup("invalidated")).toBe("rejeitadas");
   });
 });
 
@@ -20,16 +18,14 @@ describe("aggregateKpiCounts", () => {
   it("agrega em_analise com pendente e complementacao, e demais buckets", () => {
     const items: { currentStatus: ValidationStatus }[] = [
       { currentStatus: "pending" },
-      { currentStatus: "complementation_requested" },
-      { currentStatus: "valid" },
-      { currentStatus: "waived" },
-      { currentStatus: "invalid" },
-      { currentStatus: "partially_valid" },
+      { currentStatus: "adjustment_requested" },
+      { currentStatus: "approved" },
+      { currentStatus: "invalidated" },
     ];
     const r = aggregateKpiCounts(items);
-    expect(r.total).toBe(6);
+    expect(r.total).toBe(4);
     expect(r.em_analise).toBe(2);
-    expect(r.aprovadas).toBe(2);
-    expect(r.rejeitadas).toBe(2);
+    expect(r.aprovadas).toBe(1);
+    expect(r.rejeitadas).toBe(1);
   });
 });

@@ -1,7 +1,6 @@
 import { RISK_META, type AdminPlanItem, type RiskLevel } from "@/lib/action-plans/admin-monitoring";
 import { PLAN_STATUS_LABELS } from "@/components/plano-acao/plan-status-badge";
 import type { PlanStatus } from "@/lib/action-plans/schemas";
-import { formSurface } from "@/lib/form-surface";
 
 export function firstLineAction(item: AdminPlanItem): string {
   const line = (item.actionText?.trim() || item.recommendationText.trim()).split(/\r?\n/)[0]?.trim() ?? "";

@@ -8,6 +8,7 @@ import {
   Clock,
   Shield,
 } from "lucide-react";
+import { evidenceComplementation } from "@/lib/labels/complementation-terms";
 import { MetricCard } from "@/components/ui/metric-card";
 import type { RespondentStatsResult } from "@/lib/evidences/respondent-service";
 import { formSurface } from "@/lib/form-surface";
@@ -93,7 +94,7 @@ export function RespondentFamiEvidenceImpact({
             className="h-full w-full"
             variant="info"
             density="compact"
-            label="Complementação"
+            label={evidenceComplementation.statusShort}
             value={stats.complementacao}
             secondary="Aguardando reenvio"
             icon={AlertTriangle}

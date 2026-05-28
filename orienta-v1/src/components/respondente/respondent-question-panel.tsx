@@ -12,14 +12,12 @@ import {
 } from "lucide-react";
 import { formSurface } from "@/lib/form-surface";
 import { typography } from "@/lib/design-system";
-import {
-  workbenchRowAllowsPartial,
-  type WorkbenchRow,
-} from "@/lib/workbench/load-workbench-payload";
+import { type WorkbenchRow } from "@/lib/workbench/load-workbench-payload";
 import {
   validateYesWithEvidence,
   type YesEvidenceFieldErrors,
 } from "@/lib/workbench/validate-yes-evidence";
+import { evidenceComplementation } from "@/lib/labels/complementation-terms";
 
 export type EvidenceDraft = {
   kind: "file" | "link" | null;
@@ -49,18 +47,18 @@ function evidenceStatusHint(
 ): { tone: "neutral" | "amber" | "emerald" | "rose"; text: string } | null {
   if (!shouldShowEvidenceUI(row, { pendingYes })) return null;
   const v = row.validationStatus;
-  if (v === "complementation_requested") {
-    return { tone: "amber", text: "Foi solicitada complementacao da evidencia." };
+  if (v === "adjustment_requested") {
+    return { tone: "amber", text: evidenceComplementation.panelHint };
   }
-  if (v === "valid" || v === "waived" || v === "partially_valid") {
+  if (v === "approved") {
     return { tone: "emerald", text: "Evidencia em ordem (validada ou em analise)." };
   }
-  if (v === "invalid") {
+  if (v === "invalidated") {
     return { tone: "rose", text: "A evidencia nao foi aceita. Envie outro arquivo ou ajuste o link." };
   }
-  if (v === "pending" || v === null) {
+  if (v === "pending" || v === "adjustment_requested" || v === null) {
     if (row.evidenceId || row.storagePath || row.externalLink) {
-      return { tone: "neutral", text: "Evidencia recebida; aguardando validacao do analista." };
+      return { tone: "neutral", text: "Evidencia recebida; aguardando validacao." };
     }
     return {
       tone: "neutral",
@@ -83,15 +81,14 @@ const STATUS_TONE_CLASS: Record<
   rose: "text-rose-800",
 };
 
-const ANSWER_OPTIONS: { value: "yes" | "no" | "partial"; label: string }[] = [
+const ANSWER_OPTIONS: { value: "yes" | "no" | "not_applicable"; label: string }[] = [
   { value: "yes", label: "Sim" },
   { value: "no", label: "Nao" },
-  { value: "partial", label: "Parcialmente" },
+  { value: "not_applicable", label: "Nao se aplica" },
 ];
 
 function answerOptionsForRow(row: WorkbenchRow) {
-  if (workbenchRowAllowsPartial(row)) return ANSWER_OPTIONS;
-  return ANSWER_OPTIONS.filter((o) => o.value !== "partial");
+  return ANSWER_OPTIONS;
 }
 
 function axisLabelForSection(rows: WorkbenchRow[]): string | null {
@@ -151,7 +148,6 @@ export function canRemoveEvidenceAttachment(row: WorkbenchRow, draft: EvidenceDr
 type SectionQuestionsProps = {
   section: RespondentSectionGroup;
   sectionIndex: number;
-  sectionTotal: number;
   /** Ex.: "Etapa 1 de 3" — integrado ao cabeçalho da seção. */
   stepLabel: string;
   /** 0–100: avanço pelas etapas do formulário. */
@@ -160,7 +156,7 @@ type SectionQuestionsProps = {
   onEvidenceDraftChange: (questionId: string, patch: Partial<EvidenceDraft>) => void;
   onFileSelected: (row: WorkbenchRow, file: File) => void;
   onRemoveAttachment?: (row: WorkbenchRow) => void | Promise<void>;
-  onSelectAnswer: (row: WorkbenchRow, value: "yes" | "no" | "partial") => void;
+  onSelectAnswer: (row: WorkbenchRow, value: "yes" | "no" | "not_applicable") => void;
   disabled?: boolean;
   activeQuestionId?: string | null;
   uploadingQuestionId?: string | null;
@@ -172,7 +168,6 @@ type SectionQuestionsProps = {
 export function RespondentSectionQuestions({
   section,
   sectionIndex,
-  sectionTotal,
   stepLabel,
   stepProgressPct,
   evidenceDrafts,

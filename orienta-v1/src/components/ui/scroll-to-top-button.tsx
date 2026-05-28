@@ -39,9 +39,9 @@ export function ScrollToTopButton() {
       title="Voltar ao topo"
       className={[
         "fixed z-40 flex h-11 w-11 items-center justify-center rounded-full",
-        "border border-slate-200/90 bg-white/95 text-slate-600 shadow-[var(--shadow-card)]",
+        "border border-slate-200/90 bg-white/95 text-slate-600 shadow-card",
         "backdrop-blur-sm transition-all duration-300 ease-out",
-        "hover:border-slate-300 hover:bg-white hover:text-brand-700 hover:shadow-[var(--shadow-card-hover)]",
+        "hover:border-slate-300 hover:bg-white hover:text-brand-700 hover:shadow-card-hover",
         "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand",
         formFill ? "bottom-24 right-4 sm:bottom-28 sm:right-6" : "bottom-5 right-4 sm:bottom-6 sm:right-6",
         visible

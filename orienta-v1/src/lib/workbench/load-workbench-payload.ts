@@ -15,16 +15,15 @@ type WorkbenchForm = {
 function metricAnswerTypeFromBinding(metricRaw: unknown): LibraryMetricAnswerType | null {
   if (!metricRaw || typeof metricRaw !== "object") return null;
   const at = (metricRaw as Record<string, unknown>).answerType;
-  if (at === "yes_no_partial") return "yes_no";
   if (at === "yes_no" || at === "scale" || at === "numeric" || at === "text") return at;
   return null;
 }
 
-/** Tipos em escala/numerico ainda oferecem a opcao "Parcialmente" no workbench. */
+/** Contrato V2: nao existe mais resposta parcial no workbench. */
 export function workbenchRowAllowsPartial(row: {
   metricAnswerType: LibraryMetricAnswerType | null;
 }): boolean {
-  return row.metricAnswerType === "scale" || row.metricAnswerType === "numeric";
+  return false;
 }
 
 export type WorkbenchRow = {
@@ -37,7 +36,7 @@ export type WorkbenchRow = {
   axisName: string;
   sectionName: string;
   responseId: string | null;
-  answer: "yes" | "no" | "partial" | null;
+  answer: "yes" | "no" | "not_applicable" | null;
   notes: string | null;
   /** Respondente marcou "Nao se aplica" — fora do denominador FAMI. */
   isNotApplicable: boolean;

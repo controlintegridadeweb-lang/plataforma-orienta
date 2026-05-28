@@ -12,14 +12,10 @@ import {
   loadReportOptions,
 } from "@/lib/reports/client";
 
-type Props = {
-  mode: "admin" | "analyst";
-};
-
 function ModeBadge({ label }: { label: string }) {
   return (
     <span
-      className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-slate-200/80 bg-white px-3 py-1.5 text-[11px] font-semibold uppercase tracking-wide text-slate-600 shadow-sm"
+      className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-slate-200/80 bg-white px-3 py-1.5 text-micro font-semibold uppercase tracking-wide text-slate-600 shadow-sm"
       title="Nível de acesso ao relatório"
     >
       <Sparkles className="h-3.5 w-3.5 text-brand" aria-hidden />
@@ -28,12 +24,10 @@ function ModeBadge({ label }: { label: string }) {
   );
 }
 
-export function ReportsShell({ mode }: Props) {
-  const modeBadge = mode === "admin" ? "Administrativo" : "Analista";
+export function ReportsShell() {
+  const modeBadge = "Administrativo";
   const heroDescription =
-    mode === "admin"
-      ? "Exportações e visões executivas: gere PDFs oficiais com dados persistidos no servidor."
-      : "Relatórios da sua organização com base no processamento FAMI e planos de ação.";
+    "Exportações e visões executivas: gere PDFs oficiais com dados persistidos no servidor.";
 
   const [organizations, setOrganizations] = useState<{ id: string; name: string }[]>([]);
   const [forms, setForms] = useState<{ id: string; name: string }[]>([]);

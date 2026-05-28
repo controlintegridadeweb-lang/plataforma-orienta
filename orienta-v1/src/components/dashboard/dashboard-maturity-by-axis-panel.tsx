@@ -1,9 +1,8 @@
-"use client";
+﻿"use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { InlineLoader } from "@/components/ui/loading";
 import type { RecommendationFilterOptions } from "@/lib/recommendations/admin-service";
-import { loadRecommendationFilters } from "@/lib/recommendations/client";
 import { AxisBarChart } from "@/components/charts/axis-bar-chart";
 import { SectionHeader } from "@/components/ui/section-header";
 import { YearSelect } from "@/components/ui/year-select";
@@ -42,13 +41,18 @@ type Props = {
   initialAxes: AxisMaturity[];
   /** Valor inicial do filtro: "" = todas (media), ou id da organizacao */
   initialOrganizationId: string;
+  /** Quando informado, evita fetch duplicado de organizações no mount. */
+  filterOptions?: RecommendationFilterOptions;
 };
 
 export function DashboardMaturityByAxisPanel({
   initialAxes,
   initialOrganizationId,
+  filterOptions: filterOptionsProp,
 }: Props) {
-  const [filters, setFilters] = useState<RecommendationFilterOptions | null>(null);
+  const [filters, setFilters] = useState<RecommendationFilterOptions | null>(
+    filterOptionsProp ?? null,
+  );
   const [filterError, setFilterError] = useState<string | null>(null);
   const [organizationId, setOrganizationId] = useState(initialOrganizationId);
   const [closingYearFilter, setClosingYearFilter] = useState<number | null>(null);
@@ -59,12 +63,15 @@ export function DashboardMaturityByAxisPanel({
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    loadRecommendationFilters()
-      .then(setFilters)
-      .catch((e: unknown) =>
-        setFilterError(e instanceof Error ? e.message : "Falha ao carregar organizacoes."),
-      );
-  }, []);
+    if (filterOptionsProp) return;
+    void import("@/lib/recommendations/client").then(({ loadRecommendationFilters }) =>
+      loadRecommendationFilters()
+        .then(setFilters)
+        .catch((e: unknown) =>
+          setFilterError(e instanceof Error ? e.message : "Falha ao carregar organizacoes."),
+        ),
+    );
+  }, [filterOptionsProp]);
 
   const load = useCallback(
     async (orgId: string, yearSnapshot: number | null) => {
@@ -99,10 +106,16 @@ export function DashboardMaturityByAxisPanel({
     [],
   );
 
-  /** Atualiza eixos sempre que organização ou ano mudam (inclui carga inicial alinhada à API). */
+  const skipInitialLoad = useRef(true);
   useEffect(() => {
+    if (skipInitialLoad.current) {
+      skipInitialLoad.current = false;
+      if (organizationId === initialOrganizationId && closingYearFilter === null) {
+        return;
+      }
+    }
     void load(organizationId, closingYearFilter);
-  }, [organizationId, closingYearFilter, load]);
+  }, [organizationId, closingYearFilter, load, initialOrganizationId]);
 
   const axesAverage =
     axes.length > 0
@@ -144,7 +157,7 @@ export function DashboardMaturityByAxisPanel({
               setClosingYearFilter(null);
               setOrganizationId(v);
             }}
-            className={`${formSurface.inputSelect} min-w-[240px] text-[0.9375rem]`}
+            className={`${formSurface.inputSelect} min-w-60 text-sm`}
           >
             <option value="">Todas (media)</option>
             {filters?.organizations.map((o) => (
@@ -194,7 +207,7 @@ export function DashboardMaturityByAxisPanel({
         />
       </div>
       {error ? <p className="mb-2 text-sm text-rose-600">{error}</p> : null}
-      <div className="min-h-[288px] h-[min(24rem,40vh)] sm:h-80">
+      <div className="min-h-72 h-[min(96,40vh)] sm:h-80">
         <AxisBarChart data={axes} />
       </div>
     </div>

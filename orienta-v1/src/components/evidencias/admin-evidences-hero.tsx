@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { RefreshCw } from "lucide-react";
 import { EvidencesExportMenu } from "@/components/evidencias/evidences-export-menu";
+import { evidenceComplementation } from "@/lib/labels/complementation-terms";
 import { ADMIN_EVIDENCES_HERO_IMAGE } from "@/lib/admin-evidences-hero-image";
 import {
   ADMIN_PAGE_HERO_ACTIONS,
@@ -40,8 +41,7 @@ export function AdminEvidencesHero({
           <p className={ADMIN_PAGE_HERO_OVERLINE}>Validação e auditoria</p>
           <h2 className={ADMIN_PAGE_HERO_TITLE}>Evidências e Complementações</h2>
           <p className={ADMIN_PAGE_HERO_DESCRIPTION}>
-            Analise, valide e acompanhe evidências enviadas e pedidos de complementação das
-            organizações respondentes.
+            {evidenceComplementation.navDescription}
           </p>
 
           <div className={ADMIN_PAGE_HERO_ACTIONS}>

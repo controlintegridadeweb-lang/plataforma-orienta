@@ -11,7 +11,7 @@ const LEVELS = [
   { n: 5, label: "Excelência" },
 ];
 
-export function renderFamiSection(doc: OrientaPdfDocument, _c: Cursor): Cursor {
+export function renderFamiSection(doc: OrientaPdfDocument): Cursor {
   let cur = doc.beginMajorSection(
     "Resultado FAMI",
     "Pontuação consolidada e comparativo entre eixos estruturais.",

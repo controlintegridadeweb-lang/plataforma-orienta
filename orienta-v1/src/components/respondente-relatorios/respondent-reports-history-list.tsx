@@ -75,17 +75,17 @@ function HistoryReportRow({
   const kindLabel = REPORT_KIND_META[row.reportKind].label;
 
   return (
-    <li className="group rounded-xl border border-slate-200/80 bg-white p-4 shadow-[var(--shadow-card)] transition-[border-color,box-shadow] hover:border-slate-300/90 hover:shadow-[var(--shadow-card-hover)] sm:p-5">
+    <li className="group rounded-xl border border-slate-200/80 bg-white p-4 shadow-card transition-[border-color,box-shadow] hover:border-slate-300/90 hover:shadow-card-hover sm:p-5">
       <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:gap-5">
         <div className="min-w-0 flex-1 space-y-2">
           <div className="flex flex-wrap items-center gap-x-2 gap-y-1.5">
-            <h3 className="text-sm font-semibold text-slate-900 sm:text-[0.9375rem]">
+            <h3 className="text-sm font-semibold text-slate-900 sm:text-sm">
               {row.formName}
             </h3>
-            <span className="rounded-md bg-slate-100 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-slate-600">
+            <span className="rounded-md bg-slate-100 px-2 py-0.5 text-2xs font-semibold uppercase tracking-wide text-slate-600">
               {kindLabel}
             </span>
-            <span className="rounded-md bg-slate-50 px-2 py-0.5 text-[10px] font-medium text-slate-500 ring-1 ring-slate-200/80">
+            <span className="rounded-md bg-slate-50 px-2 py-0.5 text-2xs font-medium text-slate-500 ring-1 ring-slate-200/80">
               PDF
             </span>
             <HistoryStatusBadge outdated={outdated} />
@@ -96,30 +96,30 @@ function HistoryReportRow({
               {formatWhen(row.generatedAt)}
             </time>
             <span className="mx-1.5 text-slate-300" aria-hidden>
-              ·
+              �
             </span>
-            Versão FAMI v{row.processingVersion}
+            Vers�o FAMI v{row.processingVersion}
             {row.formTemplateVersion != null ? (
               <>
                 <span className="mx-1.5 text-slate-300" aria-hidden>
-                  ·
+                  �
                 </span>
                 Template v{row.formTemplateVersion}
               </>
             ) : null}
             <span className="mx-1.5 text-slate-300" aria-hidden>
-              ·
+              �
             </span>
             {row.generatedByLabel}
           </p>
 
-          <p className="text-[11px] text-slate-400">Ref. {row.id.slice(0, 8)}…</p>
+          <p className="text-micro text-slate-400">Ref. {row.id.slice(0, 8)}�</p>
         </div>
 
         <div
           className="flex shrink-0 flex-wrap items-center gap-1 border-t border-slate-100 pt-3 lg:border-t-0 lg:pt-0"
           role="toolbar"
-          aria-label={`Ações para ${row.formName}`}
+          aria-label={`A��es para ${row.formName}`}
         >
           <button
             type="button"
@@ -145,7 +145,7 @@ function HistoryReportRow({
           <button
             type="button"
             className={`${ACTION_BTN} text-rose-600 hover:bg-rose-50 hover:text-rose-700`}
-            title="Remover do histórico"
+            title="Remover do hist�rico"
             onClick={onRemove}
           >
             <Trash2 className="h-4 w-4" aria-hidden />
@@ -171,7 +171,7 @@ export function RespondentReportsHistoryList({
   }
 
   return (
-    <ul className="space-y-3" role="list" aria-label="Histórico de relatórios">
+    <ul className="space-y-3" role="list" aria-label="Hist�rico de relat�rios">
       {items.map((row) => {
         const latest = latestProcessingByForm.get(row.formId) ?? row.processingVersion;
         const outdated = row.processingVersion < latest;

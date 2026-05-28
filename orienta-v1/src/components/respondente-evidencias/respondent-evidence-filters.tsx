@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { ChevronDown, Filter, Search, X } from "lucide-react";
@@ -64,7 +64,7 @@ export function RespondentEvidenceFilters({
     >
       <div className="flex flex-col gap-3 px-4 py-3 sm:px-5">
         <div className="flex flex-wrap items-center gap-2">
-          <label className="relative min-w-[14rem] flex-1">
+          <label className="relative min-w-56 flex-1">
             <span className="sr-only">Buscar</span>
             <Search
               className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400"

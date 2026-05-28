@@ -11,7 +11,6 @@ import {
   TrendingUp,
   User,
 } from "lucide-react";
-import { usePathname } from "next/navigation";
 import { MetricCard } from "@/components/ui/metric-card";
 import { PanelSection } from "@/components/ui/panel-section";
 import { AdminActionPlanProgress } from "@/components/admin-plano-acao/admin-action-plan-progress";
@@ -64,8 +63,7 @@ export function StaffActionPlanExecutiveOverview() {
   const ctx = useRecommendationDetailContext();
   const row = ctx.row;
   const staffItem = ctx.staffItem;
-  const pathname = usePathname() ?? "";
-  const area = staffAreaFromPathname(pathname);
+  const area = staffAreaFromPathname();
 
   const plans = row?.plans ?? [];
   const progress = useMemo(() => progressFromPlans(plans), [plans]);
@@ -120,7 +118,7 @@ export function StaffActionPlanExecutiveOverview() {
       <section className={`${formSurface.dashboardPanel} space-y-4 p-5`}>
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div>
-            <p className="text-[11px] font-semibold uppercase tracking-wide text-slate-500">
+            <p className="text-micro font-semibold uppercase tracking-wide text-slate-500">
               Resumo do plano
             </p>
             <div className="mt-2 flex flex-wrap items-center gap-2">
@@ -128,7 +126,7 @@ export function StaffActionPlanExecutiveOverview() {
             </div>
           </div>
           <div className="text-right">
-            <p className="text-[11px] font-medium text-slate-500">Progresso consolidado</p>
+            <p className="text-micro font-medium text-slate-500">Progresso consolidado</p>
             <p className="text-2xl font-semibold tabular-nums text-slate-900">{progress}%</p>
           </div>
         </div>

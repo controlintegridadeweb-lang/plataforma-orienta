@@ -15,20 +15,20 @@ describe("inferRecommendationType", () => {
     expect(recommendation).toBe("not_implemented");
   });
 
-  it("gera partial_implementation para resposta parcial", () => {
+  it("nao gera recomendacao para resposta not_applicable", () => {
     const recommendation = inferRecommendationType({
       id: "2",
       axisId: "gov",
       sectionId: "s1",
       famiEnabled: true,
       requiresEvidence: false,
-      answer: "partial",
+      answer: "not_applicable",
     });
 
-    expect(recommendation).toBe("partial_implementation");
+    expect(recommendation).toBeNull();
   });
 
-  it("gera insufficient_evidence para resposta positiva com evidencia invalida", () => {
+  it("gera insufficient_evidence para resposta positiva com evidencia invalidada", () => {
     const recommendation = inferRecommendationType({
       id: "3",
       axisId: "gov",
@@ -36,13 +36,13 @@ describe("inferRecommendationType", () => {
       famiEnabled: true,
       requiresEvidence: true,
       answer: "yes",
-      validationStatus: "invalid",
+      validationStatus: "invalidated",
     });
 
     expect(recommendation).toBe("insufficient_evidence");
   });
 
-  it("gera insufficient_evidence para resposta positiva com evidencia parcialmente valida", () => {
+  it("nao gera recommendation quando evidencia esta adjustment_requested", () => {
     const recommendation = inferRecommendationType({
       id: "4",
       axisId: "gov",
@@ -50,10 +50,10 @@ describe("inferRecommendationType", () => {
       famiEnabled: true,
       requiresEvidence: true,
       answer: "yes",
-      validationStatus: "partially_valid",
+      validationStatus: "adjustment_requested",
     });
 
-    expect(recommendation).toBe("insufficient_evidence");
+    expect(recommendation).toBeNull();
   });
 
   it("NAO gera missing_evidence para resposta positiva sem evidencia (cenario descontinuado)", () => {
@@ -83,7 +83,7 @@ describe("inferRecommendationType", () => {
       famiEnabled: true,
       requiresEvidence: true,
       answer: "yes",
-      validationStatus: "complementation_requested",
+      validationStatus: "adjustment_requested",
     });
 
     expect(semEvidencia).toBeNull();
@@ -91,28 +91,18 @@ describe("inferRecommendationType", () => {
     expect(complementacao).toBeNull();
   });
 
-  it("retorna null para evidencia valida ou dispensada", () => {
-    const valida = inferRecommendationType({
+  it("retorna null para evidencia aprovada", () => {
+    const aprovada = inferRecommendationType({
       id: "8",
       axisId: "gov",
       sectionId: "s1",
       famiEnabled: true,
       requiresEvidence: true,
       answer: "yes",
-      validationStatus: "valid",
-    });
-    const dispensada = inferRecommendationType({
-      id: "9",
-      axisId: "gov",
-      sectionId: "s1",
-      famiEnabled: true,
-      requiresEvidence: true,
-      answer: "yes",
-      validationStatus: "waived",
+      validationStatus: "approved",
     });
 
-    expect(valida).toBeNull();
-    expect(dispensada).toBeNull();
+    expect(aprovada).toBeNull();
   });
 
   it("retorna null para perguntas com FAMI desabilitado ou não aplicáveis", () => {

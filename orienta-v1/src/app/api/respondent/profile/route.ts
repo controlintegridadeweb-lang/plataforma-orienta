@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+﻿import { NextResponse } from "next/server";
 import { z } from "zod";
 import { createSupabaseServerActionClient } from "@/lib/supabase/auth-server";
 import { requireAuth } from "@/lib/api/auth";
@@ -13,7 +13,7 @@ const patchSchema = z.object({
  * Atualiza nome e preferencias do proprio perfil (sessao; RLS e trigger em `profiles`).
  */
 export async function PATCH(request: Request) {
-  const { context, error: authError } = await requireAuth(request, ["respondent", "analyst", "admin"]);
+  const { context, error: authError } = await requireAuth(request, ["admin", "respondent"]);
   if (authError) return authError;
 
   const body = await request.json().catch(() => ({}));

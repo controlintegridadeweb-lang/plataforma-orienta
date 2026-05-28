@@ -5,7 +5,7 @@ import { handleFormsError } from "@/lib/forms/http";
 import { logError } from "@/lib/observability/logger";
 
 export async function GET(request: Request) {
-  const { error: authError } = await requireAuth(request, ["admin", "analyst"]);
+  const { error: authError } = await requireAuth(request, ["admin"]);
   if (authError) return authError;
   try {
     const url = new URL(request.url);
@@ -22,7 +22,6 @@ export async function GET(request: Request) {
 export async function POST(request: Request) {
   const { context: authContext, error: authError } = await requireAuth(request, [
     "admin",
-    "analyst",
   ]);
   if (authError) return authError;
   try {

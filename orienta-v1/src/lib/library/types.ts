@@ -11,7 +11,6 @@ export type LibraryItemStatus =
 
 export type LibraryRecommendationType =
   | "nao_implementacao"
-  | "implementacao_parcial"
   | "ausencia_evidencia"
   | "evidencia_insuficiente";
 
@@ -205,7 +204,6 @@ export const LIBRARY_ITEM_STATUSES: readonly LibraryItemStatus[] = [
 
 export const LIBRARY_RECOMMENDATION_TYPES: readonly LibraryRecommendationType[] = [
   "nao_implementacao",
-  "implementacao_parcial",
   "ausencia_evidencia",
   "evidencia_insuficiente",
 ] as const;

@@ -24,7 +24,7 @@ export function RespondentReportTypeSelector({ value, onChange }: Props) {
               type="button"
               onClick={() => onChange(id)}
               title={`${meta.label} · ${meta.scope}`}
-              className={`group flex gap-3 rounded-xl border p-3 text-left shadow-[var(--shadow-card)] transition hover:-translate-y-0.5 hover:shadow-[var(--shadow-card-hover)] ${
+              className={`group flex gap-3 rounded-xl border p-3 text-left shadow-card transition hover:-translate-y-0.5 hover:shadow-card-hover ${
                 active
                   ? "border-brand-300 bg-brand-50/80 ring-2 ring-brand-200"
                   : "border-slate-200 bg-white hover:border-slate-300"
@@ -39,10 +39,10 @@ export function RespondentReportTypeSelector({ value, onChange }: Props) {
               </span>
               <span className="min-w-0">
                 <span className="block text-sm font-semibold text-slate-900">{meta.label}</span>
-                <span className="mt-0.5 line-clamp-2 text-[11px] leading-snug text-slate-500">
+                <span className="mt-0.5 line-clamp-2 text-micro leading-snug text-slate-500">
                   {meta.shortDescription}
                 </span>
-                <span className="mt-1 block text-[10px] font-medium text-slate-400">
+                <span className="mt-1 block text-2xs font-medium text-slate-400">
                   Escopo: {meta.scope}
                 </span>
               </span>

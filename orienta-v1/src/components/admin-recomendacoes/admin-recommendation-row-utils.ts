@@ -46,7 +46,7 @@ export function planLinkSummary(item: AdminRecommendationItem): {
   tone: "neutral" | "brand" | "muted";
 } {
   if (!item.hasPlan) {
-    return { label: "Sem plano", detail: null, tone: "muted" };
+    return { label: "Aguardando ação", detail: null, tone: "muted" };
   }
   const count = item.plans.length;
   const status = item.planStatus;

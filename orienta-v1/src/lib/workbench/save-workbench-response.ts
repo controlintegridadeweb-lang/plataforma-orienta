@@ -38,7 +38,7 @@ export const workbenchResponseBodySchema = z.object({
   formId: z.string().uuid(),
   organizationId: z.string().uuid(),
   questionId: z.string().uuid(),
-  answer: z.enum(["yes", "no", "partial"]),
+  answer: z.enum(["yes", "no", "not_applicable"]),
   notes: z.string().optional(),
   evidence: evidenceSchema.optional(),
   /** Quando o binding tem cenario `nao_se_aplica`, persiste a marcacao N/A. */

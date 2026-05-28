@@ -3,13 +3,17 @@ import type { ActionPlanListItem } from "@/lib/action-plans/admin-service";
 import type { ActionPlanAction } from "@/lib/domain/action-plans";
 import type { PlanStatus } from "@/lib/action-plans/schemas";
 import type { RecommendationStatus } from "./schemas";
+import { deriveActionPlanView } from "@/lib/action-plans/respondent-presentation";
+import type { ActionPlanView } from "@/lib/domain/workflow-status-keys";
 import {
   RECOMMENDATION_REGISTRY,
   RESPONDENT_RECOMMENDATION_VIEW_REGISTRY,
 } from "@/lib/domain/status-registry";
 import type { RespondentRecommendationView } from "@/lib/domain/workflow-status-keys";
 
-export type { RespondentRecommendationView };
+export { deriveActionPlanView, ACTION_PLAN_VIEW_META } from "@/lib/action-plans/respondent-presentation";
+export type { ActionPlanViewMeta } from "@/lib/action-plans/respondent-presentation";
+export type { ActionPlanView, RespondentRecommendationView };
 
 export type StatusVariant = "neutral" | "info" | "success" | "muted";
 
@@ -141,6 +145,7 @@ export type RespondentRecommendationItem = {
   needsAction: boolean;
   progress: number;
   slaLabel: ActionPlanListItem["slaLabel"];
+  planView: ActionPlanView;
 };
 
 export function toRespondentItem(row: ActionPlanListItem): RespondentRecommendationItem {
@@ -168,6 +173,7 @@ export function toRespondentItem(row: ActionPlanListItem): RespondentRecommendat
     needsAction: view === "awaiting_action",
     progress: progressFromPlans(row.plans),
     slaLabel: row.slaLabel,
+    planView: deriveActionPlanView({ plans: row.plans, slaLabel: row.slaLabel }),
   };
 }
 

@@ -22,7 +22,7 @@ import { typography } from "@/lib/design-system";
 import { formSurface } from "@/lib/form-surface";
 
 const questionCardClassName =
-  "rounded-xl border border-slate-200/90 bg-white p-4 shadow-[var(--shadow-card)] sm:p-5";
+  "rounded-xl border border-slate-200/90 bg-white p-4 shadow-card sm:p-5";
 
 const questionPromptClassName =
   "mt-2 text-sm font-medium leading-relaxed text-slate-900 sm:text-base";
@@ -184,7 +184,7 @@ export function FormQuestionsManager({ formId }: Props) {
             onChange={(e) => setNewPrompt(e.target.value)}
             rows={3}
             maxLength={500}
-            className={`${formSurface.inputTextarea} min-h-[4.75rem]`}
+            className={`${formSurface.inputTextarea} min-h-19`}
           />
         </div>
 
@@ -273,7 +273,7 @@ export function FormQuestionsManager({ formId }: Props) {
                       onChange={(e) => setDraft(e.target.value)}
                       rows={3}
                       maxLength={500}
-                      className={`${formSurface.inputTextarea} min-h-[4.75rem]`}
+                      className={`${formSurface.inputTextarea} min-h-19`}
                     />
                   </div>
                 ) : (

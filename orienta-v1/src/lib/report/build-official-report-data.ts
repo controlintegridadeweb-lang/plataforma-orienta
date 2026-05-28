@@ -90,8 +90,8 @@ async function loadEvidenceSummary(
     .in("evidence_id", evidenceIds)
     .order("validated_at", { ascending: false });
 
-  // `evidence_validations.status` segue `validation_status` (`valid`, `invalid`,
-  // `partially_valid`, `complementation_requested`, `waived`, `pending`).
+  // `evidence_validations.status` segue `validation_status`
+  // (`approved`, `invalidated`, `adjustment_requested`, `pending`).
   // Sem validacao registrada == `pending` (em analise).
   const latestByEvidence = new Map<string, ValidationStatus>();
   for (const row of validations ?? []) {

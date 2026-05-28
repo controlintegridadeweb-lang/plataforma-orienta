@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+﻿import { NextResponse } from "next/server";
 import { z } from "zod";
 import { createSupabaseServiceRoleClient } from "@/lib/supabase/server";
 import { requireAuth } from "@/lib/api/auth";
@@ -12,10 +12,10 @@ const querySchema = z.object({
 });
 
 /**
- * Portfolio de recomendacoes (analista) — sessao + tenant; funciona fora de dev-only.
+ * Portfolio de recomendacoes (admin) — sessao + tenant; funciona fora de dev-only.
  */
 export async function GET(request: Request) {
-  const { context, error: authError } = await requireAuth(request, ["analyst", "admin"]);
+  const { context, error: authError } = await requireAuth(request, ["admin"]);
   if (authError) return authError;
 
   const url = new URL(request.url);

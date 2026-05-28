@@ -74,7 +74,6 @@ export const LIBRARY_STATUS_LABEL: Record<LibraryItemStatus, string> = {
 
 export const LIBRARY_RECOMMENDATION_TYPE_LABEL: Record<LibraryRecommendationType, string> = {
   nao_implementacao: "Não implementação",
-  implementacao_parcial: "Implementação parcial",
   ausencia_evidencia: "Ausência de evidência",
   evidencia_insuficiente: "Evidência insuficiente",
 };

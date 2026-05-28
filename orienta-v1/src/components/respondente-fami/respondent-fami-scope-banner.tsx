@@ -24,11 +24,11 @@ export function RespondentFamiScopeBanner({
 
   return (
     <div
-      className="flex flex-col gap-4 rounded-xl border border-slate-200/80 bg-white p-4 shadow-[var(--shadow-card)] sm:flex-row sm:items-center sm:gap-6 sm:p-5"
+      className="flex flex-col gap-4 rounded-xl border border-slate-200/80 bg-white p-4 shadow-card sm:flex-row sm:items-center sm:gap-6 sm:p-5"
       role="status"
     >
       <div className="min-w-0 flex-1 space-y-1.5">
-        <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+        <p className="text-micro font-semibold uppercase tracking-wider text-slate-500">
           Score específico do diagnóstico
         </p>
         <h3 className="text-lg font-medium tracking-normal text-slate-900 sm:text-xl">
@@ -52,7 +52,7 @@ export function RespondentFamiScopeBanner({
           <RespondentFamiLevelBadge level={level} size="md" />
         </div>
       ) : (
-        <p className={`${formSurface.messageWarning} shrink-0 text-xs sm:max-w-[12rem]`}>
+        <p className={`${formSurface.messageWarning} shrink-0 text-xs sm:max-w-48`}>
           Sem pontuação calculada para este formulário.
         </p>
       )}

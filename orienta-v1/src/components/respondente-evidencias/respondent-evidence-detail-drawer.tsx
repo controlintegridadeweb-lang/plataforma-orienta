@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { ArrowRight, ExternalLink, FileText, Pencil, RefreshCw } from "lucide-react";
 import { Drawer } from "@/components/ui/drawer";
+import { evidenceComplementation } from "@/lib/labels/complementation-terms";
 import type { RespondentEvidenceItem } from "@/lib/evidences/respondent-service";
 import { respondentStatusNeedsAction } from "@/lib/evidences/respondent-status";
 import { normalizeWorkbenchText } from "@/lib/evidences/normalize-workbench-text";
@@ -19,7 +20,7 @@ type Props = {
 function actionFor(status: RespondentEvidenceItem["respondentStatus"]) {
   switch (status) {
     case "complementacao_solicitada":
-      return { label: "Responder complementação", icon: ArrowRight };
+      return { label: evidenceComplementation.respondCta, icon: ArrowRight };
     case "reprovada":
       return { label: "Reenviar evidência", icon: RefreshCw };
     case "aprovada":
@@ -110,7 +111,7 @@ export function RespondentEvidenceDetailDrawer({ open, item, onClose }: Props) {
 
         {item.lastJustification ? (
           <section className="space-y-2">
-            <p className={formSurface.label}>Observação do analista</p>
+            <p className={formSurface.label}>Observação da validação</p>
             <p className={formSurface.messageNeutral}>{item.lastJustification}</p>
           </section>
         ) : null}

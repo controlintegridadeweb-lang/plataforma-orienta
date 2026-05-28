@@ -2,9 +2,7 @@
 
 import { CalendarClock } from "lucide-react";
 import type { ActionPlanAction } from "@/lib/domain/action-plans";
-import { computeActionSla } from "@/lib/domain/action-plans";
 import { formSurface } from "@/lib/form-surface";
-import { typography } from "@/lib/design-system";
 import { RespondentRecommendationProgress } from "@/components/respondente-recomendacoes/respondent-recommendation-progress";
 
 type Metrics = {
@@ -25,7 +23,7 @@ export function RecommendationMonitoringSidebar({ progress, metrics }: Props) {
   return (
     <aside className="space-y-4 lg:sticky lg:top-4 lg:self-start">
       <div className="rounded-xl border border-slate-200/90 bg-white p-4 shadow-sm">
-        <p className="text-[10px] font-semibold uppercase tracking-wide text-slate-500">
+        <p className="text-2xs font-semibold uppercase tracking-wide text-slate-500">
           Resumo
         </p>
         <div className="mt-3">
@@ -33,25 +31,25 @@ export function RecommendationMonitoringSidebar({ progress, metrics }: Props) {
         </div>
         <dl className="mt-4 grid grid-cols-2 gap-2 text-center">
           <div className="rounded-lg bg-slate-50 px-2 py-2">
-            <dt className="text-[10px] text-slate-500">Ativas</dt>
+            <dt className="text-2xs text-slate-500">Ativas</dt>
             <dd className="text-lg font-semibold tabular-nums text-slate-900">
               {metrics.active}
             </dd>
           </div>
           <div className="rounded-lg bg-slate-50 px-2 py-2">
-            <dt className="text-[10px] text-slate-500">Concl.</dt>
+            <dt className="text-2xs text-slate-500">Concl.</dt>
             <dd className="text-lg font-semibold tabular-nums text-emerald-700">
               {metrics.completed}
             </dd>
           </div>
           <div className="rounded-lg bg-slate-50 px-2 py-2">
-            <dt className="text-[10px] text-slate-500">Atraso</dt>
+            <dt className="text-2xs text-slate-500">Atraso</dt>
             <dd className="text-lg font-semibold tabular-nums text-rose-700">
               {metrics.overdue}
             </dd>
           </div>
           <div className="rounded-lg bg-slate-50 px-2 py-2">
-            <dt className="text-[10px] text-slate-500">S/ resp.</dt>
+            <dt className="text-2xs text-slate-500">S/ resp.</dt>
             <dd className="text-lg font-semibold tabular-nums text-amber-700">
               {metrics.noResp}
             </dd>
@@ -61,7 +59,7 @@ export function RecommendationMonitoringSidebar({ progress, metrics }: Props) {
 
       {metrics.upcoming.length > 0 ? (
         <div className="rounded-xl border border-slate-200/90 bg-white p-4 shadow-sm">
-          <p className="mb-2 flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-wide text-slate-500">
+          <p className="mb-2 flex items-center gap-1.5 text-2xs font-semibold uppercase tracking-wide text-slate-500">
             <CalendarClock className="h-3.5 w-3.5" aria-hidden />
             Próx. 7 dias
           </p>
