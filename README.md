@@ -1,6 +1,6 @@
 # Plataforma Orienta
 
-Monorepo com a aplicacao Next.js em **`orienta-v1/`**. Abra **esta pasta** como raiz no Cursor/VS Code (ex.: `Downloads\PLATAFORMA ORIENTA FINAL\PLATAFORMA ORIENTA` — use a pasta interna `PLATAFORMA ORIENTA`, nao a pasta `... FINAL` sozinha). Detalhes: [docs/MONOREPO_LAYOUT.md](docs/MONOREPO_LAYOUT.md).
+Monorepo com a aplicacao Next.js em **`orienta-v1/`**. Abra **esta pasta** como raiz no Cursor/VS Code (ex.: `Downloads\PLATAFORMA ORIENTA`). Detalhes: [docs/MONOREPO_LAYOUT.md](docs/MONOREPO_LAYOUT.md).
 
 ## Estrutura do repositorio
 
@@ -26,7 +26,7 @@ PLATAFORMA ORIENTA/          ← raiz do git (abra esta pasta)
 Na **raiz** (recomendado):
 
 ```powershell
-cd "C:\Users\01647043450\Downloads\PLATAFORMA ORIENTA FINAL\PLATAFORMA ORIENTA"
+cd "C:\Users\01647043450\Downloads\PLATAFORMA ORIENTA"
 npm run install:app
 npm run dev
 ```

@@ -4,10 +4,8 @@
 
 | Pasta | Papel |
 |-------|--------|
-| **`PLATAFORMA ORIENTA/`** | Raiz do **git** — abra esta pasta (nao a pasta `... FINAL` acima) |
+| **`PLATAFORMA ORIENTA/`** | Raiz do **git** — abra esta pasta (ex.: `Downloads\PLATAFORMA ORIENTA`) |
 | `orienta-v1/` | App Next.js + Supabase (codigo e `package.json` da aplicacao) |
-
-Se o projeto estiver em `Downloads\PLATAFORMA ORIENTA FINAL\PLATAFORMA ORIENTA`, o workspace correto e **`PLATAFORMA ORIENTA`**, nao `PLATAFORMA ORIENTA FINAL`.
 
 ## Arvore oficial
 
