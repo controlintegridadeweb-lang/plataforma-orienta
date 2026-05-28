@@ -29,9 +29,9 @@ Checklist de conformidade obrigatoria com a Orienta V2.
 
 ## E. Estados e Fluxos
 
-- [ ] Estados de formulario aderentes ao `docs/STATUS_RULES.md`.
-- [ ] Estados de acao aderentes ao `docs/STATUS_RULES.md`.
-- [ ] Fluxo operacional aderente ao `docs/FLOW_OPERACIONAL.md`.
+- [ ] Estados de formulario aderentes ao `../product/STATUS_RULES.md`.
+- [ ] Estados de acao aderentes ao `../product/STATUS_RULES.md`.
+- [ ] Fluxo operacional aderente ao `../architecture/FLOW_OPERACIONAL.md`.
 - [ ] Nao existem estados legados fora da lista oficial.
 
 ## F. Arquitetura

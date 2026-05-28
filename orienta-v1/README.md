@@ -121,6 +121,6 @@ CI em GitHub Actions: [`.github/workflows/ci.yml`](../.github/workflows/ci.yml) 
 
 ## Deploy (Vercel + GitHub + Supabase)
 
-Para publicar com URL publica, branch `staging` e variaveis na Vercel, siga o guia **[docs/DEPLOY-VERCEL.md](docs/DEPLOY-VERCEL.md)**.
+Para publicar com URL publica, branch `staging` e variaveis na Vercel, siga o guia **[docs/operations/DEPLOY-VERCEL.md](docs/operations/DEPLOY-VERCEL.md)**.
 
 Resumo: importe o repositorio na Vercel com **Root Directory** = `orienta-v1`, configure as env de [`.env.vercel.example`](.env.vercel.example) e as Redirect URLs no Supabase Auth.

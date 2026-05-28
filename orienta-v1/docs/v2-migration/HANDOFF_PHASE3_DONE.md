@@ -14,8 +14,8 @@ Fase 3 concluida com migrations e guardrails:
 
 Documentacao de fase:
 
-- `docs/PHASE_3_BLOCK_1_DB_INVENTORY_AND_MIGRATIONS.md`
-- `docs/PHASE_3_BLOCK_3_GUARDRAILS.md`
+- `PHASE_3_BLOCK_1_DB_INVENTORY_AND_MIGRATIONS.md`
+- `PHASE_3_BLOCK_3_GUARDRAILS.md`
 
 ## Evidencias de aplicacao no banco
 
@@ -56,7 +56,7 @@ Resultado final:
 
 Ajuste necessario para o pass:
 
-- `docs/BACKEND_ARCHITECTURE.md`: substituicao de termo legado de papel tecnico por `role admin`.
+- `../architecture/BACKEND_ARCHITECTURE.md`: substituicao de termo legado de papel tecnico por `role admin`.
 
 ### Testes automatizados
 

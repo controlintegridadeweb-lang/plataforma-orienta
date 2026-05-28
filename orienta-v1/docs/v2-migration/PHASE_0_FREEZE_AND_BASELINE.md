@@ -22,10 +22,10 @@ Permitido durante o freeze:
 
 A fonte oficial para decisoes e validacao de conformidade e:
 
-- `../../docs/MASTER_DOCUMENT_ORIENTA_V2.md`
-- `../../docs/FLOW_OPERACIONAL.md`
-- `../../docs/STATUS_RULES.md`
-- `../../docs/FAMI_RULES.md`
+- `../architecture/MASTER_DOCUMENT_ORIENTA_V2.md`
+- `../architecture/FLOW_OPERACIONAL.md`
+- `../product/STATUS_RULES.md`
+- `../product/FAMI_RULES.md`
 
 ## 3) Baseline Tecnico Capturado
 
@@ -35,8 +35,8 @@ A fonte oficial para decisoes e validacao de conformidade e:
 
 ## 4) Entregaveis da Fase 0
 
-- checklist de conformidade oficial: `docs/V2_CONFORMITY_CHECKLIST.md`
-- matriz regra -> impacto em codigo: `docs/V2_RULE_IMPACT_MATRIX.md`
+- checklist de conformidade oficial: `V2_CONFORMITY_CHECKLIST.md`
+- matriz regra -> impacto em codigo: `V2_RULE_IMPACT_MATRIX.md`
 - registro de freeze e baseline (este arquivo)
 
 ## 5) Criterio para sair da Fase 0

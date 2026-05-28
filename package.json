@@ -1,0 +1,15 @@
+{
+  "name": "plataforma-orienta-workspace",
+  "private": true,
+  "scripts": {
+    "install:app": "npm ci --prefix orienta-v1",
+    "dev": "npm --prefix orienta-v1 run dev",
+    "build": "npm --prefix orienta-v1 run build",
+    "start": "npm --prefix orienta-v1 run start",
+    "lint": "npm --prefix orienta-v1 run lint",
+    "test": "npm --prefix orienta-v1 run test",
+    "test:coverage": "npm --prefix orienta-v1 run test:coverage",
+    "check:v2-terminology": "npm --prefix orienta-v1 run check:v2-terminology",
+    "check:v2-sql-contract": "npm --prefix orienta-v1 run check:v2-sql-contract"
+  }
+}

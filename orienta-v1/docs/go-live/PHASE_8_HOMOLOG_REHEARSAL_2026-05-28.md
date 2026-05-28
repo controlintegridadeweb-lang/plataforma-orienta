@@ -1,7 +1,7 @@
 # PHASE 8 — HOMOLOG REHEARSAL (2026-05-28)
 
 Projeto Supabase validado: `ziszpxkivwtuhnbsbyog`
-Runbook de referência: `docs/PHASE_8_GO_LIVE_RUNBOOK.md`
+Runbook de referência: `PHASE_8_GO_LIVE_RUNBOOK.md`
 
 ## 1) Preflight técnico (aplicação)
 

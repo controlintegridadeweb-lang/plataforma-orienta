@@ -1,15 +1,20 @@
 {
   "folders": [
     {
-      "name": "Plataforma Orienta",
+      "name": "Monorepo",
+      "path": "."
+    },
+    {
+      "name": "App (orienta-v1)",
       "path": "orienta-v1"
     }
   ],
   "settings": {
-    "typescript.tsdk": "node_modules/typescript/lib",
+    "typescript.tsdk": "orienta-v1/node_modules/typescript/lib",
     "eslint.workingDirectories": [
       {
-        "mode": "auto"
+        "directory": "orienta-v1",
+        "changeProcessCWD": true
       }
     ],
     "files.exclude": {

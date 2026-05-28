@@ -92,7 +92,7 @@ Matriz inicial da Fase 0 com os principais desvios identificados e seus pontos d
 
 ## 9) Estados oficiais de formulario/acao/recommendation
 
-- **Regra oficial:** seguir `docs/STATUS_RULES.md`.
+- **Regra oficial:** seguir `../product/STATUS_RULES.md`.
 - **Desvio atual:** coexistem estados legados (`under_review`, `consolidated`, `resolved`, `dismissed`, `to_implement`, `cancelled`).
 - **Impacto principal:**
   - `src/lib/domain/workflow.ts`

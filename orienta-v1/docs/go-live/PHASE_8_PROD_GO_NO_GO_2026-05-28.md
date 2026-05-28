@@ -19,9 +19,9 @@ Ambiente de validação final: homolog (`ziszpxkivwtuhnbsbyog`)
    - `invalidated` gera recommendation: **PASS**
    - `adjustment_requested` não gera recommendation ativa: **PASS**
 7. Evidências documentadas em:
-   - `docs/PHASE_6_RLS_QA_MATRIX.md`
-   - `docs/PHASE_6_CLOSURE_SUMMARY.md`
-   - `docs/PHASE_8_HOMOLOG_REHEARSAL_2026-05-28.md`
+   - `../v2-migration/PHASE_6_RLS_QA_MATRIX.md`
+   - `../v2-migration/PHASE_6_CLOSURE_SUMMARY.md`
+   - `PHASE_8_HOMOLOG_REHEARSAL_2026-05-28.md`
 
 ## Risco residual
 

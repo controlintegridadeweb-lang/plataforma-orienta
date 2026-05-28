@@ -11,7 +11,7 @@ Validar que as permissões e o isolamento operacional estão alinhados ao contra
 
 - Status da fase: **concluída**
 - Resultado geral: **PASS**
-- Evidência consolidada: `docs/PHASE_6_RLS_QA_MATRIX.md`
+- Evidência consolidada: `PHASE_6_RLS_QA_MATRIX.md`
 
 ## Evidências técnicas
 
@@ -46,4 +46,4 @@ Resultado:
 
 Iniciar execução operacional de go-live controlado (Fase 8) em homolog, usando:
 
-- `docs/PHASE_8_GO_LIVE_RUNBOOK.md`
+- `../go-live/PHASE_8_GO_LIVE_RUNBOOK.md`
