@@ -12,8 +12,8 @@ describe("recommendation-engine-v2 scenarios", () => {
       "nao",
     );
     expect(
-      resolveScenario({ answer: "partial", requiresEvidence: false }).scenario,
-    ).toBe("parcialmente");
+      resolveScenario({ answer: "not_applicable", requiresEvidence: false }).scenario,
+    ).toBe("nao_se_aplica");
     expect(
       resolveScenario({
         answer: "yes",
@@ -26,7 +26,7 @@ describe("recommendation-engine-v2 scenarios", () => {
         answer: "yes",
         requiresEvidence: true,
         hasEvidenceSubmitted: true,
-        validationStatus: "invalid",
+        validationStatus: "invalidated",
       }).scenario,
     ).toBe("sim_evidencia_invalida");
     expect(
@@ -34,7 +34,7 @@ describe("recommendation-engine-v2 scenarios", () => {
         answer: "yes",
         requiresEvidence: true,
         hasEvidenceSubmitted: true,
-        validationStatus: "valid",
+        validationStatus: "approved",
       }).scenario,
     ).toBe("sim_evidencia_valida");
     expect(
@@ -62,7 +62,7 @@ describe("recommendation-engine-v2 scenarios", () => {
         answer: "yes",
         requiresEvidence: false,
         isFreeTextAnswer: true,
-        validationStatus: "invalid",
+        validationStatus: "invalidated",
       }).scenario,
     ).toBe("sim_evidencia_invalida");
     expect(
@@ -70,7 +70,7 @@ describe("recommendation-engine-v2 scenarios", () => {
         answer: "yes",
         requiresEvidence: false,
         isFreeTextAnswer: true,
-        validationStatus: "valid",
+        validationStatus: "approved",
       }).scenario,
     ).toBe("sim_evidencia_valida");
     expect(
@@ -79,6 +79,14 @@ describe("recommendation-engine-v2 scenarios", () => {
         requiresEvidence: false,
         isFreeTextAnswer: true,
         validationStatus: "pending",
+      }).scenario,
+    ).toBe("sim_sem_evidencia");
+    expect(
+      resolveScenario({
+        answer: "yes",
+        requiresEvidence: false,
+        isFreeTextAnswer: true,
+        validationStatus: "adjustment_requested",
       }).scenario,
     ).toBe("sim_sem_evidencia");
   });
@@ -136,7 +144,7 @@ describe("buildRecommendationFromSnapshot", () => {
     expect(result?.renderedText).toContain("Prefeitura");
   });
 
-  it("returns null for 'yes' when pergunta nao exige evidencia e bindings so tem nao/parcialmente", () => {
+  it("returns null for 'yes' when pergunta nao exige evidencia e bindings so tem nao", () => {
     const snap: FormQuestionLibrarySnapshot = {
       ...snapshot,
       metric: {
@@ -152,11 +160,6 @@ describe("buildRecommendationFromSnapshot", () => {
           recommendationId: null,
           actionIds: [],
           recommendation: { title: "Implemente o controle" },
-        },
-        parcialmente: {
-          recommendationId: null,
-          actionIds: [],
-          recommendation: { title: "Complete a implementacao" },
         },
       },
     };

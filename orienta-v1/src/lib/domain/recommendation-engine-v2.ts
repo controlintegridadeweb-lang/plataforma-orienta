@@ -7,7 +7,7 @@ import { scenarioBindingHasRecommendation } from "@/lib/library/binding-service"
 import type { AnswerValue, ValidationStatus } from "./types";
 
 export type ScenarioInput = {
-  answer: AnswerValue | "not_applicable" | "dont_know" | "in_review" | "out_of_scope";
+  answer: AnswerValue | "dont_know" | "in_review" | "out_of_scope";
   requiresEvidence: boolean;
   validationStatus?: ValidationStatus;
   isNotApplicable?: boolean;
@@ -16,7 +16,7 @@ export type ScenarioInput = {
   hasEvidenceSubmitted?: boolean;
   isInProgress?: boolean;
   answeredUnknown?: boolean;
-  /** Resposta em texto livre: cenário definido pelo status de validação do analista. */
+  /** Resposta em texto livre: cenário definido pelo status de validação da evidência. */
   isFreeTextAnswer?: boolean;
 };
 
@@ -42,18 +42,15 @@ export function resolveScenario(input: ScenarioInput): ScenarioResolution {
   if (input.isOutOfScope) return { scenario: "fora_de_escopo", confidence: 1 };
   if (input.isInReview) return { scenario: "em_revisao", confidence: 1 };
   if (input.isNotApplicable) return { scenario: "nao_se_aplica", confidence: 1 };
+  if (input.answer === "not_applicable") return { scenario: "nao_se_aplica", confidence: 1 };
   if (input.answeredUnknown) return { scenario: "nao_sabe", confidence: 0.7 };
   if (input.isInProgress) return { scenario: "em_andamento", confidence: 0.8 };
 
   if (input.isFreeTextAnswer) {
-    if (
-      input.validationStatus === "invalid" ||
-      input.validationStatus === "partially_valid" ||
-      input.validationStatus === "complementation_requested"
-    ) {
+    if (input.validationStatus === "invalidated") {
       return { scenario: "sim_evidencia_invalida", confidence: 0.85 };
     }
-    if (input.validationStatus === "valid" || input.validationStatus === "waived") {
+    if (input.validationStatus === "approved") {
       return { scenario: "sim_evidencia_valida", confidence: 1 };
     }
     return { scenario: "sim_sem_evidencia", confidence: 0.7 };
@@ -61,9 +58,6 @@ export function resolveScenario(input: ScenarioInput): ScenarioResolution {
 
   if (input.answer === "no") {
     return { scenario: "nao", confidence: 1 };
-  }
-  if (input.answer === "partial") {
-    return { scenario: "parcialmente", confidence: 0.95 };
   }
   if (input.answer === "yes") {
     if (!input.requiresEvidence) {
@@ -73,12 +67,11 @@ export function resolveScenario(input: ScenarioInput): ScenarioResolution {
       return { scenario: "sim_sem_evidencia", confidence: 0.9 };
     }
     if (
-      input.validationStatus === "invalid" ||
-      input.validationStatus === "partially_valid"
+      input.validationStatus === "invalidated"
     ) {
       return { scenario: "sim_evidencia_invalida", confidence: 0.9 };
     }
-    if (input.validationStatus === "valid" || input.validationStatus === "waived") {
+    if (input.validationStatus === "approved") {
       return { scenario: "sim_evidencia_valida", confidence: 1 };
     }
     return { scenario: "sim_sem_evidencia", confidence: 0.6 };
