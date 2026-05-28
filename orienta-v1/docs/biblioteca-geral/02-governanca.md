@@ -30,22 +30,22 @@ stateDiagram-v2
 
 ## Matriz de permissoes por acao
 
-| Acao | Administrador | Analista | Respondente |
-|---|---|---|---|
-| Criar item em `draft` | sim | sim | nao |
-| Editar item em `draft` | sim | sim (apenas autor ou delegado) | nao |
-| Submeter para `in_review` | sim | sim | nao |
-| Revisar e devolver para `draft` | sim | sim (nao o proprio autor) | nao |
-| Publicar (`in_review` -> `published`) | sim | nao | nao |
-| Criar nova versao a partir de `published` | sim | sim (gera `draft` derivado) | nao |
-| Deprecar (`published` -> `deprecated`) | sim | nao | nao |
-| Arquivar (`deprecated` -> `archived`) | sim | nao | nao |
-| Gerenciar vocabulario de `tags` | sim | nao | nao |
+| Acao | Administrador | Respondente |
+|---|---|---|
+| Criar item em `draft` | sim | nao |
+| Editar item em `draft` | sim | nao |
+| Submeter para `in_review` | sim | nao |
+| Revisar e devolver para `draft` | sim (nao o proprio autor) | nao |
+| Publicar (`in_review` -> `published`) | sim | nao |
+| Criar nova versao a partir de `published` | sim (gera `draft` derivado) | nao |
+| Deprecar (`published` -> `deprecated`) | sim | nao |
+| Arquivar (`deprecated` -> `archived`) | sim | nao |
+| Gerenciar vocabulario de `tags` | sim | nao |
 
 Regra-chave: **aprovacao em duas etapas** para publicacao critica
 (recomendacao-base e acao-modelo).
 
-- Etapa 1 — Revisor tecnico (Analista designado) valida texto e
+- Etapa 1 — Revisor tecnico (admin designado) valida texto e
   checklist de qualidade.
 - Etapa 2 — Aprovador institucional (Administrador) publica.
 

@@ -19,7 +19,7 @@ ritual de revisao.
 | Metrica | Definicao | Uso |
 |---|---|---|
 | Taxa de disparo | `disparos / formularios_respondidos` no periodo. | Identificar recomendacoes mais/menos acionadas. |
-| Taxa de manutencao | `% de disparos em que o texto foi editado pelo analista`. | Alto valor sugere problema de redacao. |
+| Taxa de manutencao | `% de disparos em que o texto foi editado pelo admin`. | Alto valor sugere problema de redacao. |
 | Taxa de excecao | `% de disparos que terminaram em excecao institucional`. | Alto valor sugere escopo de aplicacao ruim. |
 | Tempo medio de fechamento | Tempo medio entre geracao da recomendacao e conclusao das acoes correspondentes. | Eficacia pratica. |
 | Cobertura de acao-modelo | `% de disparos em que ao menos uma acao-modelo foi aceita no plano`. | Qualidade da sugestao. |

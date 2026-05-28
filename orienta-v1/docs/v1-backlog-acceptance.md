@@ -2,7 +2,7 @@
 
 ## Auth e Perfis
 - Login por email/senha com Supabase Auth.
-- Perfis: admin, analyst e respondent.
+- Perfis: admin e respondent.
 - Aceite: endpoint protegido valida perfil antes de operacao critica.
 
 ## Formularios e Versoes
@@ -13,12 +13,12 @@
 ## Evidencias e Validacao
 - Upload interno como padrao; link externo apenas com motivo registrado.
 - Status de validacao institucionais aplicados.
-- Aceite: status `waived` exige justificativa.
+- Aceite: status `adjustment_requested` exige justificativa.
 
 ## Recomendacoes
 - Motor gera tipos oficiais por combinacao resposta x comprovacao.
-- Ajustes por analista/admin devem preservar texto original.
-- Aceite: casos `no`, `partial`, `yes+invalid` geram tipos corretos.
+- Ajustes por admin devem preservar texto original.
+- Aceite: casos `no`, `not_applicable`, `yes+invalidated` geram tipos corretos.
 
 ## FAMI Ponderado
 - Peso 1.5 (com comprovacao aprovada/dispensada) e 1.0 (sem comprovacao).

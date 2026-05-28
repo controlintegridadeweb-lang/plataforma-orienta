@@ -89,7 +89,7 @@ Cada item segue `Given / When / Then` em portugues.
 - Entao a publicacao e bloqueada com lista das perguntas e lacunas.
 
 ### CA-31 — Publicacao bloqueada sem cobertura minima
-- Dado uma pergunta com `answer_type = yes_no_partial`, `exige_comprovacao
+- Dado uma pergunta com `answer_type = yes_no`, `exige_comprovacao
   = true` e `participa_fami = true`,
 - Quando o `bindings` nao cobre todos os cenarios obrigatorios,
 - Entao a publicacao e bloqueada sinalizando os cenarios faltantes.
@@ -179,7 +179,7 @@ A homologacao da biblioteca executa um pacote fixo com, no minimo:
 - 1 caso por tipo de item em CRUD completo;
 - 1 caso por transicao de estado;
 - 1 caso por tipo de recomendacao (`nao_implementacao`,
-  `implementacao_parcial`, `ausencia_evidencia`,
+  `ausencia_evidencia`,
   `evidencia_insuficiente`);
 - 1 caso de formulario com todos os cenarios mapeados,
   executando um envio simulado;

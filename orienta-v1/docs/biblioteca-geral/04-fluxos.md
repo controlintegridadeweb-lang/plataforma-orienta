@@ -8,7 +8,7 @@ estao em [02-governanca.md](02-governanca.md) e o versionamento em
 ## Fluxo 1 — Criacao de item reutilizavel
 
 - Gatilho: usuario abre painel administrativo e aciona "Novo item".
-- Atores: Administrador ou Analista designado.
+- Atores: Administrador.
 - Pre-condicoes: usuario autenticado com permissao de criacao.
 - Passos:
   1. Seleciona tipo (`axis | section | metric | recommendation | action`).
@@ -58,7 +58,7 @@ estao em [02-governanca.md](02-governanca.md) e o versionamento em
 ## Fluxo 4 — Atualizacao versionada
 
 - Gatilho: usuario abre item `published` e aciona "Nova versao".
-- Atores: Administrador ou Analista designado.
+- Atores: Administrador.
 - Passos:
   1. Sistema clona o payload da versao vigente criando `draft` derivado.
   2. Autor edita campos.
@@ -122,7 +122,7 @@ estao em [02-governanca.md](02-governanca.md) e o versionamento em
 
 ## Fluxo 8 — Disparo de recomendacao no envio da resposta
 
-- Gatilho: respondente envia formalmente o formulario ou analista
+- Gatilho: respondente envia formalmente o formulario ou admin
   altera status de evidencia.
 - Atores: sistema (motor de recomendacoes).
 - Passos:
@@ -143,8 +143,7 @@ estao em [02-governanca.md](02-governanca.md) e o versionamento em
 
 - Gatilho: Administrador solicita publicacao de recomendacao-base em
   `in_review` (conforme Fluxo 3).
-- Atores: Analista (preenche checklist na etapa de revisao) e
-  Administrador (aprovacao institucional e publicacao).
+- Atores: Administrador (revisao tecnica e aprovacao institucional).
 - Passos:
   1. Sistema aplica o checklist de qualidade (ver 06).
   2. Sistema exige justificativa e aprovador (Administrador).
@@ -166,13 +165,12 @@ estao em [02-governanca.md](02-governanca.md) e o versionamento em
 
 ## Fluxo 11 — Excecao institucional por orgao
 
-- Gatilho: respondente/analista registra excecao a uma recomendacao
+- Gatilho: respondente/admin registra excecao a uma recomendacao
   gerada.
 - Atores: respondente (abertura) + aprovador institucional.
 - Passos:
   1. Respondente cria excecao com motivo, prazo e documento.
-  2. Aprovador institucional (Analista ou Administrador, conforme
-     permissao) aprova ou rejeita.
+  2. Aprovador institucional (Administrador) aprova ou rejeita.
   3. Sistema marca a recomendacao como `em_excecao` ate o prazo.
 - Validacoes: prazo positivo; arquivo anexo quando exigido; dentro da
   politica do orgao.

@@ -73,7 +73,7 @@ npm run build
 | `src/lib/auth/current-user.ts`, `src/lib/api/auth.ts` | Import de `AppRole` a partir de `types.ts`. |
 | `src/lib/workbench/load-workbench-payload.ts` | Tipagem alinhada a `LibraryMetricAnswerType`. |
 | `src/components/biblioteca/biblioteca-shell.tsx` | Removidos efeitos que faziam `setState` apenas por derivacao; paginacao via handlers + `page` clamped. |
-| `src/app/analista/recomendacoes/portfolio-view.tsx` | Selecao inicial derivada de URL + `useMemo`; override manual com `urlKey`; `loadPortfolio` agendado com `setTimeout(0)` para satisfazer `react-hooks/set-state-in-effect`. |
+| `src/app/admin/recomendacoes/portfolio-view.tsx` | Selecao inicial derivada de URL + `useMemo`; override manual com `urlKey`; `loadPortfolio` agendado com `setTimeout(0)` para satisfazer `react-hooks/set-state-in-effect`. |
 | `src/components/evidencias/evidences-shell.tsx` | Reset de `offset` nos `onChange` dos filtros; fetch agendado com `setTimeout(0)`. |
 | `src/app/api/forms/transition/route.test.ts`, `src/app/api/fami/reprocess/route.test.ts` | Mock de `createSupabaseServerActionClient` para evitar `cookies()` fora do request scope do Next em Vitest. |
 | `tsconfig.json`, `next.config.ts`, `package.json`, `package-lock.json` | Alinhamento de alvo ES, config Next, cobertura Vitest. |

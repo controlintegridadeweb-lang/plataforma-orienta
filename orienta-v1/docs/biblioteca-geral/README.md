@@ -49,7 +49,7 @@ fonte unica. Demais documentos devem referenciar, nao redeclarar.
 | Ciclo de vida e transicoes de status | [02-governanca.md](02-governanca.md) |
 | Versao inicial (`0.1.0`) e regras de semver | [03-versionamento.md](03-versionamento.md) + [04-fluxos.md](04-fluxos.md) fluxo 1 |
 | Papeis por acao (publicar = Administrador) | [02-governanca.md](02-governanca.md) e [04-fluxos.md](04-fluxos.md) |
-| Chaves de cenarios (`nao`, `parcialmente`, `sim_sem_evidencia`, `sim_evidencia_invalida`, ...) | [05-regras-disparo.md](05-regras-disparo.md) + `src/lib/library/binding-types.ts` |
+| Chaves de cenarios (`nao`, `nao_se_aplica`, `sim_sem_evidencia`, `sim_evidencia_invalida`, ...) | [05-regras-disparo.md](05-regras-disparo.md) + `src/lib/library/binding-types.ts` |
 | Cenarios obrigatorios para publicacao de formulario | `LIBRARY_REQUIRED_SCENARIOS` em `binding-types.ts` (espelhado em 05) |
 | Classificacao de efetividade (verde/ambar/vermelho) | [07-efetividade.md](07-efetividade.md) |
 

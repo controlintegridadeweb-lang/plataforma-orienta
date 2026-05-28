@@ -37,10 +37,10 @@ anterior.
 ### 5. Escopo de aplicacao claro
 - `escopo_aplicacao` descreve o contexto em que a recomendacao deve
   disparar (tipos de orgao, maturidade institucional etc.).
-- Permite ao analista decidir quando uma excecao e cabivel.
+- Permite ao admin decidir quando uma excecao e cabivel.
 
 ### 6. Acao-modelo associada (quando exigido)
-- Para tipos `nao_implementacao` e `implementacao_parcial` existe pelo
+- Para tipo `nao_implementacao` existe pelo
   menos uma acao-modelo vinculada.
 - Cada acao vinculada tem `criterio_conclusao` preenchido.
 
@@ -49,7 +49,7 @@ anterior.
 - Nenhum caso critico quebrado.
 
 ### 8. Aprovadores e justificativa
-- Revisor tecnico (Analista) diferente do autor quando aplicavel.
+- Revisor tecnico (admin) diferente do autor quando aplicavel.
 - Aprovador institucional (Administrador) indicado.
 - Justificativa da publicacao registrada.
 
@@ -83,7 +83,7 @@ recomendacao para historico.
 
 ## Politica editorial (resumo)
 
-Para manter consistencia entre analistas:
+Para manter consistencia entre administradores:
 
 - Titulos no imperativo: "Elaborar politica de...", "Institucionalizar
   processo de...".

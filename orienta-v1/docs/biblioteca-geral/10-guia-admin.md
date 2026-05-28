@@ -55,7 +55,7 @@ Para cada pergunta:
   acoes-modelo, severidade e nota.
 - O sistema calcula `coverage_score` e bloqueia publicacao de
   formulario se os cenarios obrigatorios nao estiverem cobertos:
-  `nao, parcialmente, sim_sem_evidencia, sim_evidencia_invalida`
+  `nao, nao_se_aplica, sim_evidencia_invalida`
   (fonte canonica: `LIBRARY_REQUIRED_SCENARIOS` em
   `binding-types.ts`).
 

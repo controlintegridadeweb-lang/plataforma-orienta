@@ -14,11 +14,11 @@ formulario e publicado.
 ## Vocabulario: texto de recomendacao vs plano de acao
 
 - **Modelo de recomendacao** (`library_recommendations`, aba **Recomendações** na Biblioteca Geral): texto reutilizavel no catalogo corporativo.
-- **Texto da recomendacao no cenario**: o que o admin ou analista edita em **Formularios → Vinculos** para cada cenario; o motor usa principalmente o campo `title` (e texto-base fixo/parametrizavel opcional).
+- **Texto da recomendacao no cenario**: o que o admin edita em **Formularios → Vinculos** para cada cenario; o motor usa principalmente o campo `title` (e texto-base fixo/parametrizavel opcional).
 - **Modelo de plano de acao** (`library_actions`, aba **Plano de acao** na Biblioteca): plantilla operacional (prazo sugerido em dias, prioridade sugerida, area, tags, etc.) — nao substitui o texto da recomendacao.
 - **Tarefas no vinculo**: itens opcionais apenas naquele formulario (`bindings.*.actions`); nao sao o catalogo de planos.
 - **Recomendacao gerada**: instancia apos resposta/FAMI (`recommendations`), ligada ao orgao/ciclo.
-- **Plano de acao do orgao** (`action_plans`): instancia preenchida ou confirmada pelo respondente; admin e analista acompanham nas telas de plano de acao.
+- **Plano de acao do orgao** (`action_plans`): instancia preenchida ou confirmada pelo respondente; admin acompanha nas telas de plano de acao.
 
 ## Cenarios oficiais de resposta
 
@@ -29,26 +29,25 @@ UI, APIs, documentos e testes devem usar exatamente estas chaves.
 | Cenario | Significado | Pontua no FAMI | Gera recomendacao por padrao? |
 |---|---|---|---|
 | `nao` | Resposta negativa. | 0 | Sim (tipo `nao_implementacao`). |
-| `parcialmente` | Resposta `Parcialmente`. | 0 | Sim (tipo `implementacao_parcial`). |
-| `sim_sem_evidencia` | Pergunta exige comprovacao mas respondente nao anexou. | 0 | Sim (tipo `ausencia_evidencia`). |
+| `nao_se_aplica` | Resposta `Não se aplica`. | Fora do calculo | Nao. |
+| `sim_sem_evidencia` | Pergunta exige comprovacao mas respondente nao anexou. | 0 | Nao (pendencia operacional). |
 | `sim_evidencia_invalida` | Evidencia `invalida`. | 0 | Sim (tipo `evidencia_insuficiente`). |
-| `sim_evidencia_valida` | Pergunta exige comprovacao e evidencia `valida` ou `dispensada`. | 1,5 | Nao. |
-| `nao_se_aplica` | Questao fora do perfil do orgao. | Fora do calculo | Nao. |
+| `sim_evidencia_valida` | Pergunta exige comprovacao e evidencia `aprovada`. | 1 | Nao. |
 | `em_andamento` | Acao em execucao pelo orgao. | 0 | Opcional. |
 | `nao_sabe` | Respondente declara desconhecimento. | 0 | Opcional. |
-| `em_revisao` | Resposta em revisao pelo analista. | 0 | Nao. |
+| `em_revisao` | Resposta em revisao pela equipe administrativa. | 0 | Nao. |
 | `fora_de_escopo` | Questao fora do escopo do diagnostico atual. | Fora do calculo | Nao. |
 
 Os cenarios aplicaveis a cada pergunta dependem de:
 
 - exigencia de comprovacao (bool);
-- `answer_type` da metrica (ex.: `yes_no` nao tem `parcialmente`);
+- `answer_type` da metrica (ex.: `yes_no` nao tem cenario intermediario);
 - se a pergunta participa do FAMI.
 
 Cenarios obrigatorios para publicacao de formulario (validados em
 `validateBindingForPublish`):
 
-- `nao`, `parcialmente`, `sim_sem_evidencia`, `sim_evidencia_invalida`.
+- `nao`, `nao_se_aplica`, `sim_evidencia_invalida`.
 
 ## Estrutura do `bindings` por pergunta
 
@@ -62,10 +61,8 @@ Formato do campo `bindings` em `question_library_binding`:
     "severity": "high",
     "note": "opcional - observacao interna"
   },
-  "parcialmente": {
-    "recommendation_id": "uuid-recomendacao",
-    "action_ids": ["uuid-acao-1"],
-    "severity": "medium"
+  "nao_se_aplica": {
+    "note": "cenario sem recomendacao"
   },
   "sim_evidencia_invalida": {
     "recommendation_id": "uuid-recomendacao-evidencia",
@@ -95,10 +92,9 @@ aplicaveis os cenarios com base na matriz:
 | Configuracao da pergunta | Cenarios aplicaveis obrigatorios |
 |---|---|
 | Sim/Nao, sem comprovacao, participa FAMI | `nao` |
-| Sim/Nao/Parcial, sem comprovacao, participa FAMI | `nao`, `parcialmente` |
-| Sim/Nao, exige comprovacao, participa FAMI | `nao`, `sim_sem_evidencia`, `sim_evidencia_invalida` |
-| Sim/Nao/Parcial, exige comprovacao, participa FAMI | `nao`, `parcialmente`, `sim_sem_evidencia`, `sim_evidencia_invalida` |
-| Questao apenas operacional (nao FAMI) | `nao`, `parcialmente` conforme tipo. |
+| Sim/Nao/Não se aplica, sem comprovacao, participa FAMI | `nao`, `nao_se_aplica` |
+| Sim/Nao/Não se aplica, exige comprovacao, participa FAMI | `nao`, `nao_se_aplica`, `sim_evidencia_invalida` (`sim_sem_evidencia` opcional sem recomendacao) |
+| Questao apenas operacional (nao FAMI) | `nao`, `nao_se_aplica` conforme tipo. |
 
 A publicacao do formulario bloqueia quando a cobertura minima nao for
 100%.
@@ -136,13 +132,14 @@ gerada, baseado na combinacao de cenario + evidencia:
 
 | Cenario | `confidence_score` |
 |---|---|
-| `nao`, `parcialmente` | `high` |
+| `nao` | `high` |
+| `nao_se_aplica` | `low` |
 | `sim_evidencia_invalida` | `high` |
 | `sim_sem_evidencia` | `medium` |
-| Conflito detectado (ver 03) | `low` ate que analista revise |
+| Conflito detectado (ver 03) | `low` ate que admin revise |
 
 `confidence_score` e rotulo informativo que aparece no portfolio e
-ajuda o analista a priorizar revisoes.
+ajuda o admin a priorizar revisoes.
 
 ## Deduplicacao
 

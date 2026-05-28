@@ -78,9 +78,9 @@ FAMI — orienta apenas o raciocinio analitico.
 | Campo | Tipo | Obrigatorio | Regra |
 |---|---|---|---|
 | `name` | texto | sim | |
-| `answer_type` | enum | sim | `yes_no`, `yes_no_partial`, `scale`, `numeric`, `text`. |
+| `answer_type` | enum | sim | `yes_no`, `scale`, `numeric`, `text`. |
 | `interpretation` | enum | sim | `higher_better`, `lower_better`, `qualitative`. |
-| `description` | texto | nao | Orientacao para analistas. |
+| `description` | texto | nao | Orientacao para administradores. |
 | `severity_hint` | enum | sim | `high`, `medium`, `low`. Prioridade sugerida quando metrica indicar nao conformidade. |
 | `trigger_summary` | texto | sim | Descricao curta da condicao de disparo (livre, auditavel). |
 
@@ -97,7 +97,7 @@ lacuna documental.
 | Campo | Tipo | Obrigatorio | Regra |
 |---|---|---|---|
 | `title` | texto | sim | Titulo institucional. |
-| `tipo` | enum | sim | `nao_implementacao`, `implementacao_parcial`, `ausencia_evidencia`, `evidencia_insuficiente`. |
+| `tipo` | enum | sim | `nao_implementacao`, `ausencia_evidencia`, `evidencia_insuficiente`. |
 | `priority_default` | enum | sim | `high`, `medium`, `low`. |
 | `texto_base_fixo` | texto | sim | Bloco normativo fixo. Nao aceita variaveis. |
 | `texto_base_parametrizavel` | texto | sim | Bloco com variaveis de contexto. |
