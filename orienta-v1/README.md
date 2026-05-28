@@ -17,7 +17,7 @@ Aplicacao de diagnostico operacional com Next.js e Supabase, contendo:
 
 ## Convencoes de codigo
 
-- **Rotas e copy de UI**: nomes em portugues (`/admin`, `/analista`, `/respondente`, pastas `formularios`, `evidencias`, etc.).
+- **Rotas e copy de UI**: nomes em portugues (`/admin`, `/respondente`, pastas `formularios`, `evidencias`, etc.).
 - **Camadas tecnicas**: pastas e modulos em ingles (`lib/forms`, `lib/library`, `lib/workbench`, APIs em `src/app/api/admin`, `.../respondent`, etc.).
 - **Supabase no app**: use as factories existentes (`createSupabaseServerActionClient`, `createSupabaseServiceRoleClient`, helpers em `src/lib/supabase/`) em vez de instanciar clientes ad hoc.
 - **FAMI / reprocessamento**: fluxo e impacto operacional estao descritos em `AGENTS.md` e no codigo de `src/lib/domain/operational.ts` e servicos FAMI.
@@ -35,7 +35,7 @@ Aplicacao de diagnostico operacional com Next.js e Supabase, contendo:
 - Loading: use os primitivos de `@/components/ui/loading`
   (`<Spinner>`, `<LoadingButton>`, `<Skeleton>`, `<SkeletonText>`,
   `<TableSkeleton>`, `<PageLoader>`, `<InlineLoader>`).
-- Cada segmento (`/admin`, `/analista`, `/respondente`, `/auth`) tem
+- Cada segmento (`/admin`, `/respondente`, `/auth`) tem
   `loading.tsx` proprio com Suspense fallback.
 - A barra de progresso de rota (`<RouteProgressBar>`) esta ativa
   globalmente — anima durante navegacao entre rotas.
@@ -70,7 +70,6 @@ SUPABASE_SERVICE_ROLE_KEY=
 NEXT_PUBLIC_DEFAULT_ORGANIZATION_ID=
 NEXT_PUBLIC_DEFAULT_FORM_ID=
 NEXT_PUBLIC_DEFAULT_RESPONDENT_USER_ID=
-NEXT_PUBLIC_DEFAULT_ANALYST_USER_ID=
 NEXT_PUBLIC_DEFAULT_ADMIN_USER_ID=
 ```
 
@@ -88,14 +87,13 @@ Rotas de interface:
 
 - `/`
 - `/respondente`
-- `/analista`
-- `/plano-acao`
+- `/plano-acao` (sandbox dev)
 - `/portfolio-recomendacoes`
 
 ## Seguranca e autorizacao
 
 - Endpoints em `src/app/api/dev/*` aceitam requisicoes somente em `NODE_ENV=development`.
-- Endpoints exigem autenticacao/autorizacao por perfil (`admin`, `analyst`, `respondent`).
+- Endpoints exigem autenticacao/autorizacao por perfil (`admin`, `respondent`).
 - Em ambiente de desenvolvimento, os exemplos de tela enviam `x-user-id` e `x-user-role` para simular contexto autenticado.
 - Operacoes administrativas no Supabase usam client de service role em rotas restritas.
 
@@ -108,7 +106,7 @@ curl -X POST http://localhost:3000/api/dev/seed-homolog \
   -H "Content-Type: application/json" \
   -H "x-user-id: <admin-user-id>" \
   -H "x-user-role: admin" \
-  -d "{\"adminUserId\":\"<admin-user-id>\",\"analystUserId\":\"<analyst-user-id>\",\"respondentUserId\":\"<respondent-user-id>\"}"
+  -d "{\"adminUserId\":\"<admin-user-id>\",\"respondentUserId\":\"<respondent-user-id>\"}"
 ```
 
 ## Qualidade

@@ -13,3 +13,7 @@ debug-*.log
 
 # Evita node_modules na raiz se alguem rodar npm install por engano
 /node_modules
+
+# Copia duplicada antiga (remover com scripts/remove-nested-folder.ps1)
+PLATAFORMA ORIENTA/
+_lixo-pasta-duplicada/

@@ -1,18 +1,8 @@
 import type { NextConfig } from "next";
 
 /**
- * Fase 2 da remocao do perfil "analista": rotas legadas `/analista/*`
- * sao redirecionadas para os equivalentes em `/admin/*` (308 permanente).
- *
- * O workbench "responder por organização" antes estava em
- * `/analista/formularios/[formId]?orgId=...` (com a hub em
- * `/analista/formularios`). Agora vive em `/admin/responder/[formId]`
- * (hub em `/admin/responder`); as demais sub-rotas de
- * `/analista/formularios/[formId]/*` (configuracao, perguntas, respostas,
- * vinculos) seguem o espelho normal em `/admin/formularios/[formId]/*`.
- *
- * Ordem importa: regras mais especificas primeiro, catch-all por ultimo.
- * Sera removido em conjunto com o role na Fase 3.
+ * Rotas legadas `/analista/*` redirecionam para `/admin/*` (308 permanente).
+ * Ordem: regras mais especificas primeiro, catch-all por ultimo.
  */
 const nextConfig: NextConfig = {
   async redirects() {
@@ -44,12 +34,12 @@ const nextConfig: NextConfig = {
       },
       {
         source: "/analista/formularios/:formId",
-        destination: "/admin/responder/:formId",
+        destination: "/admin/formularios/:formId",
         permanent: true,
       },
       {
         source: "/analista/formularios",
-        destination: "/admin/responder",
+        destination: "/admin/formularios",
         permanent: true,
       },
       {

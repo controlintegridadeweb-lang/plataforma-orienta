@@ -57,3 +57,5 @@ lint-out.tmp
 
 # VS Code (logs locais)
 .vscode/*.log
+
+.vercel
