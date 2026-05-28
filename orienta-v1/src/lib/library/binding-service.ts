@@ -51,7 +51,6 @@ function parseInlineRecommendation(raw: unknown): InlineLibraryRecommendation | 
       typeof s.textoBaseParametrizavel === "string" ? s.textoBaseParametrizavel : null,
     tipo:
       s.tipo === "nao_implementacao" ||
-      s.tipo === "implementacao_parcial" ||
       s.tipo === "ausencia_evidencia" ||
       s.tipo === "evidencia_insuficiente"
         ? s.tipo
@@ -130,10 +129,9 @@ export function normalizeInlineMetric(raw: unknown): InlineMetric | null {
   if (!raw || typeof raw !== "object") return null;
   const obj = raw as Record<string, unknown>;
   const name = typeof obj.name === "string" ? obj.name.trim() : "";
-  let answerType = obj.answerType;
+  const answerType = obj.answerType;
   const interpretation = obj.interpretation;
   if (!name) return null;
-  if (answerType === "yes_no_partial") answerType = "yes_no";
   if (
     typeof answerType !== "string" ||
     !INLINE_METRIC_ANSWER_TYPES.includes(answerType as InlineMetric["answerType"])
@@ -164,8 +162,12 @@ export function normalizeResponseMapping(raw: unknown): ResponseMapping {
   const sb = obj.scaleBands;
   if (sb && typeof sb === "object") {
     const s = sb as Record<string, unknown>;
-    if (typeof s.failMax === "number" && typeof s.partialMax === "number" && s.failMax < s.partialMax) {
-      result.scaleBands = { failMax: s.failMax, partialMax: s.partialMax };
+    if (
+      typeof s.failMax === "number" &&
+      typeof s.notApplicableMax === "number" &&
+      s.failMax < s.notApplicableMax
+    ) {
+      result.scaleBands = { failMax: s.failMax, notApplicableMax: s.notApplicableMax };
     }
   }
   const nt = obj.numericThresholds;
@@ -173,10 +175,13 @@ export function normalizeResponseMapping(raw: unknown): ResponseMapping {
     const n = nt as Record<string, unknown>;
     if (
       typeof n.failBelow === "number" &&
-      typeof n.partialBelow === "number" &&
-      n.failBelow < n.partialBelow
+      typeof n.notApplicableBelow === "number" &&
+      n.failBelow < n.notApplicableBelow
     ) {
-      result.numericThresholds = { failBelow: n.failBelow, partialBelow: n.partialBelow };
+      result.numericThresholds = {
+        failBelow: n.failBelow,
+        notApplicableBelow: n.notApplicableBelow,
+      };
     }
   }
   return result;
