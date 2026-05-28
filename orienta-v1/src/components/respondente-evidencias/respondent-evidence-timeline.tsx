@@ -1,6 +1,8 @@
 "use client";
 
 import { CheckCircle2, Clock, FileQuestion, RefreshCw, Send, XCircle } from "lucide-react";
+import { evidenceComplementation } from "@/lib/labels/complementation-terms";
+import { workflowStatusLabel } from "@/lib/domain/status-registry";
 import type { EvidenceValidationEntry } from "@/lib/evidences/admin-service";
 import { RESPONDENT_STATUS_META } from "@/lib/evidences/respondent-status";
 import { deriveRespondentStatus } from "@/lib/evidences/respondent-status";
@@ -21,30 +23,28 @@ type TimelineEntry = {
 
 function entryFromValidation(v: EvidenceValidationEntry): TimelineEntry {
   switch (v.status) {
-    case "valid":
-    case "waived":
+    case "approved":
       return {
         key: v.id,
-        label: "Validada como aprovada",
+        label: `Validação: ${workflowStatusLabel("evidence_validation", "approved")}`,
         description: v.justification,
         iso: v.validatedAt,
         Icon: CheckCircle2,
         tone: "emerald",
       };
-    case "invalid":
-    case "partially_valid":
+    case "invalidated":
       return {
         key: v.id,
-        label: "Reprovada pelo analista",
+        label: `Validação: ${workflowStatusLabel("evidence_validation", "invalidated")}`,
         description: v.justification,
         iso: v.validatedAt,
         Icon: XCircle,
         tone: "rose",
       };
-    case "complementation_requested":
+    case "adjustment_requested":
       return {
         key: v.id,
-        label: "Complementação solicitada",
+        label: evidenceComplementation.respondentStatusLabel,
         description: v.justification,
         iso: v.validatedAt,
         Icon: FileQuestion,
@@ -54,7 +54,7 @@ function entryFromValidation(v: EvidenceValidationEntry): TimelineEntry {
     default:
       return {
         key: v.id,
-        label: "Marcada como pendente",
+        label: `Validação: ${workflowStatusLabel("evidence_validation", "pending")}`,
         description: v.justification,
         iso: v.validatedAt,
         Icon: Clock,
@@ -112,13 +112,13 @@ export function RespondentEvidenceTimeline({ submittedAt, history }: Props) {
         return (
           <li key={e.key} className="relative">
             <span
-              className={`absolute -left-[31px] flex h-6 w-6 items-center justify-center rounded-full ring-2 ring-white ${tone.bg} ${tone.ring}`}
+              className={`absolute left-[-31px] flex h-6 w-6 items-center justify-center rounded-full ring-2 ring-white ${tone.bg} ${tone.ring}`}
               aria-hidden
             >
               <Icon className={`h-3 w-3 ${tone.text}`} />
             </span>
             <p className="text-sm font-medium text-slate-900">{e.label}</p>
-            <p className="text-[11px] text-slate-500">
+            <p className="text-micro text-slate-500">
               {e.iso ? new Date(e.iso).toLocaleString("pt-BR") : "—"}
             </p>
             {e.description ? (
