@@ -51,7 +51,39 @@ Pronto:
 
 Sem bloqueios técnicos no preflight desta execução.
 
-## 4) Próxima ação recomendada
+## 4) Smoke HTTP cross-org (executado)
 
-1. Executar smoke HTTP cross-org com credenciais reais em homolog.
-2. Registrar evidência final de rollout e seguir janela de produção.
+Contexto de teste:
+
+- Criado seed adicional de homolog para segunda organização:
+  - `organizationId = 3d895dfb-7d38-4b50-a456-1df6f376a430`
+  - `formId = e93576db-e1d0-4eed-b9e7-9180136c0f96`
+- Usuários de teste (admin/respondent) vinculados a essa organização.
+
+Casos executados:
+
+1. Admin org-scoped tentando acessar recomendação de outra organização:
+   - `GET /api/admin/recommendations/a24071cd-9dae-4de5-93e2-768a62fecf9b`
+   - Resultado: `403` (`Acesso fora da organizacao permitida.`) ✅
+2. Admin org-scoped tentando validar evidência de outra organização:
+   - `POST /api/admin/evidences/950277d4-b95f-419c-8636-04fd26dd91fe/validate`
+   - Resultado: `403` (`Acesso fora da organizacao permitida.`) ✅
+3. Respondent submetendo formulário da própria organização:
+   - `POST /api/respondent/forms/submit`
+   - Resultado: `200` ✅
+4. Validação `invalidated` em evidência da própria organização:
+   - Resultado: `200`, `recommendationsCreated = 1` ✅
+5. Validação `adjustment_requested` na mesma evidência:
+   - Resultado: `200`, `recommendationsCreated = 0` ✅
+
+Verificação final no banco (organização nova):
+
+- Consulta em `recommendations` por `organization_id = 3d895dfb-7d38-4b50-a456-1df6f376a430`
+- Resultado: `0` linhas após `adjustment_requested` ✅
+- Confirma regra V2: `adjustment_requested` não mantém/gera recommendation ativa.
+
+## 5) Próxima ação recomendada
+
+1. Abrir janela controlada de produção conforme runbook.
+2. Repetir smoke pós-deploy imediato em produção.
+3. Monitorar 24-48h com critérios do runbook.
