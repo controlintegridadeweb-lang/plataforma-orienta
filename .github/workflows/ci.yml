@@ -29,6 +29,12 @@ jobs:
       - name: Lint
         run: npm run lint
 
+      - name: Check V2 terminology
+        run: npm run check:v2-terminology
+
+      - name: Check V2 SQL contract
+        run: npm run check:v2-sql-contract
+
       - name: Test
         run: npm run test
 

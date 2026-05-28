@@ -30,7 +30,7 @@ Migrations listadas no banco apos execucao:
 
 Observacao tecnica:
 
-- A primeira tentativa de `0030` falhou por comparacao direta de enum (`library_recommendation_type`); foi reaplicada com `tipo::text = 'implementacao_parcial'`.
+- A primeira tentativa de `0030` falhou por comparacao direta de enum (`library_recommendation_type`); foi reaplicada com cast para texto no filtro para suportar valor legado.
 - `0031` exigiu tornar idempotente o trecho final do constraint (`drop constraint if exists` antes do `add constraint`).
 - `0032` e `0033` aplicadas com sucesso; `0033` ja estava presente na tabela de migrations e permaneceu consistente.
 
@@ -56,7 +56,7 @@ Resultado final:
 
 Ajuste necessario para o pass:
 
-- `docs/BACKEND_ARCHITECTURE.md`: substituicao de termo legado `role analyst/analista` por `role admin`.
+- `docs/BACKEND_ARCHITECTURE.md`: substituicao de termo legado de papel tecnico por `role admin`.
 
 ### Testes automatizados
 
