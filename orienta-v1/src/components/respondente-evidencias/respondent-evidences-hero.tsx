@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, RefreshCw } from "lucide-react";
 import { evidenceComplementation } from "@/lib/labels/complementation-terms";
-import { formSurface } from "@/lib/form-surface";
+import { formSurface } from "@/lib/layout/form-surface";
 import {
   RESPONDENT_PAGE_HERO_ACTIONS,
   RESPONDENT_PAGE_HERO_CLASS,
@@ -16,7 +16,7 @@ import {
   RESPONDENT_PAGE_HERO_MEDIA_COMPACT,
   RESPONDENT_PAGE_HERO_OVERLINE,
   RESPONDENT_PAGE_HERO_TITLE,
-} from "@/lib/respondent-page-layout";
+} from "@/lib/layout/respondent-page-layout";
 
 const HERO_IMAGE = "/assets/respondent-evidences-hero.png";
 

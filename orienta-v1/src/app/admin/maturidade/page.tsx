@@ -1,7 +1,7 @@
 import { getCurrentUser } from "@/lib/auth/current-user";
 import { FamiMaturityShell } from "@/components/fami/fami-maturity-shell";
 import { firstSearchParam } from "@/lib/admin/search-params";
-import { layout } from "@/lib/design-system";
+import { layout } from "@/lib/layout/design-system";
 
 export default async function AdminMaturidadePage({
   searchParams,

@@ -19,7 +19,7 @@ import {
   staffPlanoAcaoDetailHref,
   staffRecomendacoesHref,
 } from "@/lib/navigation/staff-paths";
-import { formSurface } from "@/lib/form-surface";
+import { formSurface } from "@/lib/layout/form-surface";
 
 const COL_COUNT = 11;
 

@@ -1,6 +1,6 @@
-﻿import Image from "next/image";
+import Image from "next/image";
 import type { ReactNode } from "react";
-import { FORM_WORKSPACE_HERO_IMAGE } from "@/lib/form-workspace-hero-image";
+import { FORM_WORKSPACE_HERO_IMAGE } from "@/lib/config/page-assets/form-workspace-hero-image";
 
 type Props = {
   kicker?: string;

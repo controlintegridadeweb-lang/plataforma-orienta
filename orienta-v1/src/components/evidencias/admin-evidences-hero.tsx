@@ -4,7 +4,7 @@ import Image from "next/image";
 import { RefreshCw } from "lucide-react";
 import { EvidencesExportMenu } from "@/components/evidencias/evidences-export-menu";
 import { evidenceComplementation } from "@/lib/labels/complementation-terms";
-import { ADMIN_EVIDENCES_HERO_IMAGE } from "@/lib/admin-evidences-hero-image";
+import { ADMIN_EVIDENCES_HERO_IMAGE } from "@/lib/config/page-assets/admin-evidences-hero-image";
 import {
   ADMIN_PAGE_HERO_ACTIONS,
   ADMIN_PAGE_HERO_CLASS,
@@ -16,9 +16,9 @@ import {
   ADMIN_PAGE_HERO_MEDIA_COMPACT,
   ADMIN_PAGE_HERO_OVERLINE,
   ADMIN_PAGE_HERO_TITLE,
-} from "@/lib/admin-page-layout";
+} from "@/lib/layout/admin-page-layout";
 import type { ListEvidencesFilters } from "@/lib/evidences/client";
-import { formSurface } from "@/lib/form-surface";
+import { formSurface } from "@/lib/layout/form-surface";
 
 type Props = {
   onRefresh: () => void;

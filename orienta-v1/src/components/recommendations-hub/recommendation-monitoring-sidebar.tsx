@@ -2,7 +2,7 @@
 
 import { CalendarClock } from "lucide-react";
 import type { ActionPlanAction } from "@/lib/domain/action-plans";
-import { formSurface } from "@/lib/form-surface";
+import { formSurface } from "@/lib/layout/form-surface";
 import { RespondentRecommendationProgress } from "@/components/respondente-recomendacoes/respondent-recommendation-progress";
 
 type Metrics = {

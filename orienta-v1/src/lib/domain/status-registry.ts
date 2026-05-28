@@ -37,7 +37,7 @@ import type {
 import type { WorkflowState } from "@/lib/domain/types";
 import type { ValidationStatus } from "@/lib/evidences/schemas";
 import type { RespondentEvidenceStatus } from "@/lib/evidences/respondent-status";
-import { formSurface } from "@/lib/form-surface";
+import { formSurface } from "@/lib/layout/form-surface";
 import type { RecommendationStatus } from "@/lib/recommendations/schemas";
 import type { RespondentReportJobStatus } from "@/lib/reports/respondent-presentation";
 import {

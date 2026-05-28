@@ -1,7 +1,7 @@
 "use client";
 
 import type { RespondentEvidenceItem } from "@/lib/evidences/respondent-service";
-import { formSurface } from "@/lib/form-surface";
+import { formSurface } from "@/lib/layout/form-surface";
 import { RespondentEvidenceCard } from "./respondent-evidence-card";
 
 type Props = {

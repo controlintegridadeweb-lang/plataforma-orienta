@@ -10,7 +10,7 @@
  * 1. **Cores, sombras, radius, tipografia base do `body`:** `src/app/globals.css`
  *    (`:root`, `@theme`, comentários da escala tipográfica).
  * 2. **Superfícies, formulários, botões, tabelas, empty states:** `formSurface`
- *    em `./form-surface` (import `{ formSurface }` ou `{ ds }`).
+ *    em `form-surface.ts` nesta pasta (import `{ formSurface }` ou `{ ds }`).
  * 3. **Tipografia de interface e ritmo de página (esta API):** `typography`,
  *    `layout`. Preferir estes presets em páginas novas para não divergir do
  *    dashboard. O conteúdo logado fica em `PageShell` (`components/layout/page-shell.tsx`).

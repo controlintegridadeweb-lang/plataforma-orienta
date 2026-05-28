@@ -16,8 +16,8 @@ import { DashboardEvidenceStatusPanel } from "@/components/dashboard/dashboard-e
 import { DashboardMaturityByAxisPanel } from "@/components/dashboard/dashboard-maturity-by-axis-panel";
 import { PendenciesList } from "@/components/dashboard/pendencies-list";
 import { SectionHeader } from "@/components/ui/section-header";
-import { formSurface } from "@/lib/form-surface";
-import { layout, typography } from "@/lib/design-system";
+import { formSurface } from "@/lib/layout/form-surface";
+import { layout, typography } from "@/lib/layout/design-system";
 
 type Scope = {
   adminGlobalView: boolean;

@@ -1,5 +1,5 @@
 import { Skeleton, TableSkeleton } from "@/components/ui/loading";
-import { formSurface } from "@/lib/form-surface";
+import { formSurface } from "@/lib/layout/form-surface";
 
 export function AnswersOverviewSkeleton() {
   return (

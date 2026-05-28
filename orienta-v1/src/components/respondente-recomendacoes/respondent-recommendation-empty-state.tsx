@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { Filter, Inbox, Lightbulb, ListChecks } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-import { formSurface } from "@/lib/form-surface";
+import { formSurface } from "@/lib/layout/form-surface";
 
 export type EmptyVariant =
   | "no-recommendations"

@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -24,7 +24,7 @@ import {
   allowedTransitions,
 } from "@/lib/domain/workflow";
 import type { WorkflowState } from "@/lib/domain/types";
-import { formSurface } from "@/lib/form-surface";
+import { formSurface } from "@/lib/layout/form-surface";
 
 const STATE_LABELS: Record<string, string> = {
   draft: "Rascunho",

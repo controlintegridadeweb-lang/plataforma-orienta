@@ -2,7 +2,7 @@
 
 import type { PlanStatus } from "@/lib/action-plans/schemas";
 import { ACTION_PLAN_REGISTRY } from "@/lib/domain/status-registry";
-import { formSurface } from "@/lib/form-surface";
+import { formSurface } from "@/lib/layout/form-surface";
 import { statusPillBase } from "@/components/ui/status-pill";
 import { WorkflowStatusBadge } from "@/components/workflow/workflow-status-badge";
 

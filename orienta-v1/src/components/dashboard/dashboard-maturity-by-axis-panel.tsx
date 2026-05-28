@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { InlineLoader } from "@/components/ui/loading";
@@ -8,7 +8,7 @@ import { SectionHeader } from "@/components/ui/section-header";
 import { YearSelect } from "@/components/ui/year-select";
 import type { AxisMaturity } from "@/lib/fami/types";
 import { fetchDashboardMaturityByAxis } from "@/lib/dashboards/client";
-import { formSurface } from "@/lib/form-surface";
+import { formSurface } from "@/lib/layout/form-surface";
 import { FamiScopeBanner } from "./fami-scope-banner";
 
 type ScopeMeta = {

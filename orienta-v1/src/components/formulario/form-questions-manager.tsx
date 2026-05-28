@@ -18,8 +18,8 @@ import {
   reorderFormQuestions,
   updateFormQuestion,
 } from "@/lib/forms/client";
-import { typography } from "@/lib/design-system";
-import { formSurface } from "@/lib/form-surface";
+import { typography } from "@/lib/layout/design-system";
+import { formSurface } from "@/lib/layout/form-surface";
 
 const questionCardClassName =
   "rounded-xl border border-slate-200/90 bg-white p-4 shadow-card sm:p-5";

@@ -1,4 +1,4 @@
-import { formSurface } from "@/lib/form-surface";
+import { formSurface } from "@/lib/layout/form-surface";
 import { FORM_WORKFLOW_REGISTRY } from "@/lib/domain/status-registry";
 
 const STATE_LABELS: Record<string, string> = {

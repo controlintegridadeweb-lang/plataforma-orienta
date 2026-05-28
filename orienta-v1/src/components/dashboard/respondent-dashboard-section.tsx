@@ -15,9 +15,9 @@ import { RespondentDashboardFormsPanel } from "@/components/dashboard/respondent
 import { RespondentDashboardHero } from "@/components/dashboard/respondent-dashboard-hero";
 import { KpiCard } from "@/components/ui/kpi-card";
 import { YearSelect } from "@/components/ui/year-select";
-import { formSurface } from "@/lib/form-surface";
-import { layout, typography } from "@/lib/design-system";
-import { RESPONDENT_PAGE_HERO_BLEED } from "@/lib/respondent-page-layout";
+import { formSurface } from "@/lib/layout/form-surface";
+import { layout, typography } from "@/lib/layout/design-system";
+import { RESPONDENT_PAGE_HERO_BLEED } from "@/lib/layout/respondent-page-layout";
 
 type Props = {
   initialForms: RespondentProgress[];

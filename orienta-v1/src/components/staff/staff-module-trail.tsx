@@ -7,7 +7,7 @@ import {
   staffRecomendacoesHref,
   staffAreaFromPathname,
 } from "@/lib/navigation/staff-paths";
-import { STAFF_ANALYSIS_MODULE_CONTEXT } from "@/lib/staff-module-context";
+import { STAFF_ANALYSIS_MODULE_CONTEXT } from "@/lib/layout/staff-module-context";
 
 type Props = {
   recommendationId: string;

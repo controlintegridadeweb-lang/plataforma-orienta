@@ -1,9 +1,9 @@
 import { ClipboardList } from "lucide-react";
 import { AdminFormulariosHero } from "@/components/admin-formularios/admin-formularios-hero";
 import { FormsList } from "@/components/formulario/forms-list";
-import { ADMIN_PAGE_HERO_BLEED } from "@/lib/admin-page-layout";
-import { layout, typography } from "@/lib/design-system";
-import { formSurface } from "@/lib/form-surface";
+import { ADMIN_PAGE_HERO_BLEED } from "@/lib/layout/admin-page-layout";
+import { layout, typography } from "@/lib/layout/design-system";
+import { formSurface } from "@/lib/layout/form-surface";
 
 /** Página de listagem de formulários do administrador. */
 export function AdminFormulariosSection() {

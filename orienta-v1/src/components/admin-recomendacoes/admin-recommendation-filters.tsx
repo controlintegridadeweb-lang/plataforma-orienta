@@ -5,7 +5,7 @@ import {
   STATUS_META,
   type AdminRecommendationView,
 } from "@/lib/recommendations/admin-presentation";
-import { formSurface } from "@/lib/form-surface";
+import { formSurface } from "@/lib/layout/form-surface";
 
 export type AdminFiltersState = {
   search: string;

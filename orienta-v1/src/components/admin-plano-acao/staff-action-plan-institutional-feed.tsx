@@ -19,8 +19,8 @@ import {
 import type { SupervisionNoteType } from "@/lib/action-plans/schemas";
 import { statusPillBase } from "@/components/ui/status-pill";
 import { Spinner } from "@/components/ui/loading";
-import { formSurface } from "@/lib/form-surface";
-import { typography } from "@/lib/design-system";
+import { formSurface } from "@/lib/layout/form-surface";
+import { typography } from "@/lib/layout/design-system";
 import { notify } from "@/lib/notify";
 
 export type InstitutionalFeedItem = {

@@ -12,7 +12,7 @@ import {
 import { PanelSection } from "@/components/ui/panel-section";
 import { FamiMaturityIllustration } from "@/components/fami/fami-maturity-illustration";
 import { FamiScoreRing } from "@/components/fami/fami-score-ring";
-import { typography } from "@/lib/design-system";
+import { typography } from "@/lib/layout/design-system";
 import { formatFamiUpdatedAt } from "@/lib/fami/format-updated-at";
 import type { EvolutionDelta } from "@/lib/fami/respondent-presentation";
 import { RespondentFamiFilters } from "./respondent-fami-filters";

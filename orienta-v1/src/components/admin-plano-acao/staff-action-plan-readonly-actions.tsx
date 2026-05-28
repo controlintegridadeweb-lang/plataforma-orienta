@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useMemo } from "react";
 import type { ActionPlanAction } from "@/lib/domain/action-plans";
@@ -6,8 +6,8 @@ import { computeActionSla } from "@/lib/domain/action-plans";
 import { PlanStatusBadge } from "@/components/plano-acao/plan-status-badge";
 import { progressFromPlan } from "@/lib/recommendations/admin-presentation";
 import { AdminActionPlanProgress } from "./admin-action-plan-progress";
-import { formSurface } from "@/lib/form-surface";
-import { typography } from "@/lib/design-system";
+import { formSurface } from "@/lib/layout/form-surface";
+import { typography } from "@/lib/layout/design-system";
 
 function formatDate(iso: string | null | undefined): string {
   if (!iso) return "—";

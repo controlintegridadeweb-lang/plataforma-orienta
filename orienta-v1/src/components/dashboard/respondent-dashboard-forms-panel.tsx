@@ -6,7 +6,7 @@ import type { RespondentProgress } from "@/lib/dashboards/queries";
 import { RespondentFormsYearEmptyState } from "@/components/respondente/respondent-forms-year-empty-state";
 import { RespondentFormProgressItem } from "@/components/respondente/respondent-form-progress-item";
 import { SectionHeader } from "@/components/ui/section-header";
-import { typography } from "@/lib/design-system";
+import { typography } from "@/lib/layout/design-system";
 
 type Props = {
   forms: RespondentProgress[];

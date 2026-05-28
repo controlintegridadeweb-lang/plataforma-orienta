@@ -12,9 +12,9 @@ import { YearSelect } from "@/components/ui/year-select";
 import { RespondentFormsYearEmptyState } from "@/components/respondente/respondent-forms-year-empty-state";
 import { RespondentFormProgressItem } from "@/components/respondente/respondent-form-progress-item";
 import { RespondentFormulariosHero } from "@/components/respondente/respondent-formularios-hero";
-import { RESPONDENT_PAGE_HERO_BLEED } from "@/lib/respondent-page-layout";
-import { formSurface } from "@/lib/form-surface";
-import { layout, typography } from "@/lib/design-system";
+import { RESPONDENT_PAGE_HERO_BLEED } from "@/lib/layout/respondent-page-layout";
+import { formSurface } from "@/lib/layout/form-surface";
+import { layout, typography } from "@/lib/layout/design-system";
 
 type Props = {
   initialForms: RespondentProgress[];

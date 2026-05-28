@@ -3,8 +3,8 @@
 import { ExternalLink } from "lucide-react";
 import type { EvidenceListItem } from "@/lib/evidences/admin-service";
 import { normalizeWorkbenchText } from "@/lib/evidences/normalize-workbench-text";
-import { typography } from "@/lib/design-system";
-import { formSurface } from "@/lib/form-surface";
+import { typography } from "@/lib/layout/design-system";
+import { formSurface } from "@/lib/layout/form-surface";
 import { Checkbox } from "@/components/ui/checkbox";
 import { StatusBadge } from "./status-badge";
 

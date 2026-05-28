@@ -9,7 +9,7 @@ import {
   RESPONDENT_PAGE_HERO_MEDIA_TALL,
   RESPONDENT_PAGE_HERO_OVERLINE,
   RESPONDENT_PAGE_HERO_TITLE,
-} from "@/lib/respondent-page-layout";
+} from "@/lib/layout/respondent-page-layout";
 
 const HERO_IMAGE = "/assets/respondent-dashboard-hero.png";
 

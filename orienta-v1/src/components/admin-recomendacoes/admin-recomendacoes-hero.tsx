@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Download, FileBarChart, RefreshCw } from "lucide-react";
-import { ADMIN_RECOMENDACOES_HERO_IMAGE } from "@/lib/admin-recomendacoes-hero-image";
+import { ADMIN_RECOMENDACOES_HERO_IMAGE } from "@/lib/config/page-assets/admin-recomendacoes-hero-image";
 import {
   ADMIN_PAGE_HERO_ACTIONS,
   ADMIN_PAGE_HERO_CLASS,
@@ -15,10 +15,10 @@ import {
   ADMIN_PAGE_HERO_MEDIA,
   ADMIN_PAGE_HERO_OVERLINE,
   ADMIN_PAGE_HERO_TITLE,
-} from "@/lib/admin-page-layout";
+} from "@/lib/layout/admin-page-layout";
 import type { AdminRecommendationSummary } from "@/lib/recommendations/admin-presentation";
-import { STAFF_ANALYSIS_MODULE_CONTEXT } from "@/lib/staff-module-context";
-import { formSurface } from "@/lib/form-surface";
+import { STAFF_ANALYSIS_MODULE_CONTEXT } from "@/lib/layout/staff-module-context";
+import { formSurface } from "@/lib/layout/form-surface";
 
 type Props = {
   summary: AdminRecommendationSummary | null;

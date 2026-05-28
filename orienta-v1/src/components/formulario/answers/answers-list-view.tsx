@@ -2,7 +2,7 @@
 
 import { ChevronRight, Eye, Inbox } from "lucide-react";
 import type { RespondentRow } from "@/lib/forms/answers-types";
-import { formSurface } from "@/lib/form-surface";
+import { formSurface } from "@/lib/layout/form-surface";
 import { LoadingButton } from "@/components/ui/loading";
 import { AnswersStatusBadge } from "./answers-status-badge";
 

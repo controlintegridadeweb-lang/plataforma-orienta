@@ -5,8 +5,8 @@ import type { ActionPlanAction } from "@/lib/domain/action-plans";
 import { computeActionSla } from "@/lib/domain/action-plans";
 import { PlanStatusBadge } from "@/components/plano-acao/plan-status-badge";
 import { statusPillBase } from "@/components/ui/status-pill";
-import { formSurface } from "@/lib/form-surface";
-import { typography } from "@/lib/design-system";
+import { formSurface } from "@/lib/layout/form-surface";
+import { typography } from "@/lib/layout/design-system";
 
 function formatDueDate(value: string | null | undefined): string {
   if (!value) return "Sem prazo";

@@ -1,5 +1,5 @@
 import { ReportsShell } from "@/components/relatorios/reports-shell";
-import { layout } from "@/lib/design-system";
+import { layout } from "@/lib/layout/design-system";
 
 export default function AdminRelatoriosPage() {
   return (

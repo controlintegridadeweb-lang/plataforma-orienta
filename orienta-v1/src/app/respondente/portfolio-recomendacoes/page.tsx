@@ -1,7 +1,7 @@
 import { getCurrentUser } from "@/lib/auth/current-user";
 import { RespondentRecommendationsShell } from "@/components/respondente-recomendacoes/respondent-recommendations-shell";
-import { formSurface } from "@/lib/form-surface";
-import { layout } from "@/lib/design-system";
+import { formSurface } from "@/lib/layout/form-surface";
+import { layout } from "@/lib/layout/design-system";
 
 /**
  * Portfolio de Recomendacoes do Respondente.

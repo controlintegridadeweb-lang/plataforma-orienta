@@ -9,7 +9,7 @@ import {
   ADMIN_PAGE_HERO_MEDIA,
   ADMIN_PAGE_HERO_OVERLINE,
   ADMIN_PAGE_HERO_TITLE,
-} from "@/lib/admin-page-layout";
+} from "@/lib/layout/admin-page-layout";
 
 const HERO_IMAGE = "/assets/admin-dashboard-hero.png";
 

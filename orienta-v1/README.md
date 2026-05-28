@@ -19,6 +19,7 @@ Aplicacao de diagnostico operacional com Next.js e Supabase, contendo:
 
 - **Rotas e copy de UI**: nomes em portugues (`/admin`, `/respondente`, pastas `formularios`, `evidencias`, etc.).
 - **Camadas tecnicas**: pastas e modulos em ingles (`lib/forms`, `lib/library`, `lib/workbench`, APIs em `src/app/api/admin`, `.../respondent`, etc.).
+- **Layout e config**: tokens de UI em `lib/layout/` (`design-system`, `formSurface`, page layouts); navegacao, URLs e imagens de hero em `lib/config/` (ver `docs/architecture/FRONTEND_ARCHITECTURE.md`).
 - **Supabase no app**: use as factories existentes (`createSupabaseServerActionClient`, `createSupabaseServiceRoleClient`, helpers em `src/lib/supabase/`) em vez de instanciar clientes ad hoc.
 - **FAMI / reprocessamento**: fluxo e impacto operacional estao descritos em `AGENTS.md` e no codigo de `src/lib/domain/operational.ts` e servicos FAMI.
 

@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -9,7 +9,7 @@ import { PanelSection } from "@/components/ui/panel-section";
 import { ProfileContentLayout } from "@/components/profile/profile-content-layout";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
 import type { CurrentUser } from "@/lib/auth/current-user";
-import { formSurface } from "@/lib/form-surface";
+import { formSurface } from "@/lib/layout/form-surface";
 
 const fieldClassName =
   "w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-900 shadow-sm transition placeholder:text-slate-400 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand/25";

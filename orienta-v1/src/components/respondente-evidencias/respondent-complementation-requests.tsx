@@ -5,7 +5,7 @@ import { evidenceComplementation } from "@/lib/labels/complementation-terms";
 import { ArrowRight, Eye, FileQuestion } from "lucide-react";
 import type { RespondentEvidenceItem } from "@/lib/evidences/respondent-service";
 import { normalizeWorkbenchText } from "@/lib/evidences/normalize-workbench-text";
-import { formSurface } from "@/lib/form-surface";
+import { formSurface } from "@/lib/layout/form-surface";
 
 type Props = {
   items: RespondentEvidenceItem[];

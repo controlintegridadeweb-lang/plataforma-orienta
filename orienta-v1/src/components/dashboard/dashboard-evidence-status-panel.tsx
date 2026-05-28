@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { InlineLoader } from "@/components/ui/loading";
@@ -6,7 +6,7 @@ import type { RecommendationFilterOptions } from "@/lib/recommendations/admin-se
 import { StatusPieChart } from "@/components/charts/status-pie-chart";
 import { SectionHeader } from "@/components/ui/section-header";
 import { fetchDashboardEvidenceStatus } from "@/lib/dashboards/client";
-import { formSurface } from "@/lib/form-surface";
+import { formSurface } from "@/lib/layout/form-surface";
 
 type Props = {
   initialData: Record<string, number>;

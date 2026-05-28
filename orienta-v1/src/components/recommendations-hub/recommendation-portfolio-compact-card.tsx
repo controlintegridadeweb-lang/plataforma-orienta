@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { ArrowRight, CalendarClock } from "lucide-react";
-import { formSurface } from "@/lib/form-surface";
-import { typography } from "@/lib/design-system";
+import { formSurface } from "@/lib/layout/form-surface";
+import { typography } from "@/lib/layout/design-system";
 import type { RespondentRecommendationItem } from "@/lib/recommendations/respondent-presentation";
 import type { AdminRecommendationItem } from "@/lib/recommendations/admin-presentation";
 import { RespondentRecommendationProgress } from "@/components/respondente-recomendacoes/respondent-recommendation-progress";

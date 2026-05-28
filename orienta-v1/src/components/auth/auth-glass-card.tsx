@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { formSurface } from "@/lib/form-surface";
+import { formSurface } from "@/lib/layout/form-surface";
 
 /** Cartão branco sólido para formulários de autenticação — visual institucional, sem vidro nem gradientes. */
 export function AuthGlassCard({

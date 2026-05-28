@@ -1,6 +1,6 @@
 import type { LucideIcon } from "lucide-react";
 import type { ReactNode } from "react";
-import { cards, layout } from "@/lib/design-system";
+import { cards, layout } from "@/lib/layout/design-system";
 import { SectionHeader } from "@/components/ui/section-header";
 
 type PanelSectionProps = {

@@ -3,8 +3,8 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ChevronLeft, ClipboardCopy, Eye, FileText, LayoutGrid, MoreHorizontal } from "lucide-react";
-import { formSurface } from "@/lib/form-surface";
-import { layout, typography } from "@/lib/design-system";
+import { formSurface } from "@/lib/layout/form-surface";
+import { layout, typography } from "@/lib/layout/design-system";
 import { notify } from "@/lib/notify";
 import { staffPlanoAcaoDetailHref, staffPlanoAcaoHref, staffRecomendacoesHref } from "@/lib/navigation/staff-paths";
 import { RESPONDENT_RECOMMENDATIONS_MODULE_LABEL } from "@/lib/navigation/respondent-portfolio-paths";

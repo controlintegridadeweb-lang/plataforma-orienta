@@ -25,9 +25,9 @@ import type {
   LibrarySection,
 } from "@/lib/library/types";
 import { SegmentedTabs } from "@/components/ui/segmented-tabs";
-import { layout, typography } from "@/lib/design-system";
-import { ADMIN_PAGE_HERO_BLEED } from "@/lib/admin-page-layout";
-import { formSurface } from "@/lib/form-surface";
+import { layout, typography } from "@/lib/layout/design-system";
+import { ADMIN_PAGE_HERO_BLEED } from "@/lib/layout/admin-page-layout";
+import { formSurface } from "@/lib/layout/form-surface";
 import { describeError, notify } from "@/lib/notify";
 import { AdminBibliotecaHero } from "./admin-biblioteca-hero";
 import { EntityTable } from "./entity-table";

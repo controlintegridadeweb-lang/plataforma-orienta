@@ -1,9 +1,9 @@
 import type { ReactNode } from "react";
 import { FilePlus } from "lucide-react";
 import { AdminNewFormHero } from "@/components/admin-formularios/admin-new-form-hero";
-import { ADMIN_PAGE_HERO_BLEED } from "@/lib/admin-page-layout";
-import { layout, typography } from "@/lib/design-system";
-import { formSurface } from "@/lib/form-surface";
+import { ADMIN_PAGE_HERO_BLEED } from "@/lib/layout/admin-page-layout";
+import { layout, typography } from "@/lib/layout/design-system";
+import { formSurface } from "@/lib/layout/form-surface";
 
 type Props = {
   backHref: string;

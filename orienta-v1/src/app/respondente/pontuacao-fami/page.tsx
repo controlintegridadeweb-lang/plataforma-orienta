@@ -1,6 +1,6 @@
 import { getCurrentUser } from "@/lib/auth/current-user";
 import { RespondentFamiShell } from "@/components/respondente-fami/respondent-fami-shell";
-import { layout } from "@/lib/design-system";
+import { layout } from "@/lib/layout/design-system";
 
 export default async function RespondentePontuacaoFamiPage() {
   const user = await getCurrentUser();

@@ -2,7 +2,7 @@
 
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import { resolveAppOrigin } from "@/lib/app-url";
+import { resolveAppOrigin } from "@/lib/config/app-url";
 import { createSupabaseServerActionClient } from "@/lib/supabase/auth-server";
 import { homeRouteForRole, type AppRole } from "@/lib/auth/current-user";
 import { canAccessAnyOrganizationAtLogin } from "@/lib/auth/scope";

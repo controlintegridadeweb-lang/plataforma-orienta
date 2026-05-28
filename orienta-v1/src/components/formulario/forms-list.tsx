@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -13,7 +13,7 @@ import {
   Trash2,
 } from "lucide-react";
 import { Spinner } from "@/components/ui/loading";
-import { formSurface } from "@/lib/form-surface";
+import { formSurface } from "@/lib/layout/form-surface";
 import type { FormSummary } from "@/lib/forms/admin-service";
 import { formCycleComplementation } from "@/lib/labels/complementation-terms";
 import {

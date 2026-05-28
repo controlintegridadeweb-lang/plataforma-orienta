@@ -1,7 +1,7 @@
 "use client";
 
 import type { AxisMaturity } from "@/lib/fami/types";
-import { formSurface } from "@/lib/form-surface";
+import { formSurface } from "@/lib/layout/form-surface";
 
 type Props = {
   axes: AxisMaturity[];

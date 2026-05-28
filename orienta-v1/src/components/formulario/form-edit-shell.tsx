@@ -1,9 +1,9 @@
 import type { ReactNode } from "react";
 import { FormEditHero } from "@/components/formulario/form-edit-hero";
 import { FormTabs } from "@/components/formulario/form-tabs";
-import { ADMIN_PAGE_HERO_BLEED } from "@/lib/admin-page-layout";
-import { layout } from "@/lib/design-system";
-import { formSurface } from "@/lib/form-surface";
+import { ADMIN_PAGE_HERO_BLEED } from "@/lib/layout/admin-page-layout";
+import { layout } from "@/lib/layout/design-system";
+import { formSurface } from "@/lib/layout/form-surface";
 
 type Props = {
   formId: string;

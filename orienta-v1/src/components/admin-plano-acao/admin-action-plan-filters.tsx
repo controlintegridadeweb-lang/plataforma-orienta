@@ -5,7 +5,7 @@ import {
   STATUS_META,
   type AdminPlanView,
 } from "@/lib/action-plans/admin-monitoring";
-import { formSurface } from "@/lib/form-surface";
+import { formSurface } from "@/lib/layout/form-surface";
 
 export type AdminPlanFiltersState = {
   search: string;

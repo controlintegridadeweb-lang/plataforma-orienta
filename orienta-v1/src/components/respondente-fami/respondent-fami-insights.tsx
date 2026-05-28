@@ -1,7 +1,7 @@
 "use client";
 
 import type { FamiInsightCard } from "@/lib/fami/respondent-presentation";
-import { formSurface } from "@/lib/form-surface";
+import { formSurface } from "@/lib/layout/form-surface";
 
 type Props = {
   summary: string;

@@ -19,7 +19,7 @@ import {
 } from "@/lib/reports/respondent-client";
 import type { RespondentReportHistoryRow } from "@/lib/reports/respondent-presentation";
 import { RespondentReportsHero } from "./respondent-reports-hero";
-import { RESPONDENT_PAGE_HERO_BLEED } from "@/lib/respondent-page-layout";
+import { RESPONDENT_PAGE_HERO_BLEED } from "@/lib/layout/respondent-page-layout";
 import type { ReportFormOption } from "./respondent-reports-export-center";
 import { RespondentReportsExportCenter } from "./respondent-reports-export-center";
 import {
@@ -33,7 +33,7 @@ import { RespondentReportsEmptyState } from "./respondent-reports-empty-state";
 import { RespondentReportStatusBadge } from "./respondent-report-status-badge";
 import { getCalendarYearBrt } from "@/lib/fami/fami-year";
 import { PanelSection } from "@/components/ui/panel-section";
-import { layout } from "@/lib/design-system";
+import { layout } from "@/lib/layout/design-system";
 
 export function RespondentReportsShell() {
   const historyAnchorRef = useRef<HTMLDivElement>(null);

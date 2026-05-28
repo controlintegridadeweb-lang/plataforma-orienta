@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
-import { layout } from "@/lib/design-system";
-import { formSurface } from "@/lib/form-surface";
+import { layout } from "@/lib/layout/design-system";
+import { formSurface } from "@/lib/layout/form-surface";
 import { PageCardHero } from "@/components/ui/page-card-hero";
 
 type Props = {

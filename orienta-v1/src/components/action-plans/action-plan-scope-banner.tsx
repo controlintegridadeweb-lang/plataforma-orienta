@@ -1,7 +1,7 @@
 "use client";
 
 import { X } from "lucide-react";
-import { typography } from "@/lib/design-system";
+import { typography } from "@/lib/layout/design-system";
 
 export type ActionPlanScopePart = {
   label: string;

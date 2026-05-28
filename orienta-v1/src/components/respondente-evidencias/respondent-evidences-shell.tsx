@@ -5,8 +5,8 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import type { RespondentEvidenceItem } from "@/lib/evidences/respondent-service";
 import type { RespondentEvidenceStatus } from "@/lib/evidences/respondent-status";
 import { useDebounce } from "@/lib/hooks/use-debounce";
-import { layout } from "@/lib/design-system";
-import { formSurface } from "@/lib/form-surface";
+import { layout } from "@/lib/layout/design-system";
+import { formSurface } from "@/lib/layout/form-surface";
 import { PanelSection } from "@/components/ui/panel-section";
 import { TableSkeleton } from "@/components/ui/loading";
 import { useRespondentEvidences } from "./hooks/use-respondent-evidences";
@@ -23,7 +23,7 @@ import { RespondentEvidenceEmptyState } from "./respondent-evidence-empty-state"
 import { RespondentEvidenceList } from "./respondent-evidence-list";
 import { RespondentEvidenceSummaryCards } from "./respondent-evidence-summary-cards";
 import { RespondentEvidencesHero } from "./respondent-evidences-hero";
-import { RESPONDENT_PAGE_HERO_BLEED } from "@/lib/respondent-page-layout";
+import { RESPONDENT_PAGE_HERO_BLEED } from "@/lib/layout/respondent-page-layout";
 
 const PAGE_SIZE = 20;
 

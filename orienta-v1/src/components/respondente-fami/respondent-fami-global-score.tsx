@@ -1,7 +1,7 @@
 "use client";
 
 import { Target } from "lucide-react";
-import { formSurface } from "@/lib/form-surface";
+import { formSurface } from "@/lib/layout/form-surface";
 import { levelMeta, goalProgress } from "@/lib/fami/respondent-presentation";
 
 type Props = {

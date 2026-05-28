@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { layout } from "@/lib/design-system";
+import { layout } from "@/lib/layout/design-system";
 
 type Width = "form" | "wide" | "full";
 

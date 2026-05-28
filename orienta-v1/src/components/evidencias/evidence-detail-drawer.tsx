@@ -5,7 +5,7 @@ import { ExternalLink, FileText, ListFilter } from "lucide-react";
 import type { EvidenceListItem, EvidenceValidationEntry } from "@/lib/evidences/admin-service";
 import { adminEvidenceQueueHref } from "@/lib/admin/queue-links";
 import { normalizeWorkbenchText } from "@/lib/evidences/normalize-workbench-text";
-import { formSurface } from "@/lib/form-surface";
+import { formSurface } from "@/lib/layout/form-surface";
 import { Drawer } from "@/components/ui/drawer";
 import { EvidenceHistory } from "./evidence-history";
 import { EvidenceValidatePanel } from "./evidence-validate-panel";

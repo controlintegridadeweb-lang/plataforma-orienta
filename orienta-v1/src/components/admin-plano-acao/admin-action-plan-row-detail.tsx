@@ -15,8 +15,8 @@ import {
   staffPlanoAcaoDetailHref,
   staffRecomendacoesHref,
 } from "@/lib/navigation/staff-paths";
-import { formSurface } from "@/lib/form-surface";
-import { typography } from "@/lib/design-system";
+import { formSurface } from "@/lib/layout/form-surface";
+import { typography } from "@/lib/layout/design-system";
 
 type Props = {
   item: AdminPlanItem;

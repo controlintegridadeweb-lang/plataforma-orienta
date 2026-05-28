@@ -5,7 +5,7 @@ import {
   formatActivityRelative,
   parseActionPlanAuditEntry,
 } from "@/lib/action-plans/audit-presentation";
-import { typography } from "@/lib/design-system";
+import { typography } from "@/lib/layout/design-system";
 
 const TONE_ICON: Record<
   ReturnType<typeof parseActionPlanAuditEntry>["tone"],

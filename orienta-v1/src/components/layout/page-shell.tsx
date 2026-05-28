@@ -2,9 +2,9 @@
 
 import type { ReactNode } from "react";
 import { usePathname } from "next/navigation";
-import { layout } from "@/lib/design-system";
-import { formSurface } from "@/lib/form-surface";
-import { isFormFillRoute } from "@/lib/form-fill-route";
+import { layout } from "@/lib/layout/design-system";
+import { formSurface } from "@/lib/layout/form-surface";
+import { isFormFillRoute } from "@/lib/layout/form-fill-route";
 
 /**
  * Painel principal da área logada: contêiner elevado único por tela, alinhado ao

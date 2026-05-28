@@ -11,7 +11,7 @@ import {
 import { evidenceComplementation } from "@/lib/labels/complementation-terms";
 import { MetricCard } from "@/components/ui/metric-card";
 import type { RespondentStatsResult } from "@/lib/evidences/respondent-service";
-import { formSurface } from "@/lib/form-surface";
+import { formSurface } from "@/lib/layout/form-surface";
 
 type Props = {
   stats: RespondentStatsResult | null;

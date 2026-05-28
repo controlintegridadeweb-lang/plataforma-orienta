@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { formSurface } from "@/lib/form-surface";
-import { typography } from "@/lib/design-system";
+import { formSurface } from "@/lib/layout/form-surface";
+import { typography } from "@/lib/layout/design-system";
 
 type Props = {
   axisName: string;

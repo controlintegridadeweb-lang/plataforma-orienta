@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import { SegmentedTabs } from "@/components/ui/segmented-tabs";
 import { interpretSnapshot, rankAxesByImpact } from "@/lib/fami/respondent-presentation";
 import { PanelSection } from "@/components/ui/panel-section";
-import { formSurface } from "@/lib/form-surface";
+import { formSurface } from "@/lib/layout/form-surface";
 import { useRespondentFami } from "./hooks/use-respondent-fami";
 import { RespondentFamiInstitutionalCard } from "./respondent-fami-institutional-card";
 import { RespondentFamiFilters } from "./respondent-fami-filters";

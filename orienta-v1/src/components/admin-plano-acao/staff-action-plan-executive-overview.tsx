@@ -20,8 +20,8 @@ import { recommendationTypeLabel } from "@/lib/domain/status-registry";
 import { STATUS_META } from "@/lib/recommendations/admin-presentation";
 import { progressFromPlans } from "@/lib/recommendations/respondent-presentation";
 import { staffPlanoAcaoDetailHref, staffAreaFromPathname } from "@/lib/navigation/staff-paths";
-import { formSurface } from "@/lib/form-surface";
-import { layout, typography } from "@/lib/design-system";
+import { formSurface } from "@/lib/layout/form-surface";
+import { layout, typography } from "@/lib/layout/design-system";
 import { useRecommendationDetailContext } from "@/components/recommendations-hub/recommendation-detail-context";
 
 function formatDateShort(iso: string | null | undefined): string {

@@ -3,8 +3,8 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { PanelSection } from "@/components/ui/panel-section";
-import { layout, typography } from "@/lib/design-system";
-import { formSurface } from "@/lib/form-surface";
+import { layout, typography } from "@/lib/layout/design-system";
+import { formSurface } from "@/lib/layout/form-surface";
 import { useDebounce } from "@/lib/hooks/use-debounce";
 import { describeError, notify } from "@/lib/notify";
 import {
@@ -26,7 +26,7 @@ import {
   type SummaryCardKey,
 } from "./respondent-recommendation-summary-cards";
 import { RespondentRecommendationsHero } from "./respondent-recommendations-hero";
-import { RESPONDENT_PAGE_HERO_BLEED } from "@/lib/respondent-page-layout";
+import { RESPONDENT_PAGE_HERO_BLEED } from "@/lib/layout/respondent-page-layout";
 
 const INITIAL_FILTER: RespondentRecommendationFilterValue = {
   search: "",

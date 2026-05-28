@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import { ChevronDown, ChevronRight, X } from "lucide-react";
 import type { EntityConfig, FieldSpec } from "@/lib/library/config";
 import type { LibraryAxis, LibraryCatalogItem } from "@/lib/library/types";
-import { formSurface } from "@/lib/form-surface";
+import { formSurface } from "@/lib/layout/form-surface";
 
 type FormValues = Record<string, string>;
 

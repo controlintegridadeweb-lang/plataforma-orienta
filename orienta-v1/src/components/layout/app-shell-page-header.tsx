@@ -2,7 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import { getPageHeadingForPath } from "@/lib/config/page-headings";
-import { typography } from "@/lib/design-system";
+import { typography } from "@/lib/layout/design-system";
 import { SidebarMobileRail } from "./sidebar-mobile-rail";
 
 export function AppShellPageHeader({

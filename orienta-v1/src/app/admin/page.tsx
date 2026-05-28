@@ -5,8 +5,8 @@ import { AdminDashboardDeferred } from "@/components/dashboard/admin-dashboard-d
 import { AdminDashboardKpisSection } from "@/components/dashboard/admin-dashboard-kpis-section";
 import { AdminDashboardHero } from "@/components/dashboard/admin-dashboard-hero";
 import { KpiGridSkeleton } from "@/components/dashboard/dashboard-section-skeleton";
-import { ADMIN_PAGE_HERO_BLEED } from "@/lib/admin-page-layout";
-import { layout } from "@/lib/design-system";
+import { ADMIN_PAGE_HERO_BLEED } from "@/lib/layout/admin-page-layout";
+import { layout } from "@/lib/layout/design-system";
 
 export default async function AdminDashboardPage() {
   const user = await getCurrentUser();

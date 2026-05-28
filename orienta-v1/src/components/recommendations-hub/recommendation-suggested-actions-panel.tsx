@@ -4,7 +4,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { ListChecks } from "lucide-react";
 import { PanelSection } from "@/components/ui/panel-section";
 import { LoadingButton } from "@/components/ui/loading";
-import { formSurface } from "@/lib/form-surface";
+import { formSurface } from "@/lib/layout/form-surface";
 import {
   applyRespondentSuggestedActions,
   fetchRespondentSuggestedActions,

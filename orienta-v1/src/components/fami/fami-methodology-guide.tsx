@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState } from "react";
 import type { LucideIcon } from "lucide-react";
@@ -10,7 +10,7 @@ import {
   SlidersHorizontal,
 } from "lucide-react";
 import { PanelSection } from "@/components/ui/panel-section";
-import { formSurface } from "@/lib/form-surface";
+import { formSurface } from "@/lib/layout/form-surface";
 import {
   FAMI_EXPLAIN_CARDS,
   FAMI_GUIDE_INTRO,

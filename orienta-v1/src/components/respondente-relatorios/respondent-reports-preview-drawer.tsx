@@ -2,7 +2,7 @@
 
 import { Download } from "lucide-react";
 import { Drawer } from "@/components/ui/drawer";
-import { formSurface } from "@/lib/form-surface";
+import { formSurface } from "@/lib/layout/form-surface";
 import type { RespondentReportHistoryRow } from "@/lib/reports/respondent-presentation";
 import { REPORT_KIND_META } from "@/lib/reports/respondent-presentation";
 

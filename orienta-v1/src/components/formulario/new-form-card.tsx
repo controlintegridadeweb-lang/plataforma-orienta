@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useState, type FormEvent } from "react";
 import { Spinner } from "@/components/ui/loading";
 import { createForm } from "@/lib/forms/client";
-import { formSurface } from "@/lib/form-surface";
+import { formSurface } from "@/lib/layout/form-surface";
 
 type NewFormCardProps = {
   cancelHref?: string;

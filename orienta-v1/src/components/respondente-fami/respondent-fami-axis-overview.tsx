@@ -4,7 +4,7 @@ import Link from "next/link";
 import { ChevronRight, ClipboardList, Shield } from "lucide-react";
 import { LEVEL_META, rankAxesByImpact } from "@/lib/fami/respondent-presentation";
 import type { AxisMaturity } from "@/lib/fami/types";
-import { formSurface } from "@/lib/form-surface";
+import { formSurface } from "@/lib/layout/form-surface";
 
 type AxisStats = {
   recommendationsOpen: number;

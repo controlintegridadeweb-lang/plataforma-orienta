@@ -4,8 +4,8 @@ import Link from "next/link";
 import { ChevronRight, ClipboardCopy, Sparkles } from "lucide-react";
 import { PanelSection } from "@/components/ui/panel-section";
 import { RecommendationHistory } from "@/components/recomendacoes/recommendation-history";
-import { formSurface } from "@/lib/form-surface";
-import { layout } from "@/lib/design-system";
+import { formSurface } from "@/lib/layout/form-surface";
+import { layout } from "@/lib/layout/design-system";
 import { notify } from "@/lib/notify";
 import { recommendationTypeLabel } from "@/lib/domain/status-registry";
 import {

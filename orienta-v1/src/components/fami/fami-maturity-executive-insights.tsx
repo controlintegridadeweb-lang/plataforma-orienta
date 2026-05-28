@@ -2,7 +2,7 @@
 
 import type { FamiInsightCard } from "@/lib/fami/respondent-presentation";
 import { PanelSection } from "@/components/ui/panel-section";
-import { typography } from "@/lib/design-system";
+import { typography } from "@/lib/layout/design-system";
 
 const KIND_STYLES: Record<
   FamiInsightCard["kind"],

@@ -7,7 +7,7 @@ import { evidenceComplementation } from "@/lib/labels/complementation-terms";
 import type { RespondentEvidenceItem } from "@/lib/evidences/respondent-service";
 import { respondentStatusNeedsAction } from "@/lib/evidences/respondent-status";
 import { normalizeWorkbenchText } from "@/lib/evidences/normalize-workbench-text";
-import { formSurface } from "@/lib/form-surface";
+import { formSurface } from "@/lib/layout/form-surface";
 import { RespondentStatusBadge } from "./respondent-evidence-status-badge";
 import { RespondentEvidenceTimeline } from "./respondent-evidence-timeline";
 

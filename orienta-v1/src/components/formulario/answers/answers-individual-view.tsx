@@ -16,7 +16,7 @@ import type {
   RespondentDetail,
 } from "@/lib/forms/answers-types";
 import { evidenceComplementation } from "@/lib/labels/complementation-terms";
-import { formSurface } from "@/lib/form-surface";
+import { formSurface } from "@/lib/layout/form-surface";
 import { AnswersStatusBadge } from "./answers-status-badge";
 
 const ANSWER_LABEL: Record<AnswerValue, string> = {

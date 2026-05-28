@@ -5,7 +5,7 @@ import {
   type AnswersOverview,
   type RespondentStatus,
 } from "@/lib/forms/answers-types";
-import { formSurface } from "@/lib/form-surface";
+import { formSurface } from "@/lib/layout/form-surface";
 
 const STATUS_VARIANT: Record<RespondentStatus, MetricCardVariant> = {
   nao_iniciada: "neutral",

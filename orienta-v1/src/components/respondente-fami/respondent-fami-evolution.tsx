@@ -3,7 +3,7 @@
 import { ArrowDownRight, ArrowUpRight, Minus, Sparkles } from "lucide-react";
 import type { FamiEvolutionPoint, FamiEvolutionYearPoint } from "@/lib/fami/queries";
 import { levelFromPercentage, LEVEL_META } from "@/lib/fami/respondent-presentation";
-import { formSurface } from "@/lib/form-surface";
+import { formSurface } from "@/lib/layout/form-surface";
 
 type Props =
   | { granularity: "versions"; points: FamiEvolutionPoint[] }

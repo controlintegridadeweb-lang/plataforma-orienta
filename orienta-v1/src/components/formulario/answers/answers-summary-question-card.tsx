@@ -1,5 +1,5 @@
 import type { AnswersSummaryQuestion } from "@/lib/forms/answers-types";
-import { formSurface } from "@/lib/form-surface";
+import { formSurface } from "@/lib/layout/form-surface";
 import { AnswerDistributionChart } from "./charts/answer-distribution-chart";
 
 const ANSWER_TYPE_LABEL: Record<AnswersSummaryQuestion["answerType"], string> = {

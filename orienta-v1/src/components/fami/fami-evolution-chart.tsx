@@ -1,6 +1,6 @@
 "use client";
 
-import { formSurface } from "@/lib/form-surface";
+import { formSurface } from "@/lib/layout/form-surface";
 import type { FamiEvolutionPoint, FamiEvolutionYearPoint } from "@/lib/fami/queries";
 
 const AXIS_LINE_COLORS = ["#0f766e", "#ea580c", "#15803d", "#7c3aed", "#0369a1"];

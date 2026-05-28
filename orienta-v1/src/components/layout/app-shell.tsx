@@ -1,4 +1,4 @@
-﻿import type { ReactNode } from "react";
+import type { ReactNode } from "react";
 import { headers } from "next/headers";
 import { getCurrentUserDisplayName, type CurrentUser } from "@/lib/auth/current-user";
 import {
@@ -8,7 +8,7 @@ import {
   type NavGroup,
   type NavItem,
 } from "@/lib/config/navigation";
-import { layout, sidebar } from "@/lib/design-system";
+import { layout, sidebar } from "@/lib/layout/design-system";
 import { SidebarNavLink } from "./sidebar-nav";
 import { AppShellPageHeader } from "./app-shell-page-header";
 import { LogoutButton } from "./logout-button";

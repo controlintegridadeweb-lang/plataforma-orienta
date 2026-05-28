@@ -1,4 +1,4 @@
-import { formSurface } from "@/lib/form-surface";
+import { formSurface } from "@/lib/layout/form-surface";
 
 /** Layout base compartilhado por todos os badges de status (discreto, sem ícone por padrão). */
 export const statusPillBase = formSurface.badge.base;

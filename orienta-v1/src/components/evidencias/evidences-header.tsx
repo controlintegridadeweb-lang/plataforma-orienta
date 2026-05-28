@@ -6,7 +6,7 @@ import { RefreshCw } from "lucide-react";
 
 import { PanelHeroHeader } from "@/components/ui/panel-hero-header";
 
-import { formSurface } from "@/lib/form-surface";
+import { formSurface } from "@/lib/layout/form-surface";
 import { evidenceComplementation } from "@/lib/labels/complementation-terms";
 
 import type { ListEvidencesFilters } from "@/lib/evidences/client";

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
-import { sidebar } from "@/lib/design-system";
+import { sidebar } from "@/lib/layout/design-system";
 import { useSidebar } from "./sidebar-shell";
 
 /**

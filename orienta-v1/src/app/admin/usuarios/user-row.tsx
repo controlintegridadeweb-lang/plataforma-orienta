@@ -8,7 +8,7 @@ import type { ListedUserRow } from "@/lib/admin/users-service";
 import { LoadingButton } from "@/components/ui/loading";
 import { describeError, isNextRedirectError, notify } from "@/lib/notify";
 import { removeUserAction, resetPasswordAction, saveUserProfileAction } from "./actions";
-import { formSurface } from "@/lib/form-surface";
+import { formSurface } from "@/lib/layout/form-surface";
 
 const cellClass = "px-3 py-3 align-top text-sm";
 const headerCellClass =

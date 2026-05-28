@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { ArrowUp } from "lucide-react";
 import { usePathname } from "next/navigation";
-import { isFormFillRoute } from "@/lib/form-fill-route";
+import { isFormFillRoute } from "@/lib/layout/form-fill-route";
 
 /** Distância de scroll antes de exibir o botão. */
 const SHOW_AFTER_PX = 280;

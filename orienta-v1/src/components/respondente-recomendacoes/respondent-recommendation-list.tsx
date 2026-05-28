@@ -15,7 +15,7 @@ import {
 import type { RespondentRecommendationItem } from "@/lib/recommendations/respondent-presentation";
 import type { RespondentRecommendationView } from "@/lib/domain/workflow-status-keys";
 import { respondentActionWorkspacePath } from "@/lib/navigation/respondent-portfolio-paths";
-import { formSurface } from "@/lib/form-surface";
+import { formSurface } from "@/lib/layout/form-surface";
 
 const VIEW_ACCENT: Record<RespondentRecommendationView, string> = {
   open: "border-l-slate-300",

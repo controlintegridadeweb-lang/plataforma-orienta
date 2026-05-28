@@ -1,6 +1,6 @@
 "use client";
 
-import { formSurface } from "@/lib/form-surface";
+import { formSurface } from "@/lib/layout/form-surface";
 import type { RespondentReportKind } from "@/lib/reports/respondent-presentation";
 import { REPORT_KIND_META, REPORT_KIND_ORDER } from "@/lib/reports/respondent-presentation";
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { CheckCircle2, Inbox, Sparkles } from "lucide-react";
-import { formSurface } from "@/lib/form-surface";
+import { formSurface } from "@/lib/layout/form-surface";
 
 type Kind = "no-snapshot" | "no-form" | "no-history" | "no-data";
 

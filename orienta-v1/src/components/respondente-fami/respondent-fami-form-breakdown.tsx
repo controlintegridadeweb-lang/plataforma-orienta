@@ -1,8 +1,8 @@
-﻿"use client";
+"use client";
 
 import { FAMI_ALL_FORMS } from "@/lib/fami/constants";
 import type { InstitutionalFormScore } from "@/lib/fami/constants";
-import { formSurface } from "@/lib/form-surface";
+import { formSurface } from "@/lib/layout/form-surface";
 import { RespondentFamiLevelBadge } from "./respondent-fami-level-badge";
 
 type FormOpt = { id: string; name: string; version: number };

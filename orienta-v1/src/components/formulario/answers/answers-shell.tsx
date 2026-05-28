@@ -21,8 +21,8 @@ import {
   type RespondentRow,
 } from "@/lib/forms/answers-types";
 import { describeError, notify } from "@/lib/notify";
-import { layout } from "@/lib/design-system";
-import { formSurface } from "@/lib/form-surface";
+import { layout } from "@/lib/layout/design-system";
+import { formSurface } from "@/lib/layout/form-surface";
 import { AnswersOverviewCard } from "./answers-overview-card";
 import { AnswersSummaryView } from "./answers-summary-view";
 import { AnswersListView } from "./answers-list-view";

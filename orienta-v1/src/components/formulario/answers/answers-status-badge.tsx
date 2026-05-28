@@ -1,6 +1,6 @@
 import { StatusPill } from "@/components/ui/status-pill";
 import { RESPONDENT_STATUS_LABEL, type RespondentStatus } from "@/lib/forms/answers-types";
-import { formSurface } from "@/lib/form-surface";
+import { formSurface } from "@/lib/layout/form-surface";
 
 const STATUS_TONE: Record<RespondentStatus, string> = {
   nao_iniciada: formSurface.badge.neutral,

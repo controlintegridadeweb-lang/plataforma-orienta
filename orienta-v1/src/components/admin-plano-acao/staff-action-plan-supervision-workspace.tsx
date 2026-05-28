@@ -26,8 +26,8 @@ import { listEvidences } from "@/lib/evidences/client";
 import type { EvidenceListItem } from "@/lib/evidences/admin-service";
 import { evidencesForRecommendationScope } from "@/lib/evidences/recommendation-scope";
 import { staffRecomendacoesHref } from "@/lib/navigation/staff-paths";
-import { formSurface } from "@/lib/form-surface";
-import { layout, typography } from "@/lib/design-system";
+import { formSurface } from "@/lib/layout/form-surface";
+import { layout, typography } from "@/lib/layout/design-system";
 
 function formatDateTime(iso: string | null | undefined): string {
   if (!iso) return "—";

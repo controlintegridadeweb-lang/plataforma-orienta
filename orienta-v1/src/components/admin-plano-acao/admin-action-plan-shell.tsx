@@ -32,11 +32,11 @@ import {
   type AdminPlanViewMode,
 } from "./admin-action-plan-view-switcher";
 import { useAdminActionPlans } from "./hooks/use-admin-action-plans";
-import { ADMIN_PAGE_HERO_BLEED } from "@/lib/admin-page-layout";
+import { ADMIN_PAGE_HERO_BLEED } from "@/lib/layout/admin-page-layout";
 import { useStaffListUrlSync } from "@/lib/hooks/use-staff-list-url-sync";
-import { parseStaffListLayout, parseStaffListUrlFilters } from "@/lib/staff-list-url";
-import { formSurface } from "@/lib/form-surface";
-import { layout, typography } from "@/lib/design-system";
+import { parseStaffListLayout, parseStaffListUrlFilters } from "@/lib/config/staff-list-url";
+import { formSurface } from "@/lib/layout/form-surface";
+import { layout, typography } from "@/lib/layout/design-system";
 
 type Props = {
   initialFilters?: Partial<AdminPlanFiltersState>;

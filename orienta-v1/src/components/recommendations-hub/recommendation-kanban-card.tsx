@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { statusPillBase } from "@/components/ui/status-pill";
-import { formSurface } from "@/lib/form-surface";
+import { formSurface } from "@/lib/layout/form-surface";
 import type { RespondentRecommendationItem } from "@/lib/recommendations/respondent-presentation";
 import type { AdminRecommendationItem } from "@/lib/recommendations/admin-presentation";
 import { RespondentRecommendationProgress } from "@/components/respondente-recomendacoes/respondent-recommendation-progress";

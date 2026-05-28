@@ -4,8 +4,8 @@ import { requireRole } from "@/lib/auth/current-user";
 import { listUsersForAdmin } from "@/lib/admin/users-service";
 import { getOrganizationOptions } from "@/lib/organizations/options";
 import { firstSearchParam } from "@/lib/admin/search-params";
-import { layout } from "@/lib/design-system";
-import { formSurface } from "@/lib/form-surface";
+import { layout } from "@/lib/layout/design-system";
+import { formSurface } from "@/lib/layout/form-surface";
 import { EditableUserRow, ReadonlyAdminRow, UserRowGridHeader } from "./user-row";
 
 export default async function AdminUsuariosPage({

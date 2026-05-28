@@ -6,7 +6,7 @@ import {
   buildStaffListSearchParams,
   type StaffListLayout,
   type StaffListUrlFilters,
-} from "@/lib/staff-list-url";
+} from "@/lib/config/staff-list-url";
 
 type Options = {
   layout: StaffListLayout;

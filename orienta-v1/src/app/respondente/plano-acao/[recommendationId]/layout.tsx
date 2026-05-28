@@ -1,6 +1,6 @@
 import { getCurrentUser } from "@/lib/auth/current-user";
 import { RecommendationDetailRoot } from "@/components/recommendations-hub/recommendation-detail-root";
-import { formSurface } from "@/lib/form-surface";
+import { formSurface } from "@/lib/layout/form-surface";
 
 export default async function RespondentRecommendationOperationalLayout({
   children,

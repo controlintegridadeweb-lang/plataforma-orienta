@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
@@ -25,7 +25,7 @@ import {
   formatYesEvidenceErrors,
   type YesEvidenceFieldErrors,
 } from "@/lib/workbench/validate-yes-evidence";
-import { formSurface } from "@/lib/form-surface";
+import { formSurface } from "@/lib/layout/form-surface";
 import { invalidateRespondentOverviewCache } from "@/lib/hooks/respondent-overview-cache";
 import {
   formatSubmitRecommendationMessage,

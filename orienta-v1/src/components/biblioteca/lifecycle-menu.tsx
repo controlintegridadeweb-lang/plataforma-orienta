@@ -4,7 +4,7 @@ import { useState } from "react";
 import { CheckCircle2 } from "lucide-react";
 import type { LibraryTransition } from "@/lib/library/client";
 import type { LibraryItemStatus } from "@/lib/library/types";
-import { formSurface } from "@/lib/form-surface";
+import { formSurface } from "@/lib/layout/form-surface";
 
 type SupportedTransition = "publish";
 

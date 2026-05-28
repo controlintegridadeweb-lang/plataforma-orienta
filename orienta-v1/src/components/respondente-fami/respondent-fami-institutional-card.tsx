@@ -1,8 +1,8 @@
 "use client";
 
 import { FamiMaturityIllustration } from "@/components/fami/fami-maturity-illustration";
-import { formSurface } from "@/lib/form-surface";
-import { typography } from "@/lib/design-system";
+import { formSurface } from "@/lib/layout/form-surface";
+import { typography } from "@/lib/layout/design-system";
 import { formatFamiUpdatedAt } from "@/lib/fami/format-updated-at";
 import { RespondentFamiLevelBadge } from "./respondent-fami-level-badge";
 

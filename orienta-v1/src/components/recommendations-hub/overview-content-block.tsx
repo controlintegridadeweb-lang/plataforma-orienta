@@ -1,4 +1,4 @@
-import { typography } from "@/lib/design-system";
+import { typography } from "@/lib/layout/design-system";
 
 export function OverviewContentBlock({
   title,

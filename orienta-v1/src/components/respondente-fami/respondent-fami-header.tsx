@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 import { levelMeta } from "@/lib/fami/respondent-presentation";
 import { PanelHeroHeader } from "@/components/ui/panel-hero-header";
-import { formSurface } from "@/lib/form-surface";
+import { formSurface } from "@/lib/layout/form-surface";
 import { RespondentFamiLevelBadge } from "./respondent-fami-level-badge";
 
 type Props = {

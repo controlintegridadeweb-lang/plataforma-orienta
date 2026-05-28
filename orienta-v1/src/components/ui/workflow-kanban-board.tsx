@@ -1,6 +1,6 @@
 "use client";
 
-import { formSurface } from "@/lib/form-surface";
+import { formSurface } from "@/lib/layout/form-surface";
 
 const k = formSurface.kanban;
 

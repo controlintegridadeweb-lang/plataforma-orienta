@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { ChevronRight, ClipboardList, TrendingUp } from "lucide-react";
 import type { AxisImpactRow } from "@/lib/fami/respondent-presentation";
-import { formSurface } from "@/lib/form-surface";
+import { formSurface } from "@/lib/layout/form-surface";
 
 type RecsByAxis = {
   open: number;

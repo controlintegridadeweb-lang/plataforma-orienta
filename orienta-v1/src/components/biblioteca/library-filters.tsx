@@ -3,7 +3,7 @@
 import type { LibraryItemStatus } from "@/lib/library/types";
 import { LIBRARY_ITEM_STATUSES } from "@/lib/library/types";
 import { LIBRARY_STATUS_LABEL } from "@/lib/library/config";
-import { formSurface } from "@/lib/form-surface";
+import { formSurface } from "@/lib/layout/form-surface";
 
 export type LibraryFiltersState = {
   search: string;

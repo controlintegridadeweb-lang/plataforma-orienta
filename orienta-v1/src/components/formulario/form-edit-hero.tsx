@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { FormStateBadge } from "@/components/formulario/form-state-badge";
-import { FORM_WORKSPACE_HERO_IMAGE } from "@/lib/form-workspace-hero-image";
+import { FORM_WORKSPACE_HERO_IMAGE } from "@/lib/config/page-assets/form-workspace-hero-image";
 import {
   ADMIN_PAGE_HERO_CLASS,
   ADMIN_PAGE_HERO_CONTENT,
@@ -13,8 +13,8 @@ import {
   ADMIN_PAGE_HERO_MEDIA,
   ADMIN_PAGE_HERO_OVERLINE,
   ADMIN_PAGE_HERO_TITLE,
-} from "@/lib/admin-page-layout";
-import { formSurface } from "@/lib/form-surface";
+} from "@/lib/layout/admin-page-layout";
+import { formSurface } from "@/lib/layout/form-surface";
 
 type Props = {
   formName: string;

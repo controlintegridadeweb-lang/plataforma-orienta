@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import type { RespondentProgress } from "@/lib/dashboards/queries";
 import { formStateLabelPt } from "@/lib/respondent/form-labels";
-import { formSurface } from "@/lib/form-surface";
+import { formSurface } from "@/lib/layout/form-surface";
 
 type Props = {
   form: RespondentProgress;

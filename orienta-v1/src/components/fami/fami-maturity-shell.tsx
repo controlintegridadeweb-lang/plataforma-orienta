@@ -11,8 +11,8 @@ import {
 import type { RecommendationFilterOptions } from "@/lib/recommendations/admin-service";
 import { loadRecommendationFilters } from "@/lib/recommendations/client";
 import { AxisBarChart } from "@/components/charts/axis-bar-chart";
-import { formSurface } from "@/lib/form-surface";
-import { typography } from "@/lib/design-system";
+import { formSurface } from "@/lib/layout/form-surface";
+import { typography } from "@/lib/layout/design-system";
 import {
   loadFamiSnapshot,
   reprocessFamiRequest,
@@ -32,7 +32,7 @@ import { YearSelect } from "@/components/ui/year-select";
 import { AdminFamiMaturityHero } from "@/components/fami/admin-fami-maturity-hero";
 import { RespondentFamiRadarChart } from "@/components/respondente-fami/respondent-fami-radar-chart";
 import { staffQueueHref } from "@/lib/admin/queue-links";
-import { ADMIN_PAGE_HERO_BLEED } from "@/lib/admin-page-layout";
+import { ADMIN_PAGE_HERO_BLEED } from "@/lib/layout/admin-page-layout";
 import { formatFamiUpdatedAt } from "@/lib/fami/format-updated-at";
 import { describeError, notify } from "@/lib/notify";
 import { FamiEvolutionChart } from "./fami-evolution-chart";

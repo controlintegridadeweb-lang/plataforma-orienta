@@ -3,7 +3,7 @@ import {
   type EvidencesShellInitialFilters,
 } from "@/components/evidencias/evidences-shell";
 import { firstSearchParam } from "@/lib/admin/search-params";
-import { layout } from "@/lib/design-system";
+import { layout } from "@/lib/layout/design-system";
 
 export default async function AdminEvidenciasPage({
   searchParams,

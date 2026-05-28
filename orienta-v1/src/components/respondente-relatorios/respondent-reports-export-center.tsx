@@ -2,7 +2,7 @@
 
 import { ChevronDown, Info, Sparkles } from "lucide-react";
 import { useState } from "react";
-import { formSurface } from "@/lib/form-surface";
+import { formSurface } from "@/lib/layout/form-surface";
 import type { RespondentReportFormat, RespondentReportKind } from "@/lib/reports/respondent-presentation";
 import {
   REPORT_FORMAT_META,

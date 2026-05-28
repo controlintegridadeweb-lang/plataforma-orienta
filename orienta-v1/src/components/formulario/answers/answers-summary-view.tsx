@@ -1,6 +1,6 @@
 import { Inbox } from "lucide-react";
 import type { AnswersSummary } from "@/lib/forms/answers-types";
-import { formSurface } from "@/lib/form-surface";
+import { formSurface } from "@/lib/layout/form-surface";
 import { AnswersSummaryQuestionCard } from "./answers-summary-question-card";
 
 export function AnswersSummaryView({ summary }: { summary: AnswersSummary }) {

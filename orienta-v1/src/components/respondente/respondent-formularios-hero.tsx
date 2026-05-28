@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { FORM_WORKSPACE_HERO_IMAGE } from "@/lib/form-workspace-hero-image";
+import { FORM_WORKSPACE_HERO_IMAGE } from "@/lib/config/page-assets/form-workspace-hero-image";
 import {
   RESPONDENT_PAGE_HERO_CLASS,
   RESPONDENT_PAGE_HERO_CONTENT_COMPACT,
@@ -10,7 +10,7 @@ import {
   RESPONDENT_PAGE_HERO_MEDIA_COMPACT,
   RESPONDENT_PAGE_HERO_OVERLINE,
   RESPONDENT_PAGE_HERO_TITLE,
-} from "@/lib/respondent-page-layout";
+} from "@/lib/layout/respondent-page-layout";
 
 /** Hero de Meus formulários — mesmo padrão do dashboard, evidências e relatórios. */
 export function RespondentFormulariosHero() {

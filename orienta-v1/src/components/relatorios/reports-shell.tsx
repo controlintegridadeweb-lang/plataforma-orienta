@@ -4,8 +4,8 @@ import { useCallback, useEffect, useState } from "react";
 import { Sparkles } from "lucide-react";
 import { PanelHeroHeader } from "@/components/ui/panel-hero-header";
 import { PanelSection } from "@/components/ui/panel-section";
-import { formSurface } from "@/lib/form-surface";
-import { layout } from "@/lib/design-system";
+import { formSurface } from "@/lib/layout/form-surface";
+import { layout } from "@/lib/layout/design-system";
 import { notify } from "@/lib/notify";
 import {
   generateAndDownloadOfficialReport,

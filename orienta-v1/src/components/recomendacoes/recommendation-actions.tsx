@@ -7,7 +7,7 @@ import type {
 } from "@/lib/recommendations/admin-service";
 import { updateRecommendation } from "@/lib/recommendations/client";
 import type { RecommendationStatus } from "@/lib/recommendations/schemas";
-import { formSurface } from "@/lib/form-surface";
+import { formSurface } from "@/lib/layout/form-surface";
 import { RECOMMENDATION_STATUS_LABELS } from "@/lib/domain/status-registry";
 
 type Props = {

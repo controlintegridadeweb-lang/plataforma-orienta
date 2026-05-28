@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import { ChevronDown, Filter, X } from "lucide-react";
 import type { EvidenceFilterOptions } from "@/lib/evidences/admin-service";
 import type { ValidationStatus } from "@/lib/evidences/schemas";
-import { formSurface } from "@/lib/form-surface";
+import { formSurface } from "@/lib/layout/form-surface";
 import { workflowStatusFilterOptions } from "@/lib/domain/status-registry";
 import { STATUS_LABELS } from "./status-badge";
 

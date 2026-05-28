@@ -11,7 +11,7 @@ import {
   type QuestionWaiverRow,
 } from "@/lib/forms/waiver-client";
 import { loadRecommendationFilters } from "@/lib/recommendations/client";
-import { formSurface } from "@/lib/form-surface";
+import { formSurface } from "@/lib/layout/form-surface";
 import { describeError, notify } from "@/lib/notify";
 
 type Props = {

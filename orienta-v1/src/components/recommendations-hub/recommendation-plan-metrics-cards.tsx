@@ -5,7 +5,7 @@ import { AlertTriangle, CalendarClock, ListChecks, TrendingUp } from "lucide-rea
 import type { PlanStatus } from "@/lib/action-plans/schemas";
 import { computeActionSla } from "@/lib/domain/action-plans";
 import { MetricCard } from "@/components/ui/metric-card";
-import { layout, typography } from "@/lib/design-system";
+import { layout, typography } from "@/lib/layout/design-system";
 
 export type PlanMetricsInput = {
   id: string;

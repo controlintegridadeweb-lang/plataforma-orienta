@@ -6,7 +6,7 @@ import type { ListEvidencesFilters } from "@/lib/evidences/client";
 import type { EvidenceExportFormat } from "@/lib/evidences/schemas";
 import { describeError, notify } from "@/lib/notify";
 import { downloadEvidencesExport } from "@/lib/evidences/client";
-import { formSurface } from "@/lib/form-surface";
+import { formSurface } from "@/lib/layout/form-surface";
 
 type Props = {
   filters: ListEvidencesFilters;

@@ -1,5 +1,5 @@
 import type { AdminRecommendationItem } from "@/lib/recommendations/admin-presentation";
-import { formSurface } from "@/lib/form-surface";
+import { formSurface } from "@/lib/layout/form-surface";
 import { PLAN_STATUS_LABELS } from "@/components/plano-acao/plan-status-badge";
 import type { PlanStatus } from "@/lib/action-plans/schemas";
 

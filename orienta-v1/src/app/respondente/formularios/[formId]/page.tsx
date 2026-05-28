@@ -5,7 +5,7 @@ import { createSupabaseServiceRoleClient } from "@/lib/supabase/server";
 import { formStateLabelPt } from "@/lib/respondent/form-labels";
 import { WorkbenchShell } from "@/components/workbench/workbench-shell";
 import { FormFillWorkspace } from "@/components/formulario/form-fill-workspace";
-import { formSurface } from "@/lib/form-surface";
+import { formSurface } from "@/lib/layout/form-surface";
 
 type PageProps = { params: Promise<{ formId: string }> };
 

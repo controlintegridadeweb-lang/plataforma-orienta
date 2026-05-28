@@ -1,7 +1,7 @@
-﻿"use client";
+"use client";
 
 import type { EvidenceListItem } from "@/lib/evidences/admin-service";
-import { formSurface } from "@/lib/form-surface";
+import { formSurface } from "@/lib/layout/form-surface";
 import { Checkbox } from "@/components/ui/checkbox";
 import { EvidenceRow } from "./evidence-row";
 

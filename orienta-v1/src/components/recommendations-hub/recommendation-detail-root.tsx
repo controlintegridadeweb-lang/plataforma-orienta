@@ -1,8 +1,8 @@
 "use client";
 
 import { TableSkeleton } from "@/components/ui/loading";
-import { formSurface } from "@/lib/form-surface";
-import { layout } from "@/lib/design-system";
+import { formSurface } from "@/lib/layout/form-surface";
+import { layout } from "@/lib/layout/design-system";
 import {
   RecommendationDetailProvider,
   useRecommendationDetailContext,

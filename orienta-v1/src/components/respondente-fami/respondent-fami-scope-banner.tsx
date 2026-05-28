@@ -1,7 +1,7 @@
 "use client";
 
 import { FamiScoreRing } from "@/components/fami/fami-score-ring";
-import { formSurface } from "@/lib/form-surface";
+import { formSurface } from "@/lib/layout/form-surface";
 import { formatFamiUpdatedAt } from "@/lib/fami/format-updated-at";
 import { RespondentFamiLevelBadge } from "./respondent-fami-level-badge";
 

@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
-import { layout, typography } from "@/lib/design-system";
-import { formSurface } from "@/lib/form-surface";
+import { layout, typography } from "@/lib/layout/design-system";
+import { formSurface } from "@/lib/layout/form-surface";
 
 /**
  * Cabeçalho padrão de ferramentas dentro do `PageShell` (título local em `<h2>`;

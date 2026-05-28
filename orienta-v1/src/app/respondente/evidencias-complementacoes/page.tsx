@@ -2,8 +2,8 @@ import { getCurrentUser } from "@/lib/auth/current-user";
 import { firstSearchParam } from "@/lib/admin/search-params";
 import { respondentProgress } from "@/lib/dashboards/queries";
 import { RespondentEvidencesShell } from "@/components/respondente-evidencias/respondent-evidences-shell";
-import { layout } from "@/lib/design-system";
-import { formSurface } from "@/lib/form-surface";
+import { layout } from "@/lib/layout/design-system";
+import { formSurface } from "@/lib/layout/form-surface";
 
 /**
  * Rota canônica de evidências. Sem `view=all`, abre com filtro de complementação;

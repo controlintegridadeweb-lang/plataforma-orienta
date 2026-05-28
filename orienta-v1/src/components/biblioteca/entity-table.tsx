@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { MoreHorizontal, Pencil, Trash2 } from "lucide-react";
 import type { ColumnSpec, EntityConfig } from "@/lib/library/config";
@@ -10,7 +10,7 @@ import {
 } from "@/lib/library/config";
 import type { LibraryCatalogItem, LibraryItemStatus } from "@/lib/library/types";
 import type { LibraryTransition } from "@/lib/library/client";
-import { formSurface } from "@/lib/form-surface";
+import { formSurface } from "@/lib/layout/form-surface";
 import { LifecycleMenu } from "./lifecycle-menu";
 
 export type EntityTableProps = {

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { CheckCircle2, FileSearch, Inbox, Sparkles, X } from "lucide-react";
 import { evidenceComplementation } from "@/lib/labels/complementation-terms";
-import { formSurface } from "@/lib/form-surface";
+import { formSurface } from "@/lib/layout/form-surface";
 
 type Variant = "nothing-sent" | "no-pendency" | "no-approved" | "no-results";
 

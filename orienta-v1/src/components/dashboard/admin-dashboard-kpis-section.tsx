@@ -12,7 +12,7 @@ import {
   countReportsGenerated,
 } from "@/lib/dashboards/queries";
 import { KpiCard } from "@/components/ui/kpi-card";
-import { layout, typography } from "@/lib/design-system";
+import { layout, typography } from "@/lib/layout/design-system";
 
 export type AdminDashboardScope = {
   adminGlobalView: boolean;

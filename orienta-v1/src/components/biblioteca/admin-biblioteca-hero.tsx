@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { Plus } from "lucide-react";
-import { ADMIN_BIBLIOTECA_HERO_IMAGE } from "@/lib/admin-biblioteca-hero-image";
+import { ADMIN_BIBLIOTECA_HERO_IMAGE } from "@/lib/config/page-assets/admin-biblioteca-hero-image";
 import {
   ADMIN_PAGE_HERO_ACTIONS,
   ADMIN_PAGE_HERO_CLASS,
@@ -14,8 +14,8 @@ import {
   ADMIN_PAGE_HERO_MEDIA_COMPACT,
   ADMIN_PAGE_HERO_OVERLINE,
   ADMIN_PAGE_HERO_TITLE,
-} from "@/lib/admin-page-layout";
-import { formSurface } from "@/lib/form-surface";
+} from "@/lib/layout/admin-page-layout";
+import { formSurface } from "@/lib/layout/form-surface";
 
 type Props = {
   onNewAxis: () => void;

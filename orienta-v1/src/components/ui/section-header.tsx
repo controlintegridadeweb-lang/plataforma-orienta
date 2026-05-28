@@ -1,6 +1,6 @@
 import type { LucideIcon } from "lucide-react";
 import type { ReactNode } from "react";
-import { typography } from "@/lib/design-system";
+import { typography } from "@/lib/layout/design-system";
 
 export function SectionHeader({
   title,

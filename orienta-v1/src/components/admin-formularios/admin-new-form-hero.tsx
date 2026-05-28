@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
-import { FORM_WORKSPACE_HERO_IMAGE } from "@/lib/form-workspace-hero-image";
+import { FORM_WORKSPACE_HERO_IMAGE } from "@/lib/config/page-assets/form-workspace-hero-image";
 import {
   ADMIN_PAGE_HERO_CLASS,
   ADMIN_PAGE_HERO_CONTENT_CREATE,
@@ -12,7 +12,7 @@ import {
   ADMIN_PAGE_HERO_MEDIA_CREATE,
   ADMIN_PAGE_HERO_OVERLINE,
   ADMIN_PAGE_HERO_TITLE,
-} from "@/lib/admin-page-layout";
+} from "@/lib/layout/admin-page-layout";
 
 type Props = {
   backHref: string;

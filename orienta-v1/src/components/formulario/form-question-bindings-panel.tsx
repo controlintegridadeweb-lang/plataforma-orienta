@@ -36,7 +36,7 @@ import {
   scenarioBindingHasRecommendation,
 } from "@/lib/library/binding-service";
 import { OFFICIAL_RECOMMENDATION_TITLE_BY_SCENARIO } from "@/lib/library/default-recommendation-texts";
-import { formSurface } from "@/lib/form-surface";
+import { formSurface } from "@/lib/layout/form-surface";
 
 /** Resposta padrao assumida quando a pergunta ainda nao tem binding. */
 const DEFAULT_ANSWER_TYPE: InlineMetric["answerType"] = "yes_no";

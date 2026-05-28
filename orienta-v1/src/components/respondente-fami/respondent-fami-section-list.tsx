@@ -7,7 +7,7 @@ import {
   levelFromPercentage,
 } from "@/lib/fami/respondent-presentation";
 import type { FamiSectionSnapshot } from "@/lib/fami/queries";
-import { formSurface } from "@/lib/form-surface";
+import { formSurface } from "@/lib/layout/form-surface";
 
 type Props = {
   sections: FamiSectionSnapshot[];

@@ -30,11 +30,11 @@ import {
 } from "./admin-recommendation-view-switcher";
 import { AdminRecommendationsHero } from "./admin-recomendacoes-hero";
 import { useAdminRecommendations } from "./hooks/use-admin-recommendations";
-import { ADMIN_PAGE_HERO_BLEED } from "@/lib/admin-page-layout";
+import { ADMIN_PAGE_HERO_BLEED } from "@/lib/layout/admin-page-layout";
 import { useStaffListUrlSync } from "@/lib/hooks/use-staff-list-url-sync";
-import { parseStaffListLayout, parseStaffListUrlFilters } from "@/lib/staff-list-url";
-import { formSurface } from "@/lib/form-surface";
-import { layout, typography } from "@/lib/design-system";
+import { parseStaffListLayout, parseStaffListUrlFilters } from "@/lib/config/staff-list-url";
+import { formSurface } from "@/lib/layout/form-surface";
+import { layout, typography } from "@/lib/layout/design-system";
 
 type InitialFilters = Partial<AdminFiltersState>;
 

@@ -8,7 +8,7 @@ import {
   type AdminPlanItem,
   type OrganizationSummary,
 } from "@/lib/action-plans/admin-monitoring";
-import { typography } from "@/lib/design-system";
+import { typography } from "@/lib/layout/design-system";
 
 type Props = {
   items: AdminPlanItem[];

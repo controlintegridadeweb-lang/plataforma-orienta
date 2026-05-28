@@ -5,7 +5,7 @@ import { Save } from "lucide-react";
 import { PLAN_STATUS_LABELS } from "@/components/plano-acao/plan-status-badge";
 import { LoadingButton } from "@/components/ui/loading";
 import type { PlanStatus } from "@/lib/action-plans/schemas";
-import { formSurface } from "@/lib/form-surface";
+import { formSurface } from "@/lib/layout/form-surface";
 import { describeError, notify } from "@/lib/notify";
 import type { ActionPlanAction } from "@/lib/domain/action-plans";
 

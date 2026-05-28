@@ -7,7 +7,7 @@ import {
 } from "@/components/formulario/form-question-bindings-panel";
 import { FormQuestionWaiversPanel } from "@/components/formulario/form-question-waivers-panel";
 import { FormTabPanel } from "@/components/formulario/form-tab-panel";
-import { formSurface } from "@/lib/form-surface";
+import { formSurface } from "@/lib/layout/form-surface";
 
 type PageProps = { params: Promise<{ formId: string }> };
 

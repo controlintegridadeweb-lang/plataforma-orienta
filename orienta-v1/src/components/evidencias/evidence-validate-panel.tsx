@@ -5,7 +5,7 @@ import type { EvidenceValidationEntry } from "@/lib/evidences/admin-service";
 import { validateEvidence } from "@/lib/evidences/client";
 import type { ValidationStatus } from "@/lib/evidences/schemas";
 import { describeError, notify } from "@/lib/notify";
-import { formSurface } from "@/lib/form-surface";
+import { formSurface } from "@/lib/layout/form-surface";
 import { LoadingButton } from "@/components/ui/loading";
 
 type Props = {
